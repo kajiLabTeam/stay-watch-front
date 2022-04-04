@@ -42,7 +42,9 @@ const Admin = () => {
                 `}
             >
               <div>
-                <div>管理者用メニュー</div>
+                <div className="text-sm lg:text-2xl md:text-lg">
+                  管理者用メニュー
+                </div>
               </div>
             </Popover.Button>
             <Transition

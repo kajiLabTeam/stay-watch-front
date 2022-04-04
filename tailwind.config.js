@@ -4,6 +4,12 @@ module.exports = {
   content: [],
   theme: {
     extend: {},
+    screens: {
+      sm: "640px",
+      md: "780px",
+      lg: "1048px",
+      xl: "1280px",
+    },
   },
   plugins: [],
 };
