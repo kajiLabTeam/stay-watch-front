@@ -12,6 +12,7 @@ const Header = () => {
     stayer: "",
     roomHistory: "",
     userInformation: "",
+    floorMap: "",
   });
 
   console.log(pathname);
@@ -22,34 +23,44 @@ const Header = () => {
         stayer: "bg-red-400",
         roomHistory: "",
         userInformation: "",
+        floorMap: "",
       });
     } else if (pathname === "/roomHistory") {
       setBgColors({
         stayer: "",
         roomHistory: "bg-red-400",
         userInformation: "",
+        floorMap: "",
       });
     } else if (pathname === "/userInformation") {
       setBgColors({
         stayer: "",
         roomHistory: "",
         userInformation: "bg-red-400",
+        floorMap: "",
+      });
+    } else if (pathname === "/floorMap") {
+      setBgColors({
+        stayer: "",
+        roomHistory: "",
+        userInformation: "",
+        floorMap: "bg-red-400",
       });
     }
   }, [pathname]);
 
   return (
     <div>
-      <div className="flex justify-around items-center h-20 text-2xl text-white bg-blue-400">
+      <div className="flex justify-around items-center h-20  text-white bg-blue-400 text-xs lg:text-2xl md:text-lg">
         <div className="flex gap-8 items-center h-full ">
           <Link href="/">
-            <a className="text-3xl">New! Stay Watch</a>
+            <a className="text-base lg:text-3xl md:text-xl">New! Stay Watch</a>
           </Link>
           <Link href="/">
             <a className={`py-2 rounded-md ${bgColors.stayer}`}>在室者</a>
           </Link>
           <Link href="/roomHistory">
-            <a className={`py-2 rounded-md ${bgColors.roomHistory}`}>
+            <a className={`py-2 rounded-md ${bgColors.roomHistory} `}>
               在室履歴
             </a>
           </Link>
@@ -62,8 +73,13 @@ const Header = () => {
               利用者情報
             </a>
           </Link>
+          {/* <Link href="/floorMap">
+            <a className={`py-2 rounded-md ${bgColors.floorMap}`}>
+              滞在者マップ
+            </a>
+          </Link> */}
         </div>
-        <div className="">
+        <div>
           <Admin />
         </div>
       </div>
