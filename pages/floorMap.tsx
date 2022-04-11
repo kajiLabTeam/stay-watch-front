@@ -30,7 +30,9 @@ const FloorMap = () => {
   const elm = useRef(null);
 
   const [roomsStatus, setRoomsStatus] = useState<roomStatus[]>([]);
-  const [roomInformation, setRoomInformation] = useState<RoomInformation[]>([]);
+  const [roomInformation, setRoomInformation] = useState<RoomInformation[]>([
+    { roomID: 1, roomName: "", top: 0, left: 0 },
+  ]);
 
   useEffect(() => {
     axios
@@ -93,10 +95,14 @@ const FloorMap = () => {
                         style={{
                           left:
                             (size.width / 100) *
-                            roomInformation[roomStatus.roomID - 1].left,
+                            (roomInformation[roomStatus.roomID - 1] != undefined
+                              ? roomInformation[roomStatus.roomID - 1].left
+                              : 0),
                           top:
                             ((size.height - 10) / 100) *
-                            roomInformation[roomStatus.roomID - 1].top,
+                            (roomInformation[roomStatus.roomID - 1] != undefined
+                              ? roomInformation[roomStatus.roomID - 1].top
+                              : 0),
                           fontSize: size.width / 80,
                         }}
                       >
@@ -106,7 +112,10 @@ const FloorMap = () => {
                           userCount={roomStatus.userCount}
                           usersName={roomStatus.usersName}
                           roomName={
-                            roomInformation[roomStatus.roomID - 1].roomName
+                            roomInformation[roomStatus.roomID - 1].roomName !=
+                            undefined
+                              ? roomInformation[roomStatus.roomID - 1].roomName
+                              : ""
                           }
                         />
                       </div>
