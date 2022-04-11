@@ -1,6 +1,14 @@
 import { Popover, Transition } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/solid";
 import { Fragment } from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
+
+type Props = {
+  roomID: number;
+  userCount: number;
+  usersName: string[];
+};
 
 const solutions = [
   {
@@ -40,7 +48,7 @@ const solutions = [
   },
 ];
 
-export default function PopoverTop() {
+const PopoverTop = (props: Props) => {
   return (
     <div className="max-w-sm">
       <Popover className="relative">
@@ -49,9 +57,9 @@ export default function PopoverTop() {
             <Popover.Button
               className={`
                 ${open ? "" : "text-opacity-90"}
-                text-red-400 group    rounded-md inline-flex items-center  hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
+                text-red-400 group rounded-md inline-flex items-center  hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
             >
-              <span>5人</span>
+              <span>{props.userCount}人</span>
               {/* <ChevronUpIcon
                 className={`${open ? "" : "text-opacity-70"}
                   ml-2 h-5 w-5 text-orange-300 group-hover:text-opacity-80 transition ease-in-out duration-150`}
@@ -95,4 +103,6 @@ export default function PopoverTop() {
       </Popover>
     </div>
   );
-}
+};
+
+export default PopoverTop;

@@ -6,6 +6,7 @@ type Stayer = {
   name: string;
   team: string;
   room: string;
+  roomID: number;
 };
 
 const Stayer = () => {

@@ -1,26 +1,32 @@
 [
   {
     "roomName": "kajiStudent",
-    "left": 92,
+    "left": 91.7,
     "top": 93,
     "roomID": 1
+  },
+  {
+    "roomName": "kajiSmart",
+    "left": 35.5,
+    "top": 62.5,
+    "roomID": 2
+  },
+  {
+    "roomName": "kajiMaster",
+    "left": 59.7,
+    "top": 62.5,
+    "roomID": 3
+  },
+  {
+    "roomName": "kajiFa",
+    "left": 7,
+    "top": 22,
+    "roomID": 4
   },
   {
     "roomName": "kajiTeacher",
     "left": 85.5,
     "top": 93,
-    "roomID": 2
-  },
-  {
-    "roomName": "kajiSmart",
-    "left": 7,
-    "top": 22,
-    "roomID": 3
-  },
-  {
-    "roomName": "kajiMaster",
-    "left": 7,
-    "top": 22,
-    "roomID": 4
+    "roomID": 5
   }
 ]
