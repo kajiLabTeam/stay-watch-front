@@ -11,10 +11,14 @@
   "dependencies": {
     "@headlessui/react": "^1.5.0",
     "@heroicons/react": "^1.0.6",
+    "@material-tailwind/react": "0.3.4",
     "axios": "^0.26.1",
     "next": "12.1.1",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-popover": "^0.5.10",
+    "react-popper": "^2.2.5",
+    "react-sizeme": "^3.0.2"
   },
   "devDependencies": {
     "@types/node": "17.0.23",

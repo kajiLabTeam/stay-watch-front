@@ -73,11 +73,11 @@ const Header = () => {
               利用者情報
             </a>
           </Link>
-          {/* <Link href="/floorMap">
+          <Link href="/floorMap">
             <a className={`py-2 rounded-md ${bgColors.floorMap}`}>
               滞在者マップ
             </a>
-          </Link> */}
+          </Link>
         </div>
         <div>
           <Admin />
