@@ -8,45 +8,8 @@ type Props = {
   roomID: number;
   userCount: number;
   usersName: string[];
+  roomName: string;
 };
-
-const solutions = [
-  {
-    name: "toyama",
-    description: "Measure actions your users take",
-    href: "##",
-  },
-  {
-    name: "ogane",
-    description: "Measure actions your users take",
-    href: "##",
-  },
-  {
-    name: "ogane",
-    description: "Measure actions your users take",
-    href: "##",
-  },
-  {
-    name: "ogane",
-    description: "Measure actions your users take",
-    href: "##",
-  },
-  {
-    name: "ogane",
-    description: "Measure actions your users take",
-    href: "##",
-  },
-  {
-    name: "ogane",
-    description: "Measure actions your users take",
-    href: "##",
-  },
-  {
-    name: "ogane",
-    description: "Measure actions your users take",
-    href: "##",
-  },
-];
 
 const PopoverTop = (props: Props) => {
   return (
@@ -76,23 +39,15 @@ const PopoverTop = (props: Props) => {
               leaveTo="opacity-0 translate-y-1"
             >
               <Popover.Panel className="absolute z-10 w-screen max-w-sm px-4 mt-3 transform -translate-y-40 left-1/5 sm:px-0">
-                <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                  <div className="relative grid  bg-white p-7 lg:grid-cols-4 gap-2">
-                    {solutions.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
-                      >
-                        <div className="ml-4">
-                          <p className="text-sm font-medium text-gray-900">
-                            {item.name}
-                          </p>
-                          {/* <p className="text-sm text-gray-500">
-                            {item.description}
-                          </p> */}
-                        </div>
-                      </a>
+                <div className="shadow-lg bg-white">
+                  <div>{props.roomName}</div>
+                  <div className="relative grid  bg-white p-7 lg:grid-cols-4 gap-2 ">
+                    {props.usersName.map((item, index) => (
+                      <div className="ml-4" key={index}>
+                        <p className="text-sm font-medium text-gray-900">
+                          {item}
+                        </p>
+                      </div>
                     ))}
                   </div>
                 </div>

@@ -19,28 +19,31 @@ type Stayer = {
   roomID: number;
 };
 
+type RoomInformation = {
+  roomID: number;
+  roomName: string;
+  top: number;
+  left: number;
+};
+
 const FloorMap = () => {
   const elm = useRef(null);
 
   const [roomsStatus, setRoomsStatus] = useState<roomStatus[]>([]);
+  const [roomInformation, setRoomInformation] = useState<RoomInformation[]>([]);
 
   useEffect(() => {
     axios
       .get("https://go-staywatch.kajilab.tk/room/v1/stayer")
       .then((res) => {
-        console.log(res.data);
-
-        const roomCount = Math.max(
-          ...res.data.map((stayer: Stayer) => stayer.roomID)
-        );
+        const roomCount = 5;
 
         const roomsStatusArray: roomStatus[] = [];
 
-        for (let i = 0; i <= roomCount; i++) {
+        for (let i = 0; i < roomCount; i++) {
           const usersName: string[] = [];
           for (let j = 0; j < res.data.length; j++) {
             if (res.data[j].roomID === i + 1) {
-              console.log("test");
               usersName.push(res.data[j].name);
             }
           }
@@ -56,17 +59,25 @@ const FloorMap = () => {
       .catch((err) => {
         console.log(err);
       });
+
+    axios
+      .get("/room.json")
+      .then((res) => {
+        console.log(res.data);
+        setRoomInformation(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
     <Layout>
       <SizeMe monitorHeight monitorWidth>
         {({ size }) => {
-          console.log(size.width);
-
           if (size.height != null && size.width != null) {
             return (
-              <div className="relative bg-slate-600 ">
+              <div className="relative  ">
                 <Image
                   src={"/kajlab-room.jpg"}
                   alt="kajlab-room"
@@ -80,65 +91,29 @@ const FloorMap = () => {
                         key={roomStatus.roomID}
                         className="absolute  text-red-400"
                         style={{
-                          left: (size.width / 100) * 59.7,
-                          top: ((size.height - 10) / 100) * 62.5,
+                          left:
+                            (size.width / 100) *
+                            roomInformation[roomStatus.roomID - 1].left,
+                          top:
+                            ((size.height - 10) / 100) *
+                            roomInformation[roomStatus.roomID - 1].top,
                           fontSize: size.width / 80,
                         }}
                       >
                         <PopoverTop
                           key={roomStatus.roomID}
                           roomID={roomStatus.roomID}
-                          userCount={2}
+                          userCount={roomStatus.userCount}
                           usersName={roomStatus.usersName}
+                          roomName={
+                            roomInformation[roomStatus.roomID - 1].roomName
+                          }
                         />
                       </div>
                     );
                   }
                 })}
                 {/* <img src={"/kajlab-room.jpg"} alt="" /> */}
-                <button onClick={() => console.log("hello")}>
-                  <p
-                    className="absolute text-red-400"
-                    style={{
-                      left: (size.width / 100) * 91.7,
-                      top: ((size.height - 10) / 100) * 93,
-                      fontSize: size.width / 80,
-                    }}
-                  >
-                    5人
-                  </p>
-                </button>
-                <p
-                  className="absolute  text-red-400"
-                  style={{
-                    left: (size.width / 100) * 85.5,
-                    top: ((size.height - 10) / 100) * 93,
-                    fontSize: size.width / 80,
-                  }}
-                >
-                  5人
-                </p>
-                <p
-                  className="absolute  text-red-400"
-                  style={{
-                    left: (size.width / 100) * 35.5,
-                    top: ((size.height - 10) / 100) * 62.5,
-                    fontSize: size.width / 80,
-                  }}
-                >
-                  5人
-                </p>
-
-                <div
-                  className="absolute  text-red-400"
-                  style={{
-                    left: (size.width / 100) * 59.7,
-                    top: ((size.height - 10) / 100) * 62.5,
-                    fontSize: size.width / 80,
-                  }}
-                >
-                  {/* <PopoverTop></PopoverTop> */}
-                </div>
               </div>
             );
           }

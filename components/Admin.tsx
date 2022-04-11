@@ -42,9 +42,7 @@ const Admin = () => {
                 `}
             >
               <div>
-                <div className="text-sm lg:text-2xl md:text-lg">
-                  管理者用メニュー
-                </div>
+                <div className="text-sm lg:text-2xl md:text-lg">メニュー</div>
               </div>
             </Popover.Button>
             <Transition
@@ -56,35 +54,18 @@ const Admin = () => {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <Popover.Panel className="absolute z-10 px-4 mt-3 w-44 max-w-sm -translate-x-1/2 sm:px-0 lg:max-w-md">
-                <div className="overflow-hidden mr-2 rounded-lg ring-1 ring-black shadow-lg">
-                  <div className="grid relative gap-2 pl-4 bg-white lg:grid-cols-1">
-                    {solutions.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className="flex items-center p-2 -m-3 hover:bg-gray-50 rounded-lg focus:outline-none focus-visible:ring transition duration-150 ease-in-out"
-                      >
-                        <div className="flex shrink-0 justify-center items-center w-10 h-10 text-white sm:w-12 sm:h-12">
-                          <div>konni</div>
-                        </div>
-                        <div className="ml-2">
-                          {item.name === "logout" ? (
-                            <button>
-                              <p className="text-sm font-medium text-gray-900">
-                                {item.description}
-                              </p>
-                            </button>
-                          ) : (
-                            <button>
-                              <p className="text-sm font-medium text-gray-900">
-                                {item.description}
-                              </p>
-                            </button>
-                          )}
-                        </div>
-                      </a>
-                    ))}
+              <Popover.Panel className="absolute z-10  mt-3 w-28 max-w-sm ">
+                <div className="overflow-hidden  rounded-lg ring-1 ring-black shadow-lg">
+                  <div className="grid relative gap-4 pl-4 bg-white lg:grid-cols-1">
+                    <div className="text-gray-900 font-medium text-sm  mt-2">
+                      <div>管理画面</div>
+                    </div>
+                    <div className="text-gray-900 font-medium text-sm ">
+                      名前の変更
+                    </div>
+                    <div className="text-gray-900 font-medium text-sm ">
+                      ログアウト
+                    </div>
                   </div>
                 </div>
               </Popover.Panel>
