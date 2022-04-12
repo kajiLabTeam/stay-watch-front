@@ -6,6 +6,12 @@ type User = {
   id: string;
   name: string;
   team: string;
+  tags: [
+    {
+      id: number;
+      name: string;
+    }
+  ];
 };
 
 const UserInformation = () => {
@@ -31,14 +37,20 @@ const UserInformation = () => {
           <thead>
             <tr className="text-left text-white bg-gray-700">
               <th className="py-2 px-4 w-1/2 border">Name</th>
-              <th className="py-2 px-4 border">Team</th>
+              <th className="py-2 px-4 border">Attribute</th>
             </tr>
           </thead>
           <tbody className="">
             {users.map((user) => (
               <tr className="text-left" key={user.id}>
                 <td className="py-2 px-4 border">{user.name}</td>
-                <td className="py-2 px-4 border">{user.team}</td>
+                <td className="py-2 px-4 border flex gap-4">
+                  {user.tags.map((tag) => (
+                    <div className="" key={tag.id}>
+                      {tag.name}
+                    </div>
+                  ))}
+                </td>
               </tr>
             ))}
           </tbody>

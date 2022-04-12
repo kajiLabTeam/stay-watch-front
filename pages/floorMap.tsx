@@ -112,8 +112,7 @@ const FloorMap = () => {
                           userCount={roomStatus.userCount}
                           usersName={roomStatus.usersName}
                           roomName={
-                            roomInformation[roomStatus.roomID - 1].roomName !=
-                            undefined
+                            roomInformation[roomStatus.roomID - 1] != undefined
                               ? roomInformation[roomStatus.roomID - 1].roomName
                               : ""
                           }

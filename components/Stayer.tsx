@@ -7,6 +7,12 @@ type Stayer = {
   team: string;
   room: string;
   roomID: number;
+  tags: [
+    {
+      id: number;
+      name: string;
+    }
+  ];
 };
 
 const Stayer = () => {
@@ -23,6 +29,8 @@ const Stayer = () => {
       });
   }, []);
 
+  console.log(stayers);
+
   return (
     <div className="table-fixed">
       <div className="mt-6 text-4xl">滞在者一覧</div>
@@ -31,7 +39,7 @@ const Stayer = () => {
         <thead>
           <tr className="text-left text-white bg-gray-700">
             <th className="py-2 px-4 w-1/3 border">Name</th>
-            <th className="py-2 px-4 border">Team</th>
+            <th className="py-2 px-4 border">Attribute</th>
             <th className="py-2 px-4 border">Room</th>
           </tr>
         </thead>
@@ -39,7 +47,13 @@ const Stayer = () => {
           {stayers.map((stayer) => (
             <tr className="text-left" key={stayer.id}>
               <td className="py-2 px-4 border">{stayer.name}</td>
-              <td className="py-2 px-4 border">{stayer.team}</td>
+              <td className="py-2 px-4 border flex gap-4">
+                {stayer.tags.map((tag) => (
+                  <div className="" key={tag.id}>
+                    {tag.name}
+                  </div>
+                ))}
+              </td>
               <td className="py-2 px-4 border">{stayer.room}</td>
             </tr>
           ))}
