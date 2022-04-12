@@ -1,0 +1,7 @@
+[
+  {
+    "roomID": 1,
+    "num": 5,
+    "person": ["hoge", "mouse", "ogane", "toyama"]
+  }
+]

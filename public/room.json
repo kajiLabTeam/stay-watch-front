@@ -1,0 +1,32 @@
+[
+  {
+    "roomName": "kaji-Student",
+    "left": 91.7,
+    "top": 93,
+    "roomID": 1
+  },
+  {
+    "roomName": "kaji-Smart",
+    "left": 35.5,
+    "top": 62.5,
+    "roomID": 2
+  },
+  {
+    "roomName": "kaji-Master",
+    "left": 59.7,
+    "top": 62.5,
+    "roomID": 3
+  },
+  {
+    "roomName": "kaji-FA",
+    "left": 66.2,
+    "top": 62.5,
+    "roomID": 4
+  },
+  {
+    "roomName": "kaji-Teacher",
+    "left": 85.5,
+    "top": 93,
+    "roomID": 5
+  }
+]
