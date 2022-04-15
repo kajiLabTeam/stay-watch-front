@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import useSWR from "swr";
 
 type Stayer = {
   id: string;
@@ -15,21 +16,21 @@ type Stayer = {
   ];
 };
 
+const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+
 const Stayer = () => {
-  const [stayers, setStayers] = useState<Stayer[]>([]);
+  const { data, error } = useSWR<Stayer[]>(
+    "https://go-staywatch.kajilab.tk/room/v1/stayer",
+    fetcher
+  ); // (1)
 
-  useEffect(() => {
-    axios
-      .get("https://go-staywatch.kajilab.tk/room/v1/stayer")
-      .then((res) => {
-        setStayers(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  if (data !== null) {
+    // データがまだない場合は読み込み中のUIを表示する
+    console.log(data);
+  }
 
-  console.log(stayers);
+  if (error) return <div>failed to load</div>;
+  if (!data) return <div>loading...</div>;
 
   return (
     <div className="table-fixed">
@@ -44,7 +45,7 @@ const Stayer = () => {
           </tr>
         </thead>
         <tbody className="">
-          {stayers.map((stayer) => (
+          {data.map((stayer) => (
             <tr className="text-left" key={stayer.id}>
               <td className="py-2 px-4 border">{stayer.name}</td>
               <td className="py-2 px-4 border flex gap-4">

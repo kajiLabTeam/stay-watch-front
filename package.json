@@ -18,7 +18,8 @@
     "react-dom": "17.0.2",
     "react-popover": "^0.5.10",
     "react-popper": "^2.2.5",
-    "react-sizeme": "^3.0.2"
+    "react-sizeme": "^3.0.2",
+    "swr": "^1.3.0"
   },
   "devDependencies": {
     "@types/node": "17.0.23",
