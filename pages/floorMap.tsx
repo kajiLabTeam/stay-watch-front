@@ -1,9 +1,9 @@
-import Layout from "../components/Layout";
+import axios from "axios";
 import Image from "next/image";
 import { useRef, useEffect, useState } from "react";
 import { SizeMe } from "react-sizeme";
+import Layout from "../components/Layout";
 import PopoverTop from "../components/PopoverTop";
-import axios from "axios";
 
 type roomStatus = {
   roomID: number;

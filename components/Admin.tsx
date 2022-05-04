@@ -42,7 +42,7 @@ const Admin = () => {
                 `}
             >
               <div>
-                <div className="text-sm lg:text-2xl md:text-lg">メニュー</div>
+                <div className="text-sm md:text-lg lg:text-2xl">メニュー</div>
               </div>
             </Popover.Button>
             <Transition
@@ -57,13 +57,13 @@ const Admin = () => {
               <Popover.Panel className="absolute z-10  mt-3 w-28 max-w-sm ">
                 <div className="overflow-hidden  rounded-lg ring-1 ring-black shadow-lg">
                   <div className="grid relative gap-4 pl-4 bg-white lg:grid-cols-1">
-                    <div className="text-gray-900 font-medium text-sm  mt-2">
+                    <div className="mt-2 text-sm font-medium  text-gray-900">
                       <div>管理画面</div>
                     </div>
-                    <div className="text-gray-900 font-medium text-sm ">
+                    <div className="text-sm font-medium text-gray-900 ">
                       名前の変更
                     </div>
-                    <div className="text-gray-900 font-medium text-sm ">
+                    <div className="text-sm font-medium text-gray-900 ">
                       ログアウト
                     </div>
                   </div>

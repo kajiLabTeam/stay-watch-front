@@ -13,6 +13,7 @@ const Header = () => {
     roomHistory: "",
     userInformation: "",
     floorMap: "",
+    SimulataneousStay: "",
   });
 
   console.log(pathname);
@@ -24,6 +25,7 @@ const Header = () => {
         roomHistory: "",
         userInformation: "",
         floorMap: "",
+        SimulataneousStay: "",
       });
     } else if (pathname === "/roomHistory") {
       setBgColors({
@@ -31,6 +33,7 @@ const Header = () => {
         roomHistory: "bg-red-400",
         userInformation: "",
         floorMap: "",
+        SimulataneousStay: "",
       });
     } else if (pathname === "/userInformation") {
       setBgColors({
@@ -38,6 +41,7 @@ const Header = () => {
         roomHistory: "",
         userInformation: "bg-red-400",
         floorMap: "",
+        SimulataneousStay: "",
       });
     } else if (pathname === "/floorMap") {
       setBgColors({
@@ -45,16 +49,25 @@ const Header = () => {
         roomHistory: "",
         userInformation: "",
         floorMap: "bg-red-400",
+        SimulataneousStay: "",
+      });
+    } else if (pathname === "/simulataneousStay") {
+      setBgColors({
+        stayer: "",
+        roomHistory: "",
+        userInformation: "",
+        floorMap: "",
+        SimulataneousStay: "bg-red-400",
       });
     }
   }, [pathname]);
 
   return (
     <div>
-      <div className="flex justify-around items-center h-20  text-white bg-blue-400 text-xs lg:text-2xl md:text-lg">
+      <div className="flex justify-around items-center h-20  text-xs text-white bg-blue-400 md:text-lg lg:text-2xl">
         <div className="flex gap-8 items-center h-full ">
           <Link href="/">
-            <a className="text-base lg:text-3xl md:text-xl">New! Stay Watch</a>
+            <a className="text-base md:text-xl lg:text-3xl">New! Stay Watch</a>
           </Link>
           <Link href="/">
             <a className={`py-2 rounded-md ${bgColors.stayer}`}>在室者</a>
@@ -76,6 +89,11 @@ const Header = () => {
           <Link href="/floorMap">
             <a className={`py-2 rounded-md ${bgColors.floorMap}`}>
               滞在者マップ
+            </a>
+          </Link>
+          <Link href="/simulataneousStay">
+            <a className={`py-2 rounded-md ${bgColors.SimulataneousStay}`}>
+              同時滞在ログ
             </a>
           </Link>
         </div>

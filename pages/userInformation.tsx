@@ -32,7 +32,7 @@ const UserInformation = () => {
     <Layout>
       <div className="table-fixed">
         <div className="mt-6 text-4xl">利用者一覧</div>
-        <div className="my-4 border"></div>
+        <div className="my-4 border" />
         <table className="w-full text-2xl table-auto">
           <thead>
             <tr className="text-left text-white bg-gray-700">
@@ -44,7 +44,7 @@ const UserInformation = () => {
             {users.map((user) => (
               <tr className="text-left" key={user.id}>
                 <td className="py-2 px-4 border">{user.name}</td>
-                <td className="py-2 px-4 border flex gap-4">
+                <td className="flex gap-4 py-2 px-4 border">
                   {user.tags.map((tag) => (
                     <div className="" key={tag.id}>
                       {tag.name}

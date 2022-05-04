@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "userName": "ogane",
+    "roomStayTimes": [
+      {
+        "date": "2022-4-28",
+        "timeRooms": [
+          { "times": [9,9.15,9.30, 10, 11, 12], "room": 1 },
+          { "times": [13, 14], "room": 2 }
+        ]
+      },
+      {
+        "date": "2022-4-29",
+        "timeRooms": [
+          { "times": [11, 12], "room": 1 },
+          { "times": [14, 15], "room": 2 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "userName": "toyama",
+    "roomStayTimes": [
+      {
+        "date": "2022-4-28",
+        "timeRooms": [
+          { "times": [15, 16], "room": 1 },
+          { "times": [12, 13], "room": 2 }
+        ]
+      },
+      {
+        "date": "2022-4-29",
+        "timeRooms": [
+          { "times": [14, 15], "room": 1 },
+          { "times": [10, 11], "room": 2 }
+        ]
+      }
+    ]
+  }
+]

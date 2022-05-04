@@ -28,9 +28,9 @@ const RoomHistory = () => {
 
   return (
     <Layout>
-      <div className="table-fixed flex flex-col">
+      <div className="flex flex-col table-fixed">
         <div className="mt-6 text-4xl">滞在者一覧</div>
-        <div className="my-4 border"></div>
+        <div className="my-4 border" />
         <table className="w-full text-2xl table-auto">
           <thead>
             <tr className="text-left text-white bg-gray-700">
