@@ -1,0 +1,64 @@
+[
+  {
+    "id": 1,
+    "date": "2022-4-28",
+    "stayTimeRooms": [
+      {
+        "roomId": 1,
+        "roomName": "学生部屋",
+        "stayTimeUsers": [
+          {
+            "id": 1,
+            "userName": "山田太郎",
+            "stayTimes": [
+              {
+                "id": 1,
+                "startAt": "20:00",
+                "endAt": "22:00"
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "userName": "鈴木次郎",
+            "stayTimes": [
+              {
+                "id": 1,
+                "startAt": "20:00",
+                "endAt": "22:00"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "roomId": 2,
+        "roomName": "学生部屋",
+        "stayTimeUsers": [
+          {
+            "id": 1,
+            "userName": "山田太郎",
+            "stayTimes": [
+              {
+                "id": 1,
+                "startAt": "20:00",
+                "endAt": "22:00"
+              }
+            ]
+          },
+          {
+            "id": 3,
+            "userName": "佐藤花子",
+            "stayTimes": [
+              {
+                "id": 1,
+                "startAt": "20:00",
+                "endAt": "22:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

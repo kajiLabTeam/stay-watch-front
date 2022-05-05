@@ -11,8 +11,9 @@ const GanttChart = dynamic(() => import("../components/GanttChart"), {
 const SimulataneousStay = () => {
   return (
     <Layout>
-      <div />
-      <GanttChart />
+      <div className="">
+        <GanttChart />
+      </div>
     </Layout>
   );
 };
