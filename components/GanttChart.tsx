@@ -1,6 +1,8 @@
 import * as am4charts from "@amcharts/amcharts4/charts";
 import * as am4core from "@amcharts/amcharts4/core";
+import { ColorSet } from "@amcharts/amcharts5";
 import { useLayoutEffect, useRef } from "react";
+
 import Layout from "../components/Layout";
 
 const data1 = [
@@ -72,59 +74,79 @@ const GanttChart = () => {
   const divRef = useRef<HTMLDivElement | null>(null);
   const chartRef = useRef<am4charts.XYChart | null>(null);
 
+  const colorSet = new am4core.ColorSet();
+
   // 追加
   const chartData = [
     {
-      category: "A",
+      name: "A",
       start: 1609462800000, // 2021-01-01 10:00:00
       end: 1609466400000, // 2021-01-01 11:00:00
+      color: "#ff4500",
     },
     {
-      category: "B",
+      name: "B",
       start: 1609473600000, // 2021-01-01 13:00:00
       end: 1609477200000, // 2021-01-01 14:00:00
+      color: "green",
     },
     {
-      category: "C",
+      name: "C",
       start: 1609473600000, // 2021-01-01 13:00:00
       end: 1609477200000, // 2021-01-01 14:00:00
+      color: "green",
     },
     {
-      category: "D",
+      name: "D",
       start: 1609473600000, // 2021-01-01 13:00:00
       end: 1609477200000, // 2021-01-01 14:00:00
+      color: "green",
     },
     {
-      category: "E",
+      name: "E",
       start: 1609473600000, // 2021-01-01 13:00:00
       end: 1609477200000, // 2021-01-01 14:00:00
+      color: "green",
     },
     {
-      category: "F",
+      name: "F",
       start: 1609473600000, // 2021-01-01 13:00:00
       end: 1609477200000, // 2021-01-01 14:00:00
+      color: "green",
     },
     {
-      category: "G",
+      name: "G",
       start: 1609473600000, // 2021-01-01 13:00:00
       end: 1609477200000, // 2021-01-01 14:00:00
+      color: "green",
+    },
+    {
+      name: "H",
+      start: 1609473600000, // 2021-01-01 13:00:00
+      end: 1609477200000, // 2021-01-01 14:00:00
+      color: "green",
+    },
+    {
+      name: "I",
+      start: 1609473600000, // 2021-01-01 13:00:00
+      end: 1609477200000, // 2021-01-01 14:00:00
+      color: "green",
+    },
+    {
+      name: "J",
+      start: 1609473600000, // 2021-01-01 13:00:00
+      end: 1609477200000, // 2021-01-01 14:00:00
+      color: "green",
     },
   ];
 
   useLayoutEffect(() => {
     if (divRef.current) {
       const chart = am4core.create(divRef.current, am4charts.XYChart);
-      chart.height = 400;
+      chart.height = 500;
       chart.paddingTop = 0;
       chart.paddingBottom = 0;
-      chart.colors.list = [
-        am4core.color("#845EC2"),
-        am4core.color("#D65DB1"),
-        am4core.color("#FF6F91"),
-        am4core.color("#FF9671"),
-        am4core.color("#FFC75F"),
-        am4core.color("#F9F871"),
-      ];
+      // chart.colors.list = [am4core.color("#008000")];
 
       chart.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss";
       chart.data = chartData; // データの適用
@@ -136,7 +158,7 @@ const GanttChart = () => {
 
       // 適用したデータに対してy軸として設定したフィールドを指定
       // 今回はcategory
-      categoryAxis.dataFields.category = "category";
+      categoryAxis.dataFields.category = "name";
       // locationはchartのgridの位置関係を0 ~ 1で指定する
       // 試しに色々変えてみるとどこが変わるのかわかりやすい
       categoryAxis.renderer.grid.template.location = 0;
@@ -146,7 +168,10 @@ const GanttChart = () => {
       // ガントチャートのx軸は幅を指定するので2つを指定する
       series.dataFields.openDateX = "start";
       series.dataFields.dateX = "end";
-      series.dataFields.categoryY = "category";
+      series.dataFields.categoryY = "name";
+      series.columns.template.propertyFields.fill = "color";
+      series.columns.template.propertyFields.stroke = "color";
+
       // // {}内でプロパティ名を書くと対応した値が利用される
       // // 改行を入れたいときは改行文字を入れる
       series.columns.template.tooltipText =
@@ -171,10 +196,10 @@ const GanttChart = () => {
 
   return (
     <div>
-      <div
+      {/* <div
         ref={divRef}
-        style={{ height: 500, width: "100%", marginTop: "100px" }}
-      />
+        style={{ height: 900, width: "100%", marginTop: "100px" }}
+      /> */}
     </div>
   );
 };
