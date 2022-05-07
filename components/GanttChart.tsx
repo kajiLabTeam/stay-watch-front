@@ -3,142 +3,29 @@ import * as am4core from "@amcharts/amcharts4/core";
 import { ColorSet } from "@amcharts/amcharts5";
 import { useLayoutEffect, useRef } from "react";
 
-import Layout from "../components/Layout";
+import { StayTime, ChartData } from "../models/simulataneousStayLog";
 
-const data1 = [
-  {
-    id: 1,
-    date: "2022-4-28",
-    stayTimeRooms: [
-      {
-        roomId: 1,
-        roomName: "学生部屋",
-        stayTimeUsers: [
-          {
-            id: 1,
-            userName: "山田太郎",
-            stayTimes: [
-              {
-                id: 1,
-                startAt: "20:00",
-                endAt: "22:00",
-              },
-            ],
-          },
-          {
-            id: 2,
-            userName: "鈴木次郎",
-            stayTimes: [
-              {
-                id: 1,
-                startAt: "20:00",
-                endAt: "22:00",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        roomId: 2,
-        roomName: "学生部屋",
-        stayTimeUsers: [
-          {
-            id: 1,
-            userName: "山田太郎",
-            stayTimes: [
-              {
-                id: 1,
-                startAt: "20:00",
-                endAt: "22:00",
-              },
-            ],
-          },
-          {
-            id: 3,
-            userName: "佐藤花子",
-            stayTimes: [
-              {
-                id: 1,
-                startAt: "20:00",
-                endAt: "22:00",
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-];
+//propsの型定義
+type Props = {
+  stayTimes: StayTime[];
+};
 
-const GanttChart = () => {
+const GanttChart = (props: Props) => {
   const divRef = useRef<HTMLDivElement | null>(null);
   const chartRef = useRef<am4charts.XYChart | null>(null);
 
   const colorSet = new am4core.ColorSet();
 
-  // 追加
-  const chartData = [
-    {
-      name: "A",
-      start: 1609462800000, // 2021-01-01 10:00:00
-      end: 1609466400000, // 2021-01-01 11:00:00
-      color: "#ff4500",
-    },
-    {
-      name: "B",
-      start: 1609473600000, // 2021-01-01 13:00:00
-      end: 1609477200000, // 2021-01-01 14:00:00
-      color: "green",
-    },
-    {
-      name: "C",
-      start: 1609473600000, // 2021-01-01 13:00:00
-      end: 1609477200000, // 2021-01-01 14:00:00
-      color: "green",
-    },
-    {
-      name: "D",
-      start: 1609473600000, // 2021-01-01 13:00:00
-      end: 1609477200000, // 2021-01-01 14:00:00
-      color: "green",
-    },
-    {
-      name: "E",
-      start: 1609473600000, // 2021-01-01 13:00:00
-      end: 1609477200000, // 2021-01-01 14:00:00
-      color: "green",
-    },
-    {
-      name: "F",
-      start: 1609473600000, // 2021-01-01 13:00:00
-      end: 1609477200000, // 2021-01-01 14:00:00
-      color: "green",
-    },
-    {
-      name: "G",
-      start: 1609473600000, // 2021-01-01 13:00:00
-      end: 1609477200000, // 2021-01-01 14:00:00
-      color: "green",
-    },
-    {
-      name: "H",
-      start: 1609473600000, // 2021-01-01 13:00:00
-      end: 1609477200000, // 2021-01-01 14:00:00
-      color: "green",
-    },
-    {
-      name: "I",
-      start: 1609473600000, // 2021-01-01 13:00:00
-      end: 1609477200000, // 2021-01-01 14:00:00
-      color: "green",
-    },
-    {
-      name: "J",
-      start: 1609473600000, // 2021-01-01 13:00:00
-      end: 1609477200000, // 2021-01-01 14:00:00
-      color: "green",
-    },
-  ];
+  let chartData: ChartData[] = [];
+
+  props.stayTimes.forEach((stayTime) => {
+    chartData.push({
+      name: stayTime.userName,
+      color: stayTime.color,
+      start: stayTime.startAt,
+      end: stayTime.endAt,
+    });
+  });
 
   useLayoutEffect(() => {
     if (divRef.current) {
@@ -196,10 +83,10 @@ const GanttChart = () => {
 
   return (
     <div>
-      {/* <div
+      <div
         ref={divRef}
-        style={{ height: 900, width: "100%", marginTop: "100px" }}
-      /> */}
+        style={{ height: 600, width: "100%", marginTop: "100px" }}
+      />
     </div>
   );
 };

@@ -1,32 +1,20 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import useSWR from "swr";
 import Layout from "../components/Layout";
+import User from "../models/user";
+import { baseURL } from "../utils/api";
 
-type User = {
-  id: string;
-  name: string;
-  team: string;
-  tags: [
-    {
-      id: number;
-      name: string;
-    }
-  ];
-};
+const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 const UserInformation = () => {
-  const [users, setUsers] = useState<User[]>([]);
+  const { data: users, error } = useSWR<User[]>(
+    `${baseURL}/user/v1/list`,
+    fetcher
+  );
 
-  useEffect(() => {
-    axios
-      .get("https://go-staywatch.kajilab.tk/user/v1/list")
-      .then((res) => {
-        setUsers(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  if (error) return <div>failed to load</div>;
+  if (!users) return <div>loading...</div>;
 
   return (
     <Layout>
