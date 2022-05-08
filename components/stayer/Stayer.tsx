@@ -1,9 +1,7 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
 import useSWR from "swr";
 //baseURLのimport
-import Stayer from "../models/stayer";
-import { baseURL } from "../utils/api";
+import Stayer from "../../models/stayer";
+import { baseURL } from "../../utils/api";
 
 const Stayer = () => {
   const { data, error } = useSWR<Stayer[]>(`${baseURL}/room/v1/stayer`); // (1)

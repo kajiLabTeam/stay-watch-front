@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Stayer from "../stayer/Stayer";
 import Admin from "./Admin";
-import Stayer from "./Stayer";
 
 const Header = () => {
   const router = useRouter();

@@ -2,19 +2,19 @@ import axios from "axios";
 import Image from "next/image";
 import { useRef, useEffect, useState } from "react";
 import { SizeMe } from "react-sizeme";
-import Layout from "../components/Layout";
-import PopoverTop from "../components/PopoverTop";
-import RoomInformation from "../models/roomInformation";
-import RoomStatus from "../models/roomStatus";
+import Layout from "../../components/common/Layout";
+import PopoverTop from "../../components/roomHistory/PopoverTop";
+import RoomInformation from "../../models/roomInformation";
+import RoomStatus from "../../models/roomStatus";
 
-import { baseURL } from "../utils/api";
+import { baseURL } from "../../utils/api";
 
 const fetcher = async (url: string) => {
   const res = await fetch(url);
   const obj = res.json();
 };
 
-const FloorMap = () => {
+const FloorMapIndex = () => {
   const elm = useRef(null);
 
   const [roomsStatus, setRoomsStatus] = useState<RoomStatus[]>([]);
@@ -120,4 +120,4 @@ const FloorMap = () => {
   );
 };
 
-export default FloorMap;
+export default FloorMapIndex;

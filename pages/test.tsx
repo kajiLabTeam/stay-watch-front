@@ -1,4 +1,4 @@
-import TabItem from "../components/TabItem";
+import TabItem from "../components/simulataneousStay/TabItem";
 
 const test = () => {
   return (
