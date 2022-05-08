@@ -5,14 +5,8 @@ import useSWR from "swr";
 import Stayer from "../models/stayer";
 import { baseURL } from "../utils/api";
 
-const fetcher = (url: string) => axios.get(url).then((res) => res.data);
-
 const Stayer = () => {
-  const { data, error } = useSWR<Stayer[]>(
-    `${baseURL}/room/v1/stayer`,
-    fetcher
-  ); // (1)
-
+  const { data, error } = useSWR<Stayer[]>(`${baseURL}/room/v1/stayer`); // (1)
   if (data !== null) {
     // データがまだない場合は読み込み中のUIを表示する
     console.log(data);
