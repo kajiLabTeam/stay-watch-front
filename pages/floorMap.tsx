@@ -9,6 +9,11 @@ import RoomStatus from "../models/roomStatus";
 
 import { baseURL } from "../utils/api";
 
+const fetcher = async (url: string) => {
+  const res = await fetch(url);
+  const obj = res.json();
+};
+
 const FloorMap = () => {
   const elm = useRef(null);
 
@@ -22,7 +27,6 @@ const FloorMap = () => {
       .get(`${baseURL}/room/v1/stayer`)
       .then((res) => {
         const roomCount = 5;
-
         const roomsStatusArray: RoomStatus[] = [];
 
         for (let i = 0; i < roomCount; i++) {

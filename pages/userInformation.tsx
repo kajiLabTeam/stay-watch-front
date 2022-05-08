@@ -1,17 +1,24 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
 import useSWR from "swr";
 import Layout from "../components/Layout";
 import User from "../models/user";
 import { baseURL } from "../utils/api";
 
-const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+// export const getServerSideProps = async () => {
+//   const API_URL = `${baseURL}/room/v1/stayer`;
+//   const res = await fetch(API_URL);
+//   const data = await res.json();
+//   return {
+//     props: {
+//       fallback: {
+//         [API_URL]: data,
+//       },
+//     },
+//   };
+// };
 
 const UserInformation = () => {
-  const { data: users, error } = useSWR<User[]>(
-    `${baseURL}/user/v1/list`,
-    fetcher
-  );
+  const { data: users, error } = useSWR<User[]>(`${baseURL}/user/v1/list`);
 
   if (error) return <div>failed to load</div>;
   if (!users) return <div>loading...</div>;

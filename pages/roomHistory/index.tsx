@@ -1,18 +1,10 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
 import useSWR from "swr";
-import Layout from "../components/Layout";
-import Log from "../models/log";
-import { baseURL } from "../utils/api";
-
-const fetcher = (url: string) =>
-  axios.get(url).then((res) => [...res.data].reverse());
+import Layout from "../../components/Layout";
+import Log from "../../models/log";
+import { baseURL } from "../../utils/api";
 
 const RoomHistory = () => {
-  const { data: reverseLogs, error } = useSWR<Log[]>(
-    `${baseURL}/room/v1/log`,
-    fetcher
-  );
+  const { data: logs, error } = useSWR<Log[]>(`${baseURL}/room/v1/log`);
 
   if (error)
     return (
@@ -33,7 +25,7 @@ const RoomHistory = () => {
         </table>
       </div>
     );
-  if (!reverseLogs) return <div>loading...</div>;
+  if (!logs) return <div>loading...</div>;
 
   return (
     <Layout>
@@ -51,7 +43,7 @@ const RoomHistory = () => {
             </tr>
           </thead>
           <tbody className="">
-            {reverseLogs.map((log) => (
+            {[...logs].reverse().map((log) => (
               <tr className="text-left" key={log.id}>
                 <td className="py-2 px-4 border">
                   {log.startAt.substring(0, 10)}
