@@ -2,20 +2,23 @@ import {
   GetServerSideProps,
   InferGetServerSidePropsType,
   NextPage,
+  GetStaticProps,
+  InferGetStaticPropsType,
 } from "next";
 import useSWR, { SWRConfig } from "swr";
 import Layout from "../../components/common/Layout";
 import UserInformation from "../../components/userInformation/UserInformation";
-import User from "../../models/user";
 
 import { baseURL } from "../../utils/api";
 
-type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
+type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const API_URL = `${baseURL}/user/v1/list`;
   const res = await fetch(API_URL);
   const data = await res.json();
+
+  console.log("SSG");
 
   return {
     props: {
