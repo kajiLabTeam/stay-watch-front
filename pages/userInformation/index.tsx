@@ -1,15 +1,8 @@
-import {
-  GetServerSideProps,
-  InferGetServerSidePropsType,
-  NextPage,
-  GetStaticProps,
-  InferGetStaticPropsType,
-} from "next";
+import { NextPage, GetStaticProps, InferGetStaticPropsType } from "next";
 import useSWR, { SWRConfig } from "swr";
-import Layout from "../../components/common/Layout";
-import UserInformation from "../../components/userInformation/UserInformation";
-
-import { baseURL } from "../../utils/api";
+import Layout from "components/common/Layout";
+import UserInformation from "components/userInformation/UserInformation";
+import { baseURL } from "utils/api";
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 

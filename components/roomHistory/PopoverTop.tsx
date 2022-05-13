@@ -1,6 +1,4 @@
 import { Popover, Transition } from "@headlessui/react";
-import { ChevronUpIcon } from "@heroicons/react/solid";
-import axios from "axios";
 import { Fragment, useState, useEffect } from "react";
 
 type Props = {

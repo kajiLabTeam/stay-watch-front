@@ -4,10 +4,9 @@ import {
   NextPage,
 } from "next";
 import useSWR, { SWRConfig } from "swr";
-import Layout from "../../components/common/Layout";
-import RoomHistory from "../../components/roomHistory/RoomHistory";
-import Log from "../../models/log";
-import { baseURL } from "../../utils/api";
+import Layout from "components/common/Layout";
+import RoomHistory from "components/roomHistory/RoomHistory";
+import { baseURL } from "utils/api";
 
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 export const getServerSideProps: GetServerSideProps = async () => {

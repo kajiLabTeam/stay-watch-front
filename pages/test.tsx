@@ -1,9 +1,8 @@
-import TabItem from "../components/simulataneousStay/TabItem";
-
 const test = () => {
   return (
-    <div>
-      <TabItem />
+    <div className="w-96 ">
+      <h1>hoge</h1>
+      <input type="text" />
     </div>
   );
 };

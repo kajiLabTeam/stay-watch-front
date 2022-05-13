@@ -1,11 +1,8 @@
 import { Tab } from "@headlessui/react";
-import axios from "axios";
-import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
 import useSWR from "swr";
-import SimulataneousStayLog from "../../models/simulataneousStayLog";
-import { baseURL } from "../../utils/api";
-import TabRoom from "./TabRoom";
+import TabRoom from "components/simulataneousStay/TabRoom";
+import SimulataneousStayLog from "models/simulataneousStayLog";
+import { baseURL } from "utils/api";
 
 // @ts-ignore
 function classNames(...classes) {

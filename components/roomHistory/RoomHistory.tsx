@@ -1,6 +1,6 @@
 import useSWR from "swr";
-import Log from "../../models/log";
-import { baseURL } from "../../utils/api";
+import Log from "models/log";
+import { baseURL } from "utils/api";
 
 const RoomHistory = () => {
   const { data: logs, error } = useSWR<Log[]>(`${baseURL}/room/v1/log`);
@@ -18,7 +18,7 @@ const RoomHistory = () => {
               <th className="py-2 px-4 border">Team</th>
               <th className="py-2 px-4 border">Period</th>
               <th className="py-2 px-4 border">Room</th>
-            </tr> 
+            </tr>
           </thead>
           <tbody className="" />
         </table>
