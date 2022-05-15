@@ -14,7 +14,7 @@ function classNames(...classes) {
 
 export default function TabItem() {
   const { data, error } = useSWR<SimulataneousStayLog[]>(
-    `${baseURL}/room/v1/list/simultaneous/e7d61ea3f8dd49c88f2ff2484c07acb9-2021-1`
+    `${baseURL}/room/v1/list/simultaneous/2`
   );
   if (data !== null) {
     // データがまだない場合は読み込み中のUIを表示する

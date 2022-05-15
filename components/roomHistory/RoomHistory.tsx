@@ -15,10 +15,10 @@ const RoomHistory = () => {
             <tr className="text-left text-white bg-gray-700">
               <th className="py-2 px-4 w-1/5 border">Date</th>
               <th className="py-2 px-4 border">Name</th>
-              <th className="py-2 px-4 border">Team</th>
+
               <th className="py-2 px-4 border">Period</th>
               <th className="py-2 px-4 border">Room</th>
-            </tr> 
+            </tr>
           </thead>
           <tbody className="" />
         </table>
@@ -35,7 +35,6 @@ const RoomHistory = () => {
           <tr className="text-left text-white bg-gray-700">
             <th className="py-2 px-4 w-1/5 border">Date</th>
             <th className="py-2 px-4 border">Name</th>
-            <th className="py-2 px-4 border">Team</th>
             <th className="py-2 px-4 border">Period</th>
             <th className="py-2 px-4 border">Room</th>
           </tr>
@@ -47,7 +46,6 @@ const RoomHistory = () => {
                 {log.startAt.substring(0, 10)}
               </td>
               <td className="py-2 px-4 border">{log.name}</td>
-              <td className="py-2 px-4 border">{log.team}</td>
               <td className="py-2 px-4 border">
                 {log.startAt}~{log.endAt}
               </td>

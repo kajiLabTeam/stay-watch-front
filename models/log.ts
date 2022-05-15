@@ -1,7 +1,6 @@
 type Log = {
   id: number;
-  name: string;
-  team: string;
+  name: string;  
   startAt: string;
   endAt: string;
   room: string;
