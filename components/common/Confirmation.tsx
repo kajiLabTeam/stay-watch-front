@@ -10,9 +10,15 @@ export const Confirmation = () => {
   };
 
   const register = () => {
-    axios.post(`${baseURL}/user/v1/attendance`).then(() => {
-      setShowModal(false);
-    });
+    setShowModal(false);
+    axios
+      .post(`${baseURL}/user/v1/attendance`)
+      .then(() => {
+        console.log("success");
+      })
+      .catch(() => {
+        console.log("error");
+      });
   };
 
   return (
