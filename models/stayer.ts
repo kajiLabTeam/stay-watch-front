@@ -1,7 +1,6 @@
 type Stayer = {
-  id: string;
-  name: string;
-  team: string;
+  id: number;
+  name: string;  
   room: string;
   roomID: number;
   tags: [

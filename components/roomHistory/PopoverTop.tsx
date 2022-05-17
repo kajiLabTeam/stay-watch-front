@@ -10,7 +10,7 @@ type Props = {
 
 const PopoverTop = (props: Props) => {
   return (
-    <div className="max-w-sm bg-black">
+    <div className="max-w-sm ">
       <Popover className="relative">
         {({ open }) => (
           <>
