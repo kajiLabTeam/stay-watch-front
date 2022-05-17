@@ -1,8 +1,5 @@
 import { Popover, Transition } from "@headlessui/react";
-import { ChevronUpIcon } from "@heroicons/react/solid";
-import { Fragment } from "react";
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { Fragment, useState, useEffect } from "react";
 
 type Props = {
   roomID: number;
@@ -13,7 +10,7 @@ type Props = {
 
 const PopoverTop = (props: Props) => {
   return (
-    <div className="max-w-sm">
+    <div className="max-w-sm ">
       <Popover className="relative">
         {({ open }) => (
           <>
@@ -38,10 +35,10 @@ const PopoverTop = (props: Props) => {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <Popover.Panel className="absolute z-10 w-screen max-w-sm px-4 mt-3 transform -translate-y-40 left-1/5 sm:px-0">
-                <div className="shadow-lg bg-white">
+              <Popover.Panel className="absolute z-10 px-4 mt-3 w-screen max-w-sm -translate-y-40 sm:px-0 left-1/5">
+                <div className="bg-white shadow-lg">
                   <div>{props.roomName}</div>
-                  <div className="relative grid  bg-white p-7 lg:grid-cols-4 gap-2 ">
+                  <div className="grid relative  gap-2 p-7 bg-white lg:grid-cols-4 ">
                     {props.usersName.map((item, index) => (
                       <div className="ml-4" key={index}>
                         <p className="text-sm font-medium text-gray-900">

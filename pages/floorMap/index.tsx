@@ -1,46 +1,32 @@
-import Layout from "../components/Layout";
+import axios from "axios";
 import Image from "next/image";
 import { useRef, useEffect, useState } from "react";
 import { SizeMe } from "react-sizeme";
-import PopoverTop from "../components/PopoverTop";
-import axios from "axios";
+import Layout from "components/common/Layout";
+import PopoverTop from "components/roomHistory/PopoverTop";
+import RoomInformation from "models/roomInformation";
+import RoomStatus from "models/roomStatus";
+import { baseURL } from "utils/api";
 
-type roomStatus = {
-  roomID: number;
-  userCount: number;
-  usersName: string[];
+const fetcher = async (url: string) => {
+  const res = await fetch(url);
+  const obj = res.json();
 };
 
-type Stayer = {
-  id: string;
-  name: string;
-  team: string;
-  room: string;
-  roomID: number;
-};
-
-type RoomInformation = {
-  roomID: number;
-  roomName: string;
-  top: number;
-  left: number;
-};
-
-const FloorMap = () => {
+const FloorMapIndex = () => {
   const elm = useRef(null);
 
-  const [roomsStatus, setRoomsStatus] = useState<roomStatus[]>([]);
+  const [roomsStatus, setRoomsStatus] = useState<RoomStatus[]>([]);
   const [roomInformation, setRoomInformation] = useState<RoomInformation[]>([
     { roomID: 1, roomName: "", top: 0, left: 0 },
   ]);
 
   useEffect(() => {
     axios
-      .get("https://go-staywatch.kajilab.tk/room/v1/stayer")
+      .get(`${baseURL}/room/v1/stayer`)
       .then((res) => {
         const roomCount = 5;
-
-        const roomsStatusArray: roomStatus[] = [];
+        const roomsStatusArray: RoomStatus[] = [];
 
         for (let i = 0; i < roomCount; i++) {
           const usersName: string[] = [];
@@ -133,4 +119,4 @@ const FloorMap = () => {
   );
 };
 
-export default FloorMap;
+export default FloorMapIndex;
