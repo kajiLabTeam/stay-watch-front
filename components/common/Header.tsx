@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Stayer from "../stayer/Stayer";
-import Admin from "./Admin";
+import Option from "./Option";
 
 const Header = () => {
   const router = useRouter();
@@ -91,14 +91,14 @@ const Header = () => {
               滞在者マップ
             </a>
           </Link>
-          <Link href="/simulataneousStay">
+          {/* <Link href="/simulataneousStay">
             <a className={`py-2 rounded-md ${bgColors.SimulataneousStay}`}>
               同時滞在ログ
             </a>
-          </Link>
+          </Link> */}
         </div>
         <div>
-          <Admin />
+          <Option />
         </div>
       </div>
     </div>
