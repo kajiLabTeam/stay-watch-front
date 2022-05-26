@@ -16,8 +16,6 @@ const Header = () => {
     SimulataneousStay: "",
   });
 
-  console.log(pathname);
-
   useEffect(() => {
     if (pathname === "/") {
       setBgColors({
