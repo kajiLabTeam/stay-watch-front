@@ -15,6 +15,7 @@ const RoomHistory = () => {
             <tr className="text-left text-white bg-gray-700">
               <th className="py-2 px-4 w-1/5 border">Date</th>
               <th className="py-2 px-4 border">Name</th>
+
               <th className="py-2 px-4 border">Period</th>
               <th className="py-2 px-4 border">Room</th>
             </tr>
@@ -24,6 +25,32 @@ const RoomHistory = () => {
       </div>
     );
   if (!logs) return <div>loading...</div>;
+
+  const Period = () => {
+    return [...logs].reverse().map((log) => {
+      if (log.endAt === "2016-01-01 00:00:00") {
+        return (
+          <tr className="text-left" key={log.id}>
+            <td className="py-2 px-4 border">{log.startAt.substring(0, 10)}</td>
+            <td className="py-2 px-4 border">{log.name}</td>
+            <td className="py-2 px-4 border">{log.startAt}~</td>
+            <td className="py-2 px-4 border">{log.room}</td>
+          </tr>
+        );
+      } else {
+        return (
+          <tr className="text-left" key={log.id}>
+            <td className="py-2 px-4 border">{log.startAt.substring(0, 10)}</td>
+            <td className="py-2 px-4 border">{log.name}</td>
+            <td className="py-2 px-4 border">
+              {log.startAt}~{log.endAt}
+            </td>
+            <td className="py-2 px-4 border">{log.room}</td>
+          </tr>
+        );
+      }
+    });
+  };
 
   return (
     <div className="flex flex-col table-fixed">
@@ -38,20 +65,7 @@ const RoomHistory = () => {
             <th className="py-2 px-4 border">Room</th>
           </tr>
         </thead>
-        <tbody className="">
-          {[...logs].reverse().map((log) => (
-            <tr className="text-left" key={log.id}>
-              <td className="py-2 px-4 border">
-                {log.startAt.substring(0, 10)}
-              </td>
-              <td className="py-2 px-4 border">{log.name}</td>
-              <td className="py-2 px-4 border">
-                {log.startAt}~{log.endAt}
-              </td>
-              <td className="py-2 px-4 border">{log.room}</td>
-            </tr>
-          ))}
-        </tbody>
+        <tbody className="">{Period()}</tbody>
       </table>
     </div>
   );
