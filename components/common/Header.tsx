@@ -11,7 +11,6 @@ const Header = () => {
   const { pathname } = router;
 
   const { width, height } = useWindowSize();
-  console.log(width, height);
 
   const [bgColors, setBgColors] = useState({
     stayer: "",
@@ -66,7 +65,7 @@ const Header = () => {
   }, [pathname]);
 
   //デスクトップ
-  if (width > 840) {
+  if (width > 853) {
     return (
       <div>
         <div className="flex justify-around items-center h-20  text-xs text-white bg-blue-400 md:text-lg lg:text-2xl">

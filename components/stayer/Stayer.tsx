@@ -15,16 +15,6 @@ const Stayer = () => {
       <div className="table-fixed">
         <div className="mt-6 text-4xl">滞在者一覧</div>
         <div className="my-4 border" />
-        <table className="w-full text-2xl table-auto">
-          <thead>
-            <tr className="text-left text-white bg-gray-700">
-              <th className="py-2 px-4 w-1/3 border">Name</th>
-              <th className="py-2 px-4 border">Attribute</th>
-              <th className="py-2 px-4 border">Room</th>
-            </tr>
-          </thead>
-          <tbody className="" />
-        </table>
       </div>
     );
   if (!data) return <div>loading...</div>;
@@ -44,8 +34,8 @@ const Stayer = () => {
         <tbody>
           {data.map((stayer) => (
             <tr className="text-left" key={stayer.id}>
-              <td className="py-2 pl-2 border md:pl-4">{stayer.name}</td>
-              <td className="flex flex-col p-2  border sm:px-4 md:flex-row md:gap-4">
+              <td className="py-2 pl-2  border md:pl-4">{stayer.name}</td>
+              <td className=" p-2  border  sm:px-4 md:gap-4 mdlg:flex mdlg:flex-row">
                 {stayer.tags.map((tag) => (
                   <div className="" key={tag.id}>
                     {tag.name}

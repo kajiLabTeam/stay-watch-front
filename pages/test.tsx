@@ -1,12 +1,14 @@
+import Layout from "components/common/Layout";
 import Option from "components/common/Option";
+import { Stayer2 } from "components/stayer/Stayer2";
 
 const test = () => {
   return (
-    <div className="w-96 ">
-      <h1>hoge</h1>
-      <input type="text" />
-      <Option />
-    </div>
+    <Layout>
+      <div className=" ">
+        <Stayer2 />
+      </div>
+    </Layout>
   );
 };
 
