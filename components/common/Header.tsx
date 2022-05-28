@@ -114,7 +114,9 @@ const Header = () => {
     return (
       <div>
         <div className="py-2 text-3xl font-bold text-center text-white bg-blue-400">
-          New! Stay Watch
+          <Link href="/">
+            <a> New! Stay Watch</a>
+          </Link>
         </div>
         <div className="fixed bottom-0 w-full">
           <div className="flex justify-evenly items-center h-16 text-white bg-blue-400">

@@ -1,13 +1,14 @@
 import axios from "axios";
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { baseURL } from "utils/api";
 
-export const Confirmation = () => {
-  const [showModal, setShowModal] = React.useState(true);
+type Props = {
+  //関数
+  remove: () => void;
+};
 
-  const cancel = () => {
-    setShowModal(false);
-  };
+export const Confirmation = (props: Props) => {
+  const [showModal, setShowModal] = useState(true);
 
   const register = () => {
     setShowModal(false);
@@ -31,13 +32,13 @@ export const Confirmation = () => {
                 <div className="flex gap-8 justify-center w-[500px] ">
                   <button
                     className="py-2  text-white bg-slate-500 rounded-md "
-                    onClick={cancel}
+                    onClick={props.remove}
                   >
                     キャンセル
                   </button>
                   <button
                     className="py-2  px-4 text-white bg-blue-500 rounded-md"
-                    onClick={register}
+                    onClick={props.remove}
                   >
                     登録
                   </button>
