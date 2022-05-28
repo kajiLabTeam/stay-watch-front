@@ -10,7 +10,7 @@ const UserInformation = () => {
 
   return (
     <div className="table-fixed">
-      <div className="mt-6 text-4xl">利用者一覧</div>
+      <div className="mt-6 text-2xl md:text-3xl">利用者一覧</div>
       <div className="my-4 border" />
       <table className="w-full text-2xl table-auto">
         <thead>
@@ -23,7 +23,7 @@ const UserInformation = () => {
           {users.map((user) => (
             <tr className="text-left" key={user.id}>
               <td className="py-2 px-4 border">{user.name}</td>
-              <td className="flex gap-4 py-2 px-4 border">
+              <td className="flex flex-col  py-2 px-4 border md:flex-row">
                 {user.tags.map((tag) => (
                   <div className="" key={tag.id}>
                     {tag.name}

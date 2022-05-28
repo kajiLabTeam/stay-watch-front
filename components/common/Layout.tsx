@@ -9,7 +9,7 @@ const Layout = ({ children }: { children?: ReactNode }) => {
   return (
     <div>
       <Header />
-      <main className="mx-auto w-4/5">{children}</main>
+      <main className="mx-auto w-11/12 sm:w-4/5">{children}</main>
     </div>
   );
 };
