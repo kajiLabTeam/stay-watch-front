@@ -8,30 +8,28 @@ import Layout from "components/common/Layout";
 import RoomHistory from "components/roomHistory/RoomHistory";
 import { baseURL } from "utils/api";
 
-type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
-export const getServerSideProps: GetServerSideProps = async () => {
-  const API_URL = `${baseURL}/room/v1/log`;
-  const res = await fetch(API_URL);
-  const data = await res.json();
+// type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   const API_URL = `${baseURL}/room/v1/log`;
+//   const res = await fetch(API_URL);
+//   const data = await res.json();
 
-  console.log("SSR");
+//   console.log("SSR");
 
-  return {
-    props: {
-      fallback: {
-        [API_URL]: data,
-      },
-    },
-  };
-};
+//   return {
+//     props: {
+//       fallback: {
+//         [API_URL]: data,
+//       },
+//     },
+//   };
+// };
 
-const RoomHistoryIndex: NextPage<Props> = (props) => {
-  const { fallback } = props;
+const RoomHistoryIndex: NextPage = () => {
+  // const { fallback } = props;
   return (
-    <SWRConfig value={{ fallback }}>
-      <Layout>
-        <RoomHistory />
-      </Layout>
+    <SWRConfig>
+      <RoomHistory />
     </SWRConfig>
   );
 };

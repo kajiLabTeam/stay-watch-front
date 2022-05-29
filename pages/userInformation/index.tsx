@@ -10,9 +10,6 @@ export const getStaticProps: GetStaticProps = async () => {
   const API_URL = `${baseURL}/user/v1/list`;
   const res = await fetch(API_URL);
   const data = await res.json();
-
-  console.log("SSG");
-
   return {
     props: {
       fallback: {
@@ -26,9 +23,7 @@ const UserInformationIndex: NextPage<Props> = (props) => {
   const { fallback } = props;
   return (
     <SWRConfig value={{ fallback }}>
-      <Layout>
-        <UserInformation />
-      </Layout>
+      <UserInformation />
     </SWRConfig>
   );
 };

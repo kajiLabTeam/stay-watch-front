@@ -20,11 +20,6 @@ const PopoverTop = (props: Props) => {
                 text-red-400 group rounded-md inline-flex items-center  hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
             >
               <span>{props.userCount}人</span>
-              {/* <ChevronUpIcon
-                className={`${open ? "" : "text-opacity-70"}
-                  ml-2 h-5 w-5 text-orange-300 group-hover:text-opacity-80 transition ease-in-out duration-150`}
-                aria-hidden="true"
-              /> */}
             </Popover.Button>
             <Transition
               as={Fragment}

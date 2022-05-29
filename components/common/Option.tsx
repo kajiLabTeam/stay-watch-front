@@ -6,6 +6,13 @@ import { Confirmation } from "./Confirmation";
 
 export default function Option() {
   const [showModal, setShowModal] = useState(false);
+
+  
+
+  const remove = () => {
+    setShowModal(false);
+  };
+
   return (
     <div className="top-16 w-56 text-right">
       <Menu as="div" className="inline-block relative text-left">
@@ -56,7 +63,7 @@ export default function Option() {
           </Menu.Items>
         </Transition>
       </Menu>
-      {showModal && <Confirmation />}
+      {showModal && <Confirmation remove={remove} />}
     </div>
   );
 }
