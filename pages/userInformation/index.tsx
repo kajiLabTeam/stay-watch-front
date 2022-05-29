@@ -26,9 +26,7 @@ const UserInformationIndex: NextPage<Props> = (props) => {
   const { fallback } = props;
   return (
     <SWRConfig value={{ fallback }}>
-      <Layout>
-        <UserInformation />
-      </Layout>
+      <UserInformation />
     </SWRConfig>
   );
 };

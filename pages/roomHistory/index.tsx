@@ -29,9 +29,7 @@ const RoomHistoryIndex: NextPage = () => {
   // const { fallback } = props;
   return (
     <SWRConfig>
-      <Layout>
-        <RoomHistory />
-      </Layout>
+      <RoomHistory />
     </SWRConfig>
   );
 };

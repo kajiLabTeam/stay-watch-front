@@ -60,62 +60,60 @@ const FloorMapIndex = () => {
   }, []);
 
   return (
-    <Layout>
-      <SizeMe monitorHeight monitorWidth>
-        {({ size }) => {
-          if (size.height != null && size.width != null) {
-            return (
-              <div className="relative  ">
-                <Image
-                  src={"/kajlab-room.jpg"}
-                  alt="kajlab-room"
-                  width="1600vmin"
-                  height="900vmin"
-                />
-                {roomsStatus.map((roomStatus) => {
-                  if (size.height != null && size.width != null) {
-                    return (
-                      <div
+    <SizeMe monitorHeight monitorWidth>
+      {({ size }) => {
+        if (size.height != null && size.width != null) {
+          return (
+            <div className="relative mt-14">
+              <Image
+                src={"/kajlab-room.jpg"}
+                alt="kajlab-room"
+                width="1600vmin"
+                height="900vmin"
+              />
+              {roomsStatus.map((roomStatus) => {
+                if (size.height != null && size.width != null) {
+                  return (
+                    <div
+                      key={roomStatus.roomID}
+                      className="absolute  text-red-400"
+                      style={{
+                        left:
+                          (size.width / 100) *
+                          (roomInformation[roomStatus.roomID - 1] != undefined
+                            ? roomInformation[roomStatus.roomID - 1].left
+                            : 0),
+                        top:
+                          ((size.height - 10) / 100) *
+                          (roomInformation[roomStatus.roomID - 1] != undefined
+                            ? roomInformation[roomStatus.roomID - 1].top
+                            : 0),
+                        fontSize: size.width / 80,
+                      }}
+                    >
+                      <PopoverTop
                         key={roomStatus.roomID}
-                        className="absolute  text-red-400"
-                        style={{
-                          left:
-                            (size.width / 100) *
-                            (roomInformation[roomStatus.roomID - 1] != undefined
-                              ? roomInformation[roomStatus.roomID - 1].left
-                              : 0),
-                          top:
-                            ((size.height - 10) / 100) *
-                            (roomInformation[roomStatus.roomID - 1] != undefined
-                              ? roomInformation[roomStatus.roomID - 1].top
-                              : 0),
-                          fontSize: size.width / 80,
-                        }}
-                      >
-                        <PopoverTop
-                          key={roomStatus.roomID}
-                          roomID={roomStatus.roomID}
-                          userCount={roomStatus.userCount}
-                          usersName={roomStatus.usersName}
-                          roomName={
-                            roomInformation[roomStatus.roomID - 1] != undefined
-                              ? roomInformation[roomStatus.roomID - 1].roomName
-                              : ""
-                          }
-                        />
-                      </div>
-                    );
-                  }
-                })}
-                {/* <img src={"/kajlab-room.jpg"} alt="" /> */}
-              </div>
-            );
-          }
+                        roomID={roomStatus.roomID}
+                        userCount={roomStatus.userCount}
+                        usersName={roomStatus.usersName}
+                        roomName={
+                          roomInformation[roomStatus.roomID - 1] != undefined
+                            ? roomInformation[roomStatus.roomID - 1].roomName
+                            : ""
+                        }
+                      />
+                    </div>
+                  );
+                }
+              })}
+              {/* <img src={"/kajlab-room.jpg"} alt="" /> */}
+            </div>
+          );
+        }
 
-          return <div>loading</div>;
-        }}
-      </SizeMe>
-    </Layout>
+        return <div>loading</div>;
+      }}
+    </SizeMe>
   );
 };
 

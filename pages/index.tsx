@@ -3,13 +3,7 @@ import Layout from "components/common/Layout";
 import Stayer from "components/stayer/Stayer";
 
 const Home: NextPage = () => {
-  return (
-    <Layout>
-      <div>
-        <Stayer />
-      </div>
-    </Layout>
-  );
+  return <Stayer />;
 };
 
 export default Home;

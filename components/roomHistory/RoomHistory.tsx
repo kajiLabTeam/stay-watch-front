@@ -1,9 +1,20 @@
+import { useState } from "react";
 import useSWR from "swr";
 import Log from "models/log";
 import { baseURL } from "utils/api";
 
 const RoomHistory = () => {
-  const { data: logs, error } = useSWR<Log[]>(`${baseURL}/room/v1/log`);
+  const [page, setPage] = useState(1);
+  const { data: logs, error } = useSWR<Log[]>(
+    `${baseURL}/room/v1/log?page=${page}`
+  );
+
+  const nextPage = () => {
+    setPage(page + 1);
+  };
+  const prevPage = () => {
+    setPage(page - 1);
+  };
 
   if (error)
     return (
@@ -14,8 +25,38 @@ const RoomHistory = () => {
     );
   if (!logs) return <div>loading...</div>;
 
+  const nextButton = () => {
+    //最後のデータだった時
+    if (logs.slice(-1)[0].id == 1) {
+      return <div />;
+    }
+    return (
+      <button
+        className="py-2 px-4 font-bold text-white bg-blue-500 hover:bg-blue-400 rounded"
+        onClick={nextPage}
+      >
+        次へ
+      </button>
+    );
+  };
+
+  const prevButton = () => {
+    //pageが1より大きい時にボタンを表示
+    if (page > 1) {
+      return (
+        <button
+          className="py-2 px-4 font-bold text-white bg-blue-500 hover:bg-blue-400 rounded"
+          onClick={prevPage}
+        >
+          前へ
+        </button>
+      );
+    }
+    return <div />;
+  };
+
   const Period = () => {
-    return [...logs].reverse().map((log) => {
+    return [...logs].map((log) => {
       if (log.endAt === "2016-01-01 00:00:00") {
         //退出してない場合
         return (
@@ -63,6 +104,10 @@ const RoomHistory = () => {
         </thead>
         <tbody className="">{Period()}</tbody>
       </table>
+      <div className="flex justify-between px-8 mt-4 w-full h-10 text-white">
+        {prevButton()}
+        {nextButton()}
+      </div>
     </div>
   );
 };

@@ -8,47 +8,58 @@ type Props = {
 };
 
 export const Confirmation = (props: Props) => {
-  const [showModal, setShowModal] = useState(true);
+  const [meetingID, setMeetingID] = useState("");
 
-  const register = () => {
-    setShowModal(false);
+  console.log(meetingID);
+
+  const register = async () => {
+    props.remove();
     axios
-      .post(`${baseURL}/user/v1/attendance`)
-      .then(() => {
-        console.log("success");
+      .post(`${baseURL}/user/v1/attendance`, {
+        meetingID: meetingID,
       })
-      .catch(() => {
-        console.log("error");
-      });
+      .then(() => window.alert("成功しました"))
+      .catch(() => window.alert("エラーが発生しました"));
   };
 
   return (
     <>
-      {showModal ? (
-        <>
-          <div className="flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 justify-center items-center outline-none focus:outline-none">
-            <div className="relative my-6 mx-auto w-auto max-w-3xl">
-              <div className="flex flex-col justify-center items-center w-[500px] h-32 bg-white rounded-lg border-0 outline-none focus:outline-none shadow-lg">
-                <div className="flex gap-8 justify-center w-[500px] ">
-                  <button
-                    className="py-2  text-white bg-slate-500 rounded-md "
-                    onClick={props.remove}
-                  >
-                    キャンセル
-                  </button>
+      <>
+        <div className="flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 justify-center items-center outline-none focus:outline-none">
+          <div className="relative my-6 mx-auto w-auto max-w-3xl">
+            <div className="flex flex-col gap-4 justify-start items-center w-[500px] h-44 bg-white rounded-lg border-0 outline-none focus:outline-none shadow-lg">
+              <select
+                className="mt-6  text-black rounded-md border-4"
+                onChange={(event) => {
+                  setMeetingID(event.target.value);
+                }}
+              >
+                <option hidden>選択してください</option>
+                <option value="1">B3</option>
+                <option value="2">全体</option>
+              </select>
+
+              <div className="flex gap-8 justify-start ml-4  w-[250px] ">
+                <button
+                  className="py-2 text-white bg-slate-500 rounded-md "
+                  onClick={props.remove}
+                >
+                  キャンセル
+                </button>
+                {meetingID! && (
                   <button
                     className="py-2  px-4 text-white bg-blue-500 rounded-md"
-                    onClick={props.remove}
+                    onClick={register}
                   >
                     登録
                   </button>
-                </div>
+                )}
               </div>
             </div>
           </div>
-          <div className="fixed inset-0 z-40 bg-black opacity-25" />
-        </>
-      ) : null}
+        </div>
+        <div className="fixed inset-0 z-40 bg-black opacity-25" />
+      </>
     </>
   );
 };
