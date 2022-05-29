@@ -5,11 +5,6 @@ import { baseURL } from "utils/api";
 
 const Stayer = () => {
   const { data, error } = useSWR<Stayer[]>(`${baseURL}/room/v1/stayer`); // (1)
-  if (data !== null) {
-    // データがまだない場合は読み込み中のUIを表示する
-    console.log(data);
-  }
-
   if (error)
     return (
       <div className="table-fixed">

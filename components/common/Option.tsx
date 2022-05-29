@@ -7,7 +7,7 @@ import { Confirmation } from "./Confirmation";
 export default function Option() {
   const [showModal, setShowModal] = useState(false);
 
-  console.log(showModal);
+  
 
   const remove = () => {
     setShowModal(false);
