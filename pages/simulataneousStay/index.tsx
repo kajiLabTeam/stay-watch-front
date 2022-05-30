@@ -4,11 +4,9 @@ import TabItem from "components/simulataneousStay/TabItem";
 
 const SimulataneousStay = () => {
   return (
-    <Layout>
-      <div className="">
-        <TabItem />
-      </div>
-    </Layout>
+    <div className="">
+      <TabItem />
+    </div>
   );
 };
 

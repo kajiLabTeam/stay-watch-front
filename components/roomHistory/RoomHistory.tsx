@@ -32,7 +32,7 @@ const RoomHistory = () => {
     }
     return (
       <button
-        className="py-2 px-4 font-bold text-white bg-blue-500 hover:bg-blue-400 rounded"
+        className="py-1 px-2 font-bold text-white bg-blue-500 hover:bg-blue-400 rounded md:py-2 md:px-4 "
         onClick={nextPage}
       >
         次へ
@@ -45,7 +45,7 @@ const RoomHistory = () => {
     if (page > 1) {
       return (
         <button
-          className="py-2 px-4 font-bold text-white bg-blue-500 hover:bg-blue-400 rounded"
+          className="py-1 px-2 font-bold text-white bg-blue-500 hover:bg-blue-400 rounded md:py-2 md:px-4"
           onClick={prevPage}
         >
           前へ
@@ -104,7 +104,7 @@ const RoomHistory = () => {
         </thead>
         <tbody className="">{Period()}</tbody>
       </table>
-      <div className="flex justify-between px-8 mt-4 w-full h-10 text-white">
+      <div className="flex justify-between px-8 mt-2 w-full h-10 text-white md:mt-4 ">
         {prevButton()}
         {nextButton()}
       </div>
