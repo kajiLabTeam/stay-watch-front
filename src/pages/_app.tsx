@@ -1,8 +1,7 @@
-import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import "tailwindcss/tailwind.css";
-import useSWR, { SWRConfig } from "swr";
-import Layout from "components/common/Layout";
+import { SWRConfig } from "swr";
+import Layout from "@/components/common/Layout";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 

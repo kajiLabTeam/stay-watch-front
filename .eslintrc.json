@@ -12,6 +12,7 @@
   // 追記
   // tailwind.config.js などの config ファイル、ESLint の対象外にする
   "ignorePatterns": ["*.config.js"],
+  "plugins": ["import", "unused-imports"],
   "rules": {
     "import/order": [
       "error",
@@ -22,22 +23,22 @@
       }
     ],
     "react/jsx-boolean-value": "error",
-
     "react/self-closing-comp": [
       "error",
-
       {
         "component": true,
         "html": true
       }
     ],
-
     "react/jsx-pascal-case": [
       "error",
       {
         "allowAllCaps": true,
         "ignore": []
       }
-    ]
+    ],
+    "@typescript-eslint/no-unused-vars": "off",
+    //不要なimportを警告
+    "unused-imports/no-unused-imports": "warn" // "error" でも
   }
 }

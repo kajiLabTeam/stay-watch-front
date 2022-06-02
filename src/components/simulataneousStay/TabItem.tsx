@@ -1,8 +1,8 @@
 import { Tab } from "@headlessui/react";
 import useSWR from "swr";
-import TabRoom from "components/simulataneousStay/TabRoom";
-import SimulataneousStayLog from "models/simulataneousStayLog";
-import { baseURL } from "utils/api";
+import TabRoom from "@/components/simulataneousStay/TabRoom";
+import SimulataneousStayLog from "@/models/simulataneousStayLog";
+import { baseURL } from "@/utils/api";
 
 // @ts-ignore
 function classNames(...classes) {

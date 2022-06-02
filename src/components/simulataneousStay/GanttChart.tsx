@@ -1,8 +1,7 @@
 import * as am4charts from "@amcharts/amcharts4/charts";
 import * as am4core from "@amcharts/amcharts4/core";
-import { ColorSet } from "@amcharts/amcharts5";
 import { useLayoutEffect, useRef } from "react";
-import { ChartData, StayTime } from "models/simulataneousStayLog";
+import { ChartData, StayTime } from "@/models/simulataneousStayLog";
 
 //propsの型定義
 type Props = {

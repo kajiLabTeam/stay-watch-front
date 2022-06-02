@@ -1,6 +1,6 @@
 import axios from "axios";
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { baseURL } from "utils/api";
+import React, { useState } from "react";
+import { baseURL } from "@/utils/api";
 
 type Props = {
   //関数

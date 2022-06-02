@@ -1,7 +1,7 @@
 import { useState } from "react";
 import useSWR from "swr";
-import Log from "models/log";
-import { baseURL } from "utils/api";
+import Log from "@/models/log";
+import { baseURL } from "@/utils/api";
 
 const RoomHistory = () => {
   const [page, setPage] = useState(1);
