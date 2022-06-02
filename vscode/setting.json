@@ -1,0 +1,11 @@
+{
+  "css.validate": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": ["source.fixAll.eslint"],
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+  "files.encoding": "utf8"
+}

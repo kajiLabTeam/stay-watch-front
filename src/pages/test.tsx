@@ -2,16 +2,15 @@ import { Listbox } from "@headlessui/react";
 import { useState } from "react";
 import Layout from "@/components/common/Layout";
 import MyTabs from "@/components/common/MyTabs";
-import Option from "@/components/common/Option";
 import { Stayer2 } from "@/components/stayer/Stayer2";
 
 const test = () => {
   return (
     <Layout>
-      <div className=" ">
-        <Stayer2 />
+      <div className="px-2 mt-2 font-bold bg-slate-300">
         <MyTabs />
         <MyListbox />
+        <Stayer2 />
       </div>
     </Layout>
   );
