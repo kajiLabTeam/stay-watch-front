@@ -1,20 +1,14 @@
-import { useState } from "react";
 import useSWR from "swr";
+import { PaginationButton } from "./PaginationButton";
+import { useCurrentPage } from "./roomHistoryhook";
 import Log from "@/models/log";
 import { baseURL } from "@/utils/api";
 
 const RoomHistory = () => {
-  const [page, setPage] = useState(1);
+  const [page, PreviousPage, NextPage] = useCurrentPage();
   const { data: logs, error } = useSWR<Log[]>(
     `${baseURL}/room/v1/log?page=${page}`
   );
-
-  const nextPage = () => {
-    setPage(page + 1);
-  };
-  const prevPage = () => {
-    setPage(page - 1);
-  };
 
   if (error)
     return (
@@ -30,27 +24,13 @@ const RoomHistory = () => {
     if (logs.slice(-1)[0].id == 1) {
       return <div />;
     }
-    return (
-      <button
-        className="py-1 px-2 font-bold text-white bg-blue-500 hover:bg-blue-400 rounded md:py-2 md:px-4 "
-        onClick={nextPage}
-      >
-        次へ
-      </button>
-    );
+    return <PaginationButton name="次へ" onClick={NextPage} />;
   };
 
   const prevButton = () => {
     //pageが1より大きい時にボタンを表示
     if (page > 1) {
-      return (
-        <button
-          className="py-1 px-2 font-bold text-white bg-blue-500 hover:bg-blue-400 rounded md:py-2 md:px-4"
-          onClick={prevPage}
-        >
-          前へ
-        </button>
-      );
+      return <PaginationButton name="前へ" onClick={PreviousPage} />;
     }
     return <div />;
   };
