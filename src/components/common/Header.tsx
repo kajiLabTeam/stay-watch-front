@@ -1,68 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import { useWindowSize } from "usehooks-ts";
-import Stayer from "../stayer/Stayer";
 import Option from "./Option";
+import { useBgColor } from "./commonhook";
 
 const Header = () => {
-  const router = useRouter();
-  const { pathname } = router;
-
   const { width, height } = useWindowSize();
-
-  const [bgColors, setBgColors] = useState({
-    stayer: "",
-    roomHistory: "",
-    userInformation: "",
-    floorMap: "",
-    SimulataneousStay: "",
-  });
-
-  useEffect(() => {
-    if (pathname === "/") {
-      setBgColors({
-        stayer: "bg-red-400",
-        roomHistory: "",
-        userInformation: "",
-        floorMap: "",
-        SimulataneousStay: "",
-      });
-    } else if (pathname === "/roomHistory") {
-      setBgColors({
-        stayer: "",
-        roomHistory: "bg-red-400",
-        userInformation: "",
-        floorMap: "",
-        SimulataneousStay: "",
-      });
-    } else if (pathname === "/userInformation") {
-      setBgColors({
-        stayer: "",
-        roomHistory: "",
-        userInformation: "bg-red-400",
-        floorMap: "",
-        SimulataneousStay: "",
-      });
-    } else if (pathname === "/floorMap") {
-      setBgColors({
-        stayer: "",
-        roomHistory: "",
-        userInformation: "",
-        floorMap: "bg-red-400",
-        SimulataneousStay: "",
-      });
-    } else if (pathname === "/simulataneousStay") {
-      setBgColors({
-        stayer: "",
-        roomHistory: "",
-        userInformation: "",
-        floorMap: "",
-        SimulataneousStay: "bg-red-400",
-      });
-    }
-  }, [pathname]);
+  const bgColors = useBgColor();
 
   //デスクトップ
   if (width > 853) {
