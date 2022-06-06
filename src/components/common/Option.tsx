@@ -1,11 +1,13 @@
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
+import { useRouter } from "next/router";
 
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useState } from "react";
 import { Confirmation } from "./Confirmation";
 
 export default function Option() {
   const [showModal, setShowModal] = useState(false);
+  const router = useRouter();
 
   const remove = () => {
     setShowModal(false);
@@ -52,6 +54,7 @@ export default function Option() {
                     className={`${
                       active ? "bg-violet-500 text-white" : "text-gray-900"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    onClick={() => router.push("/admin")}
                   >
                     管理者
                   </button>

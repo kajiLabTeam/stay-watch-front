@@ -9,9 +9,15 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function TabItem() {
+type Props = {
+  id: string;
+};
+
+export default function TabItem(props: Props) {
+  console.log(props.id);
+
   const { data, error } = useSWR<SimulataneousStayLog[]>(
-    `${baseURL}/room/v1/list/simultaneous/2`
+    `${baseURL}/room/v1/list/simultaneous/${props.id}`
   );
   if (data !== null) {
     // データがまだない場合は読み込み中のUIを表示する
