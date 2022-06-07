@@ -1,5 +1,7 @@
+// import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+// import { baseURL } from "@/utils/api";
 
 type Item = {
   stayer: string;
@@ -66,3 +68,12 @@ export const useBgColor = (): Item => {
 
   return bgColors;
 };
+
+// const attendanceRegister = (callback: () => void) => {
+//   axios
+//     .post(`${baseURL}/user/v1/attendance`, {
+//       meetingID: meetingID,
+//     })
+//     .then(() => window.alert("成功しました"))
+//     .catch(() => window.alert("エラーが発生しました"));
+// };
