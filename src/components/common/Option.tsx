@@ -1,7 +1,7 @@
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useState } from "react";
 import { Confirmation } from "./Confirmation";
 
 export default function Option() {
@@ -18,7 +18,7 @@ export default function Option() {
           <Menu.Button className="inline-flex justify-center py-2 px-4 w-full text-sm font-medium text-white bg-black bg-opacity-20 hover:bg-opacity-30 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
             Menu
             <ChevronDownIcon
-              className="-mr-1 ml-2 w-5 h-5 text-violet-200 hover:text-violet-100"
+              className="mr-1 ml-2 w-5 h-5 text-violet-200 hover:text-violet-100"
               aria-hidden="true"
             />
           </Menu.Button>
