@@ -62,7 +62,7 @@ const Admin = () => {
 
   return (
     <div>
-      <div className="flex flex-col  justify-start items-center mx-auto mt-10 w-1/2  bg-blue-100">
+      <div className="flex flex-col justify-start items-center mx-auto mt-10 w-1/2  bg-blue-100">
         <Select
           classNames={{
             label: "md:text-2xl",
@@ -81,13 +81,13 @@ const Admin = () => {
             }
           }}
         />
-        <div className="flex flex-col  mt-6 w-72">
+        {/* <div className="flex flex-col  mt-6 w-72 ">
           {SimultaneousStayUser.map((data, index) => {
             console.log(data);
             return (
               <div key={index} className=" ">
                 {data.date}
-                <div className="flex gap-2">
+                <div className="flex gap-2 ">
                   {data.names.map((name) => (
                     <div key={name.id}>{name.name}</div>
                   ))}
@@ -95,7 +95,7 @@ const Admin = () => {
               </div>
             );
           })}
-        </div>
+        </div> */}
         <button
           className="py-1 px-2 mt-8 font-bold text-white bg-blue-500 hover:bg-blue-400 rounded md:py-2 md:px-4"
           onClick={outPutJson}
