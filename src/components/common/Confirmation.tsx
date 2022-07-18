@@ -8,7 +8,7 @@ type Props = {
 };
 
 export const Confirmation = (props: Props) => {
-  const [meetingID, setMeetingID] = useState("");
+  const [meetingID, setMeetingID] = useState(0);
 
   console.log(meetingID);
 
@@ -31,7 +31,7 @@ export const Confirmation = (props: Props) => {
               <select
                 className="mt-6  text-black rounded-md border-4"
                 onChange={(event) => {
-                  setMeetingID(event.target.value);
+                  setMeetingID(Number(event.target.value));
                 }}
               >
                 <option hidden>選択してください</option>

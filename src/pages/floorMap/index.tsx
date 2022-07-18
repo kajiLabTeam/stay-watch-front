@@ -2,7 +2,6 @@ import axios from "axios";
 import Image from "next/image";
 import { useRef, useEffect, useState } from "react";
 import { SizeMe } from "react-sizeme";
-import Layout from "@/components/common/Layout";
 import PopoverTop from "@/components/roomHistory/PopoverTop";
 import RoomInformation from "@/models/roomInformation";
 import RoomStatus from "@/models/roomStatus";
