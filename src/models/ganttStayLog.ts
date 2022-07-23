@@ -1,4 +1,4 @@
-type SimulataneousStayLog = {
+type GanttStayLog = {
   id: number;
   date: string;
   rooms: Room[];
@@ -25,4 +25,4 @@ export type ChartData = {
   end: number;
 };
 
-export default SimulataneousStayLog;
+export default GanttStayLog;

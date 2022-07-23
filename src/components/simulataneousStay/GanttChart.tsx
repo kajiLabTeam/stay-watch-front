@@ -1,7 +1,7 @@
 import * as am4charts from "@amcharts/amcharts4/charts";
 import * as am4core from "@amcharts/amcharts4/core";
 import { useLayoutEffect, useRef } from "react";
-import { ChartData, StayTime } from "@/models/simulataneousStayLog";
+import { ChartData, StayTime } from "@/models/ganttStayLog";
 
 //propsの型定義
 type Props = {
@@ -48,6 +48,7 @@ const GanttChart = (props: Props) => {
       // 試しに色々変えてみるとどこが変わるのかわかりやすい
       categoryAxis.renderer.grid.template.location = 0;
       categoryAxis.renderer.inversed = true;
+      categoryAxis.renderer.minGridDistance = 10;
 
       const series = chart.series.push(new am4charts.ColumnSeries());
       // ガントチャートのx軸は幅を指定するので2つを指定する
@@ -60,10 +61,20 @@ const GanttChart = (props: Props) => {
       // // {}内でプロパティ名を書くと対応した値が利用される
       // // 改行を入れたいときは改行文字を入れる
       series.columns.template.tooltipText =
-        "category: {category} \n 入室: {openDateX} \n 退室: {dateX}";
+        "入室: {openDateX} \n 退室: {dateX}";
       // カーソルを当てたときにtooltipがカーソルに付いて動くようにする
       // fixedかpointerの二択でどう違うかは試してみるといい
       series.columns.template.tooltipPosition = "pointer";
+
+      // let cellSize = 150;
+      // chart.events.on("datavalidated", function (ev) {
+      //   let chart = ev.target;
+      //   let categoryAxis = chart.yAxes.getIndex(0);
+      //   let adjustHeight =
+      //     chart.data.length * cellSize - categoryAxis.pixelHeight;
+      //   let targetHeight = chart.pixelHeight + adjustHeight;
+      //   chart.svgContainer.htmlElement.style.height = targetHeight + "px";
+      // });
 
       // const scrollbar = new am4charts.XYChartScrollbar();
       // chart.scrollbarX = scrollbar;

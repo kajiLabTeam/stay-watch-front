@@ -1,7 +1,7 @@
 import { Tab } from "@headlessui/react";
 import useSWR from "swr";
 import TabRoom from "@/components/simulataneousStay/TabRoom";
-import SimulataneousStayLog from "@/models/simulataneousStayLog";
+import GanttStayLog from "@/models/ganttStayLog";
 import { baseURL } from "@/utils/api";
 
 // @ts-ignore
@@ -13,10 +13,10 @@ type Props = {
   id: string;
 };
 
-export default function TabItem(props: Props) {
+export default function TabDate(props: Props) {
   console.log(props.id);
 
-  const { data, error } = useSWR<SimulataneousStayLog[]>(
+  const { data, error } = useSWR<GanttStayLog[]>(
     `${baseURL}/room/v1/list/simultaneous/${props.id}`
   );
   if (data !== null) {
