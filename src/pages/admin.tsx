@@ -1,7 +1,8 @@
 import { Select } from "@mantine/core";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
-import TabItem from "@/components/simulataneousStay/TabItem";
+
+import TabDate from "@/components/simulataneousStay/TabDate";
 import User from "@/models/user";
 import { baseURL } from "@/utils/api";
 
@@ -103,7 +104,7 @@ const Admin = () => {
           JSON出力
         </button>
       </div>
-      <TabItem id={userID} />
+      <TabDate id={userID} />
     </div>
   );
 };
