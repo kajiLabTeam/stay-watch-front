@@ -9,10 +9,10 @@ const UserInformation = () => {
   if (!users) return <div>loading...</div>;
 
   return (
-    <div className="table-fixed">
+    <div>
       <div className="mt-6 text-2xl md:text-3xl">利用者一覧</div>
       <div className="my-4 border" />
-      <table className="w-full text-xl table-auto">
+      <table className="w-full text-xl table-fixed sm:text-base md:text-2xl">
         <thead>
           <tr className="text-left text-white bg-gray-700">
             <th className="py-2 px-4 w-1/2 border">Name</th>

@@ -1,6 +1,6 @@
 import { login } from "@/utils/Auth";
 
-const Login = () => {
+export const LoginButton = () => {
   return (
     <div>
       <button
@@ -12,5 +12,3 @@ const Login = () => {
     </div>
   );
 };
-
-export default Login;

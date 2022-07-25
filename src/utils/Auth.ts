@@ -11,7 +11,7 @@ import { app } from "@/utils/firebase";
 
 type UserState = firebase.User | null;
 
-const userState = atom<UserState>({
+export const userState = atom<UserState>({
   key: "userState",
   default: null,
   dangerouslyAllowMutability: true,

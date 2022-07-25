@@ -7,7 +7,7 @@ const Stayer = () => {
   const { data, error } = useSWR<Stayer[]>(`${baseURL}/room/v1/stayer`); // (1)
   if (error)
     return (
-      <div className="table-fixed">
+      <div>
         <div className="mt-6 text-4xl">滞在者一覧</div>
         <div className="my-4 border" />
       </div>
@@ -15,10 +15,10 @@ const Stayer = () => {
   if (!data) return <div>loading...</div>;
 
   return (
-    <div className="table-fixed">
+    <div>
       <div className="mt-6 text-2xl md:text-3xl">滞在者一覧</div>
       <div className="my-4 border" />
-      <table className="w-full text-xs table-auto sm:text-base md:text-2xl">
+      <table className="w-full text-xs table-fixed sm:text-base md:text-2xl">
         <thead>
           <tr className="text-left text-white bg-gray-700">
             <th className="py-2 pl-4 w-1/5 border md:w-1/5">Name</th>

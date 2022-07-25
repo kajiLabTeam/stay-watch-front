@@ -1,9 +1,8 @@
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
-
 import { Fragment, useState } from "react";
-import { Confirmation } from "./Confirmation";
+import { Confirmation } from "@/components/common/Confirmation";
 
 export default function Option() {
   const [showModal, setShowModal] = useState(false);
