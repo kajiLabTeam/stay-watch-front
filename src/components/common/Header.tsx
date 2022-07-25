@@ -1,12 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRecoilValue } from "recoil";
 import { useWindowSize } from "usehooks-ts";
-import Login from "./Login";
-import { useBgColor } from "./commonhook";
+import { LoginButton } from "@/components/common/LoginButton";
+import { Profile } from "@/components/common/Profile";
+import { useBgColor } from "@/components/common/commonhook";
+import userState from "@/utils/Auth";
 
 const Header = () => {
   const { width, height } = useWindowSize();
   const bgColors = useBgColor();
+  const user = useRecoilValue(userState);
+  console.log(user);
 
   //デスクトップ
   if (width > 853) {
@@ -27,7 +32,6 @@ const Header = () => {
                 在室履歴
               </a>
             </Link>
-
             <Link href="/userInformation">
               <a
                 href=""
@@ -42,10 +46,8 @@ const Header = () => {
               </a>
             </Link>
           </div>
-          <div>
-            {/* <Option /> */}
-            <Login />
-          </div>
+          {user == null ? <LoginButton /> : <Profile />}
+          {/* <Option /> */}
         </div>
       </div>
     );
