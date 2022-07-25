@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useWindowSize } from "usehooks-ts";
-import Option from "./Option";
+import Login from "./Login";
 import { useBgColor } from "./commonhook";
 
 const Header = () => {
@@ -41,14 +41,10 @@ const Header = () => {
                 滞在者マップ
               </a>
             </Link>
-            {/* <Link href="/simulataneousStay">
-            <a className={`py-2 rounded-md ${bgColors.SimulataneousStay}`}>
-              同時滞在ログ
-            </a>
-          </Link> */}
           </div>
           <div>
-            <Option />
+            {/* <Option /> */}
+            <Login />
           </div>
         </div>
       </div>
