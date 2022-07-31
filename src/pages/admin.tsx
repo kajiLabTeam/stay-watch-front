@@ -63,7 +63,7 @@ const Admin = () => {
 
   return (
     <div>
-      <div className="flex flex-col justify-start items-center mx-auto mt-10 w-1/2  bg-blue-100">
+      <div className="mx-auto mt-10 flex w-1/2 flex-col items-center justify-start  bg-blue-100">
         <Select
           classNames={{
             label: "md:text-2xl",
@@ -98,7 +98,7 @@ const Admin = () => {
           })}
         </div> */}
         <button
-          className="py-1 px-2 mt-8 font-bold text-white bg-blue-500 hover:bg-blue-400 rounded md:py-2 md:px-4"
+          className="mt-8 rounded bg-blue-500 py-1 px-2 font-bold text-white hover:bg-blue-400 md:py-2 md:px-4"
           onClick={outPutJson}
         >
           JSON出力

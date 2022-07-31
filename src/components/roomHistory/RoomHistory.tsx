@@ -45,28 +45,28 @@ const RoomHistory = () => {
         //退出してない場合
         return (
           <tr className="text-left" key={log.id}>
-            <td className="py-2 border md:px-4 ">
+            <td className="border py-2 md:px-4 ">
               {log.startAt.substring(0, 10)}
             </td>
-            <td className="py-2 px-4 border">{log.name}</td>
-            <td className="py-2 px-4 border">
+            <td className="border py-2 px-4">{log.name}</td>
+            <td className="border py-2 px-4">
               {log.startAt.substring(10, log.startAt.length - 3)} ~
             </td>
-            <td className="py-2 px-4 border">{log.room}</td>
+            <td className="border py-2 px-4">{log.room}</td>
           </tr>
         );
       } else {
         return (
           <tr className="text-left" key={log.id}>
-            <td className="py-2 border md:px-4">
+            <td className="border py-2 md:px-4">
               {log.startAt.substring(0, 10)}
             </td>
-            <td className="py-2 px-4 border">{log.name}</td>
-            <td className="py-2 px-4 border">
+            <td className="border py-2 px-4">{log.name}</td>
+            <td className="border py-2 px-4">
               {log.startAt.substring(10, log.startAt.length - 3)} ~
               {log.endAt.substring(10, log.endAt.length - 3)}
             </td>
-            <td className="py-2 px-4 border">{log.room}</td>
+            <td className="border py-2 px-4">{log.room}</td>
           </tr>
         );
       }
@@ -75,7 +75,7 @@ const RoomHistory = () => {
 
   return (
     <div>
-      <div className="flex justify-between mt-6 text-2xl md:text-3xl">
+      <div className="mt-6 flex justify-between text-2xl md:text-3xl">
         <div>滞在者履歴</div>
         <div>
           <button
@@ -104,18 +104,18 @@ const RoomHistory = () => {
       ) : (
         <div>
           <div className="my-4 border" />
-          <table className="w-full text-xs table-fixed sm:text-base md:text-2xl">
+          <table className="w-full table-fixed text-xs sm:text-base md:text-2xl">
             <thead>
-              <tr className="text-left text-white bg-gray-700">
-                <th className="py-2 px-4 w-1/5  border">Date</th>
-                <th className=" px-4  border">Name</th>
-                <th className=" px-4 border">Period</th>
-                <th className=" px-4 border">Room</th>
+              <tr className="bg-gray-700 text-left text-white">
+                <th className="w-1/5 border py-2  px-4">Date</th>
+                <th className=" border  px-4">Name</th>
+                <th className=" border px-4">Period</th>
+                <th className=" border px-4">Room</th>
               </tr>
             </thead>
             <tbody className="">{Period()}</tbody>
           </table>
-          <div className="flex justify-between px-8 mt-2 w-full h-10 text-white md:mt-4 ">
+          <div className="mt-2 flex h-10 w-full justify-between px-8 text-white md:mt-4 ">
             {prevButton()}
             {nextButton()}
           </div>

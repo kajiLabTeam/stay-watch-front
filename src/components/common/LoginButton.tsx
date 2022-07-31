@@ -4,7 +4,7 @@ export const LoginButton = () => {
   return (
     <div>
       <button
-        className="p-1 bg-slate-500 rounded-md hover:opacity-90"
+        className="rounded-md bg-slate-500 p-1 hover:opacity-90"
         onClick={login}
       >
         Log in

@@ -8,7 +8,7 @@ type Props = {
 export const PaginationButton: FC<Props> = (props) => {
   return (
     <button
-      className="py-1 px-2 font-bold text-white bg-blue-500 hover:bg-blue-400 rounded md:py-2 md:px-4 "
+      className="rounded bg-blue-500 py-1 px-2 font-bold text-white hover:bg-blue-400 md:py-2 md:px-4 "
       onClick={props.onClick}
     >
       {props.name}
