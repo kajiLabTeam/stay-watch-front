@@ -16,19 +16,18 @@ export const Profile = () => {
   };
   return (
     <>
-      <Menu
-        control={
+      <Menu position="bottom-end">
+        <Menu.Target>
           <button>
             <Avatar src={user?.photoURL} radius="xl" />
           </button>
-        }
-        position="bottom"
-      >
-        {/* Menu items */}
-        <Menu.Label>happy663</Menu.Label>
-        <Menu.Item>管理者ページ</Menu.Item>
-        <Menu.Item>出欠登録</Menu.Item>
-        <Menu.Item>ログアウト</Menu.Item>
+        </Menu.Target>
+        <Menu.Dropdown className="text-sm">
+          <Menu.Label>happy663</Menu.Label>
+          <Menu.Item>管理者ページ</Menu.Item>
+          <Menu.Item>出欠登録</Menu.Item>
+          <Menu.Item>ログアウト</Menu.Item>
+        </Menu.Dropdown>
       </Menu>
       {showModal && <Confirmation remove={remove} />}
     </>

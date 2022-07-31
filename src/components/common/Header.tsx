@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRecoilValue } from "recoil";
 import { useWindowSize } from "usehooks-ts";
-import { LoginButton } from "@/components/common/LoginButton";
 import { Profile } from "@/components/common/Profile";
 import { useBgColor } from "@/components/common/commonhook";
 import userState from "@/utils/Auth";
@@ -17,7 +16,7 @@ const Header = () => {
   if (width > 853) {
     return (
       <div>
-        <div className="flex justify-around items-center h-20  text-xs text-white bg-blue-400 md:text-lg lg:text-2xl">
+        <div className="flex  justify-around items-center  h-20 text-xs text-white bg-blue-400 md:text-lg lg:text-2xl">
           <div className="flex gap-8 items-center h-full ">
             <Link href="/">
               <a className="text-base font-bold md:text-xl lg:text-3xl">
@@ -46,7 +45,8 @@ const Header = () => {
               </a>
             </Link>
           </div>
-          {user == null ? <LoginButton /> : <Profile />}
+          <Profile />
+          {/* {user == null ? <LoginButton /> : <Profile />} */}
           {/* <Option /> */}
         </div>
       </div>
