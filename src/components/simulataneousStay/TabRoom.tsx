@@ -3,7 +3,6 @@ import { Tab } from "@headlessui/react";
 import dynamic from "next/dynamic";
 import { Room } from "@/models/ganttStayLog";
 
-
 const GanttChart = dynamic(() => import("./GanttChart"), {
   ssr: false,
 });
@@ -19,9 +18,9 @@ type Props = {
 
 const TabRoom = (props: Props) => {
   return (
-    <div className="max-w-md  pt-8 sm:px-0">
+    <div className="pt-8  max-w-md sm:px-0">
       <Tab.Group>
-        <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
+        <Tab.List className="flex p-1 space-x-1 bg-blue-900/20 rounded-xl">
           {props.rooms.map((room) => {
             return (
               <Tab

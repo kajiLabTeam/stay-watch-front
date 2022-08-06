@@ -10,14 +10,13 @@ const Header = () => {
   const { width, height } = useWindowSize();
   const bgColors = useBgColor();
   const user = useRecoilValue(userState);
-  console.log(user);
 
   //デスクトップ
   if (width > 853) {
     return (
       <div>
-        <div className="flex  h-20 items-center  justify-around bg-blue-400 text-xs text-white md:text-lg lg:text-2xl">
-          <div className="flex h-full items-center gap-8 ">
+        <div className="flex  justify-around items-center  h-20 text-xs text-white bg-blue-400 md:text-lg lg:text-2xl">
+          <div className="flex gap-8 items-center h-full ">
             <Link href="/">
               <a className="text-base font-bold md:text-xl lg:text-3xl">
                 New! Stay Watch
@@ -55,16 +54,16 @@ const Header = () => {
   } else {
     return (
       <div>
-        <div className="bg-blue-400 py-2 text-center text-3xl font-bold text-white">
+        <div className="py-2 text-3xl font-bold text-center text-white bg-blue-400">
           <Link href="/">
             <a> New! Stay Watch</a>
           </Link>
         </div>
         <div className="fixed bottom-0 w-full">
-          <div className="flex h-16 items-center justify-evenly bg-blue-400 text-white">
+          <div className="flex justify-evenly items-center h-16 text-white bg-blue-400">
             <Link href="/">
               <a>
-                <div className="flex flex-col items-center gap-1">
+                <div className="flex flex-col gap-1 items-center">
                   <Image
                     src="/homeWhite.png"
                     alt="stayer"
@@ -77,7 +76,7 @@ const Header = () => {
             </Link>
             <Link href="/roomHistory">
               <a>
-                <div className="flex flex-col items-center gap-1">
+                <div className="flex flex-col gap-1 items-center">
                   <Image
                     src="/historyWhite.png"
                     alt="history"
@@ -90,7 +89,7 @@ const Header = () => {
             </Link>
             <Link href="/userInformation">
               <a>
-                <div className="flex flex-col items-center gap-1">
+                <div className="flex flex-col gap-1 items-center">
                   <Image
                     src="/userInfoWhite.png"
                     alt="userInfo"
@@ -103,7 +102,7 @@ const Header = () => {
             </Link>
             <Link href="/floorMap">
               <a>
-                <div className="flex flex-col items-center gap-1">
+                <div className="flex flex-col gap-1 items-center">
                   <Image src="/mapWhite.png" alt="map" width={20} height={20} />
                   <div>滞在者マップ</div>
                 </div>

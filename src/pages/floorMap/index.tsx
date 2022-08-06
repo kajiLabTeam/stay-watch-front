@@ -41,21 +41,15 @@ const FloorMapIndex = () => {
           });
         }
         setRoomsStatus(roomsStatusArray);
-        console.log(roomsStatusArray);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
 
     axios
       .get("/room.json")
       .then((res) => {
-        console.log(res.data);
         setRoomInformation(res.data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   }, []);
 
   return (

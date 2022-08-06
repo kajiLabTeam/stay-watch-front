@@ -9,8 +9,6 @@ export const Profile = () => {
   const user = useRecoilValue(userState);
   const [showModal, setShowModal] = useState(false);
 
-  console.log(showModal);
-
   const remove = () => {
     setShowModal(false);
   };

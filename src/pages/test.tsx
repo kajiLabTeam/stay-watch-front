@@ -1,11 +1,27 @@
-import RoomTabDate from "@/components/roomHistory/RoomTabDate";
+const fetcher = (url: string, token: string) =>
+  fetch(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((res) => res.json());
 
-const test = () => {
-  return (
-    <div>
-      <RoomTabDate />
-    </div>
-  );
+const Test = () => {
+  // const { data, error } = useSWR(
+  //   [
+  //     `${baseURL}/user/v1/check`,
+  //     useUser()
+  //       ?.getIdToken()
+  //       .then((token) => {
+  //
+  //         return token;
+  //       }),
+  //   ],
+  //   fetcher
+  // );
+
+  //
+
+  return <div />;
 };
 
-export default test;
+export default Test;

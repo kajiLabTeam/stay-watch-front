@@ -14,22 +14,19 @@ type Props = {
 };
 
 export default function TabDate(props: Props) {
-  console.log(props.id);
-
   const { data, error } = useSWR<GanttStayLog[]>(
     `${baseURL}/room/v1/list/simultaneous/${props.id}`
   );
   if (data !== null) {
     // データがまだない場合は読み込み中のUIを表示する
-    console.log(data);
   }
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;
 
   return (
-    <div className="max-w-md  pt-8 sm:px-0">
+    <div className="pt-8  max-w-md sm:px-0">
       <Tab.Group>
-        <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
+        <Tab.List className="flex p-1 space-x-1 bg-blue-900/20 rounded-xl">
           {data.map((item) => {
             return (
               <Tab

@@ -10,7 +10,6 @@ type Props = {
 export const Confirmation = (props: Props) => {
   const [meetingID, setMeetingID] = useState(0);
 
-  console.log(meetingID);
 
   const register = async () => {
     props.remove();
@@ -25,11 +24,11 @@ export const Confirmation = (props: Props) => {
   return (
     <>
       <>
-        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none">
+        <div className="flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 justify-center items-center outline-none focus:outline-none">
           <div className="relative my-6 mx-auto w-auto max-w-3xl">
-            <div className="flex h-44 w-[500px] flex-col items-center justify-start gap-4 rounded-lg border-0 bg-white shadow-lg outline-none focus:outline-none">
+            <div className="flex flex-col gap-4 justify-start items-center w-[500px] h-44 bg-white rounded-lg border-0 outline-none focus:outline-none shadow-lg">
               <select
-                className="mt-6  rounded-md border-4 text-black"
+                className="mt-6  text-black rounded-md border-4"
                 onChange={(event) => {
                   setMeetingID(Number(event.target.value));
                 }}
@@ -39,16 +38,16 @@ export const Confirmation = (props: Props) => {
                 <option value="2">全体</option>
               </select>
 
-              <div className="ml-4 flex w-[250px] justify-start  gap-8 ">
+              <div className="flex gap-8 justify-start ml-4  w-[250px] ">
                 <button
-                  className="rounded-md bg-slate-500 py-2 text-white "
+                  className="py-2 text-white bg-slate-500 rounded-md "
                   onClick={props.remove}
                 >
                   キャンセル
                 </button>
                 {meetingID! && (
                   <button
-                    className="rounded-md  bg-blue-500 py-2 px-4 text-white"
+                    className="py-2  px-4 text-white bg-blue-500 rounded-md"
                     onClick={register}
                   >
                     登録

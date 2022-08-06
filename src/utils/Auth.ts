@@ -20,7 +20,6 @@ export const userState = atom<UserState>({
 export default userState;
 
 export const login = (): Promise<void> => {
-  console.log("login");
   const provider = new GoogleAuthProvider();
   const auth = getAuth(app);
   return signInWithRedirect(auth, provider);
@@ -38,7 +37,6 @@ export const useAuth = (): boolean => {
   useEffect(() => {
     const auth = getAuth(app);
     return onAuthStateChanged(auth, (user) => {
-      console.log("user", user);
       if (user) {
         setUser(user);
         setIsLoading(false);

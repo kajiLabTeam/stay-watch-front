@@ -8,7 +8,7 @@ import RoomHistory from "@/components/roomHistory/RoomHistory";
 //   const res = await fetch(API_URL);
 //   const data = await res.json();
 
-//   console.log("SSR");
+//
 
 //   return {
 //     props: {
