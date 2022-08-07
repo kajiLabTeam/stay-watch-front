@@ -1,6 +1,6 @@
 import useSWR from "swr";
-import User from "../../models/user";
-import { baseURL } from "../../utils/api";
+import { User } from "@/models/user";
+import { baseURL } from "@/utils/api";
 
 const UserInformation = () => {
   const { data: users, error } = useSWR<User[]>(`${baseURL}/user/v1/list`);
