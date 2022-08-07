@@ -1,4 +1,4 @@
-type User = {
+export type User = {
   id: number;
   name: string;
   tags: [
@@ -9,4 +9,8 @@ type User = {
   ];
 };
 
-export default User;
+export type UserDetail = User & {
+  uuid: string;
+  email: string;
+  role: number;
+};
