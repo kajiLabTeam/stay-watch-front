@@ -30,7 +30,7 @@ const PopoverTop = (props: Props) => {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <Popover.Panel className="left-1/5 absolute z-10 mt-3 w-screen max-w-sm -translate-y-40 px-4 sm:px-0">
+              <Popover.Panel className="absolute mt-3 w-screen max-w-sm -translate-y-40 px-4 sm:px-0">
                 <div className="bg-white shadow-lg">
                   <div>{props.roomName}</div>
                   <div className="relative grid  gap-2 bg-white p-7 lg:grid-cols-4 ">

@@ -24,9 +24,9 @@ export default function TabDate(props: Props) {
   if (!data) return <div>loading...</div>;
 
   return (
-    <div className="pt-8  max-w-md sm:px-0">
+    <div className="max-w-md  pt-8 sm:px-0">
       <Tab.Group>
-        <Tab.List className="flex p-1 space-x-1 bg-blue-900/20 rounded-xl">
+        <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
           {data.map((item) => {
             return (
               <Tab

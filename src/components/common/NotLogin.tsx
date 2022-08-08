@@ -3,9 +3,9 @@ import { login } from "@/utils/Auth";
 
 const NotLogin = () => {
   return (
-    <div className="flex items-center w-full h-screen ">
+    <div className="flex h-screen w-full items-center ">
       <button
-        className="flex items-center p-4 mx-auto mb-14 text-4xl text-white bg-slate-500 rounded-md hover:opacity-90"
+        className="mx-auto mb-14 flex items-center rounded-md bg-slate-500 p-4 text-4xl text-white hover:opacity-90"
         onClick={login}
       >
         <FaSignInAlt className="mr-2" />
