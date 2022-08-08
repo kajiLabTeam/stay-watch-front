@@ -1,12 +1,13 @@
 import { Avatar } from "@mantine/core";
 import { Menu } from "@mantine/core";
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
 import { Confirmation } from "@/components/common/Confirmation";
-import userState from "@/utils/Auth";
+import { useUser, useUserRole } from "@/utils/Auth";
 
 export const Profile = () => {
-  const user = useRecoilValue(userState);
+  const user = useUser();
+  const userRole = useUserRole();
+
   const [showModal, setShowModal] = useState(false);
 
   const remove = () => {
@@ -22,7 +23,10 @@ export const Profile = () => {
         </Menu.Target>
         <Menu.Dropdown className="text-sm">
           <Menu.Label>happy663</Menu.Label>
-          <Menu.Item>管理者ページ</Menu.Item>
+          {/* 偶数の場合はその研究室の管理者 */}
+          {userRole != null && userRole % 2 === 0 && (
+            <Menu.Item>管理者ページ</Menu.Item>
+          )}
           <Menu.Item>出欠登録</Menu.Item>
           <Menu.Item>ログアウト</Menu.Item>
         </Menu.Dropdown>
