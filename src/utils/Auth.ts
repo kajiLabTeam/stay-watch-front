@@ -7,24 +7,11 @@ import firebase, {
   onAuthStateChanged,
 } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { atom, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { baseURL } from "./api";
+import { userState } from "@/globalStates/atoms/firebaseUserAtom";
+import { userRole } from "@/globalStates/atoms/userRoleAtom";
 import { app } from "@/utils/firebase";
-
-type UserState = firebase.User | null;
-
-export const userState = atom<UserState>({
-  key: "userState",
-  default: null,
-  dangerouslyAllowMutability: true,
-});
-export default userState;
-
-export const userRole = atom<number | null>({
-  key: "userRole",
-  default: null,
-  dangerouslyAllowMutability: true,
-});
 
 export const login = (): Promise<void> => {
   const provider = new GoogleAuthProvider();
@@ -37,24 +24,7 @@ export const logout = (): Promise<void> => {
   return signOut(auth);
 };
 
-export const useAuth = (): boolean => {
-  const [isLoading, setIsLoading] = useState(true);
-  const setUser = useSetRecoilState(userState);
-
-  useEffect(() => {
-    const auth = getAuth(app);
-    return onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-        setIsLoading(false);
-      }
-    });
-  }, [setUser]);
-
-  return isLoading;
-};
-
-export const useUser = (): UserState => {
+export const useUser = (): firebase.User | null => {
   return useRecoilValue(userState);
 };
 
@@ -62,8 +32,29 @@ export const useUserRole = (): number | null => {
   return useRecoilValue(userRole);
 };
 
-export const useAuthEmail = (): boolean => {
-  const [isRegisteredEmail, setIsRegisteredEmail] = useState(false);
+export const useIsSigned = (): boolean | undefined => {
+  const [isSigned, setIsSigned] = useState<boolean | undefined>();
+  const setUser = useSetRecoilState(userState);
+
+  useEffect(() => {
+    const auth = getAuth(app);
+    return onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+        setIsSigned(true);
+      } else {
+        setIsSigned(false);
+      }
+    });
+  }, [setUser]);
+
+  return isSigned;
+};
+
+export const useIsRegisterEmail = (): boolean | undefined => {
+  const [isRegisteredEmail, setIsRegisteredEmail] = useState<
+    boolean | undefined
+  >();
   const setUserRole = useSetRecoilState(userRole);
   const user = useUser();
 
@@ -89,7 +80,7 @@ export const useAuthEmail = (): boolean => {
 
       checkRegisterdEmail();
     }
-  }, [user]);
+  }, [setUserRole, user]);
 
   return isRegisteredEmail;
 };
