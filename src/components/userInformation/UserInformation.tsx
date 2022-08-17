@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { User } from "@/models/user";
+import { User } from "@/types/user";
 import { baseURL } from "@/utils/api";
 
 const UserInformation = () => {

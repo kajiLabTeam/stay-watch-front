@@ -2,7 +2,7 @@ import { Select } from "@mantine/core";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 import TabDate from "@/components/simulataneousStay/TabDate";
-import User from "@/models/user";
+import { User } from "@/types/user";
 import { baseURL } from "@/utils/api";
 
 type selectUser = {
@@ -19,7 +19,7 @@ type Name = {
   id: number;
 };
 
-const Admin = () => {
+const SimulataneousStay = () => {
   const { data: users, error } = useSWR<User[]>(`${baseURL}/user/v1/list`);
   const [selectUsers, setSelectUsers] = useState<selectUser[]>([]);
   const [SimultaneousStayUser, setSimultaneousStayUser] = useState<
@@ -81,7 +81,6 @@ const Admin = () => {
         />
         {/* <div className="flex flex-col  mt-6 w-72 ">
           {SimultaneousStayUser.map((data, index) => {
-            
             return (
               <div key={index} className=" ">
                 {data.date}
@@ -106,4 +105,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default SimulataneousStay;

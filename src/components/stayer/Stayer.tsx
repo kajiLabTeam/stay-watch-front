@@ -1,6 +1,6 @@
 import useSWR from "swr";
 //baseURLのimport
-import Stayer from "@/models/stayer";
+import Stayer from "@/types/stayer";
 import { baseURL } from "@/utils/api";
 
 const Stayer = () => {

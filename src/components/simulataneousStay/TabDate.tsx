@@ -1,7 +1,7 @@
 import { Tab } from "@headlessui/react";
 import useSWR from "swr";
 import TabRoom from "@/components/simulataneousStay/TabRoom";
-import GanttStayLog from "@/models/ganttStayLog";
+import GanttStayLog from "@/types/ganttStayLog";
 import { baseURL } from "@/utils/api";
 
 // @ts-ignore

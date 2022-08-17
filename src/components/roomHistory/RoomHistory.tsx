@@ -4,7 +4,7 @@ import useSWR from "swr";
 import { PaginationButton } from "./PaginationButton";
 import RoomTabDate from "./RoomTabDate";
 import { useCurrentPage } from "./roomHistoryhook";
-import Log from "@/models/log";
+import Log from "@/types/log";
 import { baseURL } from "@/utils/api";
 
 const RoomHistory = () => {

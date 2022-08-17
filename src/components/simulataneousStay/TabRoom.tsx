@@ -1,7 +1,7 @@
 import { Tab } from "@headlessui/react";
 // import GanttChart from "@/components/simulataneousStay/GanttChart";
 import dynamic from "next/dynamic";
-import { Room } from "@/models/ganttStayLog";
+import { Room } from "@/types/ganttStayLog";
 
 const GanttChart = dynamic(() => import("./GanttChart"), {
   ssr: false,

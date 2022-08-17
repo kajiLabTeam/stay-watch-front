@@ -3,8 +3,8 @@ import Image from "next/image";
 import { useRef, useEffect, useState } from "react";
 import { SizeMe } from "react-sizeme";
 import PopoverTop from "@/components/roomHistory/PopoverTop";
-import RoomInformation from "@/models/roomInformation";
-import RoomStatus from "@/models/roomStatus";
+import RoomInformation from "@/types/roomInformation";
+import RoomStatus from "@/types/roomStatus";
 import { baseURL } from "@/utils/api";
 
 const fetcher = async (url: string) => {
