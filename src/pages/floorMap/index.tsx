@@ -81,7 +81,7 @@ const FloorMapIndex = () => {
                           (roomInformation[roomStatus.roomID - 1] != undefined
                             ? roomInformation[roomStatus.roomID - 1].top
                             : 0),
-                        fontSize: size.width / 80,
+                        fontSize: size.width / 65,
                       }}
                     >
                       <PopoverTop
