@@ -2,10 +2,10 @@ import type { AppProps } from "next/app";
 import "tailwindcss/tailwind.css";
 import { RecoilRoot } from "recoil";
 import { SWRConfig } from "swr";
-import Layout from "@/components/common/Layout";
-import "../styles/globals.css";
 import NotLogin from "@/components/common/NotLogin";
-import { useAuth, useAuthEmail } from "@/utils/Auth";
+import Layout from "@/components/layout/Layout";
+import "../styles/globals.css";
+import { useIsRegisterEmail, useIsSigned } from "@/utils/Auth";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -14,15 +14,16 @@ type Props = {
 };
 
 const AuthToken = ({ children }: Props): JSX.Element => {
-  const isLoading = useAuth();
-  return isLoading ? <NotLogin /> : children;
+  const isSigned = useIsSigned();
+  return isSigned === undefined ? <></> : isSigned ? children : <NotLogin />;
 };
 
 const AuhtEmail = ({ children }: Props): JSX.Element => {
-  const isRegisteredEmail = useAuthEmail();
-  console.log(isRegisteredEmail);
+  const isRegisteredEmail = useIsRegisterEmail();
 
-  return isRegisteredEmail ? (
+  return isRegisteredEmail === undefined ? (
+    <></>
+  ) : isRegisteredEmail ? (
     children
   ) : (
     <div>管理者にメールアドレスを登録してもらう必要があります</div>
