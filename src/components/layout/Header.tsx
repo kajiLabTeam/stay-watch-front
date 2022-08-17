@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useWindowSize } from "usehooks-ts";
-import { Profile } from "@/components/common/Profile";
 import { useBgColor } from "@/components/common/commonhook";
+import { Profile } from "@/components/layout/Profile";
 
 const Header = () => {
   const { width, height } = useWindowSize();
@@ -42,8 +42,6 @@ const Header = () => {
             </Link>
           </div>
           <Profile />
-          {/* {user == null ? <LoginButton /> : <Profile />} */}
-          {/* <Option /> */}
         </div>
       </div>
     );

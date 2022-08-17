@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { useState } from "react";
 import useSWR from "swr";
-import { PaginationButton } from "./PaginationButton";
+
+import { ActionButton } from "../common/ActionButton";
 import RoomTabDate from "./RoomTabDate";
 import { useCurrentPage } from "./roomHistoryhook";
 import Log from "@/types/log";
@@ -28,13 +29,13 @@ const RoomHistory = () => {
     if (logs.slice(-1)[0]?.id == 1) {
       return <div />;
     }
-    return <PaginationButton name="次へ" onClick={NextPage} />;
+    return <ActionButton name="次へ" onClick={NextPage} />;
   };
 
   const prevButton = () => {
     //pageが1より大きい時にボタンを表示
     if (page > 1) {
-      return <PaginationButton name="前へ" onClick={PreviousPage} />;
+      return <ActionButton name="前へ" onClick={PreviousPage} />;
     }
     return <div />;
   };

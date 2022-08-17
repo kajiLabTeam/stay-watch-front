@@ -1,5 +1,6 @@
 import { Avatar } from "@mantine/core";
 import { Menu } from "@mantine/core";
+import { NextLink } from "@mantine/next";
 import { useState } from "react";
 import { Confirmation } from "@/components/common/Confirmation";
 import { useUser, useUserRole } from "@/utils/Auth";
@@ -25,7 +26,9 @@ export const Profile = () => {
           <Menu.Label>happy663</Menu.Label>
           {/* 偶数の場合はその研究室の管理者 */}
           {userRole != null && userRole % 2 === 0 && (
-            <Menu.Item>管理者ページ</Menu.Item>
+            <Menu.Item component={NextLink} href="/admin">
+              管理者ページ
+            </Menu.Item>
           )}
           <Menu.Item>出欠登録</Menu.Item>
           <Menu.Item>ログアウト</Menu.Item>
