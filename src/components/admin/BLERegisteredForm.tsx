@@ -4,7 +4,7 @@ import { useSelectUsers } from "@/components/admin/selectUsersHook";
 import { Button } from "@/components/common/Button";
 import { useUserRole } from "@/utils/Auth";
 
-export const RegisteredForm = () => {
+export const BLERegisteredForm = () => {
   const selectUsers = useSelectUsers();
   const userRole = useUserRole();
 

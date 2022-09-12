@@ -1,6 +1,7 @@
 import { Tabs } from "@mantine/core";
-import { RegisteredForm } from "@/components/admin/RegisteredForm";
-import { UnRegisteredForm } from "@/components/admin/UnRegisteredForm";
+
+import { BLERegisteredForm } from "@/components/admin/BleRegisteredForm";
+import { BleUnRegisteredForm } from "@/components/admin/BleUnRegisteredForm";
 import { useUserRole } from "@/utils/Auth";
 
 export const Admin = () => {
@@ -27,11 +28,12 @@ export const Admin = () => {
                 BLEビーコン未登録
               </Tabs.Tab>
             </Tabs.List>
+
             <Tabs.Panel value="gallery" pt="xs">
-              <RegisteredForm />
+              <BLERegisteredForm />
             </Tabs.Panel>
             <Tabs.Panel value="messages" pt="xs">
-              <UnRegisteredForm />
+              <BleUnRegisteredForm />
             </Tabs.Panel>
           </Tabs>
         </div>
