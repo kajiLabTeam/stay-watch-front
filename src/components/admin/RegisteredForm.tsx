@@ -2,19 +2,32 @@ import { Select, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useSelectUsers } from "@/components/admin/selectUsersHook";
 import { Button } from "@/components/common/Button";
+import { useUserRole } from "@/utils/Auth";
+
 export const RegisteredForm = () => {
   const selectUsers = useSelectUsers();
+  const userRole = useUserRole();
+
   const form = useForm({
     initialValues: {
-      email: "",
-      userID: "",
-      termsOfService: false,
+      targetID: "",
+      targetEmail: "",
+      taretName: "",
+      targetRole: 1,
+      userRole: userRole,
     },
     validate: {
-      email: (value) => (/^\S+@gmail\S+$/.test(value) ? null : "Invalid email"),
-      userID: (value) => (value ? null : "Invalid user"),
+      targetEmail: (value) =>
+        /^\S+@gmail\S+$/.test(value) ? null : "Invalid email",
+      targetID: (value) => (value ? null : "Invalid user"),
+      targetRole: (value) => (value ? null : "Invalid user"),
     },
   });
+
+  if (userRole == null) {
+    return <div />;
+  }
+
   return (
     <form
       className=" flex flex-col gap-6 p-10"
@@ -22,9 +35,9 @@ export const RegisteredForm = () => {
     >
       <TextInput
         placeholder="your@gmail.com"
-        label="登録するGmailアドレス"
+        label="Gmailアドレス"
         required
-        {...form.getInputProps("email")}
+        {...form.getInputProps("targetEmail")}
       />
       <Select
         classNames={{
@@ -32,13 +45,35 @@ export const RegisteredForm = () => {
           input: "w-full",
         }}
         label="ユーザ選択"
+        required
         placeholder="ユーザを選択"
         searchable
         nothingFound="No options"
         data={selectUsers}
-        {...form.getInputProps("userID")}
+        {...form.getInputProps("targetID")}
       />
-      <Button>登録する</Button>
+      <Select
+        classNames={{
+          label: "md:text-md",
+          input: "w-full",
+        }}
+        label="ユーザロール"
+        placeholder="ユーザロール"
+        required
+        searchable
+        nothingFound="No options"
+        data={[
+          { label: "一般ユーザ", value: userRole - 1 },
+          {
+            label: "研究室管理者",
+            value: userRole,
+          },
+        ]}
+        {...form.getInputProps("targetRole")}
+      />
+      <div className=" mx-auto bg-red-300">
+        <Button>登録する</Button>
+      </div>
     </form>
   );
 };
