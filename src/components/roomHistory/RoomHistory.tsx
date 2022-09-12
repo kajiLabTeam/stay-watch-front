@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useState } from "react";
 import useSWR from "swr";
 
-import { ActionButton } from "../common/ActionButton";
+import { Button } from "../common/Button";
 import RoomTabDate from "./RoomTabDate";
 import { useCurrentPage } from "./roomHistoryhook";
 import Log from "@/types/log";
@@ -29,13 +29,13 @@ const RoomHistory = () => {
     if (logs.slice(-1)[0]?.id == 1) {
       return <div />;
     }
-    return <ActionButton name="次へ" onClick={NextPage} />;
+    return <Button onClick={NextPage}>次へ</Button>;
   };
 
   const prevButton = () => {
     //pageが1より大きい時にボタンを表示
     if (page > 1) {
-      return <ActionButton name="前へ" onClick={PreviousPage} />;
+      return <Button onClick={PreviousPage}>前へ</Button>;
     }
     return <div />;
   };
