@@ -9,8 +9,4 @@ export type User = {
   ];
 };
 
-export type UserDetail = User & {
-  uuid: string;
-  email: string;
-  role: number;
-};
+
