@@ -1,5 +1,6 @@
 import { Tabs } from "@mantine/core";
-import { EmailForm } from "./EmilForm";
+import { RegisteredForm } from "@/components/admin/RegisteredForm";
+import { UnRegisteredForm } from "@/components/admin/UnRegisteredForm";
 
 export const Admin = () => {
   return (
@@ -20,10 +21,10 @@ export const Admin = () => {
               </Tabs.Tab>
             </Tabs.List>
             <Tabs.Panel value="gallery" pt="xs">
-              Gallery tab content
+              <RegisteredForm />
             </Tabs.Panel>
             <Tabs.Panel value="messages" pt="xs">
-              <EmailForm />
+              <UnRegisteredForm />
             </Tabs.Panel>
           </Tabs>
         </div>
