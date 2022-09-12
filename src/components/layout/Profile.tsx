@@ -8,12 +8,12 @@ import { useUser, useUserRole } from "@/utils/Auth";
 export const Profile = () => {
   const user = useUser();
   const userRole = useUserRole();
-
   const [showModal, setShowModal] = useState(false);
 
   const remove = () => {
     setShowModal(false);
   };
+
   return (
     <>
       <Menu position="bottom-end">
