@@ -1,8 +1,15 @@
 import { Tabs } from "@mantine/core";
 import { RegisteredForm } from "@/components/admin/RegisteredForm";
 import { UnRegisteredForm } from "@/components/admin/UnRegisteredForm";
+import { useUserRole } from "@/utils/Auth";
 
 export const Admin = () => {
+  const userRole = useUserRole();
+
+  if (userRole == null || userRole % 2 !== 0) {
+    return <div>管理者権限がありません</div>;
+  }
+
   return (
     <div className=" flex h-screen justify-center">
       <div className="w-1/2 ">
