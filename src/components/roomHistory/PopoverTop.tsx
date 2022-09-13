@@ -17,7 +17,7 @@ const PopoverTop = (props: Props) => {
             <Popover.Button
               className={`
                 ${open ? "" : "text-opacity-90"}
-                text-red-400 group rounded-md inline-flex items-center  hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
+                group inline-flex items-center rounded-md text-red-400  hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white `}
             >
               <span>{props.userCount}人</span>
             </Popover.Button>
@@ -30,10 +30,10 @@ const PopoverTop = (props: Props) => {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <Popover.Panel className="absolute z-10 px-4 mt-3 w-screen max-w-sm -translate-y-40 sm:px-0 left-1/5">
+              <Popover.Panel className="absolute mt-3 w-screen max-w-sm -translate-y-40 px-4 sm:px-0">
                 <div className="bg-white shadow-lg">
                   <div>{props.roomName}</div>
-                  <div className="grid relative  gap-2 p-7 bg-white lg:grid-cols-4 ">
+                  <div className="relative grid  gap-2 bg-white p-7 lg:grid-cols-4 ">
                     {props.usersName.map((item, index) => (
                       <div className="ml-4" key={index}>
                         <p className="text-sm font-medium text-gray-900">

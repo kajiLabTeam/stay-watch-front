@@ -1,8 +1,8 @@
 import { Select } from "@mantine/core";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
-import TabItem from "@/components/simulataneousStay/TabItem";
-import User from "@/models/user";
+import TabDate from "@/components/simulataneousStay/TabDate";
+import { User } from "@/types/user";
 import { baseURL } from "@/utils/api";
 
 type selectUser = {
@@ -19,7 +19,7 @@ type Name = {
   id: number;
 };
 
-const Admin = () => {
+const SimulataneousStay = () => {
   const { data: users, error } = useSWR<User[]>(`${baseURL}/user/v1/list`);
   const [selectUsers, setSelectUsers] = useState<selectUser[]>([]);
   const [SimultaneousStayUser, setSimultaneousStayUser] = useState<
@@ -48,7 +48,6 @@ const Admin = () => {
     const data = await fetch(`${baseURL}/user/v1/list/simultaneous/${userId}`);
     setSimultaneousStayUser(await data.json());
   };
-  console.log(SimultaneousStayUser);
 
   const outPutJson = () => {
     const json = JSON.stringify(SimultaneousStayUser);
@@ -62,7 +61,7 @@ const Admin = () => {
 
   return (
     <div>
-      <div className="flex flex-col justify-start items-center mx-auto mt-10 w-1/2  bg-blue-100">
+      <div className="mx-auto mt-10 flex w-1/2 flex-col items-center justify-start  bg-blue-100">
         <Select
           classNames={{
             label: "md:text-2xl",
@@ -74,7 +73,6 @@ const Admin = () => {
           nothingFound="No options"
           data={selectUsers}
           onChange={(e) => {
-            console.log(e);
             if (e !== null) {
               getSimultaneousUserList(e);
               setUserID(e);
@@ -83,7 +81,6 @@ const Admin = () => {
         />
         {/* <div className="flex flex-col  mt-6 w-72 ">
           {SimultaneousStayUser.map((data, index) => {
-            console.log(data);
             return (
               <div key={index} className=" ">
                 {data.date}
@@ -97,15 +94,15 @@ const Admin = () => {
           })}
         </div> */}
         <button
-          className="py-1 px-2 mt-8 font-bold text-white bg-blue-500 hover:bg-blue-400 rounded md:py-2 md:px-4"
+          className="mt-8 rounded bg-blue-500 py-1 px-2 font-bold text-white hover:bg-blue-400 md:py-2 md:px-4"
           onClick={outPutJson}
         >
           JSON出力
         </button>
       </div>
-      <TabItem id={userID} />
+      <TabDate id={userID} />
     </div>
   );
 };
 
-export default Admin;
+export default SimulataneousStay;

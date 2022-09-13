@@ -1,30 +1,32 @@
 import { Tab } from "@headlessui/react";
-// import GanttChart from "@/components/simulataneousStay/GanttChart";
-import dynamic from "next/dynamic";
-import { Room } from "@/types/ganttStayLog";
-
-const GanttChart = dynamic(() => import("./GanttChart"), {
-  ssr: false,
-});
+import useSWR from "swr";
+import TabRoom from "@/components/simulataneousStay/TabRoom";
+import GanttStayLog from "@/types/ganttStayLog";
+import { baseURL } from "@/utils/api";
 
 // @ts-ignore
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-type Props = {
-  rooms: Room[];
-};
+export default function RoomTabDate() {
+  const { data, error } = useSWR<GanttStayLog[]>(
+    `${baseURL}/room/v1/log/gantt`
+  );
+  if (data !== null) {
+    // データがまだない場合は読み込み中のUIを表示する
+  }
+  if (error) return <div>failed to load</div>;
+  if (!data) return <div>loading...</div>;
 
-const TabRoom = (props: Props) => {
   return (
     <div className="max-w-md  pt-8 sm:px-0">
       <Tab.Group>
         <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
-          {props.rooms.map((room) => {
+          {data.map((item) => {
             return (
               <Tab
-                key={room.id}
+                key={item.id}
                 className={({ selected }) =>
                   classNames(
                     "w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700",
@@ -35,21 +37,19 @@ const TabRoom = (props: Props) => {
                   )
                 }
               >
-                {room.name}
+                {item.date}
               </Tab>
             );
           })}
         </Tab.List>
         <Tab.Panels className=" w-[1240px] ">
-          {props.rooms.map((room) => (
-            <Tab.Panel key={room.id}>
-              <GanttChart stayTimes={room.stayTimes} />
+          {data.map((item) => (
+            <Tab.Panel key={item.id}>
+              <TabRoom rooms={item.rooms} key={item.id} />
             </Tab.Panel>
           ))}
         </Tab.Panels>
       </Tab.Group>
     </div>
   );
-};
-
-export default TabRoom;
+}

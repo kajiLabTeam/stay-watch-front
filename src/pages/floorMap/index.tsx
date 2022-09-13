@@ -3,8 +3,8 @@ import Image from "next/image";
 import { useRef, useEffect, useState } from "react";
 import { SizeMe } from "react-sizeme";
 import PopoverTop from "@/components/roomHistory/PopoverTop";
-import RoomInformation from "@/models/roomInformation";
-import RoomStatus from "@/models/roomStatus";
+import RoomInformation from "@/types/roomInformation";
+import RoomStatus from "@/types/roomStatus";
 import { baseURL } from "@/utils/api";
 
 const fetcher = async (url: string) => {
@@ -41,21 +41,15 @@ const FloorMapIndex = () => {
           });
         }
         setRoomsStatus(roomsStatusArray);
-        console.log(roomsStatusArray);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
 
     axios
       .get("/room.json")
       .then((res) => {
-        console.log(res.data);
         setRoomInformation(res.data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   }, []);
 
   return (
@@ -87,7 +81,7 @@ const FloorMapIndex = () => {
                           (roomInformation[roomStatus.roomID - 1] != undefined
                             ? roomInformation[roomStatus.roomID - 1].top
                             : 0),
-                        fontSize: size.width / 80,
+                        fontSize: size.width / 65,
                       }}
                     >
                       <PopoverTop
