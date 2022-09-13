@@ -4,7 +4,7 @@ import { User } from "@/types/user";
 import { baseURL } from "@/utils/api";
 
 type selectUser = {
-  value: string;
+  value: number;
   label: string;
 };
 
@@ -17,7 +17,7 @@ export const useSelectUsers = () => {
       const userList: selectUser[] = users.map((user) => {
         return {
           label: user.name,
-          value: `${user.id}`,
+          value: user.id,
         };
       });
       setSelectUsers([...userList]);
