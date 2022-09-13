@@ -1,8 +1,10 @@
 import { Select, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import axios from "axios";
 import { useSelectUsers } from "@/components/admin/selectUsersHook";
 import { Button } from "@/components/common/Button";
 import { useUserRole } from "@/utils/Auth";
+import { baseURL } from "@/utils/api";
 
 export const BLERegisteredForm = () => {
   const selectUsers = useSelectUsers();
@@ -10,17 +12,15 @@ export const BLERegisteredForm = () => {
 
   const form = useForm({
     initialValues: {
-      targetID: "",
-      targetEmail: "",
-      taretName: "",
-      targetRole: 1,
-      userRole: userRole,
+      id: 0,
+      email: "",
+      name: "",
+      role: 1,
     },
     validate: {
-      targetEmail: (value) =>
-        /^\S+@gmail\S+$/.test(value) ? null : "Invalid email",
-      targetID: (value) => (value ? null : "Invalid user"),
-      targetRole: (value) => (value ? null : "Invalid user"),
+      email: (value) => (/^\S+@gmail\S+$/.test(value) ? null : "Invalid email"),
+      id: (value) => (value ? null : "Invalid user"),
+      role: (value) => (value ? null : "Invalid user"),
     },
   });
 
@@ -31,14 +31,18 @@ export const BLERegisteredForm = () => {
   return (
     <form
       className=" flex flex-col gap-6 p-10"
-      onSubmit={form.onSubmit((values) => console.log(values))}
+      onSubmit={form.onSubmit((values) =>
+        axios
+          .post(`${baseURL}/user/v1/registration`, values)
+          .then((res) => {
+            window.alert("成功しました");
+          })
+          .catch((err) => {
+            window.alert("失敗しました");
+            console.error(err);
+          })
+      )}
     >
-      <TextInput
-        placeholder="your@gmail.com"
-        label="Gmailアドレス"
-        required
-        {...form.getInputProps("targetEmail")}
-      />
       <Select
         classNames={{
           label: "md:text-md",
@@ -50,7 +54,13 @@ export const BLERegisteredForm = () => {
         searchable
         nothingFound="No options"
         data={selectUsers}
-        {...form.getInputProps("targetID")}
+        {...form.getInputProps("id")}
+      />
+      <TextInput
+        placeholder="your@gmail.com"
+        label="Gmailアドレス"
+        required
+        {...form.getInputProps("email")}
       />
       <Select
         classNames={{
@@ -69,8 +79,9 @@ export const BLERegisteredForm = () => {
             value: userRole,
           },
         ]}
-        {...form.getInputProps("targetRole")}
+        {...form.getInputProps("role")}
       />
+
       <div className=" mx-auto bg-red-300">
         <Button>登録する</Button>
       </div>
