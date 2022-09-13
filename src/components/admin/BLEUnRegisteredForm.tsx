@@ -6,7 +6,7 @@ import { Button } from "@/components/common/Button";
 import { useUserRole } from "@/utils/Auth";
 import { baseURL } from "@/utils/api";
 
-export const BleUnRegisteredForm = () => {
+export const BLEUnRegisteredForm = () => {
   const selectUsers = useSelectUsers();
   const userRole = useUserRole();
 
