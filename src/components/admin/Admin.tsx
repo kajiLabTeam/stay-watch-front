@@ -13,7 +13,7 @@ export const Admin = () => {
 
   return (
     <div className=" flex h-screen justify-center">
-      <div className="w-1/2 ">
+      <div className="w-7/12 ">
         <div className="my-2 text-center text-3xl font-bold">
           メンバーの招待
         </div>
