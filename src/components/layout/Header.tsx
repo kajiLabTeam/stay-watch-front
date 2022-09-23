@@ -11,7 +11,7 @@ const Header = () => {
   //デスクトップ
   if (width > 853) {
     return (
-      <div>
+      <header>
         <div className="flex  h-20 items-center  justify-around bg-blue-400 text-xs text-white md:text-lg lg:text-2xl">
           <div className="flex h-full items-center gap-8 ">
             <Link href="/">
@@ -43,17 +43,17 @@ const Header = () => {
           </div>
           <Profile />
         </div>
-      </div>
+      </header>
     );
     //モバイル
   } else {
     return (
       <div>
-        <div className="bg-blue-400 py-2 text-center text-3xl font-bold text-white">
+        <header className="bg-blue-400 py-2 text-center text-3xl font-bold text-white">
           <Link href="/">
             <a> New! Stay Watch</a>
           </Link>
-        </div>
+        </header>
         <div className="fixed bottom-0 w-full">
           <div className="flex h-16 items-center justify-evenly bg-blue-400 text-white">
             <Link href="/">
