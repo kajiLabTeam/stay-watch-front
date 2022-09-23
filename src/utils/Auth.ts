@@ -55,6 +55,7 @@ export const useIsRegisterEmail = (): boolean | undefined => {
   const [isRegisteredEmail, setIsRegisteredEmail] = useState<
     boolean | undefined
   >();
+  const [statusCode, setStatusCode] = useState<number | undefined>();
   const setUserRole = useSetRecoilState(userRole);
   const user = useUser();
 
@@ -73,11 +74,15 @@ export const useIsRegisterEmail = (): boolean | undefined => {
           );
           setIsRegisteredEmail(true);
           setUserRole(resRole.data);
+          setStatusCode(resRole.status);
         } catch (error) {
+          if (axios.isAxiosError(error) && error.response) {
+            console.log(error.message); //Axiosの例外オブジェクトとして扱える
+            setStatusCode(error.response?.status);
+          }
           setIsRegisteredEmail(false);
         }
       };
-
       checkRegisterdEmail();
     }
   }, [setUserRole, user]);
