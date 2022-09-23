@@ -3,7 +3,7 @@ import { Menu } from "@mantine/core";
 import { NextLink } from "@mantine/next";
 import { useState } from "react";
 import { Confirmation } from "@/components/common/Confirmation";
-import { useUser, useUserRole } from "@/utils/Auth";
+import { logout, useUser, useUserRole } from "@/utils/Auth";
 
 export const Profile = () => {
   const user = useUser();
@@ -31,7 +31,13 @@ export const Profile = () => {
             </Menu.Item>
           )}
           <Menu.Item>出欠登録</Menu.Item>
-          <Menu.Item>ログアウト</Menu.Item>
+          <Menu.Item
+            onClick={() => {
+              logout();
+            }}
+          >
+            ログアウト
+          </Menu.Item>
         </Menu.Dropdown>
       </Menu>
       {showModal && <Confirmation remove={remove} />}
