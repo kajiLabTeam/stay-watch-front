@@ -2,9 +2,9 @@ import Image from "next/image";
 import { useState } from "react";
 import useSWR from "swr";
 
+import { useCurrentPage } from "../../hooks/roomHistoryhook";
 import { Button } from "../common/Button";
 import RoomTabDate from "./RoomTabDate";
-import { useCurrentPage } from "./roomHistoryhook";
 import Log from "@/types/log";
 import { baseURL } from "@/utils/api";
 

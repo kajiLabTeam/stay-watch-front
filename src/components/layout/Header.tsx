@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useWindowSize } from "usehooks-ts";
-import { useBgColor } from "@/components/common/commonhook";
 import { Profile } from "@/components/layout/Profile";
+import { useBgColor } from "@/hooks/commonhook";
 
 const Header = () => {
   const { width, height } = useWindowSize();

@@ -23,7 +23,7 @@ export const Profile = () => {
           </button>
         </Menu.Target>
         <Menu.Dropdown className="text-sm">
-          <Menu.Label>happy663</Menu.Label>
+          <Menu.Label>{user?.displayName}</Menu.Label>
           {/* 偶数の場合はその研究室の管理者 */}
           {userRole != null && userRole % 2 === 0 && (
             <Menu.Item component={NextLink} href="/admin">

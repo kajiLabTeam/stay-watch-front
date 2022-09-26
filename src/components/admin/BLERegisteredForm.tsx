@@ -1,8 +1,8 @@
 import { Select, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import axios from "axios";
-import { useSelectUsers } from "@/components/admin/selectUsersHook";
 import { Button } from "@/components/common/Button";
+import { useSelectUsers } from "@/hooks/selectUsersHook";
 import { useUserRole } from "@/utils/Auth";
 import { baseURL } from "@/utils/api";
 
