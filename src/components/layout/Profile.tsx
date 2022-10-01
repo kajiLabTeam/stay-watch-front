@@ -3,6 +3,7 @@ import { Menu } from "@mantine/core";
 import { NextLink } from "@mantine/next";
 import { useState } from "react";
 import { Confirmation } from "@/components/common/Confirmation";
+import { pagesPath } from "@/utils/$path";
 import { logout, useUser, useUserRole } from "@/utils/Auth";
 
 export const Profile = () => {
@@ -26,7 +27,7 @@ export const Profile = () => {
           <Menu.Label>{user?.displayName}</Menu.Label>
           {/* 偶数の場合はその研究室の管理者 */}
           {userRole != null && userRole % 2 === 0 && (
-            <Menu.Item component={NextLink} href="/admin">
+            <Menu.Item component={NextLink} href={pagesPath.admin.$url()}>
               管理者ページ
             </Menu.Item>
           )}

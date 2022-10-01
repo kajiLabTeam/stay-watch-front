@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useWindowSize } from "usehooks-ts";
 import { Profile } from "@/components/layout/Profile";
 import { useBgColor } from "@/hooks/commonhook";
+import { pagesPath } from "@/utils/$path";
 
 const Header = () => {
   const { width, height } = useWindowSize();
@@ -50,7 +51,7 @@ const Header = () => {
     return (
       <div>
         <header className="bg-blue-400 py-2 text-center text-3xl font-bold text-white">
-          <Link href="/">
+          <Link href={pagesPath.$url()}>
             <a> New! Stay Watch</a>
           </Link>
         </header>
@@ -69,7 +70,7 @@ const Header = () => {
                 </div>
               </a>
             </Link>
-            <Link href="/roomHistory">
+            <Link href={pagesPath.roomHistory.$url()}>
               <a>
                 <div className="flex flex-col items-center gap-1">
                   <Image
@@ -82,7 +83,7 @@ const Header = () => {
                 </div>
               </a>
             </Link>
-            <Link href="/userInformation">
+            <Link href={pagesPath.userInformation.$url()}>
               <a>
                 <div className="flex flex-col items-center gap-1">
                   <Image
@@ -95,7 +96,7 @@ const Header = () => {
                 </div>
               </a>
             </Link>
-            <Link href="/floorMap">
+            <Link href={pagesPath.floorMap.$url()}>
               <a>
                 <div className="flex flex-col items-center gap-1">
                   <Image src="/mapWhite.png" alt="map" width={20} height={20} />
