@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useWindowSize } from "usehooks-ts";
-import { useBgColor } from "@/components/common/commonhook";
 import { Profile } from "@/components/layout/Profile";
+import { useBgColor } from "@/hooks/commonhook";
+import { pagesPath } from "@/utils/$path";
 
 const Header = () => {
   const { width, height } = useWindowSize();
@@ -13,29 +14,26 @@ const Header = () => {
     return (
       <header>
         <div className="flex  h-20 items-center  justify-around bg-blue-400 text-xs text-white md:text-lg lg:text-2xl">
-          <div className="flex h-full items-center gap-8 ">
-            <Link href="/">
+          <div className="flex h-full items-center gap-8">
+            <Link href={pagesPath.$url()}>
               <a className="text-base font-bold md:text-xl lg:text-3xl">
                 New! Stay Watch
               </a>
             </Link>
-            <Link href="/">
-              <a className={`rounded-md py-2 ${bgColors.stayer}`}>在室者</a>
+            <Link href={pagesPath.$url()}>
+              <a className={`rounded-md py-2  ${bgColors.stayer}`}>在室者</a>
             </Link>
-            <Link href="/roomHistory">
+            <Link href={pagesPath.roomHistory.$url()}>
               <a className={`rounded-md py-2 ${bgColors.roomHistory} `}>
                 在室履歴
               </a>
             </Link>
-            <Link href="/userInformation">
-              <a
-                href=""
-                className={`rounded-md py-2 ${bgColors.userInformation}`}
-              >
+            <Link href={pagesPath.userInformation.$url()}>
+              <a className={`rounded-md py-2 ${bgColors.userInformation}`}>
                 利用者情報
               </a>
             </Link>
-            <Link href="/floorMap">
+            <Link href={pagesPath.floorMap.$url()}>
               <a className={`rounded-md py-2 ${bgColors.floorMap}`}>
                 滞在者マップ
               </a>
@@ -50,7 +48,7 @@ const Header = () => {
     return (
       <div>
         <header className="bg-blue-400 py-2 text-center text-3xl font-bold text-white">
-          <Link href="/">
+          <Link href={pagesPath.$url()}>
             <a> New! Stay Watch</a>
           </Link>
         </header>
@@ -69,7 +67,7 @@ const Header = () => {
                 </div>
               </a>
             </Link>
-            <Link href="/roomHistory">
+            <Link href={pagesPath.roomHistory.$url()}>
               <a>
                 <div className="flex flex-col items-center gap-1">
                   <Image
@@ -82,7 +80,7 @@ const Header = () => {
                 </div>
               </a>
             </Link>
-            <Link href="/userInformation">
+            <Link href={pagesPath.userInformation.$url()}>
               <a>
                 <div className="flex flex-col items-center gap-1">
                   <Image
@@ -95,7 +93,7 @@ const Header = () => {
                 </div>
               </a>
             </Link>
-            <Link href="/floorMap">
+            <Link href={pagesPath.floorMap.$url()}>
               <a>
                 <div className="flex flex-col items-center gap-1">
                   <Image src="/mapWhite.png" alt="map" width={20} height={20} />

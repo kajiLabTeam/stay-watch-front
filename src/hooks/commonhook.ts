@@ -1,6 +1,7 @@
 // import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { pagesPath } from "@/utils/$path";
 // import { baseURL } from "@/utils/api";
 
 type Item = {
@@ -23,7 +24,7 @@ export const useBgColor = (): Item => {
   });
 
   useEffect(() => {
-    if (pathname === "/") {
+    if (pathname === pagesPath.$url().pathname) {
       setBgColors({
         stayer: "bg-red-400",
         roomHistory: "",
@@ -31,7 +32,7 @@ export const useBgColor = (): Item => {
         floorMap: "",
         SimulataneousStay: "",
       });
-    } else if (pathname === "/roomHistory") {
+    } else if (pathname === pagesPath.roomHistory.$url().pathname) {
       setBgColors({
         stayer: "",
         roomHistory: "bg-red-400",
@@ -39,7 +40,7 @@ export const useBgColor = (): Item => {
         floorMap: "",
         SimulataneousStay: "",
       });
-    } else if (pathname === "/userInformation") {
+    } else if (pathname === pagesPath.userInformation.$url().pathname) {
       setBgColors({
         stayer: "",
         roomHistory: "",
@@ -47,7 +48,7 @@ export const useBgColor = (): Item => {
         floorMap: "",
         SimulataneousStay: "",
       });
-    } else if (pathname === "/floorMap") {
+    } else if (pathname === pagesPath.floorMap.$url().pathname) {
       setBgColors({
         stayer: "",
         roomHistory: "",
@@ -55,7 +56,7 @@ export const useBgColor = (): Item => {
         floorMap: "bg-red-400",
         SimulataneousStay: "",
       });
-    } else if (pathname === "/simulataneousStay") {
+    } else if (pathname === pagesPath.floorMap.$url().pathname) {
       setBgColors({
         stayer: "",
         roomHistory: "",
