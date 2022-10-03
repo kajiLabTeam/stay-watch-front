@@ -11,6 +11,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { baseURL } from "./api";
 import { userState } from "@/globalStates/atoms/firebaseUserAtom";
 import { userRole } from "@/globalStates/atoms/userRoleAtom";
+import { User } from "@/types/user";
 import { app } from "@/utils/firebase";
 
 export const login = (): Promise<void> => {
@@ -64,7 +65,7 @@ export const useIsRegisterEmail = (): boolean | undefined => {
       const checkRegisterdEmail = async () => {
         try {
           const token = await user.getIdToken();
-          const resRole: AxiosResponse<number> = await axios.get(
+          const resUser: AxiosResponse<User> = await axios.get(
             `${baseURL}/user/v1/check`,
             {
               headers: {
@@ -73,8 +74,9 @@ export const useIsRegisterEmail = (): boolean | undefined => {
             }
           );
           setIsRegisteredEmail(true);
-          setUserRole(resRole.data);
-          setStatusCode(resRole.status);
+
+          setUserRole(resUser.data.role);
+          setStatusCode(resUser.status);
         } catch (error) {
           if (axios.isAxiosError(error) && error.response) {
             console.log(error.message); //Axiosの例外オブジェクトとして扱える

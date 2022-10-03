@@ -1,9 +1,11 @@
 import useSWR from "swr";
-import { User } from "@/types/user";
+import { UserAttribute } from "@/types/user";
 import { baseURL } from "@/utils/api";
 
 const UserInformation = () => {
-  const { data: users, error } = useSWR<User[]>(`${baseURL}/user/v1/list`);
+  const { data: users, error } = useSWR<UserAttribute[]>(
+    `${baseURL}/user/v1/list`
+  );
 
   if (error) return <div>failed to load</div>;
   if (!users) return <div>loading...</div>;
