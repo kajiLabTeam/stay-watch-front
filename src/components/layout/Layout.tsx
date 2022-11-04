@@ -1,7 +1,8 @@
 import { ReactNode } from "react";
 import { useWindowSize } from "usehooks-ts";
-import Head from "@/components/layout/Header";
 import Foot from "@/components/layout/Footer";
+import Head from "@/components/layout/Header";
+
 
 const Layout = ({ children }: { children?: ReactNode }) => {
   const { width, height } = useWindowSize();
