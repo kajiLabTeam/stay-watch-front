@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useWindowSize } from "usehooks-ts";
-import { Profile } from "@/components/layout/Profile";
 import { useBgColor } from "@/hooks/commonhook";
 import { pagesPath } from "@/utils/$path";
 
