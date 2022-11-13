@@ -6,7 +6,9 @@ export type User = {
   role: number;
 };
 
-export type UserAttribute = User & {
+export type UserAttribute = {
+  id: number;
+  name: string;
   tags: [
     {
       id: number;
