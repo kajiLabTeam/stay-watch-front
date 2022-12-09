@@ -1,8 +1,8 @@
 type Stayer = {
   id: number;
-  name: string;  
+  name: string;
   room: string;
-  roomID: number;
+  roomId: number;
   tags: [
     {
       id: number;
