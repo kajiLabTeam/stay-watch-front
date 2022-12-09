@@ -12,13 +12,13 @@ import { baseURL } from "@/utils/api";
 const RoomHistory = () => {
   const { width, height } = useWindowSize();
 
-  const nextButtonStyle = {
+  const nextButtonStyle: React.CSSProperties = {
     position: "fixed",
     right: 30,
     top: height / 2 - 40,
   };
 
-  const prevButtonStyle = {
+  const prevButtonStyle: React.CSSProperties = {
     position: "fixed",
     left: 30,
     top: height / 2 - 40,
