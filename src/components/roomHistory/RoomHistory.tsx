@@ -6,13 +6,11 @@ import { useCurrentPage } from "../../hooks/roomHistoryhook";
 import { Button } from "../common/Button";
 import RoomTabDate from "./RoomTabDate";
 import Log from "@/types/log";
-import { baseURL } from "@/utils/api";
+import { endpoints } from "@/utils/api";
 
 const RoomHistory = () => {
   const [page, PreviousPage, NextPage] = useCurrentPage();
-  const { data: logs, error } = useSWR<Log[]>(
-    `${baseURL}/room/v1/log?page=${page}`
-  );
+  const { data: logs, error } = useSWR<Log[]>(`${endpoints.logs}?page=${page}`);
   const [isGantt, setIsGantt] = useState(false);
 
   if (error)

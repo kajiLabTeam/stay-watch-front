@@ -1,6 +1,4 @@
-import axios from "axios";
 import React, { useState } from "react";
-import { baseURL } from "@/utils/api";
 
 type Props = {
   //関数
@@ -10,15 +8,14 @@ type Props = {
 export const Confirmation = (props: Props) => {
   const [meetingID, setMeetingID] = useState(0);
 
-
   const register = async () => {
     props.remove();
-//     axios
-//       .post(`${baseURL}/user/v1/attendance`, {
-//         meetingID: meetingID,
-//       })
-//       .then(() => window.alert("成功しました"))
-//       .catch(() => window.alert("エラーが発生しました"));
+    //     axios
+    //       .post(`${baseURL}/user/v1/attendance`, {
+    //         meetingID: meetingID,
+    //       })
+    //       .then(() => window.alert("成功しました"))
+    //       .catch(() => window.alert("エラーが発生しました"));
   };
 
   return (

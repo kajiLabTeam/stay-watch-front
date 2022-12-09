@@ -2,7 +2,7 @@ import { Tab } from "@headlessui/react";
 import useSWR from "swr";
 import TabRoom from "@/components/simulataneousStay/TabRoom";
 import GanttStayLog from "@/types/ganttStayLog";
-import { baseURL } from "@/utils/api";
+import { endpoints } from "@/utils/api";
 
 // @ts-ignore
 function classNames(...classes) {
@@ -10,9 +10,7 @@ function classNames(...classes) {
 }
 
 export default function RoomTabDate() {
-  const { data, error } = useSWR<GanttStayLog[]>(
-    `${baseURL}/room/v1/log/gantt`
-  );
+  const { data, error } = useSWR<GanttStayLog[]>(`${endpoints.logsGantt}`);
   if (data !== null) {
     // データがまだない場合は読み込み中のUIを表示する
   }

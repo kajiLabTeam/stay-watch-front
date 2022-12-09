@@ -1,10 +1,10 @@
 import useSWR from "swr";
 //baseURLのimport
 import Stayer from "@/types/stayer";
-import { baseURL } from "@/utils/api";
+import { endpoints } from "@/utils/api";
 
 const Stayer = () => {
-  const { data, error } = useSWR<Stayer[]>(`${baseURL}/room/v1/stayer`); // (1)
+  const { data, error } = useSWR<Stayer[]>(`${endpoints.stayers}`); // (1)
   if (error)
     return (
       <div>

@@ -4,7 +4,7 @@ import axios from "axios";
 import { Button } from "@/components/common/Button";
 import { useSelectUsers } from "@/hooks/selectUsersHook";
 import { useUserRole } from "@/utils/Auth";
-import { baseURL } from "@/utils/api";
+import { endpoints } from "@/utils/api";
 
 export const BLERegisteredForm = () => {
   const selectUsers = useSelectUsers();
@@ -33,7 +33,7 @@ export const BLERegisteredForm = () => {
       className=" flex flex-col gap-6 p-10"
       onSubmit={form.onSubmit((values) =>
         axios
-          .post(`${baseURL}/user/v1/registration`, values)
+          .post(endpoints.users, values)
           .then((res) => {
             window.alert("成功しました");
           })
