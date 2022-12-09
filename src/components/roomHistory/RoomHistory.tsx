@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useState } from "react";
 import useSWR from "swr";
 
+import { useWindowSize } from "../../hooks/getWindowSize";
 import { useCurrentPage } from "../../hooks/roomHistoryhook";
 import { Button } from "../common/Button";
 import RoomTabDate from "./RoomTabDate";
@@ -9,6 +10,20 @@ import Log from "@/types/log";
 import { baseURL } from "@/utils/api";
 
 const RoomHistory = () => {
+  const { width, height } = useWindowSize();
+
+  const nextButtonStyle = {
+    position: "fixed",
+    right: 30,
+    top: height / 2 - 40,
+  };
+
+  const prevButtonStyle = {
+    position: "fixed",
+    left: 30,
+    top: height / 2 - 40,
+  };
+
   const [page, PreviousPage, NextPage] = useCurrentPage();
   const { data: logs, error } = useSWR<Log[]>(
     `${baseURL}/room/v1/log?page=${page}`
@@ -29,13 +44,13 @@ const RoomHistory = () => {
     if (logs.slice(-1)[0]?.id == 1) {
       return <div />;
     }
-    return <Button onClick={NextPage}>次へ</Button>;
+    return <Button onClick={NextPage}>&gt;</Button>;
   };
 
   const prevButton = () => {
     //pageが1より大きい時にボタンを表示
     if (page > 1) {
-      return <Button onClick={PreviousPage}>前へ</Button>;
+      return <Button onClick={PreviousPage}>&lt;</Button>;
     }
     return <div />;
   };
@@ -76,6 +91,8 @@ const RoomHistory = () => {
 
   return (
     <div>
+      <div style={prevButtonStyle}>{prevButton()}</div>
+      <div style={nextButtonStyle}>{nextButton()}</div>
       <div className="mt-6 flex justify-between text-2xl md:text-3xl">
         <div>滞在者履歴</div>
         <div>
@@ -116,10 +133,6 @@ const RoomHistory = () => {
             </thead>
             <tbody className="">{Period()}</tbody>
           </table>
-          <div className="mt-2 flex h-10 w-full justify-between px-8 text-white md:mt-4 ">
-            {prevButton()}
-            {nextButton()}
-          </div>
         </div>
       )}
     </div>
