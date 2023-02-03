@@ -5,7 +5,7 @@ import { SizeMe } from "react-sizeme";
 import PopoverTop from "@/components/roomHistory/PopoverTop";
 import RoomInformation from "@/types/roomInformation";
 import RoomStatus from "@/types/roomStatus";
-import { baseURL } from "@/utils/api";
+import { endpoints } from "@/utils/api";
 
 const fetcher = async (url: string) => {
   const res = await fetch(url);
@@ -22,7 +22,7 @@ const FloorMapIndex = () => {
 
   useEffect(() => {
     axios
-      .get(`${baseURL}/room/v1/stayer`)
+      .get(`${endpoints.stayers}`)
       .then((res) => {
         const roomCount = 5;
         const roomsStatusArray: RoomStatus[] = [];

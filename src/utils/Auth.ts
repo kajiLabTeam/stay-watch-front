@@ -8,7 +8,7 @@ import firebase, {
 } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { baseURL } from "./api";
+import { endpoints } from "./api";
 import { userState } from "@/globalStates/atoms/firebaseUserAtom";
 import { userRole } from "@/globalStates/atoms/userRoleAtom";
 import { User } from "@/types/user";
@@ -66,7 +66,7 @@ export const useIsRegisterEmail = (): boolean | undefined => {
         try {
           const token = await user.getIdToken();
           const resUser: AxiosResponse<User> = await axios.get(
-            `${baseURL}/user/v1/check`,
+            endpoints.check,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
