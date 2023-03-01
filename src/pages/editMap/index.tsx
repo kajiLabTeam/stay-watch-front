@@ -133,12 +133,15 @@ function Canvas() {
     console.log("canvasgetCoorginates x: y:");
    }
 
+
   return (
     <div>
 
       <canvas id="canvas" className="canvas w-full" ref={canvasRef} width={CANVAS_WIDTH} height={CANVAS_HEIGHT}/>
       {/* <canvas id="canvas" className="canvas" ref={canvasRef} width={CANVAS_WIDTH} height={CANVAS_HEIGHT}/> */}
       <h1 id="test">ああああ</h1>
+      
+
     </div>
   );
 }

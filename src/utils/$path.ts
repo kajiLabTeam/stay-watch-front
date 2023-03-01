@@ -14,6 +14,9 @@ export const pagesPath = {
   "simulataneousStay": {
     $url: (url?: { hash?: string }) => ({ pathname: '/simulataneousStay' as const, hash: url?.hash })
   },
+  "submitSampledata": {
+    $url: (url?: { hash?: string }) => ({ pathname: '/submitSampledata' as const, hash: url?.hash })
+  },
   "userInformation": {
     $url: (url?: { hash?: string }) => ({ pathname: '/userInformation' as const, hash: url?.hash })
   },
