@@ -1,8 +1,20 @@
 import { useState } from "react";
 import { RoomEditorForm } from "@/components/editMap/RoomEditorForm";
+import { DBRoom } from "@/types/roomFloormap";
 
 
-export const RegisterdRoom = (props: any) => {
+export const RegisterdRoom = (props:{
+    editingPolygon:number[][],
+    editingRoomId: number,
+    room: DBRoom,
+    setEditingPolygon: React.Dispatch<React.SetStateAction<number[][]>>,
+    setEditingRoomId: React.Dispatch<React.SetStateAction<number>>,
+    setIsEditingRoom: React.Dispatch<React.SetStateAction<boolean>>,
+    storeRoomToDatabase: (roomId: number, newRoomName: string) => void,
+    updateMouseOutRoomColor: (roomID: number) => void,
+    updateMouseOverRoomColor: (roomID: number) => void,
+}) => {
+
   const [buttonText, setButtonText] = useState("編集");
   const handleClick = () => {
     if(buttonText == "編集"){  // 編集画面を開始

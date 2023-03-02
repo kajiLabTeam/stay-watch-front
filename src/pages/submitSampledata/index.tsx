@@ -7,15 +7,15 @@ import { useUserRole } from "@/utils/Auth";
 import { endpoints } from "@/utils/api";
 import "@/hooks/selectUsersHook";
 // eslint-disable-next-line import/order
-import { Room, UpdaterRoom } from "@/types/roomFloormap";
+import { DBRoom, UpdaterRoom } from "@/types/roomFloormap";
 
 
 
 
 export const SubmitRoom = () => {
   const userRole = useUserRole();
-  const { data: rooms, error } = useSWR<Room[]>(`${endpoints.getRoomsByCommunityID}`);
-  const [editingPolygon, setEditingPolygon] = useState([[0,0],[0,0]]);
+  const { data: rooms, error } = useSWR<DBRoom[]>(`${endpoints.getRoomsByCommunityID}`);
+  const [editingPolygon, setEditingPolygon] = useState([[0,0],[1,1]]);
   const [editingRoomId, setEditingRoomId] = useState(0);
   const [isEditingRoom, setIsEditingRoom] = useState(false);
   const [mapssdata, setMap] = useState([

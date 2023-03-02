@@ -1,7 +1,10 @@
 import { useRef, useEffect } from "react";
 import { useUserRole } from "@/utils/Auth";
 
-export const FloorMapCanvas = (props: any) => {
+export const FloorMapCanvas = (props: {
+  buildingID:number
+}) => {
+    
     const canvasRef = useRef(null);
     const userRole = useUserRole();
 

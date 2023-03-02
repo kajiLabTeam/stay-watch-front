@@ -4,7 +4,12 @@ import { FloorMapCanvas } from "@/components/editMap/FloorMapCanvas";
 import { RoomCanvas } from "@/components/editMap/RoomCanvas";
 import { EditorFloorMap } from "@/types/roomFloormap";
 
-export const MapCanvas = (props: any) =>{
+export const MapCanvas = (props: {
+  mapsdata:EditorFloorMap[],
+  editingPolygon:number[][],
+  isEditingRoom:boolean,
+  setEditingPolygon:React.Dispatch<React.SetStateAction<number[][]>>
+}) =>{
 
   return (
     // "relative"でフロアマップ、登録済み部屋達、編集中の部屋、の複数canvasをレイヤーとして重ねている
@@ -27,7 +32,6 @@ export const MapCanvas = (props: any) =>{
         setEditingPolygon = { props.setEditingPolygon }
         editingPolygon = { props.editingPolygon }
         isEditingRoom = {props.isEditingRoom}
-        setIsEditingRoom = {props.setIsEditingRoom}
       />
     </div>
   );

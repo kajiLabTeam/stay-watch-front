@@ -5,7 +5,7 @@ export type RoomFloorMap = {
     polygon: string;
   };
 
-export type Room = {
+export type DBRoom = {
   roomID: number;
   room_name: string;
   community_name: string;
@@ -13,9 +13,17 @@ export type Room = {
   polygon: string;
 } 
 
+export type Room = {
+  roomID: number;
+  room_name: string;
+  community_name: string;
+  building_name: string;
+  polygon: number[][];
+}
+
 export type EditorFloorMap = {
   roomID: number;
-  polygon: string;
+  polygon: number[][];
   color: string;
 }
 

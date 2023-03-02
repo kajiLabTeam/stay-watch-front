@@ -1,24 +1,25 @@
 import { TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { useState } from "react";
 import { Button } from "@/components/common/Button";
+import { DBRoom } from "@/types/roomFloormap";
 import { useUserRole } from "@/utils/Auth";
 
 
+export const RoomEditorForm = (props:{
+  room:DBRoom,
+  storeRoomToDatabase:any,
+  editingPolygon:number[][]
+}) => {
 
-
-export const RoomEditorForm = (props: any) => {
   const userRole = useUserRole();
+  const [roomNameValue, setRoomNameValue] = useState(props.room.room_name);
 
-  const form = useForm({
-    initialValues: {
-      roomName: props.roomName
-    },
-    // validate: {
-    //   email: (value) => (/^\S+@gmail\S+$/.test(value) ? null : "Invalid email"),
-    //   id: (value) => (value ? null : "Invalid user"),
-    //   role: (value) => (value ? null : "Invalid user"),
-    // },
-  });
+  const form = useForm();
+
+  const handleChange = (e:any) => {
+    setRoomNameValue(e.target.value)
+  }
 
   
 
@@ -35,21 +36,18 @@ export const RoomEditorForm = (props: any) => {
           className=" flex flex-col gap-6 p-10"
           onSubmit={
             form.onSubmit((values) => {
-              props.storeRoomToDatabase(props.room.roomID ,values.roomName)
+              props.storeRoomToDatabase(props.room.roomID ,roomNameValue)
             })
           }
         >
-            
           <TextInput
               placeholder="部屋名"
-              defaultValue={props.room.room_name}
-              required
-              {...form.getInputProps("roomName")}
+              value={roomNameValue}
+              onChange={handleChange}
           />
           <div className="mx-auto bg-red-300">
             <Button>保存</Button>
           </div>
-
         </form>
       </div>
     </div>

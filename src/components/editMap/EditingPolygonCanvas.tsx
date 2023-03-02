@@ -1,7 +1,12 @@
 import React, {useEffect, useRef} from 'react';
 import { useUserRole } from "@/utils/Auth";
 
-export const EditingPolygonCanvas = (props:any) => {
+export const EditingPolygonCanvas = (props:{
+    editingPolygon: number[][],
+    isEditingRoom: boolean,
+    setEditingPolygon: React.Dispatch<React.SetStateAction<number[][]>>
+}) => {
+
   const userRole = useUserRole();
   const canvasRef = useRef(null);
 
@@ -30,6 +35,7 @@ export const EditingPolygonCanvas = (props:any) => {
     const ctx: CanvasRenderingContext2D = getContext();
     ctx.clearRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
     ctx.fillStyle="red";
+    // 最初にeditingPolygonの座標でポリゴンを描画
     ctx.fillRect(props.editingPolygon[0][0], props.editingPolygon[0][1], props.editingPolygon[1][0]-props.editingPolygon[0][0], props.editingPolygon[1][1]-props.editingPolygon[0][1]);
     ctx.fillStyle = "red";
 
