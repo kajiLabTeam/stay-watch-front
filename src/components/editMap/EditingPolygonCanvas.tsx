@@ -15,10 +15,6 @@ export const EditingPolygonCanvas = (props:{
   const MOUSE_DRAWING = 1;
   const MOUSE_NOT_DRAWING = 0;
 
-//   console.log("CreatePolygonの出力");
-//   console.log(props);
-//   console.log("CreatePolygonの出力は以上");
-
   const getContext = (): CanvasRenderingContext2D => {
     const Canvas: any = canvasRef.current;
     return Canvas.getContext('2d');
@@ -45,20 +41,20 @@ export const EditingPolygonCanvas = (props:{
 
 
     if(canvas){
-        var startX = 0;
-        var startY= 0;
-        var endX = 0;
-        var endY = 0;
-        var mouseMode = MOUSE_NOT_DRAWING;
-        var elementWidth = canvas.clientWidth;
-        var canvasElementRatio:number = elementWidth / CANVAS_WIDTH; // キャンバスサイズとウィンドウによって変わる要素サイズの比率
+        let startX = 0;
+        let startY= 0;
+        let endX = 0;
+        let endY = 0;
+        let mouseMode = MOUSE_NOT_DRAWING;
+        let elementWidth = canvas.clientWidth;
+        let canvasElementRatio:number = elementWidth / CANVAS_WIDTH; // キャンバスサイズとウィンドウによって変わる要素サイズの比率
 
         canvas.onclick = (e) => {
             if(props.isEditingRoom){
                 elementWidth = canvas.clientWidth;
                 canvasElementRatio = elementWidth / CANVAS_WIDTH;
                 
-                var rect = canvas.getBoundingClientRect();
+                let rect = canvas.getBoundingClientRect();
             
                 if(mouseMode == MOUSE_DRAWING){     // 四角の終了
                     // 四角の終点を定める
@@ -83,9 +79,9 @@ export const EditingPolygonCanvas = (props:{
                 }else if(mouseMode == MOUSE_DRAWING){   // 四角を描いている途中
                     elementWidth = canvas.clientWidth;
                     canvasElementRatio = elementWidth / CANVAS_WIDTH;
-                    var rect = canvas.getBoundingClientRect();
-                    var canvasPosX = Math.trunc((e.clientX - Math.floor(rect.left)) / canvasElementRatio);
-                    var canvasPosY = Math.trunc((e.clientY - Math.floor(rect.top)) / canvasElementRatio);
+                    let rect = canvas.getBoundingClientRect();
+                    let canvasPosX = Math.trunc((e.clientX - Math.floor(rect.left)) / canvasElementRatio);
+                    let canvasPosY = Math.trunc((e.clientY - Math.floor(rect.top)) / canvasElementRatio);
                     drawSquare(startX,startY,canvasPosX,canvasPosY,ctx);
                 }
             }

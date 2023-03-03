@@ -2,7 +2,7 @@ import { useRef, useEffect } from "react";
 import { useUserRole } from "@/utils/Auth";
 
 export const FloorMapCanvas = (props: {
-  buildingID:number
+  buildingImagePath:string
 }) => {
     
     const canvasRef = useRef(null);
@@ -17,14 +17,14 @@ export const FloorMapCanvas = (props: {
         return canvas.getContext('2d');
     };
 
-    useEffect(() => { // buildingIDが変わった時に再レンダリング
+    useEffect(() => { // buildingImagePathが変わった時に再レンダリング
 
         const buildingImage = new Image();
         const ctx: CanvasRenderingContext2D = getContext();
         ctx.fillStyle = "white";
         ctx.fillRect(0,0,CANVAS_WIDTH, CANVAS_HEIGHT);
         ctx.strokeRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
-        buildingImage.src = "/4goukanbekkan.jpg";
+        buildingImage.src = "/floor_maps" + props.buildingImagePath;
 
         function drawBuildingToCanvas(buildingImage: HTMLImageElement){
             ctx.fillStyle = "gray";
@@ -36,7 +36,7 @@ export const FloorMapCanvas = (props: {
             drawBuildingToCanvas(buildingImage);
         }
 
-    },[props.buildingID])
+    },[props.buildingImagePath])
 
   if (userRole == null) {
     return <div />;

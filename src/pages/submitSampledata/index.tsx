@@ -105,21 +105,24 @@ export const SubmitRoom = () => {
     }
   }
 
-  useEffect(()=>{   // DBの内容が変わった時に動作する
-    if(rooms){
+  useEffect(()=>{   // DBの内容、現在選択されている建物IDが変わった時に動作する
+    if(rooms && buildings){
       setMap([{roomID:-1, polygon:[[0,0],[0,0]], color:"rgba(0,255,0,0.3)"}]);
       for (let i = 0; i < rooms.length; ++i) {
-        const arrayPolygon:number[][] = new Array();
-        const tmpArrayPolygon:string[] = rooms[i].polygon.split("-"); // 例 "123,123-456,456" -> ["123,123"],["456,456"]
-        for (let j = 0; j < tmpArrayPolygon.length; ++j){
-          const tmpPairPolygon = tmpArrayPolygon[j].split(",");     // ["123,123"],["456,456"] -> ['123','123'],['456','456']
-          const polygonPoint:number[] = [Number(tmpPairPolygon[0]), Number(tmpPairPolygon[1])] // ['123','123'],['456','456']->[123,123],[456,456]
-          arrayPolygon.push(polygonPoint);
+        // 部屋の建物IDと現在選択されている建物IDが同じ時その部屋の情報をmapssdataに加える
+        if(rooms[i].buildingId == buildings[currentSelectedBuildingIndex].buildingId){
+          const arrayPolygon:number[][] = new Array();
+          const tmpArrayPolygon:string[] = rooms[i].polygon.split("-"); // 例 "123,123-456,456" -> ["123,123"],["456,456"]
+          for (let j = 0; j < tmpArrayPolygon.length; ++j){
+            const tmpPairPolygon = tmpArrayPolygon[j].split(",");     // ["123,123"],["456,456"] -> ['123','123'],['456','456']
+            const polygonPoint:number[] = [Number(tmpPairPolygon[0]), Number(tmpPairPolygon[1])] // ['123','123'],['456','456']->[123,123],[456,456]
+            arrayPolygon.push(polygonPoint);
+          }
+          setMap((mapssdata) => [...mapssdata, { roomID:rooms[i].roomID, polygon:arrayPolygon, color:"rgba(" + [0, 255, 0, 0.3] + ")" }]);
         }
-        setMap((mapssdata) => [...mapssdata, { roomID:rooms[i].roomID, polygon:arrayPolygon, color:"rgba(" + [0, 255, 0, 0.3] + ")" }]);
       }
     }
-  },[rooms])
+  },[rooms, buildings, currentSelectedBuildingIndex])
 
   if (userRole == null) {
     return <div />;
@@ -144,6 +147,7 @@ export const SubmitRoom = () => {
             mapsdata={mapssdata}
             editingPolygon = {editingPolygon}
             isEditingRoom = {isEditingRoom}
+            buildingImagePath = {buildings[currentSelectedBuildingIndex].buildingImagePath}
             setEditingPolygon = {setEditingPolygon}
           />
         </div>

@@ -8,6 +8,7 @@ export const MapCanvas = (props: {
   mapsdata:EditorFloorMap[],
   editingPolygon:number[][],
   isEditingRoom:boolean,
+  buildingImagePath:string,
   setEditingPolygon:React.Dispatch<React.SetStateAction<number[][]>>
 }) =>{
 
@@ -15,7 +16,7 @@ export const MapCanvas = (props: {
     // "relative"でフロアマップ、登録済み部屋達、編集中の部屋、の複数canvasをレイヤーとして重ねている
     <div className="relative">
       <FloorMapCanvas
-        buildingID={2}
+        buildingImagePath={props.buildingImagePath}
       />
       {props.mapsdata.map((mapdata: EditorFloorMap) => {
         return (
