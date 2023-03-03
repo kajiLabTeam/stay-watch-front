@@ -2,14 +2,15 @@ import { TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useState } from "react";
 import { Button } from "@/components/common/Button";
-import { DBRoom } from "@/types/roomFloormap";
+import { Building, DBRoom } from "@/types/roomFloormap";
 import { useUserRole } from "@/utils/Auth";
 
 
 export const RoomEditorForm = (props:{
   room:DBRoom,
+  building:Building,
   storeRoomToDatabase:any,
-  editingPolygon:number[][]
+  editingPolygon:number[][],
 }) => {
 
   const userRole = useUserRole();
@@ -45,6 +46,9 @@ export const RoomEditorForm = (props:{
               value={roomNameValue}
               onChange={handleChange}
           />
+          <div>
+            { props.building.buildingName }
+          </div>
           <div className="mx-auto bg-red-300">
             <Button>保存</Button>
           </div>

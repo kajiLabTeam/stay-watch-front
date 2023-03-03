@@ -151,11 +151,14 @@ export const SubmitRoom = () => {
         <div className="mt-10 w-1/4 rounded-lg border border-red-500">
           <RegisterdRooms
             rooms={rooms}
+            buildings={buildings}
             storeRoomToDatabase={storeRoomToDatabase}
             updateMouseOverRoomColor={updateMouseOverRoomColor}
             updateMouseOutRoomColor={updateMouseOutRoomColor}
+            updateCurrentSelectedBuildingIndexByBuildingId = {updateCurrentSelectedBuildingIndexByBuildingId}
             editingPolygon = {editingPolygon}
             editingRoomId = {editingRoomId}
+            currentSelectedBuildingIndex = {currentSelectedBuildingIndex}
             setEditingRoomId = { setEditingRoomId }
             setIsEditingRoom = {setIsEditingRoom}
             setEditingPolygon = {setEditingPolygon}

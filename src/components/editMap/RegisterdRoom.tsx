@@ -1,18 +1,20 @@
 import { useState } from "react";
 import { RoomEditorForm } from "@/components/editMap/RoomEditorForm";
-import { DBRoom } from "@/types/roomFloormap";
+import { Building, DBRoom } from "@/types/roomFloormap";
 
 
 export const RegisterdRoom = (props:{
     editingPolygon:number[][],
     editingRoomId: number,
     room: DBRoom,
+    building: Building,
     setEditingPolygon: React.Dispatch<React.SetStateAction<number[][]>>,
     setEditingRoomId: React.Dispatch<React.SetStateAction<number>>,
     setIsEditingRoom: React.Dispatch<React.SetStateAction<boolean>>,
     storeRoomToDatabase: (roomId: number, newRoomName: string) => void,
     updateMouseOutRoomColor: (roomID: number) => void,
     updateMouseOverRoomColor: (roomID: number) => void,
+    updateCurrentSelectedBuildingIndexByBuildingId: (buildingId:number) => void,
 }) => {
 
   const [buttonText, setButtonText] = useState("編集");
@@ -20,6 +22,7 @@ export const RegisterdRoom = (props:{
     if(buttonText == "編集"){  // 編集画面を開始
         props.setEditingRoomId(props.room.roomID);
         props.setIsEditingRoom(true);
+        props.updateCurrentSelectedBuildingIndexByBuildingId(props.room.buildingId);
         setButtonText("中止");
     }else if(buttonText == "中止"){    // 編集終了
         props.setEditingRoomId(-1);
@@ -53,6 +56,7 @@ export const RegisterdRoom = (props:{
           
           <RoomEditorForm
             room={props.room}
+            building={props.building}
             storeRoomToDatabase={props.storeRoomToDatabase}
             editingPolygon = {props.editingPolygon}
           />

@@ -11,6 +11,7 @@ export type DBRoom = {
   community_name: string;
   building_name: string;
   polygon: string;
+  buildingId: number;
 } 
 
 export type Building = {
