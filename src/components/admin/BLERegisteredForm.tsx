@@ -39,7 +39,6 @@ export const BLERegisteredForm = () => {
           })
           .catch((err) => {
             window.alert("失敗しました");
-            console.error(err);
           })
       )}
     >

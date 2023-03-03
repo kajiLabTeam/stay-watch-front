@@ -1,25 +1,28 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import useSWR from "swr";
+import { BuildingSelector } from "@/components/editMap/BuildingSelector";
 import { MapCanvas } from "@/components/editMap/MapCanvas";
 import { RegisterdRooms } from "@/components/editMap/RegisterdRooms";
 import { useUserRole } from "@/utils/Auth";
 import { endpoints } from "@/utils/api";
 import "@/hooks/selectUsersHook";
 // eslint-disable-next-line import/order
-import { DBRoom, UpdaterRoom } from "@/types/roomFloormap";
+import { DBRoom, UpdaterRoom, Building } from "@/types/roomFloormap";
 
 
 
 
 export const SubmitRoom = () => {
   const userRole = useUserRole();
-  const { data: rooms, error } = useSWR<DBRoom[]>(`${endpoints.getRoomsByCommunityID}`);
+  const { data: rooms, error:roomsError } = useSWR<DBRoom[]>(`${endpoints.getRoomsEditorByCommunityID}`);
+  const { data: buildings, error:buildingsError} = useSWR<Building[]>(`${endpoints.getBuildingsEditor}`);
   const [editingPolygon, setEditingPolygon] = useState([[0,0],[1,1]]);
   const [editingRoomId, setEditingRoomId] = useState(0);
   const [isEditingRoom, setIsEditingRoom] = useState(false);
+  const [currentSelectedBuildingIndex, setCurrentSelectedBuildingIndex] = useState(0);
   const [mapssdata, setMap] = useState([
-    {roomID:-1, polygon:[[0,0],[0,0]], color:"rgba(0,255,0,0.3)"} // 2153,736-2403,873
+    {roomID:-1, polygon:[[0,0],[0,0]], color:"rgba(0,255,0,0.3)"}
   ]);
   
 
@@ -33,6 +36,16 @@ export const SubmitRoom = () => {
       }
     }
     return -1;
+  }
+
+  const updateCurrentSelectedBuildingIndexByBuildingId = (buildingId: number) => {
+    if(buildings){
+      for (let i = 0; i < buildings.length; i++){
+        if(buildings[i].buildingId == buildingId){
+          setCurrentSelectedBuildingIndex(i);
+        }
+      }
+    }
   }
 
   const updateMouseOverRoomColor = (roomID:number) => {
@@ -115,11 +128,18 @@ export const SubmitRoom = () => {
     return <div />;
   }
   if (!rooms) return <div>loading...</div>;
+  else if (!buildings) return <div>loading</div>
 
   return (
     <div>
+      現在選択中の建物名:{ buildings[currentSelectedBuildingIndex].buildingName }
       <div className="flex">
         <div className="w-3/4 bg-red-200">
+          <BuildingSelector
+            buildings={buildings}
+            currentSelectedBuildingIndex={currentSelectedBuildingIndex}
+            setCurrentSelectedBuildingIndex={setCurrentSelectedBuildingIndex}
+          />
           <MapCanvas
             mapsdata={mapssdata}
             editingPolygon = {editingPolygon}

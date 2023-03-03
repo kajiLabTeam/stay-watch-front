@@ -9,5 +9,6 @@ export const endpoints = {
   users: `${baseURL}/api/v1/users`,
   attendance: `${baseURL}/api/v1/attendance`,
   updateroom: `${baseURL}/api/v1/updateroom`,
-  getRoomsByCommunityID: `${baseURL}/api/v1/rooms/2`,
+  getRoomsEditorByCommunityID: `${baseURL}/api/v1/rooms/2`,
+  getBuildingsEditor: `${baseURL}/api/v1/buildings/editor`,
 };

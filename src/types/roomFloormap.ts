@@ -13,6 +13,12 @@ export type DBRoom = {
   polygon: string;
 } 
 
+export type Building = {
+  buildingId: number;
+  buildingName: string;
+  buildingImagePath: string;
+}
+
 export type Room = {
   roomID: number;
   room_name: string;
