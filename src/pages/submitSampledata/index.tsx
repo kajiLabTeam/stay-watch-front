@@ -129,15 +129,14 @@ export const SubmitRoom = () => {
   if (userRole == null) {
     return <div />;
   }
-  
+
   if (!rooms) return <div>loading...</div>;
   else if (!buildings) return <div>loading</div>
 
   return (
     <div>
-      現在選択中の建物名:{ buildings[currentSelectedBuildingIndex].buildingName }
       <div className="flex">
-        <div className="w-3/4 bg-red-200">
+        <div className="w-3/4">
           <BuildingSelector
             buildings={buildings}
             currentSelectedBuildingIndex={currentSelectedBuildingIndex}

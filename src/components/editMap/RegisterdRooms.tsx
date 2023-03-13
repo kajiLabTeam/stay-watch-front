@@ -24,7 +24,7 @@ export const RegisterdRooms = (props: {
 
     return (
         <div>
-            <p>Rooms</p>
+            <p>{props.rooms[0].community_name}</p>
             {props.rooms.map((room: DBRoom) => {
                 return (
                     <div key={room.roomID}>

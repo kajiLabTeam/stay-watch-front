@@ -44,7 +44,7 @@ export const FloorMapCanvas = (props: {
 
 
   return (
-    <div className="absolute">
+    <div className="absolute border-x-4 border-b-4">
         <canvas id="canvas" className="w-full" ref={canvasRef} width={CANVAS_WIDTH} height={CANVAS_HEIGHT}/>
     </div>
   );

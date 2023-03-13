@@ -21,8 +21,8 @@ export const BuildingSelector = (props: {
     }
 
   return (
-    <div>
-        <select value={props.buildings[props.currentSelectedBuildingIndex].buildingName} onChange={setIndex}>
+    <div className="border-x-4 border-t-4">
+        <select value={props.buildings[props.currentSelectedBuildingIndex].buildingName} onChange={setIndex} className="border-2">
             {props.buildings.map((building: Building) => {
                 return (
                     <option key={building.buildingId}>
