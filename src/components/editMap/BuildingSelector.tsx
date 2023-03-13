@@ -16,16 +16,13 @@ export const BuildingSelector = (props: {
         return 0;
     }
 
-    const buildingName = document.getElementById("building-select") as HTMLSelectElement;
-    if(buildingName){
-      buildingName.onchange = (e) => {
-        props.setCurrentSelectedBuildingIndex(getBuildingIndexByBuildingName(buildingName.value));
-      }
+    const setIndex : React.ChangeEventHandler<HTMLSelectElement> = (ev) => {
+      props.setCurrentSelectedBuildingIndex(getBuildingIndexByBuildingName(ev.target.value));
     }
 
   return (
     <div>
-        <select id="building-select">
+        <select value={props.buildings[props.currentSelectedBuildingIndex].buildingName} onChange={setIndex}>
             {props.buildings.map((building: Building) => {
                 return (
                     <option key={building.buildingId}>
