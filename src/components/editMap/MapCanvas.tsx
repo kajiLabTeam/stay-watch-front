@@ -9,6 +9,7 @@ export const MapCanvas = (props: {
   editingPolygon:number[][],
   isEditingRoom:boolean,
   buildingImagePath:string,
+  currentSelectedBuildingId:number,
   setEditingPolygon:React.Dispatch<React.SetStateAction<number[][]>>
 }) =>{
 
@@ -19,15 +20,17 @@ export const MapCanvas = (props: {
         buildingImagePath={props.buildingImagePath}
       />
       {props.mapsdata.map((mapdata: EditorFloorMap) => {
-        return (
-          <div key={mapdata.roomID}>
+        if(mapdata.buildingId == props.currentSelectedBuildingId){
+          return (
+            <div key={mapdata.roomID}>
               <RoomCanvas
                   roomID = { mapdata.roomID }
                   polygon = { mapdata.polygon }
                   color = {mapdata.color}
               />
-          </div>
-        );
+            </div>
+          );
+        }
       })}
       <EditingPolygonCanvas
         setEditingPolygon = { props.setEditingPolygon }

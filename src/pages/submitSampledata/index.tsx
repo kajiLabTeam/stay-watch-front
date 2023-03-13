@@ -22,7 +22,7 @@ export const SubmitRoom = () => {
   const [isEditingRoom, setIsEditingRoom] = useState(false);
   const [currentSelectedBuildingIndex, setCurrentSelectedBuildingIndex] = useState(0);
   const [mapssdata, setMap] = useState([
-    {roomID:-1, polygon:[[0,0],[0,0]], color:"rgba(0,255,0,0.3)"}
+    {roomID:-1, buildingId:-1, polygon:[[0,0],[0,0]], color:"rgba(0,255,0,0.3)"}
   ]);
   
 
@@ -77,7 +77,7 @@ export const SubmitRoom = () => {
   }
 
   const storeRoomToDatabase = (roomId:number, newRoomName:string) => {
-    if(editingPolygon && rooms){
+    if(editingPolygon && rooms && buildings){
       const index_number : number = getIndexByRoomId(roomId); // rooms[1] <- この数字(1の部分)をroomIDから求める
 
       var newRoom: UpdaterRoom = {
@@ -91,7 +91,7 @@ export const SubmitRoom = () => {
         roomID : roomId,
         room_name : newRoomName,
         polygon : editingPolygon[0][0] + "," + editingPolygon[0][1] + "-" + editingPolygon[1][0] + "," + editingPolygon[1][1],
-        buildingID: 2
+        buildingID: buildings[currentSelectedBuildingIndex].buildingId
       }
 
       axios.post(endpoints.updateroom, newRoom)
@@ -102,12 +102,14 @@ export const SubmitRoom = () => {
         .catch((err) => {
           window.alert("失敗しました");
         })
+    }else{
+      window.alert("失敗しました");
     }
   }
 
   useEffect(()=>{   // DBの内容、現在選択されている建物IDが変わった時に動作する
     if(rooms && buildings){
-      setMap([{roomID:-1, polygon:[[0,0],[0,0]], color:"rgba(0,255,0,0.3)"}]);
+      setMap([{roomID:-1, buildingId:-1, polygon:[[0,0],[0,0]], color:"rgba(0,255,0,0.3)"}]);
       for (let i = 0; i < rooms.length; ++i) {
         // 部屋の建物IDと現在選択されている建物IDが同じ時その部屋の情報をmapssdataに加える
         if(rooms[i].buildingId == buildings[currentSelectedBuildingIndex].buildingId){
@@ -118,7 +120,7 @@ export const SubmitRoom = () => {
             const polygonPoint:number[] = [Number(tmpPairPolygon[0]), Number(tmpPairPolygon[1])] // ['123','123'],['456','456']->[123,123],[456,456]
             arrayPolygon.push(polygonPoint);
           }
-          setMap((mapssdata) => [...mapssdata, { roomID:rooms[i].roomID, polygon:arrayPolygon, color:"rgba(" + [0, 255, 0, 0.3] + ")" }]);
+          setMap((mapssdata) => [...mapssdata, { roomID:rooms[i].roomID, buildingId:rooms[i].buildingId, polygon:arrayPolygon, color:"rgba(" + [0, 255, 0, 0.3] + ")" }]);
         }
       }
     }
@@ -127,9 +129,7 @@ export const SubmitRoom = () => {
   if (userRole == null) {
     return <div />;
   }
-  if(endpoints.users == "aa"){
-    return <div />;
-  }
+  
   if (!rooms) return <div>loading...</div>;
   else if (!buildings) return <div>loading</div>
 
@@ -148,6 +148,7 @@ export const SubmitRoom = () => {
             editingPolygon = {editingPolygon}
             isEditingRoom = {isEditingRoom}
             buildingImagePath = {buildings[currentSelectedBuildingIndex].buildingImagePath}
+            currentSelectedBuildingId = {buildings[currentSelectedBuildingIndex].buildingId}
             setEditingPolygon = {setEditingPolygon}
           />
         </div>
