@@ -36,19 +36,9 @@ export const RegisterdRoom = (props:{
     setButtonText("編集");
   }
 
-  const roomName = document.getElementById("RegisterdRoom-room-name-" + props.room.roomID);
-  if(roomName){
-    roomName.onmouseover = (e) => {
-        props.updateMouseOverRoomColor(props.room.roomID);
-    }
-    roomName.onmouseout = (e) => {
-        props.updateMouseOutRoomColor(props.room.roomID);
-    }
-  }
-
   if(props.room.roomID == props.editingRoomId){ // フォームを表示
     return (
-        <div id={"RegisterdRoom-room-name-" + props.room.roomID} className="w-full border border-blue-500">
+        <div className="w-full border border-blue-500" onMouseOver={() => props.updateMouseOverRoomColor(props.room.roomID)} onMouseOut={() => props.updateMouseOutRoomColor(props.room.roomID)}>
           <div className="flex">
             <div className="w-3/4">{props.room.room_name}</div>
             <button id={"form_edit_button" + props.room.roomID} className="w-1/4 text-center" onClick={handleClick}>{buttonText}</button>
@@ -64,7 +54,7 @@ export const RegisterdRoom = (props:{
     );
   }else{    // フォームを非表示
     return(
-        <div id={"RegisterdRoom-room-name-" + props.room.roomID} className="w-full border border-blue-500">
+        <div className="w-full border border-blue-500" onMouseOver={() => props.updateMouseOverRoomColor(props.room.roomID)} onMouseOut={() => props.updateMouseOutRoomColor(props.room.roomID)}>
           <div className="flex">
             <div className="w-3/4">{props.room.room_name}</div>
             <button id={"form_edit_button" + props.room.roomID} className="w-1/4 text-center" onClick={handleClick}>{buttonText}</button>

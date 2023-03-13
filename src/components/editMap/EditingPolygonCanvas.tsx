@@ -29,7 +29,6 @@ export const EditingPolygonCanvas = (props: {
   };
 
   useEffect(() => {
-    // const canvasElement = document.getElementById('create-polygon-canvas');
     const canvasElement = canvasRef.current;
     const drawingCanvas = canvasRef.current?.getContext("2d");
 
