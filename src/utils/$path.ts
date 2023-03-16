@@ -1,5 +1,8 @@
 export const pagesPath = {
   "admin": {
+    "users": {
+      $url: (url?: { hash?: string }) => ({ pathname: '/admin/users' as const, hash: url?.hash })
+    },
     $url: (url?: { hash?: string }) => ({ pathname: '/admin' as const, hash: url?.hash })
   },
   "floorMap": {
