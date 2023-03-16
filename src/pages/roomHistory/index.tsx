@@ -1,6 +1,6 @@
-import { NextPage } from "next";
-import { SWRConfig } from "swr";
-import RoomHistory from "@/components/roomHistory/RoomHistory";
+import { NextPage } from 'next';
+import { SWRConfig } from 'swr';
+import RoomHistory from '@/components/roomHistory/RoomHistory';
 
 // type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 // export const getServerSideProps: GetServerSideProps = async () => {

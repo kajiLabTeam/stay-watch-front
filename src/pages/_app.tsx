@@ -1,11 +1,11 @@
-import type { AppProps } from "next/app";
-import "tailwindcss/tailwind.css";
-import { FC, ReactNode } from "react";
-import { RecoilRoot } from "recoil";
-import { SWRConfig } from "swr";
-import NotLogin from "@/components/common/NotLogin";
-import Layout from "@/components/layout/Layout";
-import { useIsRegisterEmail, useIsSigned } from "@/utils/Auth";
+import type { AppProps } from 'next/app';
+import 'tailwindcss/tailwind.css';
+import { FC, ReactNode } from 'react';
+import { RecoilRoot } from 'recoil';
+import { SWRConfig } from 'swr';
+import NotLogin from '@/components/common/NotLogin';
+import Layout from '@/components/layout/Layout';
+import { useIsRegisterEmail, useIsSigned } from '@/utils/Auth';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 

@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import useSWR from "swr";
-import { User } from "@/types/user";
-import { endpoints } from "@/utils/api";
+import { useEffect, useState } from 'react';
+import useSWR from 'swr';
+import { User } from '@/types/user';
+import { endpoints } from '@/utils/api';
 
 type selectUser = {
   value: number;

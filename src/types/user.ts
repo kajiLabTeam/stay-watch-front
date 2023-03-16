@@ -13,7 +13,7 @@ export type UserAttribute = {
     {
       id: number;
       name: string;
-    }
+    },
   ];
 };
 
@@ -27,6 +27,6 @@ export type extendedUser = {
     {
       id: number;
       name: string;
-    }
+    },
   ];
 };

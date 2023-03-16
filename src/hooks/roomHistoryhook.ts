@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export const useCurrentPage = (): [number, () => void, () => void] => {
   const [currentPage, setCurrentPage] = useState(1);

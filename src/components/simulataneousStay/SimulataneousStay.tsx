@@ -1,9 +1,9 @@
-import { Select } from "@mantine/core";
-import { useEffect, useState } from "react";
-import useSWR from "swr";
-import TabDate from "@/components/simulataneousStay/TabDate";
-import { User } from "@/types/user";
-import { baseURL } from "@/utils/api";
+import { Select } from '@mantine/core';
+import { useEffect, useState } from 'react';
+import useSWR from 'swr';
+import TabDate from '@/components/simulataneousStay/TabDate';
+import { User } from '@/types/user';
+import { baseURL } from '@/utils/api';
 
 type selectUser = {
   value: string;
@@ -25,7 +25,7 @@ const SimulataneousStay = () => {
   const [SimultaneousStayUser, setSimultaneousStayUser] = useState<
     SimultaneousStayUserGetResponse[]
   >([]);
-  const [userID, setUserID] = useState("");
+  const [userID, setUserID] = useState('');
 
   useEffect(() => {
     if (users) {
@@ -51,26 +51,26 @@ const SimulataneousStay = () => {
 
   const outPutJson = () => {
     const json = JSON.stringify(SimultaneousStayUser);
-    const blob = new Blob([json], { type: "application/json" });
+    const blob = new Blob([json], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
+    const a = document.createElement('a');
     a.href = url;
-    a.download = "simultaneousStayUser.json";
+    a.download = 'simultaneousStayUser.json';
     a.click();
   };
 
   return (
     <div>
-      <div className="mx-auto mt-10 flex w-1/2 flex-col items-center justify-start  bg-blue-100">
+      <div className='mx-auto mt-10 flex w-1/2 flex-col items-center justify-start  bg-blue-100'>
         <Select
           classNames={{
-            label: "md:text-2xl",
+            label: 'md:text-2xl',
           }}
-          className="mt-2"
-          label="コロナ陽性者を選択してください"
-          placeholder="ユーザを選択"
+          className='mt-2'
+          label='コロナ陽性者を選択してください'
+          placeholder='ユーザを選択'
           searchable
-          nothingFound="No options"
+          nothingFound='No options'
           data={selectUsers}
           onChange={(e) => {
             if (e !== null) {
@@ -94,7 +94,7 @@ const SimulataneousStay = () => {
           })}
         </div> */}
         <button
-          className="mt-8 rounded bg-blue-500 py-1 px-2 font-bold text-white hover:bg-blue-400 md:py-2 md:px-4"
+          className='mt-8 rounded bg-blue-500 py-1 px-2 font-bold text-white hover:bg-blue-400 md:py-2 md:px-4'
           onClick={outPutJson}
         >
           JSON出力

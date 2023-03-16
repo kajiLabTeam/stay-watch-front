@@ -1,7 +1,7 @@
-import * as am4charts from "@amcharts/amcharts4/charts";
-import * as am4core from "@amcharts/amcharts4/core";
-import { useLayoutEffect, useRef } from "react";
-import { ChartData, StayTime } from "@/types/ganttStayLog";
+import * as am4charts from '@amcharts/amcharts4/charts';
+import * as am4core from '@amcharts/amcharts4/core';
+import { useLayoutEffect, useRef } from 'react';
+import { ChartData, StayTime } from '@/types/ganttStayLog';
 
 //propsの型定義
 type Props = {
@@ -31,7 +31,7 @@ const GanttChart = (props: Props) => {
       chart.paddingBottom = 0;
       // chart.colors.list = [am4core.color("#008000")];
 
-      chart.dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss";
+      chart.dateFormatter.dateFormat = 'yyyy-MM-dd HH:mm:ss';
       chart.data = chartData; // データの適用
       const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
       dateAxis.extraMin = 0.9;
@@ -41,7 +41,7 @@ const GanttChart = (props: Props) => {
 
       // 適用したデータに対してy軸として設定したフィールドを指定
       // 今回はcategory
-      categoryAxis.dataFields.category = "name";
+      categoryAxis.dataFields.category = 'name';
       // locationはchartのgridの位置関係を0 ~ 1で指定する
       // 試しに色々変えてみるとどこが変わるのかわかりやすい
       categoryAxis.renderer.grid.template.location = 0;
@@ -50,19 +50,18 @@ const GanttChart = (props: Props) => {
 
       const series = chart.series.push(new am4charts.ColumnSeries());
       // ガントチャートのx軸は幅を指定するので2つを指定する
-      series.dataFields.openDateX = "start";
-      series.dataFields.dateX = "end";
-      series.dataFields.categoryY = "name";
-      series.columns.template.propertyFields.fill = "color";
-      series.columns.template.propertyFields.stroke = "color";
+      series.dataFields.openDateX = 'start';
+      series.dataFields.dateX = 'end';
+      series.dataFields.categoryY = 'name';
+      series.columns.template.propertyFields.fill = 'color';
+      series.columns.template.propertyFields.stroke = 'color';
 
       // // {}内でプロパティ名を書くと対応した値が利用される
       // // 改行を入れたいときは改行文字を入れる
-      series.columns.template.tooltipText =
-        "入室: {openDateX} \n 退室: {dateX}";
+      series.columns.template.tooltipText = '入室: {openDateX} \n 退室: {dateX}';
       // カーソルを当てたときにtooltipがカーソルに付いて動くようにする
       // fixedかpointerの二択でどう違うかは試してみるといい
-      series.columns.template.tooltipPosition = "pointer";
+      series.columns.template.tooltipPosition = 'pointer';
 
       // let cellSize = 150;
       // chart.events.on("datavalidated", function (ev) {
@@ -90,10 +89,7 @@ const GanttChart = (props: Props) => {
 
   return (
     <div>
-      <div
-        ref={divRef}
-        style={{ height: 600, width: "100%", marginTop: "100px" }}
-      />
+      <div ref={divRef} style={{ height: 600, width: '100%', marginTop: '100px' }} />
     </div>
   );
 };
