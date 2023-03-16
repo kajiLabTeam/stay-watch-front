@@ -1,0 +1,38 @@
+name: Notify Slack on Yarn Lint Error
+
+on:
+  push:
+    branches:
+      - "*"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build
+        run: yarn build
+        continue-on-error: true
+
+      - name: Run lint
+        run: yarn lint
+        continue-on-error: true
+
+      - name: Notify Slack on error
+        if: ${{ failure() }}
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_ICON: https://s3-us-west-2.amazonaws.com/slack-files2/bot_icons/2023-01-01/4582569248242_48.png
+          SLACK_USERNAME: stay-watch-front
+        with:
+          status: ${{ job.status }}
+          message: |
+            The build or lint has failed in branch main of repository ${GITHUB_REPOSITORY}:
+            - Build exit code: ${{ job.steps.build.outputs.exit_code }}
+            - Lint exit code: ${{ job.steps.lint.outputs.exit_code }}
