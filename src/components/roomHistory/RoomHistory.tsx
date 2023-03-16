@@ -10,7 +10,7 @@ import Log from "@/types/log";
 import { endpoints } from "@/utils/api";
 
 const RoomHistory = () => {
-  const { width, height } = useWindowSize();
+  const { width } = useWindowSize();
 
   const [page, PreviousPage, NextPage] = useCurrentPage();
   const { data: logs, error } = useSWR<Log[]>(`${endpoints.logs}?page=${page}`);
@@ -123,8 +123,8 @@ const RoomHistory = () => {
         if (width > 853) {
           return (
             <div>
-              <div className="fixed left-4 inset-y-1/2">{prevButton()}</div>
-              <div className="fixed right-4 inset-y-1/2">{nextButton()}</div>
+              <div className="fixed inset-y-1/2 left-4">{prevButton()}</div>
+              <div className="fixed inset-y-1/2 right-4">{nextButton()}</div>
             </div>
           );
         } else {

@@ -1,4 +1,4 @@
-type Stayer = {
+type StayerType = {
   id: number;
   name: string;
   room: string;
@@ -11,4 +11,4 @@ type Stayer = {
   ];
 };
 
-export default Stayer;
+export default StayerType;
