@@ -30,13 +30,21 @@ const RoomHistory = () => {
     if (logs.slice(-1)[0]?.id == 1) {
       return <div />;
     }
-    return <Button onClick={NextPage}>&gt;</Button>;
+    return (
+      <Button color="blue" onClick={NextPage}>
+        次へ
+      </Button>
+    );
   };
 
   const prevButton = () => {
     //pageが1より大きい時にボタンを表示
     if (page > 1) {
-      return <Button onClick={PreviousPage}>&lt;</Button>;
+      return (
+        <Button color="blue" onClick={PreviousPage}>
+          前へ
+        </Button>
+      );
     }
     return <div />;
   };

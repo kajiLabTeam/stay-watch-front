@@ -1,42 +1,38 @@
 import { Tabs } from "@mantine/core";
-import { BLERegisteredForm } from "@/components/admin/BLERegisteredForm";
-import { BLEUnRegisteredForm } from "@/components/admin/BLEUnRegisteredForm";
-import { useUserRole } from "@/utils/Auth";
+import { useState } from "react";
+import UserEdit from "@/components/admin/UserEdit";
+import UserInvite from "@/components/admin/UserInvite";
 
 export const Admin = () => {
-  const userRole = useUserRole();
-
-  if (userRole == null || userRole % 2 !== 0) {
-    return <div>管理者権限がありません</div>;
-  }
+  const [activeTab, setActiveTab] = useState<string | null>("first");
 
   return (
-    <div className=" flex h-screen justify-center">
-      <div className="w-7/12 ">
-        <div className="my-2 text-center text-3xl font-bold">
+    <Tabs
+      value={activeTab}
+      onTabChange={setActiveTab}
+      orientation={"vertical"}
+      variant={"outline"}
+      color={"blue"}
+      classNames={{
+        tab: "h-24",
+        root: "mt-2",
+      }}
+    >
+      <Tabs.List>
+        <Tabs.Tab value="first" className="border-4 text-lg">
+          メンバー確認・削除
+        </Tabs.Tab>
+        <Tabs.Tab value="second" className="border-4 text-lg">
           メンバーの招待
-        </div>
-        <div className=" border border-black" />
-        <div className="mt-10 rounded-lg bg-slate-200">
-          <Tabs defaultValue="outline">
-            <Tabs.List>
-              <Tabs.Tab value="gallery" className="w-6/12">
-                BLEビーコン登録済み
-              </Tabs.Tab>
-              <Tabs.Tab value="messages" className="w-6/12">
-                BLEビーコン未登録
-              </Tabs.Tab>
-            </Tabs.List>
+        </Tabs.Tab>
+      </Tabs.List>
 
-            <Tabs.Panel value="gallery" pt="xs">
-              <BLERegisteredForm />
-            </Tabs.Panel>
-            <Tabs.Panel value="messages" pt="xs">
-              <BLEUnRegisteredForm />
-            </Tabs.Panel>
-          </Tabs>
-        </div>
-      </div>
-    </div>
+      <Tabs.Panel value="first" className="border-l-4">
+        <UserEdit />
+      </Tabs.Panel>
+      <Tabs.Panel value="second" className="border-l-4">
+        <UserInvite />
+      </Tabs.Panel>
+    </Tabs>
   );
 };
