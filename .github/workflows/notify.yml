@@ -1,0 +1,44 @@
+name: Notification to Slack
+on:
+  push:
+    branches:
+      - "*"
+  pull_request:
+    types: [opened, reopened]
+  pull_request_review:
+    types: [submitted]
+  pull_request_review_comment:
+    types: [created, edited]
+
+jobs:
+  notification:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify to Slack
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_ICON: https://s3-us-west-2.amazonaws.com/slack-files2/bot_icons/2023-01-01/4582569248242_48.png
+          SLACK_USERNAME: stay-watch-front
+        with:
+          args: >
+            {%- if github.event_name == 'push' -%}
+              {%- set branch = github.ref.split('/')[-1] -%}
+              '{"text": "A new push has been made to the *{{ branch }}* branch."}'
+            {%- elif github.event_name == 'pull_request' -%}
+              {%- set prNum = github.event.pull_request.number -%}
+              {%- set prAuthor = github.event.pull_request.user.login -%}
+              {%- set prAction = github.event.action -%}
+              {%- set prUrl = github.event.pull_request.html_url -%}
+              {%- if prAction == 'opened' -%}
+                '{"text": "New pull request *#{{ prNum }}* by @{{ prAuthor }} has been {{ prAction }}.\n{{ prUrl }}" }'
+              {%- else -%}
+                '{"text": "Pull request *#{{ prNum }}* by @{{ prAuthor }} has been {{ prAction }}.\n{{ prUrl }}" }'
+              {%- endif -%}
+            {%- else -%}
+              {%- set prNum = github.event.issue.number -%}
+              {%- set prAuthor = github.event.issue.user.login -%}
+              {%- set prCommentBody = github.event.comment.body | replace("\n", " ") -%}
+              {%- set prCommentUrl = github.event.comment.html_url -%}
+              '{"text": "A new comment has been added to Pull Request *#{{ prNum }}* by @{{ prAuthor }}.\n> {{ prCommentBody }}\n{{ prCommentUrl }}" }'
+            {%- endif -%}

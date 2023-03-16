@@ -2,12 +2,10 @@ import { Select, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import axios from "axios";
 import { Button } from "@/components/common/Button";
-import { useSelectUsers } from "@/hooks/selectUsersHook";
 import { useUserRole } from "@/utils/Auth";
 import { endpoints } from "@/utils/api";
 
 export const BLEUnRegisteredForm = () => {
-  const selectUsers = useSelectUsers();
   const userRole = useUserRole();
 
   const form = useForm({
@@ -34,7 +32,7 @@ export const BLEUnRegisteredForm = () => {
       onSubmit={form.onSubmit((values) =>
         axios
           .post(endpoints.users, values)
-          .then((res) => {
+          .then(() => {
             window.alert("成功しました");
           })
           .catch((err) => {

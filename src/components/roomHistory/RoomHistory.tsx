@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useState } from "react";
 import useSWR from "swr";
 
+import { useWindowSize } from "usehooks-ts";
 import { useCurrentPage } from "../../hooks/roomHistoryhook";
 import { Button } from "../common/Button";
 import RoomTabDate from "./RoomTabDate";
@@ -9,6 +10,8 @@ import Log from "@/types/log";
 import { endpoints } from "@/utils/api";
 
 const RoomHistory = () => {
+  const { width } = useWindowSize();
+
   const [page, PreviousPage, NextPage] = useCurrentPage();
   const { data: logs, error } = useSWR<Log[]>(`${endpoints.logs}?page=${page}`);
   const [isGantt, setIsGantt] = useState(false);
@@ -27,13 +30,13 @@ const RoomHistory = () => {
     if (logs.slice(-1)[0]?.id == 1) {
       return <div />;
     }
-    return <Button onClick={NextPage}>次へ</Button>;
+    return <Button onClick={NextPage}>&gt;</Button>;
   };
 
   const prevButton = () => {
     //pageが1より大きい時にボタンを表示
     if (page > 1) {
-      return <Button onClick={PreviousPage}>前へ</Button>;
+      return <Button onClick={PreviousPage}>&lt;</Button>;
     }
     return <div />;
   };
@@ -114,12 +117,25 @@ const RoomHistory = () => {
             </thead>
             <tbody className="">{Period()}</tbody>
           </table>
-          <div className="mt-2 flex h-10 w-full justify-between px-8 text-white md:mt-4 ">
-            {prevButton()}
-            {nextButton()}
-          </div>
         </div>
       )}
+      {(() => {
+        if (width > 853) {
+          return (
+            <div>
+              <div className="fixed inset-y-1/2 left-4">{prevButton()}</div>
+              <div className="fixed inset-y-1/2 right-4">{nextButton()}</div>
+            </div>
+          );
+        } else {
+          return (
+            <div className="mt-2 flex h-10 w-full justify-between text-white md:mt-4">
+              <div>{prevButton()}</div>
+              <div>{nextButton()}</div>
+            </div>
+          );
+        }
+      })()}
     </div>
   );
 };
