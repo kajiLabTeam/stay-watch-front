@@ -1,4 +1,4 @@
-name: Notify Slack on Yarn Lint Error
+name: Yarn Build or Lint Error
 
 on:
   push:
