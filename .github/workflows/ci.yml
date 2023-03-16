@@ -30,6 +30,7 @@ jobs:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_ICON: https://s3-us-west-2.amazonaws.com/slack-files2/bot_icons/2023-01-01/4582569248242_48.png
           SLACK_USERNAME: stay-watch-front
+          SLACK_COLO JR: "#FF0000"
         with:
           status: ${{ job.status }}
           message: |
