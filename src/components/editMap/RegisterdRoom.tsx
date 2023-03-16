@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { RoomEditorForm } from '@/components/editMap/RoomEditorForm';
 import { Building, DBRoom } from '@/types/roomFloormap';
 

@@ -1,3 +1,4 @@
+import React from 'react';
 import { RegisterdRoom } from '@/components/editMap/RegisterdRoom';
 import { Building, DBRoom } from '@/types/roomFloormap';
 

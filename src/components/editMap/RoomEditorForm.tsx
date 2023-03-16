@@ -29,7 +29,7 @@ export const RoomEditorForm = (props: {
       <div className='rounded-lg bg-slate-200'>
         <form
           className=' flex flex-col gap-6 p-10'
-          onSubmit={form.onSubmit((values) => {
+          onSubmit={form.onSubmit(() => {
             props.storeRoomToDatabase(props.room.roomID, roomNameValue);
           })}
         >

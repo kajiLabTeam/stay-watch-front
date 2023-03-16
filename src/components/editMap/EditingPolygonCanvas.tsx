@@ -6,7 +6,7 @@ export const EditingPolygonCanvas = (props: {
   isEditingRoom: boolean;
   setEditingPolygon: React.Dispatch<React.SetStateAction<number[][]>>;
 }) => {
-  const { editingPolygon, isEditingRoom, setEditingPolygon } = props;
+  const { isEditingRoom, setEditingPolygon } = props;
 
   const userRole = useUserRole();
   const canvasRef = useRef<HTMLCanvasElement>(null);

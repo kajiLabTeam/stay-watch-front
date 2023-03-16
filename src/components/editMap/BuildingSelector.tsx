@@ -1,3 +1,4 @@
+import React from 'react';
 import { Building } from '@/types/roomFloormap';
 
 export const BuildingSelector = (props: {
