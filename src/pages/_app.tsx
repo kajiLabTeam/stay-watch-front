@@ -38,7 +38,11 @@ const AuthEmail: FC<Props> = ({ children }) => {
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <RecoilRoot>
-      <SWRConfig value={{ fetcher }}>
+      <SWRConfig
+        value={{
+          fetcher,
+        }}
+      >
         <Layout>
           <AuthToken>
             <AuthEmail>
