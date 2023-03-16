@@ -24,7 +24,7 @@ jobs:
         continue-on-error: true
 
       - name: Notify Slack on error
-        if: ${{ failure() }}
+        if: failure()
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
