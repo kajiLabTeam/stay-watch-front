@@ -1,20 +1,13 @@
 import axios from "axios";
 import Image from "next/image";
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { SizeMe } from "react-sizeme";
 import PopoverTop from "@/components/roomHistory/PopoverTop";
 import RoomInformation from "@/types/roomInformation";
 import RoomStatus from "@/types/roomStatus";
 import { endpoints } from "@/utils/api";
 
-const fetcher = async (url: string) => {
-  const res = await fetch(url);
-  const obj = res.json();
-};
-
 const FloorMapIndex = () => {
-  const elm = useRef(null);
-
   const [roomsStatus, setRoomsStatus] = useState<RoomStatus[]>([]);
   const [roomInformation, setRoomInformation] = useState<RoomInformation[]>([
     { roomID: 1, roomName: "", top: 0, left: 0 },
@@ -42,14 +35,18 @@ const FloorMapIndex = () => {
         }
         setRoomsStatus(roomsStatusArray);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.error(err);
+      });
 
     axios
       .get("/room.json")
       .then((res) => {
         setRoomInformation(res.data);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.error(err);
+      });
   }, []);
 
   return (
