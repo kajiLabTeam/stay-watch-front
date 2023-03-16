@@ -34,11 +34,12 @@ export const BLERegisteredForm = () => {
       onSubmit={form.onSubmit((values) =>
         axios
           .post(endpoints.users, values)
-          .then((res) => {
+          .then(() => {
             window.alert("成功しました");
           })
           .catch((err) => {
             window.alert("失敗しました");
+
             console.error(err);
           })
       )}
