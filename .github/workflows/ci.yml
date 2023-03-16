@@ -17,9 +17,11 @@ jobs:
 
       - name: Build
         run: yarn build
+        if: always()
 
       - name: Run lint
         run: yarn lint
+        if: always()
 
       - name: Notify Slack on error
         if: failure()
