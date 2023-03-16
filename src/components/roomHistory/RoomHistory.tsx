@@ -10,7 +10,7 @@ import Log from "@/types/log";
 import { endpoints } from "@/utils/api";
 
 const RoomHistory = () => {
-  const { width, height } = useWindowSize();
+  const { width } = useWindowSize();
 
   const [page, PreviousPage, NextPage] = useCurrentPage();
   const { data: logs, error } = useSWR<Log[]>(`${endpoints.logs}?page=${page}`);

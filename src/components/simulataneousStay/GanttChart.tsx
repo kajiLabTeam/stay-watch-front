@@ -12,8 +12,6 @@ const GanttChart = (props: Props) => {
   const divRef = useRef<HTMLDivElement | null>(null);
   const chartRef = useRef<am4charts.XYChart | null>(null);
 
-  const colorSet = new am4core.ColorSet();
-
   let chartData: ChartData[] = [];
 
   props.stayTimes.forEach((stayTime) => {
