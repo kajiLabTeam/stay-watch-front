@@ -2,6 +2,9 @@ export const pagesPath = {
   "admin": {
     $url: (url?: { hash?: string }) => ({ pathname: '/admin' as const, hash: url?.hash })
   },
+  "editFloorMap": {
+    $url: (url?: { hash?: string }) => ({ pathname: '/editFloorMap' as const, hash: url?.hash })
+  },
   "floorMap": {
     $url: (url?: { hash?: string }) => ({ pathname: '/floorMap' as const, hash: url?.hash })
   },
@@ -10,9 +13,6 @@ export const pagesPath = {
   },
   "simulataneousStay": {
     $url: (url?: { hash?: string }) => ({ pathname: '/simulataneousStay' as const, hash: url?.hash })
-  },
-  "submitSampledata": {
-    $url: (url?: { hash?: string }) => ({ pathname: '/submitSampledata' as const, hash: url?.hash })
   },
   "userInformation": {
     $url: (url?: { hash?: string }) => ({ pathname: '/userInformation' as const, hash: url?.hash })
