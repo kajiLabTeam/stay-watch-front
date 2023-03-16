@@ -18,6 +18,7 @@ jobs:
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_ICON: https://s3-us-west-2.amazonaws.com/slack-files2/bot_icons/2023-01-01/4582569248242_48.png
         with:
           args: >
             {%- if github.event_name == 'push' -%}
