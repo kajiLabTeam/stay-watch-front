@@ -17,11 +17,9 @@ jobs:
 
       - name: Build
         run: yarn build
-        continue-on-error: true
 
       - name: Run lint
         run: yarn lint
-        continue-on-error: true
 
       - name: Notify Slack on error
         if: failure()
