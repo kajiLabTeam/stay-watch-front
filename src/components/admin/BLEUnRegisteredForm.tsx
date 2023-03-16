@@ -72,8 +72,8 @@ export const BLEUnRegisteredForm = () => {
         ]}
         {...form.getInputProps("role")}
       />
-      <div className=" mx-auto bg-red-300">
-        <Button>登録する</Button>
+      <div className=" mx-auto">
+        <Button color="blue">登録する</Button>
       </div>
     </form>
   );

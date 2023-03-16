@@ -11,4 +11,7 @@ export const endpoints = {
   updateroom: `${baseURL}/api/v1/updateroom`,
   getRoomsEditorByCommunityID: `${baseURL}/api/v1/rooms/2`,
   getBuildingsEditor: `${baseURL}/api/v1/buildings/editor`,
+  extendedUsers: `${baseURL}/api/v1/users/extended`,
 };
+
+

@@ -30,7 +30,7 @@ export const BLERegisteredForm = () => {
 
   return (
     <form
-      className=" flex flex-col gap-6 p-10"
+      className="flex flex-col gap-6 p-10"
       onSubmit={form.onSubmit((values) =>
         axios
           .post(endpoints.users, values)
@@ -82,8 +82,8 @@ export const BLERegisteredForm = () => {
         {...form.getInputProps("role")}
       />
 
-      <div className=" mx-auto bg-red-300">
-        <Button>登録する</Button>
+      <div className=" mx-auto">
+        <Button color="blue">登録する</Button>
       </div>
     </form>
   );
