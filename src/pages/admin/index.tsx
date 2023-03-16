@@ -5,6 +5,7 @@ const AdminPage: NextPage = () => {
   return (
     <div>
       <Admin />
+      {/* <Demo /> */}
     </div>
   );
 };

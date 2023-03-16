@@ -1530,6 +1530,11 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
+"@tabler/icons@^2.2.0":
+  "integrity" "sha512-s2mm+7JqmLObKdU89Dtiy+USmUpOlACsoXZZPykjAJZC4pK3wMYxLsclJxViWLeLTb6Bc0oga92V7R+9nrj1ZQ=="
+  "resolved" "https://registry.npmjs.org/@tabler/icons/-/icons-2.2.0.tgz"
+  "version" "2.2.0"
+
 "@testing-library/dom@^8.0.0":
   version "8.19.0"
   resolved "https://registry.npmjs.org/@testing-library/dom/-/dom-8.19.0.tgz"
