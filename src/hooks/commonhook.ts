@@ -56,7 +56,7 @@ export const useBgColor = (): Item => {
         floorMap: 'bg-red-400',
         SimulataneousStay: '',
       });
-    } else if (pathname === pagesPath.floorMap.$url().pathname) {
+    } else if (pathname === pagesPath.simulataneousStay.$url().pathname) {
       setBgColors({
         stayer: '',
         roomHistory: '',
