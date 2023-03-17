@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import { useState } from 'react';
-import useSWR from 'swr';
 
 import { useWindowSize } from 'usehooks-ts';
 import { useCurrentPage } from '../../hooks/roomHistoryhook';
 import { Button } from '../common/Button';
 import RoomTabDate from './RoomTabDate';
+import { useCustomSWR } from '@/hooks/useCustomSWR';
 import Log from '@/types/log';
 import { endpoints } from '@/utils/api';
 
@@ -13,9 +13,7 @@ const RoomHistory = () => {
   const { width } = useWindowSize();
 
   const [page, PreviousPage, NextPage] = useCurrentPage();
-  const { data: logs } = useSWR<Log[]>(`${endpoints.logs}?page=${page}`, {
-    suspense: true,
-  });
+  const { data: logs } = useCustomSWR<Log[]>(`${endpoints.logs}?page=${page}`);
   const [isGantt, setIsGantt] = useState(false);
 
   const nextButton = () => {

@@ -1,11 +1,9 @@
-import useSWR from 'swr';
+import { useCustomSWR } from '@/hooks/useCustomSWR';
 import StayerType from '@/types/stayer';
 import { endpoints } from '@/utils/api';
 
 const Stayer = () => {
-  const { data } = useSWR<StayerType[]>(`${endpoints.stayers}`, {
-    suspense: true,
-  });
+  const { data } = useCustomSWR<StayerType[]>(`${endpoints.stayers}`);
 
   return (
     <div>
