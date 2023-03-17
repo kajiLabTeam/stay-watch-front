@@ -12,12 +12,8 @@ import { DBRoom, UpdaterRoom, Building } from '@/types/roomFloormap';
 
 export const SubmitRoom = () => {
   const userRole = useUserRole();
-  const { data: rooms, error: roomsError } = useSWR<DBRoom[]>(
-    `${endpoints.getRoomsEditorByCommunityID}`,
-  );
-  const { data: buildings, error: buildingsError } = useSWR<Building[]>(
-    `${endpoints.getBuildingsEditor}`,
-  );
+  const { data: rooms } = useSWR<DBRoom[]>(`${endpoints.getRoomsEditorByCommunityID}`);
+  const { data: buildings } = useSWR<Building[]>(`${endpoints.getBuildingsEditor}`);
   const [editingPolygon, setEditingPolygon] = useState([
     [0, 0],
     [1, 1],
@@ -114,11 +110,12 @@ export const SubmitRoom = () => {
 
       axios
         .post(endpoints.updateroom, newRoom)
-        .then((res) => {
+        .then(() => {
           // 例 : {roomID: 3, room_name: '院生部', polygon: '200,200-300,300', buildingID: 2}
           window.alert('成功しました');
         })
         .catch((err) => {
+          console.log(err);
           window.alert('失敗しました');
         });
     } else {

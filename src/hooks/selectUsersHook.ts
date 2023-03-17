@@ -9,7 +9,7 @@ type selectUser = {
 };
 
 export const useSelectUsers = () => {
-  const { data: users, error } = useSWR<User[]>(`${endpoints.users}`);
+  const { data: users } = useSWR<User[]>(`${endpoints.users}`);
   const [selectUsers, setSelectUsers] = useState<selectUser[]>([]);
 
   useEffect(() => {
