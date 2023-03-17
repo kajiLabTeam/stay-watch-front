@@ -13,17 +13,10 @@ const RoomHistory = () => {
   const { width } = useWindowSize();
 
   const [page, PreviousPage, NextPage] = useCurrentPage();
-  const { data: logs, error } = useSWR<Log[]>(`${endpoints.logs}?page=${page}`);
+  const { data: logs } = useSWR<Log[]>(`${endpoints.logs}?page=${page}`, {
+    suspense: true,
+  });
   const [isGantt, setIsGantt] = useState(false);
-
-  if (error)
-    return (
-      <div>
-        <div className='mt-6 text-4xl'>滞在者履歴</div>
-        <div className='my-4 border' />
-      </div>
-    );
-  if (!logs) return <div>loading...</div>;
 
   const nextButton = () => {
     //最後のデータだった時
