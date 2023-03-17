@@ -3,11 +3,13 @@ name: Yarn Build or Lint Error
 on:
   push:
     branches:
-      - "*"
+      - '*'
 
 jobs:
   lint:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_BASE_URL: https://go-staywatch.kajilab.tk
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
