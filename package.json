@@ -6,7 +6,7 @@
     "dev": "run-p dev:*",
     "dev:next": "next dev",
     "dev:path": "pathpida --ignorePath .gitignore --watch",
-    "build": "pathpida --ignorePath .gitignore && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "run-p lint:*",
     "lint:prettier": "prettier --ignore-path .gitignore --check ./src",
