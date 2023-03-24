@@ -20,6 +20,8 @@ tags:
     description: 在室履歴についての操作
   - name: logsGantt
     description: 1週間の在室履歴についての操作
+  - name: users
+    description: ユーザ情報についての操作
 
   - name: pet
     description: Everything about your Pets
@@ -103,11 +105,7 @@ paths:
                           example: -50
                   roomId:
                     type: integer
-                    example: 1
-                    
-
-                    
-          
+                    example: 1  
       responses:
         '200':
           description: OK
@@ -200,7 +198,41 @@ paths:
                                 color:
                                   type: string
                                   example: "green"
-                             
+
+  /users:
+    get:
+      tags:
+        - users
+      summary: ユーザ情報の取得
+      operationId: controller.UserList
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 22
+                    name:
+                      type: string
+                      example: "togawa"
+                    tags:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 7
+                          name:
+                            type: string
+                            example: "B3"
+
         
 
   /pet:
