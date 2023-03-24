@@ -16,7 +16,8 @@ servers:
 tags:
   - name: stayers
     description: 在室者についての操作
-
+  - name: logs
+    description: 在室履歴についての操作
 
   - name: pet
     description: Everything about your Pets
@@ -94,6 +95,43 @@ paths:
         '200':
           description: OK
   
+  /logs:
+    get:
+      tags:
+        - logs
+      summary: 在室履歴の取得
+      operationId: controller.Log
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 312
+                    startAt:
+                      type: string
+                      example: "2023-01-25 17:50:15"
+                    endAt:
+                      type: string
+                      example: "2023-01-25 18:40:28"
+                    room:
+                      type: string
+                      example: "学生部屋"
+                    name:
+                      type: string
+                      example: "togawa"
+        '300':
+          description: 
+            Internet Server Error
+
+
+                    
 
 
 
