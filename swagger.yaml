@@ -88,9 +88,24 @@ paths:
         content:
           application/json:
               schema:
-                type: array
-                items:
-                  type: object
+                type: object
+                properties:
+                  beacons:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        uuid:
+                          type: string
+                          example: "e7d61ea3f8dd49c88f2ff2484c07ac15"
+                        rssi:
+                          type: integer
+                          example: -50
+                  roomId:
+                    type: integer
+                    example: 1
+                    
+
                     
           
       responses:
