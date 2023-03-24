@@ -18,6 +18,8 @@ tags:
     description: 在室者についての操作
   - name: logs
     description: 在室履歴についての操作
+  - name: logsGantt
+    description: 1週間の在室履歴についての操作
 
   - name: pet
     description: Everything about your Pets
@@ -130,12 +132,59 @@ paths:
           description: 
             Internet Server Error
 
-
-                    
-
-
-
-          
+  /logs/gantt:
+    get:
+      tags:
+        - logsGantt
+      summary: 直近1週間の在室履歴の取得
+      operationId: controller.LogGantt
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 0
+                    date:
+                      type: string
+                      example: "2023-03-24"
+                    rooms:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: "学生部屋"
+                          stayTimes:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                  example: 312
+                                userName:
+                                  type: string
+                                  example: "togawa"
+                                startAt:
+                                  type: integer
+                                  example: 1679633411000
+                                endAt:
+                                  type: integer
+                                  example: 1679633452000
+                                color:
+                                  type: string
+                                  example: "green"
                              
         
 
