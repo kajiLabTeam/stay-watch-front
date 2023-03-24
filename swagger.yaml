@@ -232,7 +232,34 @@ paths:
                           name:
                             type: string
                             example: "B3"
-
+    post:
+      tags:
+        - users
+      summary: ユーザの新規登録, 更新
+      operationId: controller.CreateUser
+      requestBody:
+        description: IDがない(0)なら新規登録、ある(0以外)なら更新
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 0
+                email:
+                  type: string
+                  example: "aikoutarou@gmail.com"
+                name:
+                  type: string
+                  example: "tarou"
+                role:
+                  type: integer
+                  example: 1
+      responses:
+        '200':
+          description: OK
+      
         
 
   /pet:
