@@ -24,6 +24,8 @@ tags:
     description: ユーザ情報についての操作
   - name: extendedUsers
     description: 詳細なユーザ情報についての操作
+  - name: check
+    description: トークンについての操作
 
   - name: pet
     description: Everything about your Pets
@@ -304,6 +306,37 @@ paths:
                     role:
                       type: integer
                       example: 1
+  /check:
+    get:
+      tags:
+        - check
+      summary: 利用者自身のユーザ情報の取得
+      operationId: controller.Check
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  statusText:
+                    type: string
+                    example: "OK"
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 22
+                      role:
+                        type: integer
+                        example: 1
+        '401':
+          description: invalid token
         
 
   /pet:
