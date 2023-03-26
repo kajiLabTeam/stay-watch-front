@@ -22,6 +22,8 @@ tags:
     description: 1週間の在室履歴についての操作
   - name: users
     description: ユーザ情報についての操作
+  - name: extendedUsers
+    description: 詳細なユーザ情報についての操作
 
   - name: pet
     description: Everything about your Pets
@@ -259,7 +261,49 @@ paths:
       responses:
         '200':
           description: OK
-      
+
+  /users/extended:
+    get:
+      tags:
+        - extendedUsers
+      summary: 詳細なユーザ情報の取得
+      operationId: controller.ExtendedUserList
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 22
+                    name:
+                      type: string
+                      example: "togawa"
+                    tags:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 7
+                          name:
+                            type: string
+                            example: "B3"
+                    uuid:
+                      type: string
+                      example: "e7d61ea3f8dd49c88f2ff2484c07ac15"
+                    email:
+                      type: string
+                      example: "togetoge@gmail.com"
+                    role:
+                      type: integer
+                      example: 1
         
 
   /pet:
