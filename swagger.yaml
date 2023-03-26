@@ -25,7 +25,7 @@ tags:
   - name: extendedUsers
     description: 詳細なユーザ情報についての操作
   - name: check
-    description: トークンについての操作
+    description: ファイアベース関連の操作
 
   - name: pet
     description: Everything about your Pets
