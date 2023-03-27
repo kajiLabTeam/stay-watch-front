@@ -54,7 +54,7 @@ export const useIsSigned = (): boolean | undefined => {
 
 export const useIsRegisterEmail = (): boolean | undefined => {
   const [isRegisteredEmail, setIsRegisteredEmail] = useState<boolean | undefined>();
-  const [statusCode, setStatusCode] = useState<number | undefined>();
+  const [, setStatusCode] = useState<number | undefined>();
   const setUserRole = useSetRecoilState(userRole);
   const user = useUser();
 
