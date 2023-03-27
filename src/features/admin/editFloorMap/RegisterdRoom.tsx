@@ -66,25 +66,24 @@ export const RegisterdRoom = (props: {
         />
       </div>
     );
-  } else {
-    // フォームを非表示
-    return (
-      <div
-        className='w-full border border-blue-500'
-        onMouseOver={() => props.updateMouseOverRoomColor(props.room.roomID)}
-        onMouseOut={() => props.updateMouseOutRoomColor(props.room.roomID)}
-      >
-        <div className='flex'>
-          <div className='w-3/4'>{props.room.room_name}</div>
-          <button
-            id={'form_edit_button' + props.room.roomID}
-            className='w-1/4 text-center'
-            onClick={handleClick}
-          >
-            {buttonText}
-          </button>
-        </div>
-      </div>
-    );
   }
+  // フォームを非表示
+  return (
+    <div
+      className='w-full border border-blue-500'
+      onMouseOver={() => props.updateMouseOverRoomColor(props.room.roomID)}
+      onMouseOut={() => props.updateMouseOutRoomColor(props.room.roomID)}
+    >
+      <div className='flex'>
+        <div className='w-3/4'>{props.room.room_name}</div>
+        <button
+          id={'form_edit_button' + props.room.roomID}
+          className='w-1/4 text-center'
+          onClick={handleClick}
+        >
+          {buttonText}
+        </button>
+      </div>
+    </div>
+  );
 };

@@ -14,15 +14,15 @@ const Layout = ({ children }: { children?: ReactNode }) => {
         <main className='mx-auto w-11/12  pb-20 md:w-4/5 md:pb-2'>{children}</main>
       </div>
     );
-    // モバイルの場合
-  } else {
-    return (
-      <div>
-        <Foot />
-        <main className='mx-auto w-11/12  pb-20 md:w-4/5 md:pb-2'>{children}</main>
-      </div>
-    );
   }
+
+  // モバイルの場合
+  return (
+    <div>
+      <Foot />
+      <main className='mx-auto w-11/12  pb-20 md:w-4/5 md:pb-2'>{children}</main>
+    </div>
+  );
 
   // return (
   //   <div>
