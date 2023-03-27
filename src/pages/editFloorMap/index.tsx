@@ -1,6 +1,6 @@
 import '@/hooks/selectUsersHook';
-// eslint-disable-next-line import/order
-import EditFloorMap from '@/features/admin/editFloorMap/editFloorMap';
+
+import EditFloorMap from '@/features/admin/editFloorMap/EditFloorMap';
 
 export const EditFloorMapPages = () => {
   return <EditFloorMap />;

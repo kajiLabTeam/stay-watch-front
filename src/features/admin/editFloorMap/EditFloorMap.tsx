@@ -1,14 +1,14 @@
+import { Select } from '@mantine/core';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import useSWR from 'swr';
 import { BuildingSelector } from '@/features/admin/editFloorMap/BuildingSelector';
 import { MapCanvas } from '@/features/admin/editFloorMap/MapCanvas';
 import { RegisterdRooms } from '@/features/admin/editFloorMap/RegisterdRooms';
+import { DBRoom, UpdaterRoom, Building } from '@/types/roomFloormap';
 import { useUserRole } from '@/utils/Auth';
 import { endpoints } from '@/utils/api';
 import '@/hooks/selectUsersHook';
-// eslint-disable-next-line import/order
-import { DBRoom, UpdaterRoom, Building } from '@/types/roomFloormap';
 
 export const EditFloorMap = () => {
   const userRole = useUserRole();
@@ -174,6 +174,21 @@ export const EditFloorMap = () => {
             buildings={buildings}
             currentSelectedBuildingIndex={currentSelectedBuildingIndex}
             setCurrentSelectedBuildingIndex={setCurrentSelectedBuildingIndex}
+          />
+          <Select
+            classNames={{
+              input: 'w-64',
+            }}
+            data={[
+              {
+                label: '部屋',
+                value: 'room',
+              },
+              {
+                label: '建物',
+                value: 'building',
+              },
+            ]}
           />
           <MapCanvas
             mapsdata={mapssdata}
