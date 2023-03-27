@@ -62,10 +62,9 @@ export const EditFloorMap = () => {
         if (room.roomID === roomID) {
           // 更新する要素のみcolorプロパティを書き換えたオブジェクトを作成する
           return { ...room, color: 'rgba(' + [0, 0, 255, 0.7] + ')' };
-        } else {
-          // 更新しない要素はそのまま返す
-          return room;
         }
+        // 更新しない要素はそのまま返す
+        return room;
       });
     });
   };
@@ -76,9 +75,8 @@ export const EditFloorMap = () => {
       return prevState.map((room) => {
         if (room.roomID === roomID) {
           return { ...room, color: 'rgba(' + [0, 255, 0, 0.3] + ')' };
-        } else {
-          return room;
         }
+        return room;
       });
     });
   };
