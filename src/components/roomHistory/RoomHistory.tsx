@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import { useState } from 'react';
-import useSWR from 'swr';
 
 import { useWindowSize } from 'usehooks-ts';
 import { useCurrentPage } from '../../hooks/roomHistoryhook';
 import { Button } from '../common/Button';
 import RoomTabDate from './RoomTabDate';
+import { useCustomSWR } from '@/hooks/useCustomSWR';
 import Log from '@/types/log';
 import { endpoints } from '@/utils/api';
 
@@ -13,17 +13,8 @@ const RoomHistory = () => {
   const { width } = useWindowSize();
 
   const [page, PreviousPage, NextPage] = useCurrentPage();
-  const { data: logs, error } = useSWR<Log[]>(`${endpoints.logs}?page=${page}`);
+  const { data: logs } = useCustomSWR<Log[]>(`${endpoints.logs}?page=${page}`);
   const [isGantt, setIsGantt] = useState(false);
-
-  if (error)
-    return (
-      <div>
-        <div className='mt-6 text-4xl'>滞在者履歴</div>
-        <div className='my-4 border' />
-      </div>
-    );
-  if (!logs) return <div>loading...</div>;
 
   const nextButton = () => {
     //最後のデータだった時

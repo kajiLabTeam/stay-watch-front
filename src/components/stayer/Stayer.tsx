@@ -1,17 +1,9 @@
-import useSWR from 'swr';
+import { useCustomSWR } from '@/hooks/useCustomSWR';
 import StayerType from '@/types/stayer';
 import { endpoints } from '@/utils/api';
 
 const Stayer = () => {
-  const { data, error } = useSWR<StayerType[]>(`${endpoints.stayers}`); // (1)
-  if (error)
-    return (
-      <div>
-        <div className='mt-6 text-4xl'>滞在者一覧</div>
-        <div className='my-4 border' />
-      </div>
-    );
-  if (!data) return <div>loading...</div>;
+  const { data } = useCustomSWR<StayerType[]>(`${endpoints.stayers}`);
 
   return (
     <div>

@@ -36,7 +36,7 @@ export const RoomEditorForm = (props: {
           <TextInput placeholder='部屋名' value={roomNameValue} onChange={handleChange} />
           <div>{props.building.buildingName}</div>
           <div className='mx-auto bg-red-300'>
-            <Button>保存</Button>
+            <Button color='blue'>保存</Button>
           </div>
         </form>
       </div>
