@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import ErrorBoundary from '@/components/common/ErrorBoundary';
 import RoomHistory from '@/features/roomHistory/RoomHistory';
 
-const RoomHistoryIndex: NextPage = () => {
+const RoomHistoryPage: NextPage = () => {
   // const { fallback } = props;
   return (
     <ErrorBoundary>
@@ -13,4 +13,4 @@ const RoomHistoryIndex: NextPage = () => {
     </ErrorBoundary>
   );
 };
-export default RoomHistoryIndex;
+export default RoomHistoryPage;

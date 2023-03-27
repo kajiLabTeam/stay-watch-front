@@ -7,7 +7,7 @@ import RoomInformation from '@/types/roomInformation';
 import RoomStatus from '@/types/roomStatus';
 import { endpoints } from '@/utils/api';
 
-const FloorMapIndex = () => {
+const FloorMapPage = () => {
   const [roomsStatus, setRoomsStatus] = useState<RoomStatus[]>([]);
   const [roomInformation, setRoomInformation] = useState<RoomInformation[]>([
     { roomID: 1, roomName: '', top: 0, left: 0 },
@@ -102,4 +102,4 @@ const FloorMapIndex = () => {
   );
 };
 
-export default FloorMapIndex;
+export default FloorMapPage;
