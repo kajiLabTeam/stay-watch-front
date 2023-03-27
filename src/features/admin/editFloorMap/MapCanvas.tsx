@@ -1,7 +1,7 @@
 import React from 'react';
-import { EditingPolygonCanvas } from '@/features/editMap/EditingPolygonCanvas';
-import { FloorMapCanvas } from '@/features/editMap/FloorMapCanvas';
-import { RoomCanvas } from '@/features/editMap/RoomCanvas';
+import { EditingPolygonCanvas } from '@/features/admin/editFloorMap/EditingPolygonCanvas';
+import { FloorMapCanvas } from '@/features/admin/editFloorMap/FloorMapCanvas';
+import { RoomCanvas } from '@/features/admin/editFloorMap/RoomCanvas';
 import { EditorFloorMap } from '@/types/roomFloormap';
 
 export const MapCanvas = (props: {

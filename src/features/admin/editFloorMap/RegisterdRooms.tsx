@@ -1,5 +1,5 @@
 import React from 'react';
-import { RegisterdRoom } from '@/features/editMap/RegisterdRoom';
+import { RegisterdRoom } from '@/features/admin/editFloorMap/RegisterdRoom';
 import { Building, DBRoom } from '@/types/roomFloormap';
 
 export const RegisterdRooms = (props: {

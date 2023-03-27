@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import useSWR from 'swr';
-import { BuildingSelector } from '@/features/editMap/BuildingSelector';
-import { MapCanvas } from '@/features/editMap/MapCanvas';
-import { RegisterdRooms } from '@/features/editMap/RegisterdRooms';
+import { BuildingSelector } from '@/features/admin/editFloorMap/BuildingSelector';
+import { MapCanvas } from '@/features/admin/editFloorMap/MapCanvas';
+import { RegisterdRooms } from '@/features/admin/editFloorMap/RegisterdRooms';
 import { useUserRole } from '@/utils/Auth';
 import { endpoints } from '@/utils/api';
 import '@/hooks/selectUsersHook';
