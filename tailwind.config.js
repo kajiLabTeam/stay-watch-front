@@ -1,19 +1,20 @@
 module.exports = {
-  mode: "jit",
+  mode: 'jit',
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx}",
-    "./src/components/**/*.{js,ts,jsx,tsx}",
+    './src/pages/**/*.{js,ts,jsx,tsx}',
+    './src/components/**/*.{js,ts,jsx,tsx}',
+    './src/features/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {},
     screens: {
-      sm: "640px",
-      md: "840px",
-      mdlg: "935px",
-      lg: "1048px",
-      xl: "1280px",
+      sm: '640px',
+      md: '840px',
+      mdlg: '935px',
+      lg: '1048px',
+      xl: '1280px',
     },
   },
   plugins: [],
-  safelist: ["bg-red-400"],
+  safelist: ['bg-red-400'],
 };
