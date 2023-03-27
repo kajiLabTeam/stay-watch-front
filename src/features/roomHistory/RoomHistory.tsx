@@ -2,9 +2,9 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 import { useWindowSize } from 'usehooks-ts';
-import { useCurrentPage } from '../../hooks/roomHistoryhook';
-import { Button } from '../common/Button';
 import RoomTabDate from './RoomTabDate';
+import { useCurrentPage } from './roomHistoryhook';
+import { Button } from '@/components/common/Button';
 import { useCustomSWR } from '@/hooks/useCustomSWR';
 import Log from '@/types/log';
 import { endpoints } from '@/utils/api';

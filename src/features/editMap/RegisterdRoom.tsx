@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { RoomEditorForm } from '@/components/editMap/RoomEditorForm';
+import { RoomEditorForm } from '@/features/editMap/RoomEditorForm';
 import { Building, DBRoom } from '@/types/roomFloormap';
 
 export const RegisterdRoom = (props: {

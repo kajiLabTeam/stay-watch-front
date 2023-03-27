@@ -1,7 +1,7 @@
 import { Tabs } from '@mantine/core';
 import { useState } from 'react';
-import UserEdit from '@/components/admin/UserEdit';
-import UserInvite from '@/components/admin/UserInvite';
+import UserEdit from '@/features/admin/UserEdit';
+import UserInvite from '@/features/admin/UserInvite';
 
 export const Admin = () => {
   const [activeTab, setActiveTab] = useState<string | null>('first');

@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { Admin } from '@/components/admin/Admin';
+import { Admin } from '@/features/admin/Admin';
 
 const AdminPage: NextPage = () => {
   return (

@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { Suspense } from 'react';
 import ErrorBoundary from '@/components/common/ErrorBoundary';
-import RoomHistory from '@/components/roomHistory/RoomHistory';
+import RoomHistory from '@/features/roomHistory/RoomHistory';
 
 const RoomHistoryIndex: NextPage = () => {
   // const { fallback } = props;

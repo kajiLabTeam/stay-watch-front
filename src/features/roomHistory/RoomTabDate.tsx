@@ -1,6 +1,6 @@
 import { Tab } from '@headlessui/react';
 import useSWR from 'swr';
-import TabRoom from '@/components/simulataneousStay/TabRoom';
+import TabRoom from '@/features/simulataneousStay/TabRoom';
 import GanttStayLog from '@/types/ganttStayLog';
 import { endpoints } from '@/utils/api';
 

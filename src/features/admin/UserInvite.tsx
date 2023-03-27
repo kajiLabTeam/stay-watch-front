@@ -1,7 +1,7 @@
 import { Tabs } from '@mantine/core';
 import { FC } from 'react';
-import { BLERegisteredForm } from '@/components/admin/BLERegisteredForm';
-import { BLEUnRegisteredForm } from '@/components/admin/BLEUnRegisteredForm';
+import { BLERegisteredForm } from '@/features/admin/BLERegisteredForm';
+import { BLEUnRegisteredForm } from '@/features/admin/BLEUnRegisteredForm';
 import { useUserRole } from '@/utils/Auth';
 
 const UserInvite: FC = () => {

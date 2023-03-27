@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import { Suspense } from 'react';
 import ErrorBoundary from '@/components/common/ErrorBoundary';
-import Stayer from '@/components/stayer/Stayer';
+import Stayer from '@/features/stayer/Stayer';
 
 const Home: NextPage = () => {
   return (
