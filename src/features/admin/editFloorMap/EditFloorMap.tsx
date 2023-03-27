@@ -87,7 +87,7 @@ export const EditFloorMap = () => {
     if (editingPolygon && rooms && buildings) {
       const index_number: number = getIndexByRoomId(roomId); // rooms[1] <- この数字(1の部分)をroomIDから求める
 
-      var newRoom: UpdaterRoom = {
+      let newRoom: UpdaterRoom = {
         roomID: -1,
         room_name: rooms[index_number].room_name,
         polygon: '',
