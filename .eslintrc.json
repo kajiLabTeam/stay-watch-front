@@ -40,6 +40,8 @@
     "no-console": ["warn", { "allow": ["error"] }],
 
     //分割代入を優先する
-    "prefer-destructuring": ["error", { "array": false, "object": true }]
+    "prefer-destructuring": ["error", { "array": false, "object": true }],
+
+    "no-var": "error"
   }
 }
