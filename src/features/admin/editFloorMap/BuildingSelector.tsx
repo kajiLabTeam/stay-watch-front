@@ -16,15 +16,13 @@ export const BuildingSelector = (props: {
     return 0;
   };
 
-  const setIndex: React.ChangeEventHandler<HTMLSelectElement> = (ev) => {
-    props.setCurrentSelectedBuildingIndex(getBuildingIndexByBuildingName(ev.target.value));
-  };
-
   return (
     <div className='border-x-4 border-t-4'>
       <select
         value={props.buildings[props.currentSelectedBuildingIndex].buildingName}
-        onChange={setIndex}
+        onChange={(event) => {
+          props.setCurrentSelectedBuildingIndex(getBuildingIndexByBuildingName(event.target.value));
+        }}
         className='border-2'
       >
         {props.buildings.map((building: Building) => {
