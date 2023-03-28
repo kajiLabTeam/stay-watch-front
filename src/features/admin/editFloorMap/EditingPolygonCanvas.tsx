@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useUserRole } from '@/utils/Auth';
+import { useUserRoleState } from '@/globalStates/userRoleState';
 
 export const EditingPolygonCanvas = (props: {
   editingPolygon: number[][];
@@ -8,7 +8,7 @@ export const EditingPolygonCanvas = (props: {
 }) => {
   const { isEditingRoom, setEditingPolygon } = props;
 
-  const userRole = useUserRole();
+  const userRole = useUserRoleState();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const CANVAS_WIDTH = 2880;

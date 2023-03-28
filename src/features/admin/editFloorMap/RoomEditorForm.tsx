@@ -2,8 +2,8 @@ import { TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useState } from 'react';
 import { Button } from '@/components/common/Button';
+import { useUserRoleState } from '@/globalStates/userRoleState';
 import { Building, DBRoom } from '@/types/roomFloormap';
-import { useUserRole } from '@/utils/Auth';
 
 export const RoomEditorForm = (props: {
   room: DBRoom;
@@ -11,7 +11,7 @@ export const RoomEditorForm = (props: {
   storeRoomToDatabase: any;
   editingPolygon: number[][];
 }) => {
-  const userRole = useUserRole();
+  const userRole = useUserRoleState();
   const [roomNameValue, setRoomNameValue] = useState(props.room.room_name);
 
   const form = useForm();

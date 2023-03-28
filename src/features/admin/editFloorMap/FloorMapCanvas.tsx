@@ -1,9 +1,9 @@
 import { useRef, useEffect } from 'react';
-import { useUserRole } from '@/utils/Auth';
+import { useUserRoleState } from '@/globalStates/userRoleState';
 
 export const FloorMapCanvas = (props: { buildingImagePath: string }) => {
   const canvasRef = useRef(null);
-  const userRole = useUserRole();
+  const userRole = useUserRoleState();
 
   const CANVAS_WIDTH = 2880;
   const CANVAS_HEIGHT = 1800;

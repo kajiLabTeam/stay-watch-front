@@ -4,14 +4,14 @@ import { BuildingSelector } from '@/features/admin/editFloorMap/BuildingSelector
 import { MapCanvas } from '@/features/admin/editFloorMap/MapCanvas';
 import { RegisterdRooms } from '@/features/admin/editFloorMap/RegisterdRooms';
 import { useRoomMapData } from '@/features/admin/editFloorMap/useUpdateMapData';
+import { useUserRoleState } from '@/globalStates/userRoleState';
 import { useCustomSWR } from '@/hooks/useCustomSWR';
 import { DBRoom, UpdaterRoom, Building } from '@/types/roomFloormap';
-import { useUserRole } from '@/utils/Auth';
 import { endpoints } from '@/utils/api';
 import '@/hooks/selectUsersHook';
 
 export const EditFloorMap = () => {
-  const userRole = useUserRole();
+  const userRole = useUserRoleState();
   const { data: rooms } = useCustomSWR<DBRoom[]>(`${endpoints.getRoomsEditorByCommunityID}`);
   const { data: buildings } = useCustomSWR<Building[]>(`${endpoints.getBuildingsEditor}`);
   const [editingPolygon, setEditingPolygon] = useState([

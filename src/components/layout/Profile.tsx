@@ -3,12 +3,14 @@ import { Menu } from '@mantine/core';
 import { NextLink } from '@mantine/next';
 import { useState } from 'react';
 import { Confirmation } from '@/components/common/Confirmation';
+import { useUserState } from '@/globalStates/firebaseUserState';
+import { useUserRoleState } from '@/globalStates/userRoleState';
 import { pagesPath } from '@/utils/$path';
-import { logout, useUser, useUserRole } from '@/utils/Auth';
+import { logout } from '@/utils/Auth';
 
 export const Profile = () => {
-  const user = useUser();
-  const userRole = useUserRole();
+  const user = useUserState();
+  const userRole = useUserRoleState();
   const [showModal, setShowModal] = useState(false);
 
   const remove = () => {

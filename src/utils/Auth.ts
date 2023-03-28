@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import firebase, {
+import {
   getAuth,
   GoogleAuthProvider,
   signInWithRedirect,
@@ -7,10 +7,9 @@ import firebase, {
   onAuthStateChanged,
 } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { endpoints } from './api';
-import { userState } from '@/globalStates/atoms/firebaseUserAtom';
-import { userRole } from '@/globalStates/atoms/userRoleAtom';
+import { useUserMutators, useUserState } from '@/globalStates/firebaseUserState';
+import { useUserRoleMutators } from '@/globalStates/userRoleState';
 import { User } from '@/types/user';
 import { app } from '@/utils/firebase';
 
@@ -25,29 +24,21 @@ export const logout = (): Promise<void> => {
   return signOut(auth);
 };
 
-export const useUser = (): firebase.User | null => {
-  return useRecoilValue(userState);
-};
-
-export const useUserRole = (): number | null => {
-  return useRecoilValue(userRole);
-};
-
 export const useIsSigned = (): boolean | undefined => {
   const [isSigned, setIsSigned] = useState<boolean | undefined>();
-  const setUser = useSetRecoilState(userState);
+  const { setUserState } = useUserMutators();
 
   useEffect(() => {
     const auth = getAuth(app);
     return onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUser(user);
+        setUserState(user);
         setIsSigned(true);
       } else {
         setIsSigned(false);
       }
     });
-  }, [setUser]);
+  }, [setUserState]);
 
   return isSigned;
 };
@@ -55,8 +46,8 @@ export const useIsSigned = (): boolean | undefined => {
 export const useIsRegisterEmail = (): boolean | undefined => {
   const [isRegisteredEmail, setIsRegisteredEmail] = useState<boolean | undefined>();
   const [, setStatusCode] = useState<number | undefined>();
-  const setUserRole = useSetRecoilState(userRole);
-  const user = useUser();
+  const { setUserRole } = useUserRoleMutators();
+  const user = useUserState();
 
   useEffect(() => {
     if (user) {

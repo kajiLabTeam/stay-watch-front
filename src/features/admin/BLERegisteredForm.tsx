@@ -2,13 +2,14 @@ import { Select, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import axios from 'axios';
 import { Button } from '@/components/common/Button';
+import { useUserRoleState } from '@/globalStates/userRoleState';
 import { useSelectUsers } from '@/hooks/selectUsersHook';
-import { useUserRole } from '@/utils/Auth';
+
 import { endpoints } from '@/utils/api';
 
 export const BLERegisteredForm = () => {
   const selectUsers = useSelectUsers();
-  const userRole = useUserRole();
+  const userRole = useUserRoleState();
 
   const form = useForm({
     initialValues: {

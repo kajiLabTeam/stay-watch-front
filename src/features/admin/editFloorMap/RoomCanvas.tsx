@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
-import { useUserRole } from '@/utils/Auth';
+import { useUserRoleState } from '@/globalStates/userRoleState';
 
 export const RoomCanvas = (props: { color: string; polygon: number[][]; roomID: number }) => {
-  const userRole = useUserRole();
+  const userRole = useUserRoleState();
   const canvasRef = useRef(null);
 
   const CANVAS_WIDTH = 2880;
