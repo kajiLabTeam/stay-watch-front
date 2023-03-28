@@ -43,6 +43,7 @@
     "prefer-destructuring": ["error", { "array": false, "object": true }],
 
     "no-var": "error",
-    "no-else-return": "error"
+    "no-else-return": "error",
+    "eqeqeq": ["error", "smart"]
   }
 }
