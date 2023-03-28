@@ -27,18 +27,6 @@ export const EditFloorMap = () => {
     currentSelectedBuildingIndex,
   );
 
-  // rooms[1] <- この数字(1の部分)をroomID(46とか)から求める
-  const getIndexByRoomId = (roomId: number) => {
-    if (rooms) {
-      for (let i = 0; i < rooms.length; i++) {
-        if (rooms[i].roomID == roomId) {
-          return i;
-        }
-      }
-    }
-    return -1;
-  };
-
   const updateCurrentSelectedBuildingIndexByBuildingId = (buildingId: number) => {
     if (buildings) {
       for (let i = 0; i < buildings.length; i++) {
@@ -51,7 +39,7 @@ export const EditFloorMap = () => {
 
   const storeRoomToDatabase = (roomId: number, newRoomName: string) => {
     if (editingPolygon && rooms && buildings) {
-      const index_number: number = getIndexByRoomId(roomId); // rooms[1] <- この数字(1の部分)をroomIDから求める
+      const index_number: number = rooms?.findIndex((room) => room.roomID == roomId);
 
       let newRoom: UpdaterRoom = {
         roomID: -1,
