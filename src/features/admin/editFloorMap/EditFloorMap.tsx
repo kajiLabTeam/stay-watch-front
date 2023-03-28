@@ -1,10 +1,10 @@
-import { Select } from '@mantine/core';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import useSWR from 'swr';
 import { BuildingSelector } from '@/features/admin/editFloorMap/BuildingSelector';
 import { MapCanvas } from '@/features/admin/editFloorMap/MapCanvas';
 import { RegisterdRooms } from '@/features/admin/editFloorMap/RegisterdRooms';
+import { useRoomMapData } from '@/features/admin/editFloorMap/useUpdateMapData';
 import { DBRoom, UpdaterRoom, Building } from '@/types/roomFloormap';
 import { useUserRole } from '@/utils/Auth';
 import { endpoints } from '@/utils/api';
@@ -21,17 +21,11 @@ export const EditFloorMap = () => {
   const [editingRoomId, setEditingRoomId] = useState(0);
   const [isEditingRoom, setIsEditingRoom] = useState(false);
   const [currentSelectedBuildingIndex, setCurrentSelectedBuildingIndex] = useState(0);
-  const [mapssdata, setMap] = useState([
-    {
-      roomID: -1,
-      buildingId: -1,
-      polygon: [
-        [0, 0],
-        [0, 0],
-      ],
-      color: 'rgba(0,255,0,0.3)',
-    },
-  ]);
+  const { mapsData, updateMouseOutRoomColor, updateMouseOverRoomColor } = useRoomMapData(
+    rooms,
+    buildings,
+    currentSelectedBuildingIndex,
+  );
 
   // rooms[1] <- この数字(1の部分)をroomID(46とか)から求める
   const getIndexByRoomId = (roomId: number) => {
@@ -53,32 +47,6 @@ export const EditFloorMap = () => {
         }
       }
     }
-  };
-
-  const updateMouseOverRoomColor = (roomID: number) => {
-    setMap((prevState) => {
-      // 該当する要素を更新した新しい配列を作成する
-      return prevState.map((room) => {
-        if (room.roomID === roomID) {
-          // 更新する要素のみcolorプロパティを書き換えたオブジェクトを作成する
-          return { ...room, color: 'rgba(' + [0, 0, 255, 0.7] + ')' };
-        }
-        // 更新しない要素はそのまま返す
-        return room;
-      });
-    });
-  };
-
-  const updateMouseOutRoomColor = (roomID: number) => {
-    setMap((prevState) => {
-      // 該当する要素を更新した新しい配列を作成する
-      return prevState.map((room) => {
-        if (room.roomID === roomID) {
-          return { ...room, color: 'rgba(' + [0, 255, 0, 0.3] + ')' };
-        }
-        return room;
-      });
-    });
   };
 
   const storeRoomToDatabase = (roomId: number, newRoomName: string) => {
@@ -121,44 +89,6 @@ export const EditFloorMap = () => {
     }
   };
 
-  useEffect(() => {
-    // DBの内容、現在選択されている建物IDが変わった時に動作する
-    if (rooms && buildings) {
-      setMap([
-        {
-          roomID: -1,
-          buildingId: -1,
-          polygon: [
-            [0, 0],
-            [0, 0],
-          ],
-          color: 'rgba(0,255,0,0.3)',
-        },
-      ]);
-      for (let i = 0; i < rooms.length; ++i) {
-        // 部屋の建物IDと現在選択されている建物IDが同じ時その部屋の情報をmapssdataに加える
-        if (rooms[i].buildingId == buildings[currentSelectedBuildingIndex].buildingId) {
-          const arrayPolygon: number[][] = new Array();
-          const tmpArrayPolygon: string[] = rooms[i].polygon.split('-'); // 例 "123,123-456,456" -> ["123,123"],["456,456"]
-          for (let j = 0; j < tmpArrayPolygon.length; ++j) {
-            const tmpPairPolygon = tmpArrayPolygon[j].split(','); // ["123,123"],["456,456"] -> ['123','123'],['456','456']
-            const polygonPoint: number[] = [Number(tmpPairPolygon[0]), Number(tmpPairPolygon[1])]; // ['123','123'],['456','456']->[123,123],[456,456]
-            arrayPolygon.push(polygonPoint);
-          }
-          setMap((mapssdata) => [
-            ...mapssdata,
-            {
-              roomID: rooms[i].roomID,
-              buildingId: rooms[i].buildingId,
-              polygon: arrayPolygon,
-              color: 'rgba(' + [0, 255, 0, 0.3] + ')',
-            },
-          ]);
-        }
-      }
-    }
-  }, [rooms, buildings, currentSelectedBuildingIndex]);
-
   if (userRole == null) {
     return <div />;
   }
@@ -175,23 +105,8 @@ export const EditFloorMap = () => {
             currentSelectedBuildingIndex={currentSelectedBuildingIndex}
             setCurrentSelectedBuildingIndex={setCurrentSelectedBuildingIndex}
           />
-          <Select
-            classNames={{
-              input: 'w-64',
-            }}
-            data={[
-              {
-                label: '部屋',
-                value: 'room',
-              },
-              {
-                label: '建物',
-                value: 'building',
-              },
-            ]}
-          />
           <MapCanvas
-            mapsdata={mapssdata}
+            mapsdata={mapsData}
             editingPolygon={editingPolygon}
             isEditingRoom={isEditingRoom}
             buildingImagePath={buildings[currentSelectedBuildingIndex].buildingImagePath}
