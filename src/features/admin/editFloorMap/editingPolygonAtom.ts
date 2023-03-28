@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { atom, useRecoilValue } from 'recoil';
 import { useCustomSWR } from '@/hooks/useCustomSWR';
-import { DBRoom, UpdaterRoom, Building } from '@/types/roomFloormap';
+import { DBRoom, Building } from '@/types/roomFloormap';
 import { endpoints } from '@/utils/api';
 import '@/hooks/selectUsersHook';
 
