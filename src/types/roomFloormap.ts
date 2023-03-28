@@ -1,9 +1,8 @@
-
 export type RoomFloorMap = {
-    id: number;
-    name: string;
-    polygon: string;
-  };
+  id: number;
+  name: string;
+  polygon: string;
+};
 
 export type DBRoom = {
   roomID: number;
@@ -12,13 +11,13 @@ export type DBRoom = {
   building_name: string;
   polygon: string;
   buildingId: number;
-} 
+};
 
 export type Building = {
   buildingId: number;
   buildingName: string;
   buildingImagePath: string;
-}
+};
 
 export type Room = {
   roomID: number;
@@ -26,18 +25,18 @@ export type Room = {
   community_name: string;
   building_name: string;
   polygon: number[][];
-}
+};
 
 export type EditorFloorMap = {
   roomID: number;
   buildingId: number;
   polygon: number[][];
   color: string;
-}
+};
 
 export type UpdaterRoom = {
   roomID: number;
   room_name: string;
   polygon: string;
   buildingID: number;
-}
+};

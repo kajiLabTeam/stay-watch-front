@@ -1,7 +1,7 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 
 export const userRole = atom<number | null>({
-  key: "userRole",
+  key: 'userRole',
   default: null,
   dangerouslyAllowMutability: true,
 });

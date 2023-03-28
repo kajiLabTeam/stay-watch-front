@@ -13,6 +13,20 @@ export type UserAttribute = {
     {
       id: number;
       name: string;
-    }
+    },
+  ];
+};
+
+export type extendedUser = {
+  id: number;
+  name: string;
+  uuid: string;
+  email: string;
+  role: number;
+  tags: [
+    {
+      id: number;
+      name: string;
+    },
   ];
 };

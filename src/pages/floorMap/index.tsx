@@ -1,23 +1,16 @@
-import axios from "axios";
-import Image from "next/image";
-import { useRef, useEffect, useState } from "react";
-import { SizeMe } from "react-sizeme";
-import PopoverTop from "@/components/roomHistory/PopoverTop";
-import RoomInformation from "@/types/roomInformation";
-import RoomStatus from "@/types/roomStatus";
-import { endpoints } from "@/utils/api";
-
-const fetcher = async (url: string) => {
-  const res = await fetch(url);
-  const obj = res.json();
-};
+import axios from 'axios';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { SizeMe } from 'react-sizeme';
+import PopoverTop from '@/components/roomHistory/PopoverTop';
+import RoomInformation from '@/types/roomInformation';
+import RoomStatus from '@/types/roomStatus';
+import { endpoints } from '@/utils/api';
 
 const FloorMapIndex = () => {
-  const elm = useRef(null);
-
   const [roomsStatus, setRoomsStatus] = useState<RoomStatus[]>([]);
   const [roomInformation, setRoomInformation] = useState<RoomInformation[]>([
-    { roomID: 1, roomName: "", top: 0, left: 0 },
+    { roomID: 1, roomName: '', top: 0, left: 0 },
   ]);
 
   useEffect(() => {
@@ -42,14 +35,18 @@ const FloorMapIndex = () => {
         }
         setRoomsStatus(roomsStatusArray);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.error(err);
+      });
 
     axios
-      .get("/room.json")
+      .get('/room.json')
       .then((res) => {
         setRoomInformation(res.data);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.error(err);
+      });
   }, []);
 
   return (
@@ -57,19 +54,14 @@ const FloorMapIndex = () => {
       {({ size }) => {
         if (size.height != null && size.width != null) {
           return (
-            <div className="relative mt-14">
-              <Image
-                src={"/kajlab-room.jpg"}
-                alt="kajlab-room"
-                width="1600vmin"
-                height="900vmin"
-              />
+            <div className='relative mt-14'>
+              <Image src={'/kajlab-room.jpg'} alt='kajlab-room' width='1600vmin' height='900vmin' />
               {roomsStatus.map((roomStatus) => {
                 if (size.height != null && size.width != null) {
                   return (
                     <div
                       key={roomStatus.roomID}
-                      className="absolute  text-red-400"
+                      className='absolute  text-red-400'
                       style={{
                         left:
                           (size.width / 100) *
@@ -92,7 +84,7 @@ const FloorMapIndex = () => {
                         roomName={
                           roomInformation[roomStatus.roomID - 1] != undefined
                             ? roomInformation[roomStatus.roomID - 1].roomName
-                            : ""
+                            : ''
                         }
                       />
                     </div>
