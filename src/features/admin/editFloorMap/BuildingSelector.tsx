@@ -8,7 +8,7 @@ export const BuildingSelector = (props: {
 }) => {
   const getBuildingIndexByBuildingName = (buildingName: string) => {
     for (let i = 0; i < props.buildings.length; i++) {
-      if (props.buildings[i].buildingName == buildingName) {
+      if (props.buildings[i].buildingName === buildingName) {
         return i;
       }
     }

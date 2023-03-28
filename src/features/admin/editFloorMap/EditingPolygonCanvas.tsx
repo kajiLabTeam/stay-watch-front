@@ -52,7 +52,7 @@ export const EditingPolygonCanvas = (props: {
 
           let rect = canvasElement.getBoundingClientRect();
 
-          if (mouseMode == MOUSE_DRAWING) {
+          if (mouseMode === MOUSE_DRAWING) {
             // 四角の終了
             // 四角の終点を定める
             endX = Math.trunc((e.clientX - Math.floor(rect.left)) / canvasElementRatio);
@@ -63,7 +63,7 @@ export const EditingPolygonCanvas = (props: {
               [startX, startY],
               [endX, endY],
             ]);
-          } else if (mouseMode == MOUSE_NOT_DRAWING) {
+          } else if (mouseMode === MOUSE_NOT_DRAWING) {
             // 四角の開始
             // 四角の始点を定める
             startX = Math.trunc((e.clientX - Math.floor(rect.left)) / canvasElementRatio);
@@ -72,9 +72,9 @@ export const EditingPolygonCanvas = (props: {
           }
         };
         canvasElement.onmousemove = (e) => {
-          if (mouseMode == MOUSE_NOT_DRAWING) {
+          if (mouseMode === MOUSE_NOT_DRAWING) {
             // 四角かいていない時
-          } else if (mouseMode == MOUSE_DRAWING) {
+          } else if (mouseMode === MOUSE_DRAWING) {
             // 四角を描いている途中
             canvasElementRatio = canvasElement.clientWidth / CANVAS_WIDTH;
             let rect = canvasElement.getBoundingClientRect();

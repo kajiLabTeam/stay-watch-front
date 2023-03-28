@@ -17,7 +17,7 @@ export const MapCanvas = (props: {
     <div className='relative'>
       <FloorMapCanvas buildingImagePath={props.buildingImagePath} />
       {props.mapsdata.map((mapdata: EditorFloorMap) => {
-        if (mapdata.buildingId == props.currentSelectedBuildingId) {
+        if (mapdata.buildingId === props.currentSelectedBuildingId) {
           return (
             <div key={mapdata.roomID}>
               <RoomCanvas roomID={mapdata.roomID} polygon={mapdata.polygon} color={mapdata.color} />

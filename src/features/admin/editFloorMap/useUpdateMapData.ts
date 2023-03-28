@@ -61,7 +61,7 @@ export const useRoomMapData = (
       ]);
       for (let i = 0; i < rooms.length; ++i) {
         // 部屋の建物IDと現在選択されている建物IDが同じ時その部屋の情報をmapDataに加える
-        if (rooms[i].buildingId == buildings[currentSelectedBuildingIndex].buildingId) {
+        if (rooms[i].buildingId === buildings[currentSelectedBuildingIndex].buildingId) {
           const arrayPolygon: number[][] = new Array();
           const tmpArrayPolygon: string[] = rooms[i].polygon.split('-');
           for (let j = 0; j < tmpArrayPolygon.length; ++j) {

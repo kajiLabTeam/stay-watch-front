@@ -18,7 +18,7 @@ const RoomHistory = () => {
 
   const nextButton = () => {
     //最後のデータだった時
-    if (logs.slice(-1)[0]?.id == 1) {
+    if (logs.slice(-1)[0]?.id === 1) {
       return <div />;
     }
     return (

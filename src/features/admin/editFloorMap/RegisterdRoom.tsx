@@ -17,13 +17,13 @@ export const RegisterdRoom = (props: {
 }) => {
   const [buttonText, setButtonText] = useState('編集');
   const handleClick = () => {
-    if (buttonText == '編集') {
+    if (buttonText === '編集') {
       // 編集画面を開始
       props.setEditingRoomId(props.room.roomID);
       props.setIsEditingRoom(true);
       props.updateCurrentSelectedBuildingIndexByBuildingId(props.room.buildingId);
       setButtonText('中止');
-    } else if (buttonText == '中止') {
+    } else if (buttonText === '中止') {
       // 編集終了
       props.setEditingRoomId(-1);
       props.setIsEditingRoom(false);
@@ -35,11 +35,11 @@ export const RegisterdRoom = (props: {
     }
   };
 
-  if (buttonText == '中止' && props.room.roomID != props.editingRoomId) {
+  if (buttonText === '中止' && props.room.roomID !== props.editingRoomId) {
     setButtonText('編集');
   }
 
-  if (props.room.roomID == props.editingRoomId) {
+  if (props.room.roomID === props.editingRoomId) {
     // フォームを表示
     return (
       <div

@@ -30,7 +30,7 @@ export const EditFloorMap = () => {
   const updateCurrentSelectedBuildingIndexByBuildingId = (buildingId: number) => {
     if (buildings) {
       for (let i = 0; i < buildings.length; i++) {
-        if (buildings[i].buildingId == buildingId) {
+        if (buildings[i].buildingId === buildingId) {
           setCurrentSelectedBuildingIndex(i);
         }
       }
@@ -39,7 +39,7 @@ export const EditFloorMap = () => {
 
   const storeRoomToDatabase = (roomId: number, newRoomName: string) => {
     if (editingPolygon && rooms && buildings) {
-      const IndexNumber: number = rooms?.findIndex((room) => room.roomID == roomId);
+      const IndexNumber: number = rooms?.findIndex((room) => room.roomID === roomId);
 
       let newRoom: UpdaterRoom = {
         roomID: -1,
