@@ -39,11 +39,11 @@ export const EditFloorMap = () => {
 
   const storeRoomToDatabase = (roomId: number, newRoomName: string) => {
     if (editingPolygon && rooms && buildings) {
-      const index_number: number = rooms?.findIndex((room) => room.roomID == roomId);
+      const IndexNumber: number = rooms?.findIndex((room) => room.roomID == roomId);
 
       let newRoom: UpdaterRoom = {
         roomID: -1,
-        room_name: rooms[index_number].room_name,
+        room_name: rooms[IndexNumber].room_name,
         polygon: '',
         buildingID: -1,
       };
