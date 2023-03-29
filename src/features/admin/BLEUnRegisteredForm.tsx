@@ -2,11 +2,11 @@ import { Select, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import axios from 'axios';
 import { Button } from '@/components/common/Button';
-import { useUserRole } from '@/utils/Auth';
+import { useUserRoleState } from '@/globalStates/userRoleState';
 import { endpoints } from '@/utils/api';
 
 export const BLEUnRegisteredForm = () => {
-  const userRole = useUserRole();
+  const userRole = useUserRoleState();
 
   const form = useForm({
     initialValues: {
