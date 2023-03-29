@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 
-export const useCustomSWR = <T>(url: string) => {
+export const useSuspenseSWR = <T>(url: string) => {
   const fetcher = async (url: string): Promise<any> => {
     const resonse = await fetch(url);
     return resonse.json();
