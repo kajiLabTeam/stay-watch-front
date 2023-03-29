@@ -5,7 +5,6 @@ import { Building, DBRoom } from '@/types/roomFloormap';
 
 export const RegisterdRooms = (props: { rooms: DBRoom[]; buildings: Building[] }) => {
   const { currentSelectedBuildingIndex } = useEditingMapState();
-  if (!props.rooms) return <div>loading...</div>;
 
   return (
     <div>

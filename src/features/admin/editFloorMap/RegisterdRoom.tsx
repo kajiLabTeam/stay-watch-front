@@ -8,6 +8,7 @@ import { useMapsDataMutators } from '@/features/admin/editFloorMap/hooks/mapStat
 import { Building, DBRoom } from '@/types/roomFloormap';
 
 export const RegisterdRoom = (props: { room: DBRoom; building: Building }) => {
+  const { roomID, buildingId, room_name } = props.room;
   const [buttonText, setButtonText] = useState('編集');
 
   const {
@@ -24,9 +25,9 @@ export const RegisterdRoom = (props: { room: DBRoom; building: Building }) => {
   const handleClick = () => {
     if (buttonText === '編集') {
       // 編集画面を開始
-      setEditingRoomId(props.room.roomID);
+      setEditingRoomId(roomID);
       setIsEditingRoom(true);
-      updateCurrentSelectedBuildingIndexByBuildingId(props.room.buildingId);
+      updateCurrentSelectedBuildingIndexByBuildingId(buildingId);
       setButtonText('中止');
     } else if (buttonText === '中止') {
       // 編集終了
@@ -40,22 +41,22 @@ export const RegisterdRoom = (props: { room: DBRoom; building: Building }) => {
     }
   };
 
-  if (buttonText === '中止' && props.room.roomID !== editingRoomId) {
+  if (buttonText === '中止' && roomID !== editingRoomId) {
     setButtonText('編集');
   }
 
-  if (props.room.roomID === editingRoomId) {
+  if (roomID === editingRoomId) {
     // フォームを表示
     return (
       <div
         className='w-full border border-blue-500'
-        onMouseOver={() => updateMouseOverRoomColor(props.room.roomID)}
-        onMouseOut={() => updateMouseOutRoomColor(props.room.roomID)}
+        onMouseOver={() => updateMouseOverRoomColor(roomID)}
+        onMouseOut={() => updateMouseOutRoomColor(roomID)}
       >
         <div className='flex'>
-          <div className='w-3/4'>{props.room.room_name}</div>
+          <div className='w-3/4'>{room_name}</div>
           <button
-            id={`form_edit_button${props.room.roomID}`}
+            id={`form_edit_button${roomID}`}
             className='w-1/4 text-center'
             onClick={handleClick}
           >
@@ -75,13 +76,13 @@ export const RegisterdRoom = (props: { room: DBRoom; building: Building }) => {
   return (
     <div
       className='w-full border border-blue-500'
-      onMouseOver={() => updateMouseOverRoomColor(props.room.roomID)}
-      onMouseOut={() => updateMouseOutRoomColor(props.room.roomID)}
+      onMouseOver={() => updateMouseOverRoomColor(roomID)}
+      onMouseOut={() => updateMouseOutRoomColor(roomID)}
     >
       <div className='flex'>
-        <div className='w-3/4'>{props.room.room_name}</div>
+        <div className='w-3/4'>{room_name}</div>
         <button
-          id={`form_edit_button${props.room.roomID}`}
+          id={`form_edit_button${roomID}`}
           className='w-1/4 text-center'
           onClick={handleClick}
         >
