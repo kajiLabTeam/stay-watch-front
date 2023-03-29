@@ -1,10 +1,7 @@
 import { useRef, useEffect } from 'react';
-import { useUserRoleState } from '@/globalStates/userRoleState';
 
 export const FloorMapCanvas = (props: { buildingImagePath: string }) => {
   const canvasRef = useRef(null);
-  const userRole = useUserRoleState();
-
   const CANVAS_WIDTH = 2880;
   const CANVAS_HEIGHT = 1800;
 
@@ -40,10 +37,6 @@ export const FloorMapCanvas = (props: { buildingImagePath: string }) => {
       drawBuildingToCanvas(buildingImage);
     };
   }, [props.buildingImagePath]);
-
-  if (userRole == null) {
-    return <div />;
-  }
 
   return (
     <div className='absolute border-x-4 border-b-4'>

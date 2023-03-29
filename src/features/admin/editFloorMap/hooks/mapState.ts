@@ -1,15 +1,16 @@
-// src/hooks/useUpdateMapData.ts
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useEditingMapState } from '@/features/admin/editFloorMap/hooks/editingMapState';
+import { useCustomSWR } from '@/hooks/useCustomSWR';
 import { DBRoom, Building } from '@/types/roomFloormap';
+import { endpoints } from '@/utils/api';
 
-export const useRoomMapData = (
-  rooms: DBRoom[] | undefined,
-  buildings: Building[] | undefined,
-  currentSelectedBuildingIndex: number,
-) => {
-  const [mapsData, setMapData] = useState([
+// マップデータ描画するのに必要なオブジェクト
+const mapsDataState = atom({
+  key: 'mapsState',
+  default: [
     {
-      roomID: -1,
+      roomId: -1,
       buildingId: -1,
       polygon: [
         [0, 0],
@@ -17,13 +18,24 @@ export const useRoomMapData = (
       ],
       color: 'rgba(0,255,0,0.3)',
     },
-  ]);
+  ],
+});
 
-  const updateMouseOverRoomColor = (roomID: number) => {
-    setMapData((prevState) => {
+export const useMapsDataState = () => {
+  return useRecoilValue(mapsDataState);
+};
+
+export const useMapsDataMutators = () => {
+  const { data: rooms } = useCustomSWR<DBRoom[]>(`${endpoints.getRoomsEditorByCommunityID}`);
+  const { data: buildings } = useCustomSWR<Building[]>(`${endpoints.getBuildingsEditor}`);
+  const { currentSelectedBuildingIndex } = useEditingMapState();
+  const setMapsData = useSetRecoilState(mapsDataState);
+
+  const updateMouseOverRoomColor = (roomId: number) => {
+    setMapsData((prevState) => {
       // 該当する要素を更新した新しい配列を作成する
       return prevState.map((room) => {
-        if (room.roomID === roomID) {
+        if (room.roomId === roomId) {
           // 更新する要素のみcolorプロパティを書き換えたオブジェクトを作成する
           return { ...room, color: 'rgba(' + [0, 0, 255, 0.7] + ')' };
         }
@@ -33,11 +45,11 @@ export const useRoomMapData = (
     });
   };
 
-  const updateMouseOutRoomColor = (roomID: number) => {
-    setMapData((prevState) => {
+  const updateMouseOutRoomColor = (roomId: number) => {
+    setMapsData((prevState) => {
       // 該当する要素を更新した新しい配列を作成する
       return prevState.map((room) => {
-        if (room.roomID === roomID) {
+        if (room.roomId === roomId) {
           return { ...room, color: 'rgba(' + [0, 255, 0, 0.3] + ')' };
         }
         return room;
@@ -48,9 +60,9 @@ export const useRoomMapData = (
   useEffect(() => {
     // DBの内容、現在選択されている建物IDが変わった時に動作する
     if (rooms && buildings) {
-      setMapData([
+      setMapsData([
         {
-          roomID: -1,
+          roomId: -1,
           buildingId: -1,
           polygon: [
             [0, 0],
@@ -69,10 +81,10 @@ export const useRoomMapData = (
             const polygonPoint: number[] = [Number(tmpPairPolygon[0]), Number(tmpPairPolygon[1])];
             arrayPolygon.push(polygonPoint);
           }
-          setMapData((mapData) => [
+          setMapsData((mapData) => [
             ...mapData,
             {
-              roomID: rooms[i].roomID,
+              roomId: rooms[i].roomID,
               buildingId: rooms[i].buildingId,
               polygon: arrayPolygon,
               color: 'rgba(' + [0, 255, 0, 0.3] + ')',
@@ -83,5 +95,5 @@ export const useRoomMapData = (
     }
   }, [rooms, buildings, currentSelectedBuildingIndex]);
 
-  return { mapsData, updateMouseOverRoomColor, updateMouseOutRoomColor };
+  return { updateMouseOverRoomColor, updateMouseOutRoomColor };
 };

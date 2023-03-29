@@ -1,14 +1,13 @@
 import React, { useEffect, useRef } from 'react';
-import { useUserRoleState } from '@/globalStates/userRoleState';
+import {
+  useEditingMapMutators,
+  useEditingMapState,
+} from '@/features/admin/editFloorMap/hooks/editingMapState';
 
-export const EditingPolygonCanvas = (props: {
-  editingPolygon: number[][];
-  isEditingRoom: boolean;
-  setEditingPolygon: React.Dispatch<React.SetStateAction<number[][]>>;
-}) => {
-  const { isEditingRoom, setEditingPolygon } = props;
+export const EditingPolygonCanvas = () => {
+  const { isEditingRoom } = useEditingMapState();
+  const { setEditingPolygon } = useEditingMapMutators();
 
-  const userRole = useUserRoleState();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const CANVAS_WIDTH = 2880;
@@ -90,10 +89,6 @@ export const EditingPolygonCanvas = (props: {
       }
     }
   });
-
-  if (userRole == null) {
-    return <div />;
-  }
 
   return (
     <div className='absolute'>

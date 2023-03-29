@@ -28,7 +28,7 @@ export type Room = {
 };
 
 export type EditorFloorMap = {
-  roomID: number;
+  roomId: number;
   buildingId: number;
   polygon: number[][];
   color: string;

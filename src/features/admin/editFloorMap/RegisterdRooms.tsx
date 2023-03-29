@@ -1,21 +1,10 @@
 import React from 'react';
 import { RegisterdRoom } from '@/features/admin/editFloorMap/RegisterdRoom';
+import { useEditingMapState } from '@/features/admin/editFloorMap/hooks/editingMapState';
 import { Building, DBRoom } from '@/types/roomFloormap';
 
-export const RegisterdRooms = (props: {
-  editingPolygon: number[][];
-  editingRoomId: number;
-  currentSelectedBuildingIndex: number;
-  rooms: DBRoom[];
-  buildings: Building[];
-  setEditingPolygon: React.Dispatch<React.SetStateAction<number[][]>>;
-  setEditingRoomId: React.Dispatch<React.SetStateAction<number>>;
-  setIsEditingRoom: React.Dispatch<React.SetStateAction<boolean>>;
-  storeRoomToDatabase: (roomId: number, newRoomName: string) => void;
-  updateMouseOutRoomColor: (roomID: number) => void;
-  updateMouseOverRoomColor: (roomID: number) => void;
-  updateCurrentSelectedBuildingIndexByBuildingId: (buildingId: number) => void;
-}) => {
+export const RegisterdRooms = (props: { rooms: DBRoom[]; buildings: Building[] }) => {
+  const { currentSelectedBuildingIndex } = useEditingMapState();
   if (!props.rooms) return <div>loading...</div>;
 
   return (
@@ -24,21 +13,7 @@ export const RegisterdRooms = (props: {
       {props.rooms.map((room: DBRoom) => {
         return (
           <div key={room.roomID}>
-            <RegisterdRoom
-              room={room}
-              building={props.buildings[props.currentSelectedBuildingIndex]}
-              storeRoomToDatabase={props.storeRoomToDatabase}
-              updateMouseOverRoomColor={props.updateMouseOverRoomColor}
-              updateMouseOutRoomColor={props.updateMouseOutRoomColor}
-              updateCurrentSelectedBuildingIndexByBuildingId={
-                props.updateCurrentSelectedBuildingIndexByBuildingId
-              }
-              editingPolygon={props.editingPolygon}
-              editingRoomId={props.editingRoomId}
-              setEditingRoomId={props.setEditingRoomId}
-              setIsEditingRoom={props.setIsEditingRoom}
-              setEditingPolygon={props.setEditingPolygon}
-            />
+            <RegisterdRoom room={room} building={props.buildings[currentSelectedBuildingIndex]} />
           </div>
         );
       })}

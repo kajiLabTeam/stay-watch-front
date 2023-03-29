@@ -2,16 +2,15 @@ import { TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useState } from 'react';
 import { Button } from '@/components/common/Button';
-import { useUserRoleState } from '@/globalStates/userRoleState';
+import { useEditingMapMutators } from '@/features/admin/editFloorMap/hooks/editingMapState';
 import { Building, DBRoom } from '@/types/roomFloormap';
 
 export const RoomEditorForm = (props: {
   room: DBRoom;
   building: Building;
-  storeRoomToDatabase: any;
   editingPolygon: number[][];
 }) => {
-  const userRole = useUserRoleState();
+  const { storeRoomToDatabase } = useEditingMapMutators();
   const [roomNameValue, setRoomNameValue] = useState(props.room.room_name);
 
   const form = useForm();
@@ -20,17 +19,13 @@ export const RoomEditorForm = (props: {
     setRoomNameValue(e.target.value);
   };
 
-  if (userRole == null) {
-    return <div />;
-  }
-
   return (
     <div className='border border-green-500'>
       <div className='rounded-lg bg-slate-200'>
         <form
           className=' flex flex-col gap-6 p-10'
           onSubmit={form.onSubmit(() => {
-            props.storeRoomToDatabase(props.room.roomID, roomNameValue);
+            storeRoomToDatabase(props.room.roomID, roomNameValue);
           })}
         >
           <TextInput placeholder='部屋名' value={roomNameValue} onChange={handleChange} />

@@ -1,19 +1,20 @@
 import React from 'react';
+import {
+  useEditingMapMutators,
+  useEditingMapState,
+} from '@/features/admin/editFloorMap/hooks/editingMapState';
 import { Building } from '@/types/roomFloormap';
 
-export const BuildingSelector = (props: {
-  buildings: Building[];
-  currentSelectedBuildingIndex: number;
-  setCurrentSelectedBuildingIndex: React.Dispatch<React.SetStateAction<number>>;
-}) => {
+export const BuildingSelector = (props: { buildings: Building[] }) => {
+  const { currentSelectedBuildingIndex } = useEditingMapState();
+  const { setCurrentSelectedBuildingIndex } = useEditingMapMutators();
+
   return (
     <div className='border-x-4 border-t-4'>
       <select
-        value={props.buildings[props.currentSelectedBuildingIndex].buildingName}
-        onChange={(event) => {
-          props.setCurrentSelectedBuildingIndex(
-            props.buildings.findIndex((building) => building.buildingName === event.target.value),
-          );
+        value={props.buildings[currentSelectedBuildingIndex].buildingName}
+        onChange={(e) => {
+          setCurrentSelectedBuildingIndex(e);
         }}
         className='border-2'
       >
