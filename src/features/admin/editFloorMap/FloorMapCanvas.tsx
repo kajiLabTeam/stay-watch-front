@@ -19,7 +19,7 @@ export const FloorMapCanvas = (props: { buildingImagePath: string }) => {
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     ctx.strokeRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-    buildingImage.src = `/floor_maps${  props.buildingImagePath}`;
+    buildingImage.src = `/floor_maps${props.buildingImagePath}`;
 
     function drawBuildingToCanvas(buildingImage: HTMLImageElement) {
       ctx.fillStyle = 'gray';
