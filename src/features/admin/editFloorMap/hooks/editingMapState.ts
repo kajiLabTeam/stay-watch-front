@@ -44,14 +44,7 @@ export const useEditingMapMutators = () => {
       newRoom = {
         roomID: roomId,
         room_name: newRoomName,
-        polygon:
-          editingPolygon[0][0] +
-          ',' +
-          editingPolygon[0][1] +
-          '-' +
-          editingPolygon[1][0] +
-          ',' +
-          editingPolygon[1][1],
+        polygon: `${editingPolygon[0][0]},${editingPolygon[0][1]}-${editingPolygon[1][0]},${editingPolygon[1][1]}`,
         buildingID: buildings[currentSelectedBuildingIndex].buildingId,
       };
 

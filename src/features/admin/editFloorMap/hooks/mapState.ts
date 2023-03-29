@@ -37,7 +37,7 @@ export const useMapsDataMutators = () => {
       return prevState.map((room) => {
         if (room.roomId === roomId) {
           // 更新する要素のみcolorプロパティを書き換えたオブジェクトを作成する
-          return { ...room, color: 'rgba(' + [0, 0, 255, 0.7] + ')' };
+          return { ...room, color: `rgba(${  [0, 0, 255, 0.7]  })` };
         }
         // 更新しない要素はそのまま返す
         return room;
@@ -50,7 +50,7 @@ export const useMapsDataMutators = () => {
       // 該当する要素を更新した新しい配列を作成する
       return prevState.map((room) => {
         if (room.roomId === roomId) {
-          return { ...room, color: 'rgba(' + [0, 255, 0, 0.3] + ')' };
+          return { ...room, color: `rgba(${  [0, 255, 0, 0.3]  })` };
         }
         return room;
       });
@@ -87,7 +87,7 @@ export const useMapsDataMutators = () => {
               roomId: rooms[i].roomID,
               buildingId: rooms[i].buildingId,
               polygon: arrayPolygon,
-              color: 'rgba(' + [0, 255, 0, 0.3] + ')',
+              color: `rgba(${  [0, 255, 0, 0.3]  })`,
             },
           ]);
         }

@@ -55,7 +55,7 @@ export const RegisterdRoom = (props: { room: DBRoom; building: Building }) => {
         <div className='flex'>
           <div className='w-3/4'>{props.room.room_name}</div>
           <button
-            id={'form_edit_button' + props.room.roomID}
+            id={`form_edit_button${  props.room.roomID}`}
             className='w-1/4 text-center'
             onClick={handleClick}
           >
@@ -81,7 +81,7 @@ export const RegisterdRoom = (props: { room: DBRoom; building: Building }) => {
       <div className='flex'>
         <div className='w-3/4'>{props.room.room_name}</div>
         <button
-          id={'form_edit_button' + props.room.roomID}
+          id={`form_edit_button${  props.room.roomID}`}
           className='w-1/4 text-center'
           onClick={handleClick}
         >
