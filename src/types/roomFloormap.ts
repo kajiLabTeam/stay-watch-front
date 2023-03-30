@@ -35,7 +35,7 @@ export type EditorFloorMap = {
 };
 
 export type UpdaterRoom = {
-  roomID: number;
+  roomId: number;
   roomName: string;
   polygon: string;
   buildingId: number;
