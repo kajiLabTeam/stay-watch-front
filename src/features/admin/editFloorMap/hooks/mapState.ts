@@ -84,7 +84,7 @@ export const useMapsDataMutators = () => {
           setMapsData((mapData) => [
             ...mapData,
             {
-              roomId: rooms[i].roomID,
+              roomId: rooms[i].roomId,
               buildingId: rooms[i].buildingId,
               polygon: arrayPolygon,
               color: `rgba(${[0, 255, 0, 0.3]})`,

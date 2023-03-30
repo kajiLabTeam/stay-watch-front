@@ -11,7 +11,7 @@ export const RoomEditorForm = (props: {
   editingPolygon: number[][];
 }) => {
   const { storeRoomToDatabase } = useEditingMapMutators();
-  const [roomNameValue, setRoomNameValue] = useState(props.room.room_name);
+  const [roomNameValue, setRoomNameValue] = useState(props.room.roomName);
 
   const form = useForm();
 
@@ -25,7 +25,7 @@ export const RoomEditorForm = (props: {
         <form
           className=' flex flex-col gap-6 p-10'
           onSubmit={form.onSubmit(() => {
-            storeRoomToDatabase(props.room.roomID, roomNameValue);
+            storeRoomToDatabase(props.room.roomId, roomNameValue);
           })}
         >
           <TextInput placeholder='部屋名' value={roomNameValue} onChange={handleChange} />

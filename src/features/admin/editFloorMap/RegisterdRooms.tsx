@@ -8,10 +8,10 @@ export const RegisterdRooms = (props: { rooms: DBRoom[]; buildings: Building[] }
 
   return (
     <div>
-      <p>{props.rooms[0].community_name}</p>
+      <p>{props.rooms[0].communityName}</p>
       {props.rooms.map((room: DBRoom) => {
         return (
-          <div key={room.roomID}>
+          <div key={room.roomId}>
             <RegisterdRoom room={room} building={props.buildings[currentSelectedBuildingIndex]} />
           </div>
         );

@@ -32,20 +32,20 @@ export const useEditingMapMutators = () => {
 
   const storeRoomToDatabase = useCallback((roomId: number, newRoomName: string) => {
     if (editingPolygon && rooms && buildings) {
-      const IndexNumber: number = rooms?.findIndex((room) => room.roomID === roomId);
+      const IndexNumber: number = rooms?.findIndex((room) => room.roomId === roomId);
 
       let newRoom: UpdaterRoom = {
         roomID: -1,
-        room_name: rooms[IndexNumber].room_name,
+        roomName: rooms[IndexNumber].roomName,
         polygon: '',
-        buildingID: -1,
+        buildingId: -1,
       };
 
       newRoom = {
         roomID: roomId,
-        room_name: newRoomName,
+        roomName: newRoomName,
         polygon: `${editingPolygon[0][0]},${editingPolygon[0][1]}-${editingPolygon[1][0]},${editingPolygon[1][1]}`,
-        buildingID: buildings[currentSelectedBuildingIndex].buildingId,
+        buildingId: buildings[currentSelectedBuildingIndex].buildingId,
       };
 
       axios

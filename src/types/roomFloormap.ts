@@ -5,10 +5,10 @@ export type RoomFloorMap = {
 };
 
 export type DBRoom = {
-  roomID: number;
-  room_name: string;
-  community_name: string;
-  building_name: string;
+  roomId: number;
+  roomName: string;
+  communityName: string;
+  buildingName: string;
   polygon: string;
   buildingId: number;
 };
@@ -20,10 +20,10 @@ export type Building = {
 };
 
 export type Room = {
-  roomID: number;
-  room_name: string;
-  community_name: string;
-  building_name: string;
+  roomId: number;
+  roomName: string;
+  communityName: string;
+  buildingName: string;
   polygon: number[][];
 };
 
@@ -36,7 +36,7 @@ export type EditorFloorMap = {
 
 export type UpdaterRoom = {
   roomID: number;
-  room_name: string;
+  roomName: string;
   polygon: string;
-  buildingID: number;
+  buildingId: number;
 };

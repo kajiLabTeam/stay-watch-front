@@ -71,7 +71,7 @@ export const useRoomMapData = (rooms: DBRoom[] | undefined, buildings: Building[
           setMapsData((mapData) => [
             ...mapData,
             {
-              roomID: rooms[i].roomID,
+              roomID: rooms[i].roomId,
               buildingId: rooms[i].buildingId,
               polygon: arrayPolygon,
               color: `rgba(${[0, 255, 0, 0.3]})`,

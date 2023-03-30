@@ -8,7 +8,7 @@ import { useMapsDataMutators } from '@/features/admin/editFloorMap/hooks/mapStat
 import { Building, DBRoom } from '@/types/roomFloormap';
 
 export const RegisterdRoom = (props: { room: DBRoom; building: Building }) => {
-  const { roomID, buildingId, room_name } = props.room;
+  const { roomId, buildingId, roomName } = props.room;
   const [buttonText, setButtonText] = useState('編集');
 
   const {
@@ -25,7 +25,7 @@ export const RegisterdRoom = (props: { room: DBRoom; building: Building }) => {
   const handleClick = () => {
     if (buttonText === '編集') {
       // 編集画面を開始
-      setEditingRoomId(roomID);
+      setEditingRoomId(roomId);
       setIsEditingRoom(true);
       updateCurrentSelectedBuildingIndexByBuildingId(buildingId);
       setButtonText('中止');
@@ -41,22 +41,22 @@ export const RegisterdRoom = (props: { room: DBRoom; building: Building }) => {
     }
   };
 
-  if (buttonText === '中止' && roomID !== editingRoomId) {
+  if (buttonText === '中止' && roomId !== editingRoomId) {
     setButtonText('編集');
   }
 
-  if (roomID === editingRoomId) {
+  if (roomId === editingRoomId) {
     // フォームを表示
     return (
       <div
         className='w-full border border-blue-500'
-        onMouseOver={() => updateMouseOverRoomColor(roomID)}
-        onMouseOut={() => updateMouseOutRoomColor(roomID)}
+        onMouseOver={() => updateMouseOverRoomColor(roomId)}
+        onMouseOut={() => updateMouseOutRoomColor(roomId)}
       >
         <div className='flex'>
-          <div className='w-3/4'>{room_name}</div>
+          <div className='w-3/4'>{roomName}</div>
           <button
-            id={`form_edit_button${roomID}`}
+            id={`form_edit_button${roomId}`}
             className='w-1/4 text-center'
             onClick={handleClick}
           >
@@ -76,13 +76,13 @@ export const RegisterdRoom = (props: { room: DBRoom; building: Building }) => {
   return (
     <div
       className='w-full border border-blue-500'
-      onMouseOver={() => updateMouseOverRoomColor(roomID)}
-      onMouseOut={() => updateMouseOutRoomColor(roomID)}
+      onMouseOver={() => updateMouseOverRoomColor(roomId)}
+      onMouseOut={() => updateMouseOutRoomColor(roomId)}
     >
       <div className='flex'>
-        <div className='w-3/4'>{room_name}</div>
+        <div className='w-3/4'>{roomName}</div>
         <button
-          id={`form_edit_button${roomID}`}
+          id={`form_edit_button${roomId}`}
           className='w-1/4 text-center'
           onClick={handleClick}
         >
