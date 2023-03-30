@@ -1,12 +1,15 @@
 import { NextPage } from 'next';
+import { Suspense } from 'react';
+import ErrorBoundary from '@/components/common/ErrorBoundary';
 import { Admin } from '@/features/admin/Admin';
 
 const AdminPage: NextPage = () => {
   return (
-    <div>
-      <Admin />
-      {/* <Demo /> */}
-    </div>
+    <ErrorBoundary>
+      <Suspense fallback={<div>loading...</div>}>
+        <Admin />
+      </Suspense>
+    </ErrorBoundary>
   );
 };
 
