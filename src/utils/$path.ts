@@ -2,9 +2,6 @@ export const pagesPath = {
   admin: {
     $url: (url?: { hash?: string }) => ({ pathname: '/admin' as const, hash: url?.hash }),
   },
-  editFloorMap: {
-    $url: (url?: { hash?: string }) => ({ pathname: '/editFloorMap' as const, hash: url?.hash }),
-  },
   floorMap: {
     $url: (url?: { hash?: string }) => ({ pathname: '/floorMap' as const, hash: url?.hash }),
   },
