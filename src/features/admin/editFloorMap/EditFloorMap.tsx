@@ -14,7 +14,7 @@ export const EditFloorMap = () => {
   return (
     <div>
       <div className='flex'>
-        <div className='w-3/4'>
+        <div className='w-full'>
           <BuildingSelector buildings={buildings} />
           <MapCanvas
             buildingImagePath={buildings[currentSelectedBuildingIndex].buildingImagePath}
