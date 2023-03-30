@@ -26,7 +26,6 @@ const UserInvite: FC = () => {
                 BLEビーコン未登録
               </Tabs.Tab>
             </Tabs.List>
-
             <Tabs.Panel value='gallery' pt='xs'>
               <BLERegisteredForm />
             </Tabs.Panel>

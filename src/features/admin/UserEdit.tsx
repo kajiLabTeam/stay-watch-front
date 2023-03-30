@@ -1,15 +1,13 @@
 import { CopyButton } from '@mantine/core';
 import Image from 'next/image';
 import { FC } from 'react';
-import useSWR from 'swr';
 import { Button } from '@/components/common/Button';
+import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
 import { extendedUser } from '@/types/user';
 import { endpoints } from '@/utils/api';
 
 const UserEdit: FC = () => {
-  const { data: users, error } = useSWR<extendedUser[]>(`${endpoints.extendedUsers}`);
-  if (error) return <div>failed to load</div>;
-  if (!users) return <div>loading...</div>;
+  const { data: users } = useSuspenseSWR<extendedUser[]>(`${endpoints.extendedUsers}`);
 
   return (
     <div className='ml-8 mt-8'>
