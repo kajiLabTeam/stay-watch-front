@@ -26,6 +26,8 @@ tags:
     description: 詳細なユーザ情報についての操作
   - name: check
     description: ファイアベース関連の操作
+  - name: updateroom
+    description: 部屋情報を更新する
 
 paths:
   /stayers:
@@ -323,3 +325,31 @@ paths:
                         example: 1
         '401':
           description: invalid token
+
+  /updateroom:
+    post:
+      tags:
+        - updateroom
+      summary: 部屋情報の更新
+      operationId: controller.UpdateRoom
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                roomID:
+                  type: integer
+                  example: 1
+                room_name:
+                  type: string
+                  example: "学生部屋"
+                polygon:
+                  type: string
+                  example: "1100,921-111,241"
+                buildingID:
+                  type: integer
+                  example: 2
+      responses:
+        '200':
+          description: OK
