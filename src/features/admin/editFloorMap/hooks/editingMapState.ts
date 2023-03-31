@@ -35,14 +35,14 @@ export const useEditingMapMutators = () => {
       const IndexNumber: number = rooms?.findIndex((room) => room.roomId === roomId);
 
       let newRoom: UpdaterRoom = {
-        roomID: -1,
+        roomId: -1,
         roomName: rooms[IndexNumber].roomName,
         polygon: '',
         buildingId: -1,
       };
 
       newRoom = {
-        roomID: roomId,
+        roomId: roomId,
         roomName: newRoomName,
         polygon: `${editingPolygon[0][0]},${editingPolygon[0][1]}-${editingPolygon[1][0]},${editingPolygon[1][1]}`,
         buildingId: buildings[currentSelectedBuildingIndex].buildingId,
