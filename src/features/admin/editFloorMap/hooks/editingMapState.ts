@@ -40,7 +40,6 @@ export const useEditingMapMutators = () => {
         polygon: '',
         buildingId: -1,
       };
-
       newRoom = {
         roomId: roomId,
         roomName: newRoomName,
@@ -61,7 +60,7 @@ export const useEditingMapMutators = () => {
     } else {
       window.alert('失敗しました');
     }
-  }, []);
+  }, [editingPolygon,currentSelectedBuildingIndex,buildings,rooms]);
 
   const updateCurrentSelectedBuildingIndexByBuildingId = useCallback((buildingId: number) => {
     if (buildings) {
