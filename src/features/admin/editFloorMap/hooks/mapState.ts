@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useEditingMapState } from '@/features/admin/editFloorMap/hooks/editingMapState';
 import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
-import { DBRoom, Building } from '@/types/roomFloormap';
+import { EditorRoom, Building } from '@/types/roomFloormap';
 import { endpoints } from '@/utils/api';
 
 // マップデータ描画するのに必要なオブジェクト
@@ -26,7 +26,7 @@ export const useMapsDataState = () => {
 };
 
 export const useMapsDataMutators = () => {
-  const { data: rooms } = useSuspenseSWR<DBRoom[]>(`${endpoints.getRoomsEditorByCommunityID}`);
+  const { data: rooms } = useSuspenseSWR<EditorRoom[]>(`${endpoints.getRoomsEditorByCommunityID}`);
   const { data: buildings } = useSuspenseSWR<Building[]>(`${endpoints.getBuildingsEditor}`);
   const { currentSelectedBuildingIndex } = useEditingMapState();
   const setMapsData = useSetRecoilState(mapsDataState);

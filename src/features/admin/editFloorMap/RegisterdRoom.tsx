@@ -5,9 +5,9 @@ import {
   useEditingMapState,
 } from '@/features/admin/editFloorMap/hooks/editingMapState';
 import { useMapsDataMutators } from '@/features/admin/editFloorMap/hooks/mapState';
-import { Building, DBRoom } from '@/types/roomFloormap';
+import { Building, EditorRoom } from '@/types/roomFloormap';
 
-export const RegisterdRoom = (props: { room: DBRoom; building: Building }) => {
+export const RegisterdRoom = (props: { room: EditorRoom; building: Building }) => {
   const { roomId, buildingId, roomName } = props.room;
   const [buttonText, setButtonText] = useState('編集');
 

@@ -1,14 +1,30 @@
-export type RoomFloorMap = {
-  id: number;
-  name: string;
-  polygon: string;
+type Hoge={
+  hoge:string;
+}
+
+export type Sample  = Hoge &{
+  roomId: number;
 };
 
-export type DBRoom = {
+export type EditorRoom = {
   roomId: number;
   roomName: string;
   communityName: string;
   buildingName: string;
+  polygon: string;
+  buildingId: number;
+};
+
+export type FloorMapRoom = {
+  roomId: number;
+  buildingId: number;
+  polygon: number[][];
+  color: string;
+};
+
+export type SubmitRoom = {
+  roomId: number;
+  roomName: string;
   polygon: string;
   buildingId: number;
 };
@@ -17,26 +33,4 @@ export type Building = {
   buildingId: number;
   buildingName: string;
   buildingImagePath: string;
-};
-
-export type Room = {
-  roomId: number;
-  roomName: string;
-  communityName: string;
-  buildingName: string;
-  polygon: number[][];
-};
-
-export type EditorFloorMap = {
-  roomId: number;
-  buildingId: number;
-  polygon: number[][];
-  color: string;
-};
-
-export type UpdaterRoom = {
-  roomId: number;
-  roomName: string;
-  polygon: string;
-  buildingId: number;
 };

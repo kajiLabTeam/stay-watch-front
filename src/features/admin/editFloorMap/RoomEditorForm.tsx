@@ -3,10 +3,10 @@ import { useForm } from '@mantine/form';
 import { useState } from 'react';
 import { Button } from '@/components/common/Button';
 import { useEditingMapMutators } from '@/features/admin/editFloorMap/hooks/editingMapState';
-import { Building, DBRoom } from '@/types/roomFloormap';
+import { Building, EditorRoom } from '@/types/roomFloormap';
 
 export const RoomEditorForm = (props: {
-  room: DBRoom;
+  room: EditorRoom;
   building: Building;
   editingPolygon: number[][];
 }) => {

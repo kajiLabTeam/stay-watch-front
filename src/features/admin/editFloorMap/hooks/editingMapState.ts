@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { useCallback } from 'react';
 import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
-import { DBRoom, Building, UpdaterRoom } from '@/types/roomFloormap';
+import { EditorRoom, Building, SubmitRoom } from '@/types/roomFloormap';
 import { endpoints } from '@/utils/api';
 
 const editingMapState = atom({
@@ -24,7 +24,7 @@ export const useEditingMapState = () => {
 };
 
 export const useEditingMapMutators = () => {
-  const { data: rooms } = useSuspenseSWR<DBRoom[]>(`${endpoints.getRoomsEditorByCommunityID}`);
+  const { data: rooms } = useSuspenseSWR<EditorRoom[]>(`${endpoints.getRoomsEditorByCommunityID}`);
   const { data: buildings } = useSuspenseSWR<Building[]>(`${endpoints.getBuildingsEditor}`);
   const { editingPolygon, currentSelectedBuildingIndex } = useEditingMapState();
 
@@ -34,7 +34,7 @@ export const useEditingMapMutators = () => {
     if (editingPolygon && rooms && buildings) {
       const IndexNumber: number = rooms?.findIndex((room) => room.roomId === roomId);
 
-      let newRoom: UpdaterRoom = {
+      let newRoom: SubmitRoom = {
         roomId: -1,
         roomName: rooms[IndexNumber].roomName,
         polygon: '',
