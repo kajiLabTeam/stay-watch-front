@@ -54,7 +54,7 @@ export const useEditingMapMutators = () => {
           window.alert('成功しました');
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
           window.alert('失敗しました');
         });
     } else {
@@ -72,7 +72,7 @@ export const useEditingMapMutators = () => {
         }));
       }
     }
-  }, []);
+  }, [buildings,setEditingMap]);
 
   const setCurrentSelectedBuildingIndex = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setEditingMap((prev) => ({
