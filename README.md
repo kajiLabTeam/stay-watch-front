@@ -13,3 +13,10 @@ yarn dev
 ## development
 
 https://stay-watch-go.kajilab.tk/
+
+コミットやプルを送る前に下のを実行して自動修正をかける
+(ファイル変更時に自動で実行するようにする方法もある)
+
+```
+yarn fix
+```
