@@ -1,8 +1,8 @@
-type Hoge={
-  hoge:string;
-}
+type Hoge = {
+  hoge: string;
+};
 
-export type Sample  = Hoge &{
+export type Sample = Hoge & {
   roomId: number;
 };
 

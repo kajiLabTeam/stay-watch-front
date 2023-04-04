@@ -3,7 +3,10 @@ import { useEffect, useState } from 'react';
 import { useEditingMapState } from '@/features/admin/editFloorMap/hooks/editingMapState';
 import { EditorRoom, Building } from '@/types/roomFloormap';
 
-export const useRoomMapData = (rooms: EditorRoom[] | undefined, buildings: Building[] | undefined) => {
+export const useRoomMapData = (
+  rooms: EditorRoom[] | undefined,
+  buildings: Building[] | undefined,
+) => {
   const { currentSelectedBuildingIndex } = useEditingMapState();
 
   const [mapsData, setMapsData] = useState([
