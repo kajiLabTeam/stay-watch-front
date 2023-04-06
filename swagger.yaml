@@ -26,6 +26,8 @@ tags:
     description: 詳細なユーザ情報についての操作
   - name: check
     description: ファイアベース関連の操作
+  - name: rooms
+    description: 部屋についての操作
   - name: updateroom
     description: 部屋情報を更新する
 
@@ -325,6 +327,47 @@ paths:
                         example: 1
         '401':
           description: invalid token
+
+  /rooms/{community_id}:
+    get:
+      tags:
+        - rooms
+      summary: コミュニティIDからユーザ情報の取得
+      operationId: controller.GetRoomsByCommunityID
+      parameters:
+        - name: community_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    roomId: 
+                      type: integer
+                      example: 4
+                    roomName:
+                      type: string
+                      example: "学生部屋"
+                    communityName:
+                      type: string
+                      example: "梶研究室"
+                    buildingName:
+                      type: string
+                      example: "4号館"
+                    polygon:
+                      type: string
+                      example: "121,311-144,342"
+                    buildingId:
+                      type: integer
+                      example: 1
 
   /updateroom:
     post:
