@@ -28,6 +28,8 @@ tags:
     description: ファイアベース関連の操作
   - name: rooms
     description: 部屋についての操作
+  - name: buildings
+    description: 建物についての操作
   - name: updateroom
     description: 部屋情報を更新する
 
@@ -368,6 +370,34 @@ paths:
                     buildingId:
                       type: integer
                       example: 1
+
+  /buildings/editor:
+    get:
+      tags:
+        - buildings
+      summary: 建物の取得
+      operationId: controller.GetBuildingsEditor
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    buildingId: 
+                      type: integer
+                      example: 1
+                    buildingName:
+                      type: string
+                      example: "4号館別館"
+                    buildingImagePath:
+                      type: string
+                      example: "/4goukan.jpg"
+  
+
 
   /updateroom:
     post:
