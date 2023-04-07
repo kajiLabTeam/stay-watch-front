@@ -86,7 +86,7 @@ export const useMapsDataMutators = () => {
         }
       }
     }
-  }, [rooms, buildings, currentSelectedBuildingIndex]);
+  }, [rooms, buildings, currentSelectedBuildingIndex, setMapsData]);
 
   return { updateMouseOverRoomColor, updateMouseOutRoomColor };
 };

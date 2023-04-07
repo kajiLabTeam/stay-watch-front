@@ -65,7 +65,7 @@ export const useIsRegisterEmail = (): boolean | undefined => {
           setStatusCode(resUser.status);
         } catch (error) {
           if (axios.isAxiosError(error) && error.response) {
-            console.log(error.message); //Axiosの例外オブジェクトとして扱える
+            console.error(error.message); //Axiosの例外オブジェクトとして扱える
             setStatusCode(error.response?.status);
           }
           setIsRegisteredEmail(false);

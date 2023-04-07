@@ -34,7 +34,7 @@ export const useEditingMapMutators = () => {
   const storeRoomToDatabase = useCallback(
     (roomId: number, newRoomName: string) => {
       if (editingPolygon && rooms && buildings) {
-        const IndexNumber: number = rooms?.findIndex((room) => room.roomId === roomId);
+        //const IndexNumber: number = rooms?.findIndex((room) => room.roomId === roomId); // roomIdからインデックスを求める処理
 
         let newRoom: SubmitRoom = {
           roomId: roomId,
