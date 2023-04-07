@@ -1,11 +1,3 @@
-type Hoge = {
-  hoge: string;
-};
-
-export type Sample = Hoge & {
-  roomId: number;
-};
-
 type RoomOutline = {
   roomId: number;
   polygon: number[][];
