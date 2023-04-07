@@ -11,7 +11,7 @@ export type EditorRoom = {
   roomName: string;
   communityName: string;
   buildingName: string;
-  polygon: string;
+  polygon: number[][];
   buildingId: number;
 };
 
@@ -25,7 +25,7 @@ export type FloorMapRoom = {
 export type SubmitRoom = {
   roomId: number;
   roomName: string;
-  polygon: string;
+  polygon: number[][];
   buildingId: number;
 };
 

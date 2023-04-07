@@ -74,19 +74,12 @@ export const useMapsDataMutators = () => {
       for (let i = 0; i < rooms.length; ++i) {
         // 部屋の建物IDと現在選択されている建物IDが同じ時その部屋の情報をmapDataに加える
         if (rooms[i].buildingId === buildings[currentSelectedBuildingIndex].buildingId) {
-          const arrayPolygon: number[][] = new Array();
-          const tmpArrayPolygon: string[] = rooms[i].polygon.split('-');
-          for (let j = 0; j < tmpArrayPolygon.length; ++j) {
-            const tmpPairPolygon = tmpArrayPolygon[j].split(',');
-            const polygonPoint: number[] = [Number(tmpPairPolygon[0]), Number(tmpPairPolygon[1])];
-            arrayPolygon.push(polygonPoint);
-          }
           setMapsData((mapData) => [
             ...mapData,
             {
               roomId: rooms[i].roomId,
               buildingId: rooms[i].buildingId,
-              polygon: arrayPolygon,
+              polygon: rooms[i].polygon,
               color: `rgba(${[0, 255, 0, 0.3]})`,
             },
           ]);
