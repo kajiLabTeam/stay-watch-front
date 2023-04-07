@@ -44,7 +44,7 @@ export const useEditingMapMutators = () => {
         };
 
         axios
-          .post(endpoints.updateroom, newRoom)
+          .put(endpoints.updateroom, newRoom)
           .then(() => {
             // 例 : {roomID: 3, room_name: '院生部', polygon: [[200,200],[300,300]], buildingID: 2}
             window.alert('成功しました');
