@@ -6,27 +6,24 @@ export type Sample = Hoge & {
   roomId: number;
 };
 
-export type EditorRoom = {
+type RoomOutline = {
   roomId: number;
+  polygon: number[][];
+  buildingId: number;
+};
+
+export type EditorRoom = RoomOutline & {
   roomName: string;
   communityName: string;
   buildingName: string;
-  polygon: number[][];
-  buildingId: number;
 };
 
-export type FloorMapRoom = {
-  roomId: number;
-  buildingId: number;
-  polygon: number[][];
+export type FloorMapRoom = RoomOutline & {
   color: string;
 };
 
-export type SubmitRoom = {
-  roomId: number;
+export type SubmitRoom = RoomOutline & {
   roomName: string;
-  polygon: number[][];
-  buildingId: number;
 };
 
 export type Building = {
