@@ -8,7 +8,7 @@ import { useMapsDataMutators } from '@/features/admin/editFloorMap/hooks/mapStat
 import { Building, EditorRoom } from '@/types/roomFloormap';
 
 export const RegisterdRoom = (props: { room: EditorRoom; building: Building }) => {
-  const { roomId, buildingId, roomName } = props.room;
+  const { roomId, buildingId, roomName, polygon } = props.room;
   const [buttonText, setButtonText] = useState('編集');
 
   const {
@@ -24,19 +24,16 @@ export const RegisterdRoom = (props: { room: EditorRoom; building: Building }) =
 
   const handleClick = () => {
     if (buttonText === '編集') {
-      // 編集画面を開始
+      // 編集画面を開始(編集ボタンがクリックされたとき)
       setEditingRoomId(roomId);
       setIsEditingRoom(true);
       updateCurrentSelectedBuildingIndexByBuildingId(buildingId);
       setButtonText('中止');
     } else if (buttonText === '中止') {
-      // 編集終了
+      // 編集終了(中止ボタンがクリックされたとき)
       setEditingRoomId(-1);
       setIsEditingRoom(false);
-      setEditingPolygon([
-        [0, 0],
-        [0, 0],
-      ]);
+      setEditingPolygon(polygon);
       setButtonText('編集');
     }
   };

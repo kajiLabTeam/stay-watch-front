@@ -30,28 +30,23 @@ export const useEditingMapMutators = () => {
 
   const setEditingMap = useSetRecoilState(editingMapState);
 
+  // フォームの「保存する」を押されたときの処理
   const storeRoomToDatabase = useCallback(
     (roomId: number, newRoomName: string) => {
       if (editingPolygon && rooms && buildings) {
         const IndexNumber: number = rooms?.findIndex((room) => room.roomId === roomId);
 
         let newRoom: SubmitRoom = {
-          roomId: -1,
-          roomName: rooms[IndexNumber].roomName,
-          polygon: '',
-          buildingId: -1,
-        };
-        newRoom = {
           roomId: roomId,
           roomName: newRoomName,
-          polygon: `${editingPolygon[0][0]},${editingPolygon[0][1]}-${editingPolygon[1][0]},${editingPolygon[1][1]}`,
+          polygon: editingPolygon,
           buildingId: buildings[currentSelectedBuildingIndex].buildingId,
         };
 
         axios
           .post(endpoints.updateroom, newRoom)
           .then(() => {
-            // 例 : {roomID: 3, room_name: '院生部', polygon: '200,200-300,300', buildingID: 2}
+            // 例 : {roomID: 3, room_name: '院生部', polygon: [[200,200],[300,300]], buildingID: 2}
             window.alert('成功しました');
           })
           .catch((err) => {
