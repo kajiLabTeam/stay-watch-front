@@ -47,7 +47,13 @@ yarn fix
     npm i npm-run-all
     ```
 
-6. 実行
+6. ESLint のインストール
+
+    ```
+    sudo npm install -g eslint
+    ```
+
+7. 実行
 
     下のを実行し localhost:3000/ で開ければ完了
     ```
