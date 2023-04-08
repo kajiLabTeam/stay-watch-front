@@ -40,6 +40,13 @@
     "no-console": ["warn", { "allow": ["error"] }],
 
     //分割代入を優先する
-    "prefer-destructuring": ["error", { "array": false, "object": true }]
+    "prefer-destructuring": ["error", { "array": false, "object": true }],
+    //varを禁止
+    "no-var": "error",
+    //早期リターンさせる
+    "no-else-return": "error",
+    //厳密等価演算子使用させる
+    "eqeqeq": ["error", "smart"],
+    "prefer-template": "error"
   }
 }

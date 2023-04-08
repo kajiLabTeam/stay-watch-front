@@ -7,7 +7,7 @@ type StayerType = {
     {
       id: number;
       name: string;
-    }
+    },
   ];
 };
 

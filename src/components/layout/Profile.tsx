@@ -1,14 +1,16 @@
-import { Avatar } from "@mantine/core";
-import { Menu } from "@mantine/core";
-import { NextLink } from "@mantine/next";
-import { useState } from "react";
-import { Confirmation } from "@/components/common/Confirmation";
-import { pagesPath } from "@/utils/$path";
-import { logout, useUser, useUserRole } from "@/utils/Auth";
+import { Avatar } from '@mantine/core';
+import { Menu } from '@mantine/core';
+import { NextLink } from '@mantine/next';
+import { useState } from 'react';
+import { Confirmation } from '@/components/common/Confirmation';
+import { useUserState } from '@/globalStates/firebaseUserState';
+import { useUserRoleState } from '@/globalStates/userRoleState';
+import { pagesPath } from '@/utils/$path';
+import { logout } from '@/utils/Auth';
 
 export const Profile = () => {
-  const user = useUser();
-  const userRole = useUserRole();
+  const user = useUserState();
+  const userRole = useUserRoleState();
   const [showModal, setShowModal] = useState(false);
 
   const remove = () => {
@@ -17,13 +19,13 @@ export const Profile = () => {
 
   return (
     <>
-      <Menu position="bottom-end">
+      <Menu position='bottom-end'>
         <Menu.Target>
           <button>
-            <Avatar src={user?.photoURL} radius="xl" />
+            <Avatar src={user?.photoURL} radius='xl' />
           </button>
         </Menu.Target>
-        <Menu.Dropdown className="text-sm">
+        <Menu.Dropdown className='text-sm'>
           <Menu.Label>{user?.displayName}</Menu.Label>
           {/* 偶数の場合はその研究室の管理者 */}
           {userRole != null && userRole % 2 === 0 && (
