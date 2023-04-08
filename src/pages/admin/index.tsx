@@ -1,15 +1,12 @@
-import { NextPage } from 'next';
-import { Suspense } from 'react';
-import ErrorBoundary from '@/components/common/ErrorBoundary';
-import { Admin } from '@/features/admin/Admin';
+import { NextPage } from "next";
+import { Admin } from "@/components/admin/Admin";
 
 const AdminPage: NextPage = () => {
   return (
-    <ErrorBoundary>
-      <Suspense fallback={<div>loading...</div>}>
-        <Admin />
-      </Suspense>
-    </ErrorBoundary>
+    <div>
+      <Admin />
+      {/* <Demo /> */}
+    </div>
   );
 };
 

@@ -1,16 +1,30 @@
-import { NextPage } from 'next';
-import { Suspense } from 'react';
-import ErrorBoundary from '@/components/common/ErrorBoundary';
-import RoomHistory from '@/features/roomHistory/RoomHistory';
+import { NextPage } from "next";
+import { SWRConfig } from "swr";
+import RoomHistory from "@/components/roomHistory/RoomHistory";
 
-const RoomHistoryPage: NextPage = () => {
+// type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   const API_URL = `${baseURL}/room/v1/log`;
+//   const res = await fetch(API_URL);
+//   const data = await res.json();
+
+//
+
+//   return {
+//     props: {
+//       fallback: {
+//         [API_URL]: data,
+//       },
+//     },
+//   };
+// };
+
+const RoomHistoryIndex: NextPage = () => {
   // const { fallback } = props;
   return (
-    <ErrorBoundary>
-      <Suspense fallback={<div>loading...</div>}>
-        <RoomHistory />
-      </Suspense>
-    </ErrorBoundary>
+    <SWRConfig>
+      <RoomHistory />
+    </SWRConfig>
   );
 };
-export default RoomHistoryPage;
+export default RoomHistoryIndex;

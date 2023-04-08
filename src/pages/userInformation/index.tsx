@@ -1,7 +1,7 @@
-import { NextPage, GetStaticProps, InferGetStaticPropsType } from 'next';
-import { SWRConfig } from 'swr';
-import UserInformation from '@/features/userInformation/UserInformation';
-import { endpoints } from '@/utils/api';
+import { NextPage, GetStaticProps, InferGetStaticPropsType } from "next";
+import { SWRConfig } from "swr";
+import UserInformation from "@/components/userInformation/UserInformation";
+import { endpoints } from "@/utils/api";
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 

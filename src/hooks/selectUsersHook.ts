@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import useSWR from 'swr';
-import { User } from '@/types/user';
-import { endpoints } from '@/utils/api';
+import { useEffect, useState } from "react";
+import useSWR from "swr";
+import { User } from "@/types/user";
+import { endpoints } from "@/utils/api";
 
 type selectUser = {
   value: number;
@@ -9,7 +9,7 @@ type selectUser = {
 };
 
 export const useSelectUsers = () => {
-  const { data: users } = useSWR<User[]>(`${endpoints.users}`);
+  const { data: users, error } = useSWR<User[]>(`${endpoints.users}`);
   const [selectUsers, setSelectUsers] = useState<selectUser[]>([]);
 
   useEffect(() => {
