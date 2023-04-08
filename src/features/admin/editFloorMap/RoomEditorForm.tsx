@@ -15,7 +15,7 @@ export const RoomEditorForm = (props: {
 
   const form = useForm();
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRoomNameValue(e.target.value);
   };
 
