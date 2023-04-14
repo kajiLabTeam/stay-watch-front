@@ -64,7 +64,7 @@ yarn fix
 
 - Prettier - Code formatter
 
-    以下を行うとコードを整えてくれる
+    以下を行うとコードのスタイルを整えてくれる
     ```
     yarn fix
     ```
@@ -75,7 +75,17 @@ yarn fix
 
 - ESLint
 
-    「console.log() があるとwarningを出す」などのプロジェクト独自のコード規則を設定できる
+    「console.log() があるとwarningを出す」などのプロジェクト独自のコード規則を設定できたり、「var hoge」を自動で「let hoge」に変えてくれたりする。
+
+    - 設定方法
+    
+        「基本設定：ユーザ設定を開く（JSON）」からsetting.jsonを開き、下のコード任意の箇所に貼り付ける
+        ```
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": true
+        },
+        ```
+
 
 - Tailwind Css
 
