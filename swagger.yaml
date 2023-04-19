@@ -1,0 +1,428 @@
+openapi: 3.0.3
+info:
+  title: 滞在ウォッチ
+  description: |-
+    滞在ウォッチのAPIをまとめたものです。
+    
+  termsOfService: https://stay-watch-go.kajilab.tk/
+  contact:
+    email: apiteam@swagger.io
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://localhost:8082/api/v1
+tags:
+  - name: stayers
+    description: 在室者についての操作
+  - name: logs
+    description: 在室履歴についての操作
+  - name: logsGantt
+    description: 1週間の在室履歴についての操作
+  - name: users
+    description: ユーザ情報についての操作
+  - name: extendedUsers
+    description: 詳細なユーザ情報についての操作
+  - name: check
+    description: ファイアベース関連の操作
+  - name: rooms
+    description: 部屋についての操作
+  - name: buildings
+    description: 建物についての操作
+  - name: updateroom
+    description: 部屋情報を更新する
+
+paths:
+  /stayers:
+    get:
+      tags:
+        - stayers
+      summary: 現在の在室者の取得
+      operationId: Stayer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: kaji
+                    room:
+                      type: string
+                      example: 学生部屋
+                    roomId:
+                      type: integer
+                      example: 1
+                    tags:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: 梶研
+        '500':
+          description:
+            Internal Server Error
+    post:
+      tags:
+        - stayers
+      summary: 現在の在室者の追加、削除
+      operationId: Beacon
+      requestBody:
+        description: OK
+        content:
+          application/json:
+              schema:
+                type: object
+                properties:
+                  beacons:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        uuid:
+                          type: string
+                          example: "e7d61ea3f8dd49c88f2ff2484c07ac15"
+                        rssi:
+                          type: integer
+                          example: -50
+                  roomId:
+                    type: integer
+                    example: 1  
+      responses:
+        '200':
+          description: OK
+  
+  /logs:
+    get:
+      tags:
+        - logs
+      summary: 在室履歴の取得
+      operationId: controller.Log
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 312
+                    startAt:
+                      type: string
+                      example: "2023-01-25 17:50:15"
+                    endAt:
+                      type: string
+                      example: "2023-01-25 18:40:28"
+                    room:
+                      type: string
+                      example: "学生部屋"
+                    name:
+                      type: string
+                      example: "togawa"
+        '300':
+          description: 
+            Internet Server Error
+
+  /logs/gantt:
+    get:
+      tags:
+        - logsGantt
+      summary: 直近1週間の在室履歴の取得
+      operationId: controller.LogGantt
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 0
+                    date:
+                      type: string
+                      example: "2023-03-24"
+                    rooms:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: "学生部屋"
+                          stayTimes:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                  example: 312
+                                userName:
+                                  type: string
+                                  example: "togawa"
+                                startAt:
+                                  type: integer
+                                  example: 1679633411000
+                                endAt:
+                                  type: integer
+                                  example: 1679633452000
+                                color:
+                                  type: string
+                                  example: "green"
+
+  /users:
+    get:
+      tags:
+        - users
+      summary: ユーザ情報の取得
+      operationId: controller.UserList
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 22
+                    name:
+                      type: string
+                      example: "togawa"
+                    tags:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 7
+                          name:
+                            type: string
+                            example: "B3"
+    post:
+      tags:
+        - users
+      summary: ユーザの新規登録, 更新
+      operationId: controller.CreateUser
+      requestBody:
+        description: IDがない(0)なら新規登録、ある(0以外)なら更新
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 0
+                email:
+                  type: string
+                  example: "aikoutarou@gmail.com"
+                name:
+                  type: string
+                  example: "tarou"
+                role:
+                  type: integer
+                  example: 1
+      responses:
+        '200':
+          description: OK
+
+  /users/extended:
+    get:
+      tags:
+        - extendedUsers
+      summary: 詳細なユーザ情報の取得
+      operationId: controller.ExtendedUserList
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 22
+                    name:
+                      type: string
+                      example: "togawa"
+                    tags:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 7
+                          name:
+                            type: string
+                            example: "B3"
+                    uuid:
+                      type: string
+                      example: "e7d61ea3f8dd49c88f2ff2484c07ac15"
+                    email:
+                      type: string
+                      example: "togetoge@gmail.com"
+                    role:
+                      type: integer
+                      example: 1
+  /check:
+    get:
+      tags:
+        - check
+      summary: 利用者自身のユーザ情報の取得
+      operationId: controller.Check
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  statusText:
+                    type: string
+                    example: "OK"
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 22
+                      role:
+                        type: integer
+                        example: 1
+        '401':
+          description: invalid token
+
+  /rooms/{community_id}:
+    get:
+      tags:
+        - rooms
+      summary: コミュニティIDからユーザ情報の取得
+      operationId: controller.GetRoomsByCommunityID
+      parameters:
+        - name: community_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    roomId: 
+                      type: integer
+                      example: 4
+                    roomName:
+                      type: string
+                      example: "学生部屋"
+                    communityName:
+                      type: string
+                      example: "梶研究室"
+                    buildingName:
+                      type: string
+                      example: "4号館"
+                    polygon:
+                      type: string
+                      example: "121,311-144,342"
+                    buildingId:
+                      type: integer
+                      example: 1
+
+  /buildings/editor:
+    get:
+      tags:
+        - buildings
+      summary: 建物の取得
+      operationId: controller.GetBuildingsEditor
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    buildingId: 
+                      type: integer
+                      example: 1
+                    buildingName:
+                      type: string
+                      example: "4号館別館"
+                    buildingImagePath:
+                      type: string
+                      example: "/4goukan.jpg"
+  
+
+
+  /updateroom:
+    post:
+      tags:
+        - updateroom
+      summary: 部屋情報の更新
+      operationId: controller.UpdateRoom
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                roomID:
+                  type: integer
+                  example: 1
+                room_name:
+                  type: string
+                  example: "学生部屋"
+                polygon:
+                  type: string
+                  example: "1100,921-111,241"
+                buildingID:
+                  type: integer
+                  example: 2
+      responses:
+        '200':
+          description: OK
