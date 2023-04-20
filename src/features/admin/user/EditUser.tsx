@@ -1,7 +1,6 @@
 import { CreateUserForm } from '@/features/admin/user/CreateUserForm';
 
 export const EditUser = () => {
-
   return (
     <div>
       <div className='flex'>
