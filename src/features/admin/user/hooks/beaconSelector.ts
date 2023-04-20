@@ -4,7 +4,7 @@ import { BeaconType } from '@/types/beacon';
 import { endpoints } from '@/utils/api';
 
 type beaconSelector = {
-  value: number;
+  value: string;
   label: string;
 };
 
@@ -17,7 +17,7 @@ export const useSelectBeacons = () => {
       const beaconList: beaconSelector[] = beaconTypes.map((beaconType) => {
         return {
           label: beaconType.beaconName,
-          value: beaconType.beaconId,
+          value: beaconType.beaconName,
         };
       });
       setBeaconSelector([...beaconList]);

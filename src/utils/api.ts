@@ -13,4 +13,5 @@ export const endpoints = {
   getBuildingsEditor: `${baseURL}/api/v1/buildings/editor`,
   extendedUsers: `${baseURL}/api/v1/users/extended`,
   beacons: `${baseURL}/api/v1/beacons`,
+  tags: `${baseURL}/api/v1/tags`
 };
