@@ -7,6 +7,7 @@ export const endpoints = {
   logsGantt: `${baseURL}/api/v1/logs/gantt`,
   check: `${baseURL}/api/v1/check`,
   users: `${baseURL}/api/v1/users/2`,
+  users2: `${baseURL}/api/v1/users`,
   attendance: `${baseURL}/api/v1/attendance`,
   updateroom: `${baseURL}/api/v1/rooms`,
   getRoomsEditorByCommunityID: `${baseURL}/api/v1/rooms/2`,
