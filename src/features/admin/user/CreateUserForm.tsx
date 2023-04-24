@@ -31,151 +31,83 @@ export const CreateUserForm = () => {
     },
     validate: {
       email: (value) => (/^\S+@gmail\S+$/.test(value) ? null : 'Invalid email'),
-      uuid: (value) => (value ? null : 'Invalid user'),
       name: (value) => (value ? null : 'Invalid user'),
     },
   });
 
-  if(form.values.beaconName === "FCS1301"){
-    return (
-      <div className='border border-green-500'>
-      <div className='rounded-lg bg-slate-200'>
-        <form
-          className=' flex flex-col gap-6 p-10'
-          onSubmit={form.onSubmit((values) =>
-            // console.log(values)
-            axios
-              .post(endpoints.users2, values)
-              .then(() => {
-                window.alert('成功しました');
-              })
-              .catch((err) => {
-                if(err.response.status === 409){
-                  window.alert('このメールアドレスは既に登録されています');
-                }
-                else {
-                  window.alert('失敗しました');
-                }
-                console.error(err.response.status);
-              }),
-          )}
-        >
-          <TextInput
-            placeholder='tarou'
-            label='名前'
+  return (
+    <div className='border border-green-500'>
+    <div className='rounded-lg bg-slate-200'>
+      <form
+        className=' flex flex-col gap-6 p-10'
+        onSubmit={form.onSubmit((values) =>
+          // console.log(values)
+          axios
+            .post(endpoints.users2, values)
+            .then(() => {
+              window.alert('成功しました');
+            })
+            .catch((err) => {
+              if(err.response.status === 409){
+                window.alert('このメールアドレスは既に登録されています');
+              }
+              else {
+                window.alert('失敗しました');
+              }
+              console.error(err.response.status);
+            }),
+        )}
+      >
+        <TextInput
+          placeholder='tarou'
+          label='名前'
+          required
+          {...form.getInputProps('name')}
+        />
+        <TextInput
+          label='Gメールアドレス'
+          placeholder='your@gmail.com'
+          required
+          {...form.getInputProps('email')}
+        />
+        <div className="flex space-x-4">
+          <Select
+            className='w-1/2'
+            label='ビーコンの形態'
+            placeholder='ビーコンの形態を選択してください'
+            data={selectBeacons}
             required
-            {...form.getInputProps('name')}
+            {...form.getInputProps('beaconName')}
           />
-          <TextInput
-            label='Gメールアドレス'
-            placeholder='your@gmail.com'
+          <Select
+            label='権限'
+            className='w-1/2'
+            placeholder='権限レベルを選択してください'
+            data={roles}
             required
-            {...form.getInputProps('email')}
-          />
-          <div className="flex space-x-4">
-            <Select
-              className='w-1/2'
-              label='ビーコンの形態'
-              placeholder='ビーコンの形態を選択してください'
-              data={selectBeacons}
-              required
-              {...form.getInputProps('beaconName')}
-            />
-            <Select
-              label='権限'
-              className='w-1/2'
-              placeholder='権限レベルを選択してください'
-              data={roles}
-              required
-              {...form.getInputProps('role')}
-             />
-          </div>
+            {...form.getInputProps('role')}
+           />
+        </div>
+        {form.values.beaconName === "FCS1301" && (
           <TextInput
             label='UUID'
             placeholder='UUID'
             required
             {...form.getInputProps('uuid')}
           />
-          <MultiSelect
-            label='属性'
-            placeholder='属性を選択してください'
-            data={selectTags}
-            required
-            {...form.getInputProps('tagIds')}
-          />
-          <div className=' mx-auto'>
-            <Button color='blue'>登録する</Button>
-          </div>
-        </form>
-      </div>
+        ) }
+        <MultiSelect
+          label='タグ'
+          placeholder='属性を選択してください'
+          data={selectTags}
+          required
+          {...form.getInputProps('tagIds')}
+        />
+        <div className=' mx-auto'>
+          <Button color='blue'>登録する</Button>
+        </div>
+      </form>
     </div>
-    )
-  }
-  return (
-    <div className='border border-green-500'>
-      <div className='rounded-lg bg-slate-200'>
-        <form
-          className=' flex flex-col gap-6 p-10'
-          onSubmit={form.onSubmit((values) =>
-            // console.log(values)
-            axios
-              .post(endpoints.users2, values)
-              .then(() => {
-                window.alert('成功しました');
-              })
-              .catch((err) => {
-                if(err.response.status === 409){
-                  window.alert('このメールアドレスは既に登録されています');
-                }
-                else {
-                  window.alert('失敗しました');
-                }
-                console.error(err.response.status);
-              }),
-          )}
-        >
-          <TextInput
-            placeholder='tarou'
-            label='名前'
-            required
-            {...form.getInputProps('name')}
-          />
-          <TextInput
-            label='Gメールアドレス'
-            placeholder='your@gmail.com'
-            required
-            {...form.getInputProps('email')}
-          />
-          <div className="flex space-x-4">
-            <Select
-              className='w-1/2'
-              label='ビーコンの形態'
-              placeholder='ビーコンの形態を選択してください'
-              data={selectBeacons}
-              required
-              {...form.getInputProps('beaconName')}
-            />
-            <Select
-              label='権限'
-              className='w-1/2'
-              placeholder='権限レベルを選択してください'
-              data={roles}
-              required
-              {...form.getInputProps('role')}
-             />
-          </div>
-          <MultiSelect
-            label='属性'
-            placeholder='属性を選択してください'
-            data={selectTags}
-            required
-            {...form.getInputProps('tagIds')}
-          />
-          <div className=' mx-auto'>
-            <Button color='blue'>登録する</Button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
+  </div>
+  )
 };
