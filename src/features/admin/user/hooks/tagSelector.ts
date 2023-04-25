@@ -9,7 +9,7 @@ type tagSelector = {
 };
 
 export const useSelectTags = () => {
-  const { data: tags } = useSWR<Tag[]>(`${endpoints.tags}/2`);  // コミュニティIDの取得ができ次第修正
+  const { data: tags } = useSWR<Tag[]>(`${endpoints.tags}/2`); // コミュニティIDの取得ができ次第修正
   const [tagSelector, setTagSelector] = useState<tagSelector[]>([]);
 
   useEffect(() => {
