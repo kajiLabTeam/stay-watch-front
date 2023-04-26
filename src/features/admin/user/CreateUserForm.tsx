@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { schema } from './hooks/shema';
 import { Button } from '@/components/common/Button';
 import { useSelectBeacons } from '@/features/admin/user/hooks/beaconSelector';
+import { useRoles } from '@/features/admin/user/hooks/editingUserState';
 import { useSelectTags } from '@/features/admin/user/hooks/tagSelector';
 
 import { endpoints } from '@/utils/api';
@@ -12,11 +13,7 @@ import { endpoints } from '@/utils/api';
 export const CreateUserForm = () => {
   const selectBeacons = useSelectBeacons();
   const selectTags = useSelectTags();
-
-  const roles = [
-    { value: 1, label: '一般ユーザ' },
-    { value: 2, label: '研究室管理者' },
-  ];
+  const roles = useRoles();
 
   const form = useForm({
     initialValues: {
@@ -41,7 +38,7 @@ export const CreateUserForm = () => {
   }, [form.values.beaconName, form.setValues]);
 
   return (
-    <div className='mx-5'>
+    <div>
       <div className='rounded-lg bg-slate-200'>
         <form
           className=' flex flex-col gap-2 px-10 py-4'
