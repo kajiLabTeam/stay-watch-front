@@ -30,3 +30,14 @@ export type extendedUser = {
     },
   ];
 };
+
+export type UserEditor = User & {
+  beaconUuidEditable: boolean;
+  beaconName: string;
+  tags: [
+    {
+      id: number;
+      name: string;
+    },
+  ];
+};
