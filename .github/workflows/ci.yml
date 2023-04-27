@@ -12,9 +12,7 @@ jobs:
       NEXT_PUBLIC_BASE_URL: https://go-staywatch.kajilab.tk
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          node-version-file: 16.13.0
+        uses: actions/checkout@v2
 
       - name: Install dependencies
         run: yarn install
