@@ -15,7 +15,7 @@ const UserInformation = () => {
       <table className='w-full table-fixed text-xl sm:text-base md:text-2xl'>
         <thead>
           <tr className='bg-gray-700 text-left text-white'>
-            <th className='w-1/2 border py-2 px-4'>Name</th>
+            <th className='w-1/2 border py-2 px-4'>名前</th>
             <th className='border py-2 px-4'>Attribute</th>
           </tr>
         </thead>
