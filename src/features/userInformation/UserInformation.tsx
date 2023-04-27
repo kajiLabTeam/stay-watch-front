@@ -16,7 +16,7 @@ const UserInformation = () => {
         <thead>
           <tr className='bg-gray-700 text-left text-white'>
             <th className='w-1/2 border py-2 px-4'>名前</th>
-            <th className='border py-2 px-4'>Attribute</th>
+            <th className='border py-2 px-4'>タグ</th>
           </tr>
         </thead>
         <tbody className='text-lg md:text-2xl'>
