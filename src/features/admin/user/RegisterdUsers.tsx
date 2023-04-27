@@ -11,14 +11,14 @@ export const RegisterdUsers = () => {
   return (
     <div>
       <div className='my-4 border' />
-      <table className='w-full md:text-xl'>
+      <table className='w-full min-w-[1000px] md:text-xl'>
         <thead>
           <tr className='bg-gray-700 text-left text-white md:text-xl'>
             <th className='border py-1 px-4'>名前</th>
             <th className='border py-1 px-4'>UUID</th>
             <th className='border py-1 px-4'>権限</th>
-            <th className='border py-1 px-4'>ビーコン形態</th>
-            <th className='border py-1 px-4'>タグ1</th>
+            <th className='whitespace-nowrap border py-1 px-4'>ビーコン形態</th>
+            <th className='whitespace-nowrap border py-1 px-4'>タグ1</th>
           </tr>
         </thead>
         <tbody className='text-lg md:text-xl'>
