@@ -72,7 +72,7 @@ export const RegisterdRoom = (props: { room: EditorRoom; building: Building }) =
   // フォームを非表示
   return (
     <div
-      className='w-full border border-blue-500'
+      className='w-full border border-blue-400'
       onMouseOver={() => updateMouseOverRoomColor(roomId)}
       onMouseOut={() => updateMouseOutRoomColor(roomId)}
     >
