@@ -10,7 +10,7 @@ const UserInformation = () => {
 
   return (
     <div>
-      <div className='mt-6 text-2xl md:text-3xl'>利用者一覧</div>
+      <div className='mt-6 text-2xl md:text-3xl'>利用者一</div>
       <div className='my-4 border' />
       <table className='w-full table-fixed text-xl sm:text-base md:text-2xl'>
         <thead>
