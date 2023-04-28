@@ -3,7 +3,7 @@ export const Sample = () => {
     <main>
       <h1>Nextjs+Jestのサンプルサプリ</h1>
       <p>設定がすごく楽になりました。</p>
-      <p>ハローa</p>
+      <p>ハ</p>
     </main>
   );
 };
