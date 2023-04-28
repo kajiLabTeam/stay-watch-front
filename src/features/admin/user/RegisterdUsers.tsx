@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import { RegisterdUser } from './RegisterdUser';
 import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
 import { UserEditor } from '@/types/user';
@@ -7,6 +8,7 @@ import { endpoints } from '@/utils/api';
 export const RegisterdUsers = () => {
   // const { currentSelectedBuildingIndex } = useEditingMapState();
   const { data: users } = useSuspenseSWR<UserEditor[]>(`${endpoints.adminUsers}`);
+  const [editingUserId, setEditingUserId] = useState(-1);
 
   return (
     <div>
@@ -23,40 +25,15 @@ export const RegisterdUsers = () => {
         </thead>
         <tbody className='text-lg md:text-xl'>
           {users.map((user: UserEditor) => (
-            <RegisterdUser user={user} key={user.id} />
+            <RegisterdUser
+              user={user}
+              editingUserId={editingUserId}
+              setEditingUserId={setEditingUserId}
+              key={user.id}
+            />
           ))}
         </tbody>
       </table>
     </div>
-    // <div>
-
-    //   {users.map((user: UserEditor) => {
-    //     return (
-
-    //       <div key={user.id}>
-    //         <RegisterdUser user={user} />
-    //       </div>
-    //     );
-    //   })}
-    // </div>
   );
-
-  // return (
-  //   <div>
-
-  //   </div>
-  // );
-
-  // return (
-  //   <div>
-  //     <p>{props.rooms[0].communityName}</p>
-  //     {props.rooms.map((room: EditorRoom) => {
-  //       return (
-  //         <div key={room.roomId}>
-  //           <RegisterdRoom room={room} building={props.buildings[currentSelectedBuildingIndex]} />
-  //         </div>
-  //       );
-  //     })}
-  //   </div>
-  // );
 };
