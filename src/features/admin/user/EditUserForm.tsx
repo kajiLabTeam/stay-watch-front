@@ -1,6 +1,7 @@
 import { TextInput, MultiSelect, Select } from '@mantine/core';
-import { Button } from '@mantine/core';
+import { Button, Modal } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
+import { useDisclosure } from '@mantine/hooks';
 import axios from 'axios';
 import { schema } from './hooks/shema';
 import { useSelectBeacons } from '@/features/admin/user/hooks/beaconSelector';
@@ -16,6 +17,7 @@ export const EditUserForm = (props: { user: UserEditor }) => {
   const selectTags = useSelectTags();
   const currentTagIds = useTagIds(props.user.tags);
   const roles = useRoles();
+  const [opened, { open, close }] = useDisclosure(false);
 
   const { setEditingUserId } = useEditingUserMutators();
 
@@ -35,10 +37,20 @@ export const EditUserForm = (props: { user: UserEditor }) => {
 
   return (
     <div>
-      <div className='rounded-lg bg-slate-200'>
-        <h1 className='pt-2 text-center text-3xl font-bold text-slate-800'>{props.user.name}</h1>
+      <Modal opened={opened} onClose={close} title='削除確認'>
+        <div className='my-4 border' />
+        <div>ユーザ情報を削除しますか？</div>
+        <Button type='button' variant='outline' color='gray' onClick={close}>
+          キャンセル
+        </Button>
+        <Button type='button' className='bg-red-400' color='red'>
+          削除する
+        </Button>
+      </Modal>
+      <div className='rounded-lg bg-slate-200 px-10 pb-4'>
+        <h1 className='pt-2 text-left text-2xl text-slate-800'>{props.user.name}</h1>
         <form
-          className=' flex flex-col px-10 pb-4'
+          className=' flex flex-col'
           onSubmit={form.onSubmit((values) =>
             // console.log(values)
             axios
@@ -87,18 +99,26 @@ export const EditUserForm = (props: { user: UserEditor }) => {
             data={selectTags}
             {...form.getInputProps('tagIds')}
           />
-          <div className='mx-auto space-x-4  pt-3'>
-            <Button type='submit' className='bg-blue-400' color='blue'>
-              保存する
-            </Button>
-            <Button
-              type='button'
-              className='bg-red-400'
-              color='red'
-              onClick={() => setEditingUserId(-1)}
-            >
-              中止
-            </Button>
+          <div className='flex pt-3'>
+            <div className='mr-auto space-x-4'>
+              <Button type='submit' className='bg-blue-400' color='blue'>
+                保存
+              </Button>
+              <Button
+                type='button'
+                variant='outline'
+                className='border-2'
+                color='gray'
+                onClick={() => setEditingUserId(-1)}
+              >
+                中止
+              </Button>
+            </div>
+            <div>
+              <Button type='button' className='bg-red-400' color='red' onClick={open}>
+                削除
+              </Button>
+            </div>
           </div>
         </form>
       </div>
