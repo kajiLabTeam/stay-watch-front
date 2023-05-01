@@ -49,6 +49,7 @@ export const CreateUserForm = () => {
               .post(endpoints.users2, values)
               .then(() => {
                 window.alert('成功しました');
+                form.reset();
               })
               .catch((err) => {
                 if (err.response.status === 409) {
@@ -94,7 +95,7 @@ export const CreateUserForm = () => {
             data={selectTags}
             {...form.getInputProps('tagIds')}
           />
-          <div className='mx-auto pt-3'>
+          <div className='pt-3'>
             <Button type='submit' className='bg-blue-400' color='blue'>
               登録する
             </Button>
