@@ -1,5 +1,8 @@
+import axios from 'axios';
+import { useCallback } from 'react';
 import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Tag } from '@/types/tag';
+import { endpoints } from '@/utils/api';
 
 export const useRoles = () => {
   const roles = [
@@ -38,7 +41,25 @@ export const useEditingUserMutators = () => {
     }));
   };
 
+  // フォームの「削除」を押されたときの処理
+  const deleteUser = useCallback((userId: number) => {
+    if (userId) {
+      axios
+        .delete(`${endpoints.users2}/${userId}`)
+        .then(() => {
+          window.alert('成功しました');
+        })
+        .catch((err) => {
+          console.error(err);
+          window.alert('失敗しました');
+        });
+    } else {
+      window.alert('失敗しました');
+    }
+  }, []);
+
   return {
     setEditingUserId,
+    deleteUser,
   };
 };

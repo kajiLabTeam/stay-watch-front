@@ -19,7 +19,7 @@ export const EditUserForm = (props: { user: UserEditor }) => {
   const roles = useRoles();
   const [opened, { open, close }] = useDisclosure(false);
 
-  const { setEditingUserId } = useEditingUserMutators();
+  const { setEditingUserId, deleteUser } = useEditingUserMutators();
 
   const form = useForm({
     initialValues: {
@@ -40,12 +40,21 @@ export const EditUserForm = (props: { user: UserEditor }) => {
       <Modal opened={opened} onClose={close} title='削除確認'>
         <div className='my-4 border' />
         <div>ユーザ情報を削除しますか？</div>
-        <Button type='button' variant='outline' color='gray' onClick={close}>
-          キャンセル
-        </Button>
-        <Button type='button' className='bg-red-400' color='red'>
-          削除する
-        </Button>
+        <div className='my-4 border' />
+        <div className='space-x-4 pt-4 text-right'>
+          <Button type='button' variant='outline' color='gray' onClick={close}>
+            キャンセル
+          </Button>
+          <Button
+            type='button'
+            className='bg-red-400'
+            color='red'
+            onClick={() => deleteUser(props.user.id)}
+            //onClick={() => console.log('デリートだよ')}
+          >
+            削除する
+          </Button>
+        </div>
       </Modal>
       <div className='rounded-lg bg-slate-200 px-10 pb-4'>
         <h1 className='pt-2 text-left text-2xl text-slate-800'>{props.user.name}</h1>
@@ -57,6 +66,7 @@ export const EditUserForm = (props: { user: UserEditor }) => {
               .put(endpoints.users2, values)
               .then(() => {
                 window.alert('成功しました');
+                setEditingUserId(-1);
               })
               .catch((err) => {
                 if (err.response.status === 409) {
@@ -70,7 +80,7 @@ export const EditUserForm = (props: { user: UserEditor }) => {
         >
           <TextInput placeholder='tarou' label='名前' {...form.getInputProps('name')} />
           <TextInput
-            label='Gメールアドレス'
+            label='Gメールアドレス（任意）'
             placeholder='your@gmail.com'
             {...form.getInputProps('email')}
           />
@@ -91,7 +101,11 @@ export const EditUserForm = (props: { user: UserEditor }) => {
             />
           </div>
           {form.values.beaconName === 'FCS1301' && (
-            <TextInput label='UUID(5文字)' placeholder='UUID' {...form.getInputProps('uuid')} />
+            <TextInput
+              label='ビーコンのID（5文字）'
+              placeholder='UUID'
+              {...form.getInputProps('uuid')}
+            />
           )}
           <MultiSelect
             label='タグ'
