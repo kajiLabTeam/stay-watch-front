@@ -1,9 +1,9 @@
 import { TextInput, MultiSelect, Select } from '@mantine/core';
+import { Button } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { schema } from './hooks/shema';
-import { Button } from '@/components/common/Button';
 import { useSelectBeacons } from '@/features/admin/user/hooks/beaconSelector';
 import { useRoles } from '@/features/admin/user/hooks/editingUserState';
 import { useSelectTags } from '@/features/admin/user/hooks/tagSelector';
@@ -21,7 +21,7 @@ export const CreateUserForm = () => {
       uuid: '',
       email: '',
       role: 1,
-      communityId: 1,
+      communityId: 2,
       beaconName: '',
       tagIds: [],
     },
@@ -40,8 +40,9 @@ export const CreateUserForm = () => {
   return (
     <div>
       <div className='rounded-lg bg-slate-200'>
+        <h1 className='pt-4 text-center text-3xl font-bold text-slate-800'>新規登録</h1>
         <form
-          className=' flex flex-col gap-2 px-10 py-4'
+          className=' flex flex-col px-10 py-4'
           onSubmit={form.onSubmit((values) =>
             // console.log(values)
             axios
@@ -93,8 +94,10 @@ export const CreateUserForm = () => {
             data={selectTags}
             {...form.getInputProps('tagIds')}
           />
-          <div className=' mx-auto'>
-            <Button color='blue'>登録する</Button>
+          <div className='mx-auto pt-3'>
+            <Button type='submit' className='bg-blue-400' color='blue'>
+              登録する
+            </Button>
           </div>
         </form>
       </div>
