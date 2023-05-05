@@ -52,7 +52,7 @@ export const CreateUserForm = () => {
             axios
               .post(endpoints.users2, values)
               .then(() => {
-                // window.alert('成功しました');
+                window.alert('成功しました');
                 form.reset();
               })
               .catch((err) => {
