@@ -1,8 +1,9 @@
-import { TextInput, MultiSelect, Select } from '@mantine/core';
+import { TextInput, MultiSelect, Select, LoadingOverlay } from '@mantine/core';
 import { Button, Modal } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
 import axios from 'axios';
+import { useState } from 'react';
 import { schema } from './hooks/shema';
 import { useSelectBeacons } from '@/features/admin/user/hooks/beaconSelector';
 import { useRoles, useTagIds } from '@/features/admin/user/hooks/editingUserState';
@@ -18,6 +19,8 @@ export const EditUserForm = (props: { user: UserEditor }) => {
   const currentTagIds = useTagIds(props.user.tags);
   const roles = useRoles();
   const [opened, { open, close }] = useDisclosure(false);
+  const [visible] = useDisclosure(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { setEditingUserId, deleteUser } = useEditingUserMutators();
 
@@ -57,11 +60,13 @@ export const EditUserForm = (props: { user: UserEditor }) => {
         </div>
       </Modal>
       <div className='rounded-lg bg-slate-200 px-10 pb-4'>
+        {isLoading === true && <LoadingOverlay visible={visible} overlayBlur={2} />}
         <h1 className='pt-2 text-left text-2xl text-slate-800'>{props.user.name}</h1>
         <form
           className=' flex flex-col'
-          onSubmit={form.onSubmit((values) =>
+          onSubmit={form.onSubmit((values) => {
             // console.log(values)
+            setIsLoading(true);
             axios
               .put(endpoints.users2, values)
               .then(() => {
@@ -75,8 +80,11 @@ export const EditUserForm = (props: { user: UserEditor }) => {
                   window.alert('失敗しました');
                 }
                 console.error(err.response.status);
-              }),
-          )}
+              })
+              .finally(() => {
+                setIsLoading(false);
+              });
+          })}
         >
           <TextInput placeholder='tarou' label='名前' {...form.getInputProps('name')} />
           <TextInput

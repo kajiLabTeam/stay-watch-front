@@ -1,8 +1,9 @@
-import { TextInput, MultiSelect, Select } from '@mantine/core';
+import { TextInput, MultiSelect, Select, LoadingOverlay } from '@mantine/core';
 import { Button } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
+import { useDisclosure } from '@mantine/hooks';
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { schema } from './hooks/shema';
 import { useSelectBeacons } from '@/features/admin/user/hooks/beaconSelector';
 import { useRoles } from '@/features/admin/user/hooks/editingUserState';
@@ -14,6 +15,8 @@ export const CreateUserForm = () => {
   const selectBeacons = useSelectBeacons();
   const selectTags = useSelectTags();
   const roles = useRoles();
+  const [visible] = useDisclosure(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm({
     initialValues: {
@@ -39,16 +42,17 @@ export const CreateUserForm = () => {
 
   return (
     <div>
+      {isLoading === true && <LoadingOverlay visible={visible} overlayBlur={2} />}
       <div className='rounded-lg bg-slate-200'>
         <h1 className='pt-4 text-center text-3xl font-bold text-slate-800'>新規登録</h1>
         <form
           className=' flex flex-col px-10 py-4'
-          onSubmit={form.onSubmit((values) =>
-            // console.log(values)
+          onSubmit={form.onSubmit((values) => {
+            setIsLoading(true);
             axios
               .post(endpoints.users2, values)
               .then(() => {
-                window.alert('成功しました');
+                // window.alert('成功しました');
                 form.reset();
               })
               .catch((err) => {
@@ -58,12 +62,15 @@ export const CreateUserForm = () => {
                   window.alert('失敗しました');
                 }
                 console.error(err.response.status);
-              }),
-          )}
+              })
+              .finally(() => {
+                setIsLoading(false);
+              });
+          })}
         >
           <TextInput placeholder='tarou' label='名前' {...form.getInputProps('name')} />
           <TextInput
-            label='Gメールアドレス'
+            label='Gメールアドレス（任意）'
             placeholder='your@gmail.com'
             {...form.getInputProps('email')}
           />
@@ -85,13 +92,16 @@ export const CreateUserForm = () => {
           </div>
           {form.values.beaconName === 'FCS1301' && (
             <>
-              <TextInput label='UUID(5文字)' placeholder='UUID' {...form.getInputProps('uuid')} />
-              {/* {form.setValues({ ...form.values, uuid: 'abcdf' })} */}
+              <TextInput
+                label='ビーコンのID（5文字）'
+                placeholder='UUID'
+                {...form.getInputProps('uuid')}
+              />
             </>
           )}
           <MultiSelect
             label='タグ'
-            placeholder='属性を選択してください'
+            placeholder='タグを選択してください'
             data={selectTags}
             {...form.getInputProps('tagIds')}
           />
