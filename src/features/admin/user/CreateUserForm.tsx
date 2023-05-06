@@ -1,24 +1,19 @@
 import { TextInput, MultiSelect, Select } from '@mantine/core';
 import { Button } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
-import axios from 'axios';
 import { useEffect } from 'react';
-import { useSWRConfig } from 'swr';
 import { schema } from './roles/shema';
 import { useSelectBeacons } from '@/features/admin/user/hooks/beaconSelector';
 import { useRoles } from '@/features/admin/user/hooks/editingUserState';
-import { useLoadingMutators } from '@/features/admin/user/hooks/loadingState';
 import { useSelectTags } from '@/features/admin/user/hooks/tagSelector';
-
-import { endpoints } from '@/utils/api';
+import { useUserAdminFormMutators } from '@/features/admin/user/hooks/useUserAdminForm';
 
 export const CreateUserForm = () => {
   const selectBeacons = useSelectBeacons();
   const selectTags = useSelectTags();
   const roles = useRoles();
-  const { mutate } = useSWRConfig();
 
-  const { setIsLoading } = useLoadingMutators();
+  const { createUser } = useUserAdminFormMutators();
 
   const form = useForm({
     initialValues: {
@@ -37,6 +32,7 @@ export const CreateUserForm = () => {
     if (form.values.beaconName === 'FCS1301') {
       form.setValues({ uuid: '' });
     } else {
+      // 00000にしておかないと見えない入力欄だがバリデーションで引っ掛かってしまう
       form.setValues({ uuid: '00000' });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -49,25 +45,7 @@ export const CreateUserForm = () => {
         <form
           className=' flex flex-col px-10 py-4'
           onSubmit={form.onSubmit((values) => {
-            setIsLoading(true);
-            axios
-              .post(endpoints.users2, values)
-              .then(() => {
-                // displaySuccessMessage();
-                mutate(endpoints.adminUsers);
-                form.reset();
-              })
-              .catch((err) => {
-                if (err.response.status === 409) {
-                  window.alert('このメールアドレスは既に登録されています');
-                } else {
-                  window.alert('失敗しました');
-                }
-                console.error(err.response.status);
-              })
-              .finally(() => {
-                setIsLoading(false);
-              });
+            createUser(values, form);
           })}
         >
           <TextInput placeholder='tarou' label='名前' {...form.getInputProps('name')} />

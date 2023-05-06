@@ -2,15 +2,13 @@ import { TextInput, MultiSelect, Select } from '@mantine/core';
 import { Button, Modal } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
-import axios from 'axios';
 import { schema } from './roles/shema';
 import { useSelectBeacons } from '@/features/admin/user/hooks/beaconSelector';
 import { useRoles, useTagIds } from '@/features/admin/user/hooks/editingUserState';
 import { useEditingUserMutators } from '@/features/admin/user/hooks/editingUserState';
 import { useSelectTags } from '@/features/admin/user/hooks/tagSelector';
+import { useUserAdminFormMutators } from '@/features/admin/user/hooks/useUserAdminForm';
 import { UserEditor } from '@/types/user';
-
-import { endpoints } from '@/utils/api';
 
 export const EditUserForm = (props: { user: UserEditor }) => {
   const selectBeacons = useSelectBeacons();
@@ -19,7 +17,8 @@ export const EditUserForm = (props: { user: UserEditor }) => {
   const roles = useRoles();
   const [opened, { open, close }] = useDisclosure(false);
 
-  const { setEditingUserId, deleteUser } = useEditingUserMutators();
+  const { setEditingUserId } = useEditingUserMutators();
+  const { deleteUser, updateUser } = useUserAdminFormMutators();
 
   const form = useForm({
     initialValues: {
@@ -60,21 +59,7 @@ export const EditUserForm = (props: { user: UserEditor }) => {
         <form
           className=' flex flex-col'
           onSubmit={form.onSubmit((values) => {
-            // console.log(values)
-            axios
-              .put(endpoints.users2, values)
-              .then(() => {
-                window.alert('成功しました');
-                setEditingUserId(-1);
-              })
-              .catch((err) => {
-                if (err.response.status === 409) {
-                  window.alert('このメールアドレスは既に登録されています');
-                } else {
-                  window.alert('失敗しました');
-                }
-                console.error(err.response.status);
-              });
+            updateUser(values);
           })}
         >
           <TextInput placeholder='tarou' label='名前' {...form.getInputProps('name')} />

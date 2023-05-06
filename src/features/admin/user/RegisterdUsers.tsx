@@ -6,13 +6,11 @@ import { UserEditor } from '@/types/user';
 import { endpoints } from '@/utils/api';
 
 export const RegisterdUsers = () => {
-  // const { currentSelectedBuildingIndex } = useEditingMapState();
   const { data: users } = useSuspenseSWR<UserEditor[]>(`${endpoints.adminUsers}`);
   const [editingUserId, setEditingUserId] = useState(-1);
 
   return (
     <div>
-      <div className='my-4 border' />
       <table className='w-full min-w-[1000px] md:text-xl'>
         <thead>
           <tr className='bg-gray-700 text-left text-white md:text-xl'>
