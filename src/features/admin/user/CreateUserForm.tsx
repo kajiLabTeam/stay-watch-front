@@ -59,12 +59,9 @@ export const CreateUserForm = () => {
         <form
           className=' flex flex-col gap-2 px-10 py-4'
           onSubmit={form.onSubmit((values) =>
-            // console.log(values)
             axios
               .post(endpoints.users2, values)
               .then(() => {
-                // window.alert('成功しました');
-                // setIsStore(true);
                 displayTimer();
               })
               .catch((err) => {
@@ -100,10 +97,7 @@ export const CreateUserForm = () => {
             />
           </div>
           {form.values.beaconName === 'FCS1301' && (
-            <>
-              <TextInput label='UUID(5文字)' placeholder='UUID' {...form.getInputProps('uuid')} />
-              {/* {form.setValues({ ...form.values, uuid: 'abcdf' })} */}
-            </>
+            <TextInput label='UUID(5文字)' placeholder='UUID' {...form.getInputProps('uuid')} />
           )}
           <MultiSelect
             label='タグ'
