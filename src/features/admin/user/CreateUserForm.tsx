@@ -1,13 +1,13 @@
-import { TextInput, MultiSelect, Select, LoadingOverlay, Alert } from '@mantine/core';
+import { TextInput, MultiSelect, Select } from '@mantine/core';
 import { Button } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
-import { useDisclosure } from '@mantine/hooks';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSWRConfig } from 'swr';
 import { schema } from './roles/shema';
 import { useSelectBeacons } from '@/features/admin/user/hooks/beaconSelector';
 import { useRoles } from '@/features/admin/user/hooks/editingUserState';
+import { useLoadingMutators } from '@/features/admin/user/hooks/loadingState';
 import { useSelectTags } from '@/features/admin/user/hooks/tagSelector';
 
 import { endpoints } from '@/utils/api';
@@ -15,11 +15,10 @@ import { endpoints } from '@/utils/api';
 export const CreateUserForm = () => {
   const selectBeacons = useSelectBeacons();
   const selectTags = useSelectTags();
-  const [isDisplayAlert, setIsDisplayAlert] = useState(false);
   const roles = useRoles();
-  const [visible] = useDisclosure(true);
-  const [isLoading, setIsLoading] = useState(false);
   const { mutate } = useSWRConfig();
+
+  const { setIsLoading } = useLoadingMutators();
 
   const form = useForm({
     initialValues: {
@@ -43,21 +42,8 @@ export const CreateUserForm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.values.beaconName, form.setValues]);
 
-  const displaySuccessMessage = () => {
-    setIsDisplayAlert(true);
-    setTimeout(() => {
-      setIsDisplayAlert(false);
-    }, 2000);
-  };
-
   return (
     <div>
-      {isLoading === true && <LoadingOverlay visible={visible} overlayBlur={2} />}
-      {isDisplayAlert && (
-        <Alert title='成功' color='green'>
-          正常に登録されました
-        </Alert>
-      )}
       <div className='rounded-lg bg-slate-200'>
         <h1 className='pt-4 text-center text-3xl font-bold text-slate-800'>新規登録</h1>
         <form
@@ -67,7 +53,7 @@ export const CreateUserForm = () => {
             axios
               .post(endpoints.users2, values)
               .then(() => {
-                displaySuccessMessage();
+                // displaySuccessMessage();
                 mutate(endpoints.adminUsers);
                 form.reset();
               })
