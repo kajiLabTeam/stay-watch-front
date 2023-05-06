@@ -41,7 +41,7 @@ export const CreateUserForm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.values.beaconName, form.setValues]);
 
-  const displayTimer = () => {
+  const displaySuccessMessage = () => {
     setIsDisplayAlert(true);
     setTimeout(() => {
       setIsDisplayAlert(false);
@@ -65,7 +65,8 @@ export const CreateUserForm = () => {
             axios
               .post(endpoints.users2, values)
               .then(() => {
-                displayTimer();
+                displaySuccessMessage();
+                //window.alert('新しいユーザが登録されました');
                 form.reset();
               })
               .catch((err) => {
