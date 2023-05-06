@@ -4,6 +4,7 @@ import { useForm, zodResolver } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useSWRConfig } from 'swr';
 import { schema } from './roles/shema';
 import { useSelectBeacons } from '@/features/admin/user/hooks/beaconSelector';
 import { useRoles } from '@/features/admin/user/hooks/editingUserState';
@@ -18,6 +19,7 @@ export const CreateUserForm = () => {
   const roles = useRoles();
   const [visible] = useDisclosure(true);
   const [isLoading, setIsLoading] = useState(false);
+  const { mutate } = useSWRConfig();
 
   const form = useForm({
     initialValues: {
@@ -66,7 +68,7 @@ export const CreateUserForm = () => {
               .post(endpoints.users2, values)
               .then(() => {
                 displaySuccessMessage();
-                //window.alert('新しいユーザが登録されました');
+                mutate(endpoints.adminUsers);
                 form.reset();
               })
               .catch((err) => {
