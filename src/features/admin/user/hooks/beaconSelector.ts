@@ -13,15 +13,14 @@ export const useSelectBeacons = () => {
   const [beaconSelector, setBeaconSelector] = useState<beaconSelector[]>([]);
 
   useEffect(() => {
-    if (beaconTypes) {
-      const beaconList: beaconSelector[] = beaconTypes.map((beaconType) => {
-        return {
-          label: beaconType.beaconName,
-          value: beaconType.beaconName,
-        };
-      });
-      setBeaconSelector([...beaconList]);
-    }
+    const beaconList: beaconSelector[] =
+      // beaconTypesがundefinedの場合空の配列を返す
+      beaconTypes?.map((beaconType) => ({
+        label: beaconType.beaconName,
+        value: beaconType.beaconName,
+      })) || [];
+
+    setBeaconSelector(beaconList);
   }, [beaconTypes]);
 
   return beaconSelector;
