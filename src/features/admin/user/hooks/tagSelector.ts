@@ -12,16 +12,25 @@ export const useSelectTags = () => {
   const { data: tags } = useSWR<Tag[]>(`${endpoints.tags}/2`); // コミュニティIDの取得ができ次第修正
   const [tagSelector, setTagSelector] = useState<tagSelector[]>([]);
 
+  // useEffect(() => {
+  //   if (tags) {
+  //     const tagList: tagSelector[] = tags.map((tag) => {
+  //       return {
+  //         label: tag.name,
+  //         value: tag.id,
+  //       };
+  //     });
+  //     setTagSelector([...tagList]);
+  //   }
+
   useEffect(() => {
-    if (tags) {
-      const tagList: tagSelector[] = tags.map((tag) => {
-        return {
-          label: tag.name,
-          value: tag.id,
-        };
-      });
-      setTagSelector([...tagList]);
-    }
+    const tagList: tagSelector[] =
+      // tagsがundefinedの場合空の配列を返す
+      tags?.map((tag) => ({
+        label: tag.name,
+        value: tag.id,
+      })) || [];
+    setTagSelector(tagList);
   }, [tags]);
 
   return tagSelector;
