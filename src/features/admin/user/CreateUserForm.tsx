@@ -1,7 +1,7 @@
-import { TextInput, MultiSelect, Select } from '@mantine/core';
+import { TextInput, MultiSelect, Select, Alert } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { schema } from './hooks/shema';
 import { Button } from '@/components/common/Button';
 import { useSelectBeacons } from '@/features/admin/user/hooks/beaconSelector';
@@ -12,6 +12,7 @@ import { endpoints } from '@/utils/api';
 export const CreateUserForm = () => {
   const selectBeacons = useSelectBeacons();
   const selectTags = useSelectTags();
+  const [isDisplayAlert, setIsDisplayAlert] = useState(false);
 
   const roles = [
     { value: 1, label: '一般ユーザ' },
@@ -40,8 +41,20 @@ export const CreateUserForm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.values.beaconName, form.setValues]);
 
+  const displayTimer = () => {
+    setIsDisplayAlert(true);
+    setTimeout(() => {
+      setIsDisplayAlert(false);
+    }, 2000);
+  };
+
   return (
     <div className='mx-5'>
+      {isDisplayAlert && (
+        <Alert title='成功' color='green'>
+          正常に登録されました
+        </Alert>
+      )}
       <div className='rounded-lg bg-slate-200'>
         <form
           className=' flex flex-col gap-2 px-10 py-4'
@@ -50,7 +63,9 @@ export const CreateUserForm = () => {
             axios
               .post(endpoints.users2, values)
               .then(() => {
-                window.alert('成功しました');
+                // window.alert('成功しました');
+                // setIsStore(true);
+                displayTimer();
               })
               .catch((err) => {
                 if (err.response.status === 409) {
