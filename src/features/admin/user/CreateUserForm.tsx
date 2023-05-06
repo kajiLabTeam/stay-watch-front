@@ -2,7 +2,7 @@ import { TextInput, MultiSelect, Select, Alert } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { schema } from './hooks/shema';
+import { schema } from './roles/shema';
 import { Button } from '@/components/common/Button';
 import { useSelectBeacons } from '@/features/admin/user/hooks/beaconSelector';
 import { useSelectTags } from '@/features/admin/user/hooks/tagSelector';
