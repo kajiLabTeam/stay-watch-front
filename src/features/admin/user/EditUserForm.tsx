@@ -2,7 +2,7 @@ import { TextInput, MultiSelect, Select } from '@mantine/core';
 import { Button, Modal } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
-import { schema } from './roles/shema';
+import { schema } from './roles/userShema';
 import { useSelectBeacons } from '@/features/admin/user/hooks/beaconSelector';
 import { useRoles, useTagIds } from '@/features/admin/user/hooks/editingUserState';
 import { useEditingUserMutators } from '@/features/admin/user/hooks/editingUserState';
