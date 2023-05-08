@@ -17,19 +17,11 @@ export const EditUser = () => {
         <div className='mx-5 w-full'>
           <CreateUserForm />
           <div className='my-4 border' />
-          {alertMode === 1 && (
+          {alertMode > 0 && (
             <Alert title='成功' color='green'>
-              1名のユーザが新しく登録されました
-            </Alert>
-          )}
-          {alertMode === 2 && (
-            <Alert title='成功' color='green'>
-              1名のユーザ情報が更新されました
-            </Alert>
-          )}
-          {alertMode === 3 && (
-            <Alert title='成功' color='green'>
-              1名のユーザが削除されました
+              {alertMode === 1 && '1名のユーザが新しく登録されました'}
+              {alertMode === 2 && '1名のユーザ情報が更新されました'}
+              {alertMode === 3 && '1名のユーザが削除されました'}
             </Alert>
           )}
           <RegisterdUsers />
