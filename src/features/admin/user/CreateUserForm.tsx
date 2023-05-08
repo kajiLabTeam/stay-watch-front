@@ -2,7 +2,7 @@ import { TextInput, MultiSelect, Select } from '@mantine/core';
 import { Button } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { useEffect } from 'react';
-import { schema } from './roles/userShema';
+import { userSchema } from './roles/userShema';
 import { useSelectBeacons } from '@/features/admin/user/hooks/beaconSelector';
 import { useRoles } from '@/features/admin/user/hooks/editingUserState';
 import { useSelectTags } from '@/features/admin/user/hooks/tagSelector';
@@ -25,7 +25,7 @@ export const CreateUserForm = () => {
       beaconName: '',
       tagIds: [],
     },
-    validate: zodResolver(schema),
+    validate: zodResolver(userSchema),
   });
 
   useEffect(() => {

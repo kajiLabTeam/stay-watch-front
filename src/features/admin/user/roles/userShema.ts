@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const schema = z.object({
+export const userSchema = z.object({
   name: z
     .string()
     .min(1, { message: '12文字以内で入力してください' })
@@ -21,4 +21,4 @@ export const schema = z.object({
   tagIds: z.array(z.number()).min(1, { message: '少なくとも1つは選択してください' }),
 });
 
-export type CreateInputType = z.infer<typeof schema>;
+export type CreateInputType = z.infer<typeof userSchema>;
