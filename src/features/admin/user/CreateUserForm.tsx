@@ -1,19 +1,40 @@
-import { TextInput, MultiSelect, Select } from '@mantine/core';
+import { TextInput, MultiSelect, Select, LoadingOverlay, Alert } from '@mantine/core';
 import { Button } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
+import { useDisclosure } from '@mantine/hooks';
+import axios from 'axios';
 import { useEffect } from 'react';
+import { useAsyncFn } from 'react-use';
+import { useSWRConfig } from 'swr';
 import { userSchema } from './roles/userShema';
+import { useAlertModeMutators } from '@/features/admin/user/hooks/alertModeState';
 import { useSelectBeacons } from '@/features/admin/user/hooks/beaconSelector';
 import { useRoles } from '@/features/admin/user/hooks/editingUserState';
 import { useSelectTags } from '@/features/admin/user/hooks/tagSelector';
-import { useUserAdminFormMutators } from '@/features/admin/user/hooks/useUserAdminForm';
+import { endpoints } from '@/utils/api';
 
 export const CreateUserForm = () => {
   const selectBeacons = useSelectBeacons();
   const selectTags = useSelectTags();
   const roles = useRoles();
+  const [visible] = useDisclosure(true);
+  const { setAlertMode } = useAlertModeMutators();
+  const displayAlert = (alertMode: number) => {
+    setAlertMode(alertMode);
+    setTimeout(() => {
+      setAlertMode(-1);
+    }, 3000);
+  };
+  const { mutate } = useSWRConfig();
 
-  const { createUser } = useUserAdminFormMutators();
+  // const [{ value, loading, error }, doFetch] = useAsyncFn(async (values) => {  // こうするとvalueもとれる。
+  const [{ loading, error }, doFetch] = useAsyncFn(async (values) => {
+    await axios.post(endpoints.users2, values);
+    // これより下は成功した時のみ動作する
+    mutate(endpoints.adminUsers);
+    displayAlert(1);
+    form.reset();
+  });
 
   const form = useForm({
     initialValues: {
@@ -40,12 +61,13 @@ export const CreateUserForm = () => {
 
   return (
     <div>
+      {loading && <LoadingOverlay visible={visible} overlayBlur={3} />}
       <div className='rounded-lg bg-slate-200'>
         <h1 className='pt-4 text-center text-3xl font-bold text-slate-800'>新規登録</h1>
         <form
           className=' flex flex-col px-10 py-4'
           onSubmit={form.onSubmit((values) => {
-            createUser(values, form);
+            doFetch(values);
           })}
         >
           <TextInput placeholder='tarou' label='名前' {...form.getInputProps('name')} />
@@ -88,6 +110,16 @@ export const CreateUserForm = () => {
               登録する
             </Button>
           </div>
+          {error && error.response.status === 409 && (
+            <Alert title='失敗' color='red'>
+              このメールアドレスは既に登録されています
+            </Alert>
+          )}
+          {error && error.response.status !== 409 && (
+            <Alert title='失敗' color='red'>
+              エラーが発生しました
+            </Alert>
+          )}
         </form>
       </div>
     </div>
