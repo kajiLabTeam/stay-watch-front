@@ -35,7 +35,7 @@
     ],
     "@typescript-eslint/no-unused-vars": "off",
     //不要なimportを警告
-    "unused-imports/no-unused-imports": "warn", // "error" でも
+    // "unused-imports/no-unused-imports": "warn", // "error" でも
     //console.logを警告
     "no-console": ["warn", { "allow": ["error"] }],
 
