@@ -1,24 +1,51 @@
-import { TextInput, MultiSelect, Select } from '@mantine/core';
+import { TextInput, MultiSelect, Select, LoadingOverlay, Alert } from '@mantine/core';
 import { Button, Modal } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
+import axios from 'axios';
+import { useAsyncFn } from 'react-use';
+import { useSWRConfig } from 'swr';
 import { userSchema } from './roles/userShema';
+import { useAlertModeMutators } from '@/features/admin/user/hooks/alertModeState';
 import { useSelectBeacons } from '@/features/admin/user/hooks/beaconSelector';
 import { useRoles, useTagIds } from '@/features/admin/user/hooks/editingUserState';
 import { useEditingUserMutators } from '@/features/admin/user/hooks/editingUserState';
 import { useSelectTags } from '@/features/admin/user/hooks/tagSelector';
-import { useUserAdminFormMutators } from '@/features/admin/user/hooks/useUserAdminForm';
 import { UserEditor } from '@/types/user';
+import { endpoints } from '@/utils/api';
 
 export const EditUserForm = (props: { user: UserEditor }) => {
   const selectBeacons = useSelectBeacons();
   const selectTags = useSelectTags();
   const currentTagIds = useTagIds(props.user.tags);
   const roles = useRoles();
+  const [visible] = useDisclosure(true);
   const [opened, { open, close }] = useDisclosure(false);
-
+  const { mutate } = useSWRConfig();
   const { setEditingUserId } = useEditingUserMutators();
-  const { deleteUser, updateUser } = useUserAdminFormMutators();
+  const { setAlertMode } = useAlertModeMutators();
+
+  const displayAlert = (alertMode: number) => {
+    setAlertMode(alertMode);
+    setTimeout(() => {
+      setAlertMode(-1);
+    }, 5000);
+  };
+
+  const [statusUpdateUser, updateUser] = useAsyncFn(async (values) => {
+    await axios.put(endpoints.users2, values);
+    mutate(endpoints.adminUsers);
+    setEditingUserId(-1);
+    displayAlert(2);
+  });
+
+  const [statusDeleteUser, deleteUser] = useAsyncFn(async (userId) => {
+    await axios.delete(`${endpoints.users2}/${userId}`);
+    // これより下は成功した時のみ動作する
+    mutate(endpoints.adminUsers);
+    setEditingUserId(-1);
+    displayAlert(3);
+  });
 
   const form = useForm({
     initialValues: {
@@ -36,6 +63,9 @@ export const EditUserForm = (props: { user: UserEditor }) => {
 
   return (
     <div>
+      {(statusDeleteUser.loading || statusUpdateUser.loading) && (
+        <LoadingOverlay visible={visible} overlayBlur={3} />
+      )}
       <Modal opened={opened} onClose={close} title='削除確認'>
         <div className='my-4 border' />
         <div>ユーザ情報を削除しますか？</div>
@@ -52,6 +82,11 @@ export const EditUserForm = (props: { user: UserEditor }) => {
           >
             削除する
           </Button>
+          {statusDeleteUser.error && (
+            <Alert title='失敗' color='red'>
+              エラーが発生しました
+            </Alert>
+          )}
         </div>
       </Modal>
       <div className='rounded-lg bg-slate-200 px-10 pb-4'>
@@ -118,6 +153,16 @@ export const EditUserForm = (props: { user: UserEditor }) => {
               </Button>
             </div>
           </div>
+          {statusUpdateUser.error && statusUpdateUser.error.response.status === 409 && (
+            <Alert title='失敗' color='red'>
+              このメールアドレスは既に登録されています
+            </Alert>
+          )}
+          {statusUpdateUser.error && statusUpdateUser.error.response.status !== 409 && (
+            <Alert title='失敗' color='red'>
+              エラーが発生しました
+            </Alert>
+          )}
         </form>
       </div>
     </div>
