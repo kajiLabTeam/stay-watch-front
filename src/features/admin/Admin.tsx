@@ -4,9 +4,15 @@ import UserEdit from '@/features/admin/UserEdit';
 import UserInvite from '@/features/admin/UserInvite';
 import EditFloorMap from '@/features/admin/editFloorMap/EditFloorMap';
 import UserEditor from '@/features/admin/user/EditUser';
+import { useUserRoleState } from '@/globalStates/userRoleState';
 
 export const Admin = () => {
   const [activeTab, setActiveTab] = useState<string | null>('first');
+  const userRole = useUserRoleState();
+
+  if (userRole === 1) {
+    return <div>管理者権限がありません</div>;
+  }
 
   return (
     <Tabs
