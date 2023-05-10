@@ -4,6 +4,8 @@ export type User = {
   uuid: string;
   email: string;
   role: number;
+  communityId: number;
+  communityName: string;
 };
 
 export type UserAttribute = {
