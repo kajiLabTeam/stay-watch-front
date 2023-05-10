@@ -33,7 +33,7 @@ export const CreateUserForm = () => {
   const [{ loading, error }, doFetch] = useAsyncFn(async (values) => {
     await axios.post(endpoints.users, values);
     // これより下は成功した時のみ動作する
-    mutate(endpoints.adminUsers);
+    mutate(`${endpoints.adminUsers}/${community.communityId}`);
     displayAlert(1);
     form.reset();
   });

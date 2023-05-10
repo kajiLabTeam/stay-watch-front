@@ -11,10 +11,12 @@ import { useSelectBeacons } from '@/features/admin/user/hooks/beaconSelector';
 import { useRoles, useTagIds } from '@/features/admin/user/hooks/editingUserState';
 import { useEditingUserMutators } from '@/features/admin/user/hooks/editingUserState';
 import { useSelectTags } from '@/features/admin/user/hooks/tagSelector';
+import { useCommunityState } from '@/globalStates/useCommunityState';
 import { UserEditor } from '@/types/user';
 import { endpoints } from '@/utils/api';
 
 export const EditUserForm = (props: { user: UserEditor }) => {
+  const community = useCommunityState();
   const selectBeacons = useSelectBeacons();
   const selectTags = useSelectTags();
   const currentTagIds = useTagIds(props.user.tags);
@@ -35,7 +37,7 @@ export const EditUserForm = (props: { user: UserEditor }) => {
   const [{ loading: loadingUpdateUser, error: errorUpdateUser }, updateUser] = useAsyncFn(
     async (values) => {
       await axios.put(endpoints.users, values);
-      mutate(endpoints.adminUsers);
+      mutate(`${endpoints.adminUsers}/${community.communityId}`);
       setEditingUserId(-1);
       displayAlert(2);
     },
@@ -45,7 +47,7 @@ export const EditUserForm = (props: { user: UserEditor }) => {
     async (userId) => {
       await axios.delete(`${endpoints.users}/${userId}`);
       // これより下は成功した時のみ動作する
-      mutate(endpoints.adminUsers);
+      mutate(`${endpoints.adminUsers}/${community.communityId}`);
       setEditingUserId(-1);
       displayAlert(3);
     },
