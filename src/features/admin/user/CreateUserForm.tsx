@@ -3,7 +3,7 @@ import { Button } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useSWRConfig } from 'swr';
 import { userSchema } from './roles/userShema';
@@ -27,20 +27,13 @@ export const CreateUserForm = () => {
   };
   const { mutate } = useSWRConfig();
 
-  const [statusCode, setStatusCode] = useState(-1);
   // const [{ value, loading, error }, doFetch] = useAsyncFn(async (values) => {  // こうするとvalueもとれる。
-  const [{ loading }, doFetch] = useAsyncFn(async (values) => {
-    try {
-      await axios.post(endpoints.users2, values);
-      // これより下は成功した時のみ動作する
-      mutate(endpoints.adminUsers);
-      displayAlert(1);
-      form.reset();
-    } catch (error: any) {
-      if (error.response) {
-        setStatusCode(error.response.status);
-      }
-    }
+  const [{ loading, error }, doFetch] = useAsyncFn(async (values) => {
+    await axios.post(endpoints.users2, values);
+    // これより下は成功した時のみ動作する
+    mutate(endpoints.adminUsers);
+    displayAlert(1);
+    form.reset();
   });
 
   const form = useForm({
@@ -117,12 +110,12 @@ export const CreateUserForm = () => {
               登録する
             </Button>
           </div>
-          {statusCode === 409 && (
+          {error && error.response.status === 409 && (
             <Alert title='失敗' color='red'>
               このメールアドレスは既に登録されています
             </Alert>
           )}
-          {statusCode === 500 && (
+          {error && error.response.status !== 409 && (
             <Alert title='失敗' color='red'>
               エラーが発生しました
             </Alert>
