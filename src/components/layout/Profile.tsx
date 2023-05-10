@@ -27,8 +27,8 @@ export const Profile = () => {
         </Menu.Target>
         <Menu.Dropdown className='text-sm'>
           <Menu.Label>{user?.displayName}</Menu.Label>
-          {/* 偶数の場合はその研究室の管理者 */}
-          {userRole != null && userRole % 2 === 0 && (
+          {/* 2の場合は研究室の管理者 */}
+          {userRole != null && userRole === 2 && (
             <Menu.Item component={NextLink} href={pagesPath.admin.$url()}>
               管理者ページ
             </Menu.Item>
