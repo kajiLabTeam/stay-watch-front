@@ -29,7 +29,7 @@ export const CreateUserForm = () => {
 
   // const [{ value, loading, error }, doFetch] = useAsyncFn(async (values) => {  // こうするとvalueもとれる。
   const [{ loading, error }, doFetch] = useAsyncFn(async (values) => {
-    await axios.post(endpoints.users2, values);
+    await axios.post(endpoints.users, values);
     // これより下は成功した時のみ動作する
     mutate(endpoints.adminUsers);
     displayAlert(1);
@@ -110,11 +110,13 @@ export const CreateUserForm = () => {
               登録する
             </Button>
           </div>
+          {/* @ts-ignore (error.responseが取得できるにもかかわらず型定義がされていないため) */}
           {error && error.response.status === 409 && (
             <Alert title='失敗' color='red'>
               このメールアドレスは既に登録されています
             </Alert>
           )}
+          {/* @ts-ignore (error.responseが取得できるにもかかわらず型定義がされていないため) */}
           {error && error.response.status !== 409 && (
             <Alert title='失敗' color='red'>
               エラーが発生しました

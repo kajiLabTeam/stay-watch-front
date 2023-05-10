@@ -32,20 +32,24 @@ export const EditUserForm = (props: { user: UserEditor }) => {
     }, 5000);
   };
 
-  const [statusUpdateUser, updateUser] = useAsyncFn(async (values) => {
-    await axios.put(endpoints.users2, values);
-    mutate(endpoints.adminUsers);
-    setEditingUserId(-1);
-    displayAlert(2);
-  });
+  const [{ loading: loadingUpdateUser, error: errorUpdateUser }, updateUser] = useAsyncFn(
+    async (values) => {
+      await axios.put(endpoints.users, values);
+      mutate(endpoints.adminUsers);
+      setEditingUserId(-1);
+      displayAlert(2);
+    },
+  );
 
-  const [statusDeleteUser, deleteUser] = useAsyncFn(async (userId) => {
-    await axios.delete(`${endpoints.users2}/${userId}`);
-    // これより下は成功した時のみ動作する
-    mutate(endpoints.adminUsers);
-    setEditingUserId(-1);
-    displayAlert(3);
-  });
+  const [{ loading: loadingDeleteUser, error: errorDeleteUser }, deleteUser] = useAsyncFn(
+    async (userId) => {
+      await axios.delete(`${endpoints.users}/${userId}`);
+      // これより下は成功した時のみ動作する
+      mutate(endpoints.adminUsers);
+      setEditingUserId(-1);
+      displayAlert(3);
+    },
+  );
 
   const form = useForm({
     initialValues: {
@@ -63,7 +67,7 @@ export const EditUserForm = (props: { user: UserEditor }) => {
 
   return (
     <div>
-      {(statusDeleteUser.loading || statusUpdateUser.loading) && (
+      {(loadingDeleteUser || loadingUpdateUser) && (
         <LoadingOverlay visible={visible} overlayBlur={3} />
       )}
       <Modal opened={opened} onClose={close} title='削除確認'>
@@ -82,7 +86,7 @@ export const EditUserForm = (props: { user: UserEditor }) => {
           >
             削除する
           </Button>
-          {statusDeleteUser.error && (
+          {errorDeleteUser && (
             <Alert title='失敗' color='red'>
               エラーが発生しました
             </Alert>
@@ -153,12 +157,14 @@ export const EditUserForm = (props: { user: UserEditor }) => {
               </Button>
             </div>
           </div>
-          {statusUpdateUser.error && statusUpdateUser.error.response.status === 409 && (
+          {/* @ts-ignore (error.responseが取得できるにもかかわらず型定義がされていないため) */}
+          {errorUpdateUser && errorUpdateUser.response.status === 409 && (
             <Alert title='失敗' color='red'>
               このメールアドレスは既に登録されています
             </Alert>
           )}
-          {statusUpdateUser.error && statusUpdateUser.error.response.status !== 409 && (
+          {/* @ts-ignore (error.responseが取得できるにもかかわらず型定義がされていないため) */}
+          {errorUpdateUser && errorUpdateUser.response.status !== 409 && (
             <Alert title='失敗' color='red'>
               エラーが発生しました
             </Alert>
