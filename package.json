@@ -36,6 +36,7 @@
     "react-dom": "17.0.2",
     "react-icons": "^4.4.0",
     "react-sizeme": "^3.0.2",
+    "react-use": "^17.4.0",
     "recoil": "^0.7.4",
     "swr": "^2.1.0",
     "usehooks-ts": "^2.5.3",

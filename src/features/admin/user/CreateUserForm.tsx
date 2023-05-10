@@ -1,23 +1,42 @@
-import { TextInput, MultiSelect, Select, Alert } from '@mantine/core';
+import { TextInput, MultiSelect, Select, LoadingOverlay, Alert } from '@mantine/core';
+import { Button } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
+import { useDisclosure } from '@mantine/hooks';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { schema } from './roles/shema';
-import { Button } from '@/components/common/Button';
+import { useEffect } from 'react';
+import { useAsyncFn } from 'react-use';
+import { useSWRConfig } from 'swr';
+import { userSchema } from './roles/userShema';
+import { useAlertModeMutators } from '@/features/admin/user/hooks/alertModeState';
 import { useSelectBeacons } from '@/features/admin/user/hooks/beaconSelector';
+import { useRoles } from '@/features/admin/user/hooks/editingUserState';
 import { useSelectTags } from '@/features/admin/user/hooks/tagSelector';
-
+import { useCommunityState } from '@/globalStates/useCommunityState';
 import { endpoints } from '@/utils/api';
 
 export const CreateUserForm = () => {
+  const community = useCommunityState();
   const selectBeacons = useSelectBeacons();
   const selectTags = useSelectTags();
-  const [isDisplayAlert, setIsDisplayAlert] = useState(false);
+  const roles = useRoles();
+  const [visible] = useDisclosure(true);
+  const { setAlertMode } = useAlertModeMutators();
+  const displayAlert = (alertMode: number) => {
+    setAlertMode(alertMode);
+    setTimeout(() => {
+      setAlertMode(-1);
+    }, 3000);
+  };
+  const { mutate } = useSWRConfig();
 
-  const roles = [
-    { value: 1, label: '一般ユーザ' },
-    { value: 2, label: '研究室管理者' },
-  ];
+  // const [{ value, loading, error }, doFetch] = useAsyncFn(async (values) => {  // こうするとvalueもとれる。
+  const [{ loading, error }, doFetch] = useAsyncFn(async (values) => {
+    await axios.post(endpoints.users, values);
+    // これより下は成功した時のみ動作する
+    mutate(`${endpoints.adminUsers}/${community.communityId}`);
+    displayAlert(1);
+    form.reset();
+  });
 
   const form = useForm({
     initialValues: {
@@ -25,58 +44,37 @@ export const CreateUserForm = () => {
       uuid: '',
       email: '',
       role: 1,
-      communityId: 1,
+      communityId: community.communityId,
       beaconName: '',
       tagIds: [],
     },
-    validate: zodResolver(schema),
+    validate: zodResolver(userSchema),
   });
 
   useEffect(() => {
     if (form.values.beaconName === 'FCS1301') {
       form.setValues({ uuid: '' });
     } else {
+      // 00000にしておかないと見えない入力欄だがバリデーションで引っ掛かってしまう
       form.setValues({ uuid: '00000' });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.values.beaconName, form.setValues]);
 
-  const displayTimer = () => {
-    setIsDisplayAlert(true);
-    setTimeout(() => {
-      setIsDisplayAlert(false);
-    }, 2000);
-  };
-
   return (
-    <div className='mx-5'>
-      {isDisplayAlert && (
-        <Alert title='成功' color='green'>
-          正常に登録されました
-        </Alert>
-      )}
+    <div>
+      {loading && <LoadingOverlay visible={visible} overlayBlur={3} />}
       <div className='rounded-lg bg-slate-200'>
+        <h1 className='pt-4 text-center text-3xl font-bold text-slate-800'>新規登録</h1>
         <form
-          className=' flex flex-col gap-2 px-10 py-4'
-          onSubmit={form.onSubmit((values) =>
-            axios
-              .post(endpoints.users2, values)
-              .then(() => {
-                displayTimer();
-              })
-              .catch((err) => {
-                if (err.response.status === 409) {
-                  window.alert('このメールアドレスは既に登録されています');
-                } else {
-                  window.alert('失敗しました');
-                }
-                console.error(err.response.status);
-              }),
-          )}
+          className=' flex flex-col px-10 py-4'
+          onSubmit={form.onSubmit((values) => {
+            doFetch(values);
+          })}
         >
           <TextInput placeholder='tarou' label='名前' {...form.getInputProps('name')} />
           <TextInput
-            label='Gメールアドレス'
+            label='Gメールアドレス（任意）'
             placeholder='your@gmail.com'
             {...form.getInputProps('email')}
           />
@@ -97,17 +95,35 @@ export const CreateUserForm = () => {
             />
           </div>
           {form.values.beaconName === 'FCS1301' && (
-            <TextInput label='UUID(5文字)' placeholder='UUID' {...form.getInputProps('uuid')} />
+            <TextInput
+              label='ビーコンのID（5文字）'
+              placeholder='UUID'
+              {...form.getInputProps('uuid')}
+            />
           )}
           <MultiSelect
             label='タグ'
-            placeholder='属性を選択してください'
+            placeholder='タグを選択してください'
             data={selectTags}
             {...form.getInputProps('tagIds')}
           />
-          <div className=' mx-auto'>
-            <Button color='blue'>登録する</Button>
+          <div className='pt-3'>
+            <Button type='submit' className='bg-blue-400' color='blue'>
+              登録する
+            </Button>
           </div>
+          {/* @ts-ignore (error.responseが取得できるにもかかわらず型定義がされていないため) */}
+          {error && error.response.status === 409 && (
+            <Alert title='失敗' color='red'>
+              このメールアドレスは既に登録されています
+            </Alert>
+          )}
+          {/* @ts-ignore (error.responseが取得できるにもかかわらず型定義がされていないため) */}
+          {error && error.response.status !== 409 && (
+            <Alert title='失敗' color='red'>
+              エラーが発生しました
+            </Alert>
+          )}
         </form>
       </div>
     </div>

@@ -4,6 +4,8 @@ export type User = {
   uuid: string;
   email: string;
   role: number;
+  communityId: number;
+  communityName: string;
 };
 
 export type UserAttribute = {
@@ -23,6 +25,17 @@ export type extendedUser = {
   uuid: string;
   email: string;
   role: number;
+  tags: [
+    {
+      id: number;
+      name: string;
+    },
+  ];
+};
+
+export type UserEditor = User & {
+  beaconUuidEditable: boolean;
+  beaconName: string;
   tags: [
     {
       id: number;
