@@ -12,6 +12,7 @@
     "lint": "run-p lint:*",
     "lint:prettier": "prettier --ignore-path .gitignore --check ./src",
     "lint:eslint": "eslint --ext .js,jsx,.ts,.tsx ./src",
+    "lint:tsc": "tsc --noEmit",
     "fix": "run-p fix:*",
     "fix:prettier": "prettier --ignore-path .gitignore --write ./src",
     "fix:lint": "eslint --ext .js,jsx,.ts,.tsx --fix ./src",

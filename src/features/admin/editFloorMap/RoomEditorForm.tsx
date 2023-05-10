@@ -15,10 +15,6 @@ export const RoomEditorForm = (props: {
 
   const form = useForm();
 
-  const handleChange = (e: any) => {
-    setRoomNameValue(e.target.value);
-  };
-
   return (
     <div className='border border-green-500'>
       <div className='rounded-lg bg-slate-200'>
@@ -28,7 +24,11 @@ export const RoomEditorForm = (props: {
             storeRoomToDatabase(props.room.roomId, roomNameValue);
           })}
         >
-          <TextInput placeholder='部屋名' value={roomNameValue} onChange={handleChange} />
+          <TextInput
+            placeholder='部屋名'
+            value={roomNameValue}
+            onChange={(e) => setRoomNameValue(e.target.value)}
+          />
           <div>{props.building.buildingName}</div>
           <div className='mx-auto bg-red-300'>
             <Button color='blue'>保存</Button>
