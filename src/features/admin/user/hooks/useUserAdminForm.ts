@@ -24,7 +24,7 @@ export const useUserAdminFormMutators = () => {
     (userId: number) => {
       if (userId) {
         axios
-          .delete(`${endpoints.users2}/${userId}`)
+          .delete(`${endpoints.users}/${userId}`)
           .then(() => {
             mutate(endpoints.adminUsers);
             displayAlert(3);
@@ -47,7 +47,7 @@ export const useUserAdminFormMutators = () => {
     (values) => {
       if (values) {
         axios
-          .put(endpoints.users2, values)
+          .put(endpoints.users, values)
           .then(() => {
             mutate(endpoints.adminUsers);
             displayAlert(2);
@@ -75,7 +75,7 @@ export const useUserAdminFormMutators = () => {
       if (values) {
         setIsLoading(true);
         axios
-          .post(endpoints.users2, values)
+          .post(endpoints.users, values)
           .then(() => {
             mutate(endpoints.adminUsers);
             displayAlert(1);

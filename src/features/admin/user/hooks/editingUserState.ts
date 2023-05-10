@@ -57,7 +57,7 @@ export const useEditingUserMutators = () => {
     (userId: number) => {
       if (userId) {
         axios
-          .delete(`${endpoints.users2}/${userId}`)
+          .delete(`${endpoints.users}/${userId}`)
           .then(() => {
             mutate(endpoints.adminUsers);
             displayAlert(2);

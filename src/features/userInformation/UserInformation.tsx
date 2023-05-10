@@ -1,9 +1,13 @@
 import useSWR from 'swr';
+import { useCommunityState } from '@/globalStates/useCommunityState';
 import { UserAttribute } from '@/types/user';
 import { endpoints } from '@/utils/api';
 
 const UserInformation = () => {
-  const { data: users, error } = useSWR<UserAttribute[]>(`${endpoints.users}`);
+  const community = useCommunityState();
+  const { data: users, error } = useSWR<UserAttribute[]>(
+    `${endpoints.users}/${community.communityId}`,
+  );
 
   if (error) return <div>failed to load</div>;
   if (!users) return <div>loading...</div>;
