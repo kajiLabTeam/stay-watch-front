@@ -1,7 +1,7 @@
 import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
 
 const community = atom({
-  key: 'userRole',
+  key: 'communty',
   default: {
     communityId: -1,
     communityName: '',
