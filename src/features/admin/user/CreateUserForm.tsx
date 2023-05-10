@@ -11,9 +11,11 @@ import { useAlertModeMutators } from '@/features/admin/user/hooks/alertModeState
 import { useSelectBeacons } from '@/features/admin/user/hooks/beaconSelector';
 import { useRoles } from '@/features/admin/user/hooks/editingUserState';
 import { useSelectTags } from '@/features/admin/user/hooks/tagSelector';
+import { useCommunityState } from '@/globalStates/useCommunityState';
 import { endpoints } from '@/utils/api';
 
 export const CreateUserForm = () => {
+  const community = useCommunityState();
   const selectBeacons = useSelectBeacons();
   const selectTags = useSelectTags();
   const roles = useRoles();
@@ -42,7 +44,7 @@ export const CreateUserForm = () => {
       uuid: '',
       email: '',
       role: 1,
-      communityId: 2,
+      communityId: community.communityId,
       beaconName: '',
       tagIds: [],
     },
