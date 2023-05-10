@@ -10,7 +10,7 @@ export const endpoints = {
   adminUsers: `${baseURL}/api/v1/admin/users`,
   attendance: `${baseURL}/api/v1/attendance`,
   updateroom: `${baseURL}/api/v1/rooms`,
-  getRoomsEditorByCommunityID: `${baseURL}/api/v1/rooms/2`,
+  getRoomsEditorByCommunityID: `${baseURL}/api/v1/rooms`,
   getBuildingsEditor: `${baseURL}/api/v1/buildings/editor`,
   extendedUsers: `${baseURL}/api/v1/users/extended`,
   beacons: `${baseURL}/api/v1/beacons`,

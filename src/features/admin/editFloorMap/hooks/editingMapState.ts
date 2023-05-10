@@ -2,6 +2,7 @@
 import axios from 'axios';
 import React, { useCallback } from 'react';
 import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useCommunityState } from '@/globalStates/useCommunityState';
 import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
 import { EditorRoom, Building, SubmitRoom } from '@/types/roomFloormap';
 import { endpoints } from '@/utils/api';
@@ -24,7 +25,10 @@ export const useEditingMapState = () => {
 };
 
 export const useEditingMapMutators = () => {
-  const { data: rooms } = useSuspenseSWR<EditorRoom[]>(`${endpoints.getRoomsEditorByCommunityID}`);
+  const community = useCommunityState();
+  const { data: rooms } = useSuspenseSWR<EditorRoom[]>(
+    `${endpoints.getRoomsEditorByCommunityID}/${community.communityId}`,
+  );
   const { data: buildings } = useSuspenseSWR<Building[]>(`${endpoints.getBuildingsEditor}`);
   const { editingPolygon, currentSelectedBuildingIndex } = useEditingMapState();
 
