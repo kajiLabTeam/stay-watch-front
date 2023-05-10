@@ -1,10 +1,5 @@
-import axios from 'axios';
-import { useCallback } from 'react';
 import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
-import { useSWRConfig } from 'swr';
-import { useAlertModeMutators } from '@/features/admin/user/hooks/alertModeState';
 import { Tag } from '@/types/tag';
-import { endpoints } from '@/utils/api';
 
 export const useRoles = () => {
   const roles = [
@@ -43,39 +38,7 @@ export const useEditingUserMutators = () => {
     }));
   };
 
-  const { setAlertMode } = useAlertModeMutators();
-  const displayAlert = (alertMode: number) => {
-    setAlertMode(alertMode);
-    setTimeout(() => {
-      setAlertMode(-1);
-    }, 3000);
-  };
-
-  const { mutate } = useSWRConfig();
-  // フォームの「削除」を押されたときの処理
-  const deleteUser = useCallback(
-    (userId: number) => {
-      if (userId) {
-        axios
-          .delete(`${endpoints.users}/${userId}`)
-          .then(() => {
-            mutate(endpoints.adminUsers);
-            displayAlert(2);
-          })
-          .catch((err) => {
-            console.error(err);
-            window.alert('失敗しました');
-          });
-      } else {
-        window.alert('失敗しました');
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [setAlertMode, mutate, displayAlert],
-  );
-
   return {
     setEditingUserId,
-    deleteUser,
   };
 };
