@@ -5,9 +5,9 @@ import { useDisclosure } from '@mantine/hooks';
 import axios from 'axios';
 import { useAsyncFn } from 'react-use';
 import { useSWRConfig } from 'swr';
+import { beaconSelector } from './constants/beaconSelector';
 import { userSchema } from './roles/userShema';
 import { useAlertModeMutators } from '@/features/admin/editUser/hooks/alertModeState';
-import { useSelectBeacons } from '@/features/admin/editUser/hooks/beaconSelector';
 import { useRoles, useTagIds } from '@/features/admin/editUser/hooks/editingUserState';
 import { useEditingUserMutators } from '@/features/admin/editUser/hooks/editingUserState';
 import { useSelectTags } from '@/features/admin/editUser/hooks/tagSelector';
@@ -17,7 +17,6 @@ import { endpoints } from '@/utils/api';
 
 export const EditUserForm = (props: { user: UserEditor }) => {
   const community = useCommunityState();
-  const selectBeacons = useSelectBeacons();
   const selectTags = useSelectTags();
   const currentTagIds = useTagIds(props.user.tags);
   const roles = useRoles();
@@ -114,7 +113,7 @@ export const EditUserForm = (props: { user: UserEditor }) => {
               className='w-1/2'
               label='ビーコンの形態'
               placeholder='ビーコンの形態を選択してください'
-              data={selectBeacons}
+              data={beaconSelector}
               {...form.getInputProps('beaconName')}
             />
             <Select

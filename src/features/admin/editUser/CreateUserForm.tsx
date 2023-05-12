@@ -7,8 +7,8 @@ import { useEffect } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useSWRConfig } from 'swr';
 import { userSchema } from './roles/userShema';
+import { beaconSelector } from '@/features/admin/editUser/constants/beaconSelector';
 import { useAlertModeMutators } from '@/features/admin/editUser/hooks/alertModeState';
-import { useSelectBeacons } from '@/features/admin/editUser/hooks/beaconSelector';
 import { useRoles } from '@/features/admin/editUser/hooks/editingUserState';
 import { useSelectTags } from '@/features/admin/editUser/hooks/tagSelector';
 import { useCommunityState } from '@/globalStates/useCommunityState';
@@ -16,7 +16,6 @@ import { endpoints } from '@/utils/api';
 
 export const CreateUserForm = () => {
   const community = useCommunityState();
-  const selectBeacons = useSelectBeacons();
   const selectTags = useSelectTags();
   const roles = useRoles();
   const [visible] = useDisclosure(true);
@@ -83,7 +82,7 @@ export const CreateUserForm = () => {
               className='w-1/2'
               label='ビーコンの形態'
               placeholder='ビーコンの形態を選択してください'
-              data={selectBeacons}
+              data={beaconSelector}
               {...form.getInputProps('beaconName')}
             />
             <Select
