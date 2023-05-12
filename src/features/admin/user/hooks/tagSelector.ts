@@ -16,7 +16,7 @@ const dataToSelectTag = (tags: Tag[]): tagSelector[] => {
 
 export const useSelectTags = () => {
   const community = useCommunityState();
-  const { data: tags } = useSWR<Tag[]>(`${endpoints.users}/${community.communityId}`);
+  const { data: tags } = useSWR<Tag[]>(`${endpoints.tags}/${community.communityId}`);
   const selectTags = tags ? dataToSelectTag(tags) : [];
   return selectTags;
 };
