@@ -1,10 +1,10 @@
 import React from 'react';
-import { EditUserForm } from '@/features/admin/user/EditUserForm';
-import { useRoles } from '@/features/admin/user/hooks/editingUserState';
+import { EditUserForm } from '@/features/admin/editUser/EditUserForm';
+import { useRoles } from '@/features/admin/editUser/hooks/editingUserState';
 import {
   useEditingUserMutators,
   useEditingUserState,
-} from '@/features/admin/user/hooks/editingUserState';
+} from '@/features/admin/editUser/hooks/editingUserState';
 import { UserEditor } from '@/types/user';
 
 export const RegisterdUser = (props: {

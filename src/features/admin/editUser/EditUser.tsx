@@ -1,9 +1,9 @@
 import { Alert, LoadingOverlay } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { CreateUserForm } from '@/features/admin/user/CreateUserForm';
-import { RegisterdUsers } from '@/features/admin/user/RegisterdUsers';
-import { useAlertModeState } from '@/features/admin/user/hooks/alertModeState';
-import { useLoadingState } from '@/features/admin/user/hooks/loadingState';
+import { CreateUserForm } from '@/features/admin/editUser/CreateUserForm';
+import { RegisterdUsers } from '@/features/admin/editUser/RegisterdUsers';
+import { useAlertModeState } from '@/features/admin/editUser/hooks/alertModeState';
+import { useLoadingState } from '@/features/admin/editUser/hooks/loadingState';
 
 export const EditUser = () => {
   const { alertMode } = useAlertModeState();

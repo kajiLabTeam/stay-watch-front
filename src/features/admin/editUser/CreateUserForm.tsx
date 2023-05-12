@@ -7,10 +7,10 @@ import { useEffect } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useSWRConfig } from 'swr';
 import { userSchema } from './roles/userShema';
-import { useAlertModeMutators } from '@/features/admin/user/hooks/alertModeState';
-import { useSelectBeacons } from '@/features/admin/user/hooks/beaconSelector';
-import { useRoles } from '@/features/admin/user/hooks/editingUserState';
-import { useSelectTags } from '@/features/admin/user/hooks/tagSelector';
+import { useAlertModeMutators } from '@/features/admin/editUser/hooks/alertModeState';
+import { useSelectBeacons } from '@/features/admin/editUser/hooks/beaconSelector';
+import { useRoles } from '@/features/admin/editUser/hooks/editingUserState';
+import { useSelectTags } from '@/features/admin/editUser/hooks/tagSelector';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { endpoints } from '@/utils/api';
 

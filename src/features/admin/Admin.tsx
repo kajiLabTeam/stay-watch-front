@@ -3,7 +3,7 @@ import { useState } from 'react';
 import UserEdit from '@/features/admin/UserEdit';
 import UserInvite from '@/features/admin/UserInvite';
 import EditFloorMap from '@/features/admin/editFloorMap/EditFloorMap';
-import UserEditor from '@/features/admin/user/EditUser';
+import UserEditor from '@/features/admin/editUser/EditUser';
 import { useUserRoleState } from '@/globalStates/userRoleState';
 
 export const Admin = () => {
