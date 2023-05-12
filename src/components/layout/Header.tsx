@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import { Profile } from '@/components/layout/Profile';
+import { useCommunityState } from '@/globalStates/useCommunityState';
 import { useBgColor } from '@/hooks/commonhook';
 import { pagesPath } from '@/utils/$path';
 
 const Header = () => {
   const bgColors = useBgColor();
+  const community = useCommunityState();
 
   return (
     <header>
@@ -26,7 +28,10 @@ const Header = () => {
             <a className={`rounded-md py-2 ${bgColors.floorMap}`}>滞在者マップ</a>
           </Link>
         </div>
-        <Profile />
+        <div className='text-center'>
+          <p className='text-xl'>{community.communityName}</p>
+          <Profile />
+        </div>
       </div>
     </header>
   );
