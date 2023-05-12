@@ -1,53 +1,42 @@
 import axios, { AxiosResponse } from 'axios';
-import { signOut, onAuthStateChanged, signInWithPopup } from 'firebase/auth';
+import { signOut, signInWithRedirect } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-// import { signOut, onAuthStateChanged, signInWithRedirect } from 'firebase/auth';
-//import { useAuthState } from 'react-firebase-hooks/auth';
 import { endpoints } from './api';
-// import { useUserMutators, useUserState } from '@/globalStates/firebaseUserState';
-import { useUserMutators } from '@/globalStates/firebaseUserState';
 import { useUserRoleMutators } from '@/globalStates/userRoleState';
 import { User } from '@/types/user';
 import { auth, provider } from '@/utils/firebase';
 
 export const login = () => {
-  // return signInWithRedirect(auth, provider);
-  return signInWithPopup(auth, provider);
+  return signInWithRedirect(auth, provider);
 };
-
-// export const login = (): Promise<void> => {
-//   return signInWithRedirect(auth, provider);
-// };
 
 export const logout = (): Promise<void> => {
   return signOut(auth);
 };
 
-export const useIsSigned = (): boolean | undefined => {
-  const [isSigned, setIsSigned] = useState<boolean | undefined>();
-  const { setUserState } = useUserMutators();
-  // const [user] = useAuthState(auth);
+// export const useIsSigned = (): boolean | undefined => {
+//   const [isSigned, setIsSigned] = useState<boolean | undefined>();
+//   const { setUserState } = useUserMutators();
 
-  useEffect(() => {
-    return onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUserState(user);
-        setIsSigned(true);
-      } else {
-        setIsSigned(false);
-      }
-    });
-  }, [setUserState]);
+//   useEffect(() => {
+//     return onAuthStateChanged(auth, (user) => {
+//       if (user) {
+//         setUserState(user);
+//         setIsSigned(true);
+//       } else {
+//         setIsSigned(false);
+//       }
+//     });
+//   }, [setUserState]);
 
-  return isSigned;
-};
+//   return isSigned;
+// };
 
 export const useIsRegisterEmail = (): boolean | undefined => {
   const [isRegisteredEmail, setIsRegisteredEmail] = useState<boolean | undefined>();
   const [, setStatusCode] = useState<number | undefined>();
   const { setUserRole } = useUserRoleMutators();
-  // const user = useUserState();
   const [user] = useAuthState(auth);
 
   useEffect(() => {
