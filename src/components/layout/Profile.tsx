@@ -2,16 +2,19 @@ import { Avatar } from '@mantine/core';
 import { Menu } from '@mantine/core';
 import { NextLink } from '@mantine/next';
 import { useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { Confirmation } from '@/components/common/Confirmation';
-import { useUserState } from '@/globalStates/firebaseUserState';
+//import { useUserState } from '@/globalStates/firebaseUserState';
 import { useUserRoleState } from '@/globalStates/userRoleState';
 import { pagesPath } from '@/utils/$path';
 import { logout } from '@/utils/Auth';
+import { auth } from '@/utils/firebase';
 
 export const Profile = () => {
-  const user = useUserState();
+  //const user = useUserState();
   const userRole = useUserRoleState();
   const [showModal, setShowModal] = useState(false);
+  const [user] = useAuthState(auth);
 
   const remove = () => {
     setShowModal(false);

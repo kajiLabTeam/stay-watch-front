@@ -1,35 +1,35 @@
 import axios, { AxiosResponse } from 'axios';
-import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithRedirect,
-  signOut,
-  onAuthStateChanged,
-} from 'firebase/auth';
+import { signOut, onAuthStateChanged, signInWithPopup } from 'firebase/auth';
 import { useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+// import { signOut, onAuthStateChanged, signInWithRedirect } from 'firebase/auth';
+//import { useAuthState } from 'react-firebase-hooks/auth';
 import { endpoints } from './api';
-import { useUserMutators, useUserState } from '@/globalStates/firebaseUserState';
+// import { useUserMutators, useUserState } from '@/globalStates/firebaseUserState';
+import { useUserMutators } from '@/globalStates/firebaseUserState';
 import { useUserRoleMutators } from '@/globalStates/userRoleState';
 import { User } from '@/types/user';
-import { app } from '@/utils/firebase';
+import { auth, provider } from '@/utils/firebase';
 
-export const login = (): Promise<void> => {
-  const provider = new GoogleAuthProvider();
-  const auth = getAuth(app);
-  return signInWithRedirect(auth, provider);
+export const login = () => {
+  // return signInWithRedirect(auth, provider);
+  return signInWithPopup(auth, provider);
 };
 
+// export const login = (): Promise<void> => {
+//   return signInWithRedirect(auth, provider);
+// };
+
 export const logout = (): Promise<void> => {
-  const auth = getAuth(app);
   return signOut(auth);
 };
 
 export const useIsSigned = (): boolean | undefined => {
   const [isSigned, setIsSigned] = useState<boolean | undefined>();
   const { setUserState } = useUserMutators();
+  // const [user] = useAuthState(auth);
 
   useEffect(() => {
-    const auth = getAuth(app);
     return onAuthStateChanged(auth, (user) => {
       if (user) {
         setUserState(user);
@@ -47,7 +47,8 @@ export const useIsRegisterEmail = (): boolean | undefined => {
   const [isRegisteredEmail, setIsRegisteredEmail] = useState<boolean | undefined>();
   const [, setStatusCode] = useState<number | undefined>();
   const { setUserRole } = useUserRoleMutators();
-  const user = useUserState();
+  // const user = useUserState();
+  const [user] = useAuthState(auth);
 
   useEffect(() => {
     if (user) {
