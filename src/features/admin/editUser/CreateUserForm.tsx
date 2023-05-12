@@ -43,7 +43,7 @@ export const CreateUserForm = () => {
       uuid: '',
       email: '',
       role: 1,
-      communityId: community.communityId,
+      communityId: 0,
       beaconName: '',
       tagIds: [],
     },
@@ -68,7 +68,8 @@ export const CreateUserForm = () => {
         <form
           className=' flex flex-col px-10 py-4'
           onSubmit={form.onSubmit((values) => {
-            doFetch(values);
+            const modifiedValues = { ...values, communityId: community.communityId }; // 初期値をcommunity.communityIdにしてもうまく入らないためフォーム送信の直前にコミュニティIDを更新
+            doFetch(modifiedValues);
           })}
         >
           <TextInput placeholder='tarou' label='名前' {...form.getInputProps('name')} />
