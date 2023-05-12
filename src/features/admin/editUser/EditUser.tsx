@@ -1,18 +1,13 @@
-import { Alert, LoadingOverlay } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { Alert } from '@mantine/core';
 import { CreateUserForm } from '@/features/admin/editUser/CreateUserForm';
 import { RegisterdUsers } from '@/features/admin/editUser/RegisterdUsers';
 import { useAlertModeState } from '@/features/admin/editUser/hooks/alertModeState';
-import { useLoadingState } from '@/features/admin/editUser/hooks/loadingState';
 
 export const EditUser = () => {
   const { alertMode } = useAlertModeState();
-  const { isLoading } = useLoadingState();
-  const [visible] = useDisclosure(true);
 
   return (
     <div>
-      {isLoading === true && <LoadingOverlay visible={visible} overlayBlur={2} />}
       <div className='flex'>
         <div className='mx-5 w-full'>
           <CreateUserForm />
