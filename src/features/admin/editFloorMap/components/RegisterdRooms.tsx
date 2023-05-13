@@ -1,6 +1,6 @@
 import React from 'react';
-import { RegisterdRoom } from '@/features/admin/editFloorMap/RegisterdRoom';
-import { useEditingMapState } from '@/features/admin/editFloorMap/hooks/editingMapState';
+import { RegisterdRoom } from '@/features/admin/editFloorMap/components/RegisterdRoom';
+import { useEditingMapState } from '@/features/admin/editFloorMap/globalstate/editingMapState';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { Building, EditorRoom } from '@/types/roomFloormap';
 

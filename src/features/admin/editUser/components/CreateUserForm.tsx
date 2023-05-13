@@ -6,10 +6,10 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useSWRConfig } from 'swr';
-import { userSchema } from './roles/userShema';
+import { roleSelector } from '../constants/roleSelector';
+import { userSchema } from '../validation/userShema';
 import { beaconSelector } from '@/features/admin/editUser/constants/beaconSelector';
-import { useAlertModeMutators } from '@/features/admin/editUser/hooks/alertModeState';
-import { useRoles } from '@/features/admin/editUser/hooks/editingUserState';
+import { useAlertModeMutators } from '@/features/admin/editUser/globalState/alertModeState';
 import { useSelectTags } from '@/features/admin/editUser/hooks/tagSelector';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { endpoints } from '@/utils/api';
@@ -17,7 +17,6 @@ import { endpoints } from '@/utils/api';
 export const CreateUserForm = () => {
   const community = useCommunityState();
   const selectTags = useSelectTags();
-  const roles = useRoles();
   const [visible] = useDisclosure(true);
   const { setAlertMode } = useAlertModeMutators();
   const displayAlert = (alertMode: number) => {
@@ -90,7 +89,7 @@ export const CreateUserForm = () => {
               label='権限'
               className='w-1/2'
               placeholder='権限レベルを選択してください'
-              data={roles}
+              data={roleSelector}
               {...form.getInputProps('role')}
             />
           </div>

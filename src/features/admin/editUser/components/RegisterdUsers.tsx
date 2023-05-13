@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
 import { RegisterdUser } from './RegisterdUser';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
@@ -7,7 +6,6 @@ import { UserEditor } from '@/types/user';
 import { endpoints } from '@/utils/api';
 
 export const RegisterdUsers = () => {
-  const [editingUserId, setEditingUserId] = useState(-1);
   const community = useCommunityState();
   const { data: users } = useSuspenseSWR<UserEditor[]>(
     `${endpoints.adminUsers}/${community.communityId}`,
@@ -29,8 +27,6 @@ export const RegisterdUsers = () => {
           {users.map((user: UserEditor) => (
             <RegisterdUser
               user={user}
-              editingUserId={editingUserId}
-              setEditingUserId={setEditingUserId}
               key={user.id}
             />
           ))}

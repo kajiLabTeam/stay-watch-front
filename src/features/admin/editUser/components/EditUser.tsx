@@ -1,7 +1,7 @@
 import { Alert } from '@mantine/core';
-import { CreateUserForm } from '@/features/admin/editUser/CreateUserForm';
-import { RegisterdUsers } from '@/features/admin/editUser/RegisterdUsers';
-import { useAlertModeState } from '@/features/admin/editUser/hooks/alertModeState';
+import { CreateUserForm } from '@/features/admin/editUser/components/CreateUserForm';
+import { RegisterdUsers } from '@/features/admin/editUser/components/RegisterdUsers';
+import { useAlertModeState } from '@/features/admin/editUser/globalState/alertModeState';
 
 export const EditUser = () => {
   const { alertMode } = useAlertModeState();

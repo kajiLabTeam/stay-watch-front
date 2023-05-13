@@ -5,21 +5,23 @@ import { useDisclosure } from '@mantine/hooks';
 import axios from 'axios';
 import { useAsyncFn } from 'react-use';
 import { useSWRConfig } from 'swr';
-import { beaconSelector } from './constants/beaconSelector';
-import { userSchema } from './roles/userShema';
-import { useAlertModeMutators } from '@/features/admin/editUser/hooks/alertModeState';
-import { useRoles, useTagIds } from '@/features/admin/editUser/hooks/editingUserState';
-import { useEditingUserMutators } from '@/features/admin/editUser/hooks/editingUserState';
+import { beaconSelector } from '../constants/beaconSelector';
+import { userSchema } from '../validation/userShema';
+import { roleSelector } from '@/features/admin/editUser/constants/roleSelector';
+import { useAlertModeMutators } from '@/features/admin/editUser/globalState/alertModeState';
+import { useEditingUserMutators } from '@/features/admin/editUser/globalState/editingUserState';
 import { useSelectTags } from '@/features/admin/editUser/hooks/tagSelector';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { UserEditor } from '@/types/user';
 import { endpoints } from '@/utils/api';
 
+
+
 export const EditUserForm = (props: { user: UserEditor }) => {
+  const { user } = props;
   const community = useCommunityState();
   const selectTags = useSelectTags();
-  const currentTagIds = useTagIds(props.user.tags);
-  const roles = useRoles();
+  const currentTagIds = user.tags.map((tag) => tag.id); 
   const [visible] = useDisclosure(true);
   const [opened, { open, close }] = useDisclosure(false);
   const { mutate } = useSWRConfig();
@@ -54,13 +56,13 @@ export const EditUserForm = (props: { user: UserEditor }) => {
 
   const form = useForm({
     initialValues: {
-      id: props.user.id,
-      name: props.user.name,
-      uuid: props.user.uuid.slice(-5),
-      email: props.user.email,
-      role: props.user.role,
+      id: user.id,
+      name: user.name,
+      uuid: user.uuid.slice(-5),
+      email: user.email,
+      role: user.role,
       communityId: 2,
-      beaconName: props.user.beaconName,
+      beaconName: user.beaconName,
       tagIds: currentTagIds,
     },
     validate: zodResolver(userSchema),
@@ -83,7 +85,7 @@ export const EditUserForm = (props: { user: UserEditor }) => {
             type='button'
             className='bg-red-400'
             color='red'
-            onClick={() => deleteUser(props.user.id)}
+            onClick={() => deleteUser(user.id)}
           >
             削除する
           </Button>
@@ -95,7 +97,7 @@ export const EditUserForm = (props: { user: UserEditor }) => {
         </div>
       </Modal>
       <div className='rounded-lg bg-slate-200 px-10 pb-4'>
-        <h1 className='pt-2 text-left text-2xl text-slate-800'>{props.user.name}</h1>
+        <h1 className='pt-2 text-left text-2xl text-slate-800'>{user.name}</h1>
         <form
           className=' flex flex-col'
           onSubmit={form.onSubmit((values) => {
@@ -120,7 +122,7 @@ export const EditUserForm = (props: { user: UserEditor }) => {
               label='権限'
               className='w-1/2'
               placeholder='権限レベルを選択してください'
-              data={roles}
+              data={roleSelector}
               {...form.getInputProps('role')}
             />
           </div>
@@ -175,3 +177,4 @@ export const EditUserForm = (props: { user: UserEditor }) => {
     </div>
   );
 };
+
