@@ -15,13 +15,11 @@ import { useCommunityState } from '@/globalStates/useCommunityState';
 import { UserEditor } from '@/types/user';
 import { endpoints } from '@/utils/api';
 
-
-
 export const EditUserForm = (props: { user: UserEditor }) => {
   const { user } = props;
   const community = useCommunityState();
   const selectTags = useSelectTags();
-  const currentTagIds = user.tags.map((tag) => tag.id); 
+  const currentTagIds = user.tags.map((tag) => tag.id);
   const [visible] = useDisclosure(true);
   const [opened, { open, close }] = useDisclosure(false);
   const { mutate } = useSWRConfig();
@@ -61,7 +59,7 @@ export const EditUserForm = (props: { user: UserEditor }) => {
       uuid: user.uuid.slice(-5),
       email: user.email,
       role: user.role,
-      communityId: 2,
+      communityId: 0,
       beaconName: user.beaconName,
       tagIds: currentTagIds,
     },
@@ -101,7 +99,8 @@ export const EditUserForm = (props: { user: UserEditor }) => {
         <form
           className=' flex flex-col'
           onSubmit={form.onSubmit((values) => {
-            updateUser(values);
+            const modifiedValues = { ...values, communityId: community.communityId };
+            updateUser(modifiedValues);
           })}
         >
           <TextInput placeholder='tarou' label='名前' {...form.getInputProps('name')} />
@@ -177,4 +176,3 @@ export const EditUserForm = (props: { user: UserEditor }) => {
     </div>
   );
 };
-
