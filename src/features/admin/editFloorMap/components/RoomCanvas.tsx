@@ -1,16 +1,16 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, RefObject } from 'react';
 import { useUserRoleState } from '@/globalStates/userRoleState';
 
 export const RoomCanvas = (props: { color: string; polygon: number[][]; roomID: number }) => {
   const userRole = useUserRoleState();
-  const canvasRef = useRef(null);
+  const canvasRef: RefObject<HTMLCanvasElement> = useRef(null); // RefObjectの型をHTMLCanvasElementに指定する
 
   const CANVAS_WIDTH = 2880;
   const CANVAS_HEIGHT = 1800;
 
   const getContext = (): CanvasRenderingContext2D => {
-    const Canvas: any = canvasRef.current;
-    return Canvas.getContext('2d');
+    const canvas: HTMLCanvasElement | null = canvasRef.current;
+    return canvas?.getContext('2d') as CanvasRenderingContext2D; // キャスト演算子を使用して型を明確にする
   };
 
   useEffect(() => {
