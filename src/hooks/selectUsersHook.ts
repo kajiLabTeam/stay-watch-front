@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
 import useSWR from 'swr';
+import { useCommunityState } from '@/globalStates/useCommunityState';
 import { User } from '@/types/user';
 import { endpoints } from '@/utils/api';
 
@@ -8,21 +8,16 @@ type selectUser = {
   label: string;
 };
 
+const dataToSelectUser = (users: User[]): selectUser[] => {
+  return users.map((user) => ({
+    label: user.name,
+    value: user.id,
+  }));
+};
+
 export const useSelectUsers = () => {
-  const { data: users } = useSWR<User[]>(`${endpoints.users}`);
-  const [selectUsers, setSelectUsers] = useState<selectUser[]>([]);
-
-  useEffect(() => {
-    if (users) {
-      const userList: selectUser[] = users.map((user) => {
-        return {
-          label: user.name,
-          value: user.id,
-        };
-      });
-      setSelectUsers([...userList]);
-    }
-  }, [users]);
-
+  const community = useCommunityState();
+  const { data: users } = useSWR<User[]>(`${endpoints.users}/${community.communityId}`);
+  const selectUsers = users ? dataToSelectUser(users) : [];
   return selectUsers;
 };

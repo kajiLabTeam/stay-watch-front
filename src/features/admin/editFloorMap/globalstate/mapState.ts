@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
-import { useEditingMapState } from '@/features/admin/editFloorMap/hooks/editingMapState';
+import { useEditingMapState } from '@/features/admin/editFloorMap/globalstate/editingMapState';
+import { useCommunityState } from '@/globalStates/useCommunityState';
 import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
 import { EditorRoom, Building } from '@/types/roomFloormap';
 import { endpoints } from '@/utils/api';
@@ -26,7 +27,10 @@ export const useMapsDataState = () => {
 };
 
 export const useMapsDataMutators = () => {
-  const { data: rooms } = useSuspenseSWR<EditorRoom[]>(`${endpoints.getRoomsEditorByCommunityID}`);
+  const community = useCommunityState();
+  const { data: rooms } = useSuspenseSWR<EditorRoom[]>(
+    `${endpoints.getRoomsEditorByCommunityID}/${community.communityId}`,
+  );
   const { data: buildings } = useSuspenseSWR<Building[]>(`${endpoints.getBuildingsEditor}`);
   const { currentSelectedBuildingIndex } = useEditingMapState();
   const setMapsData = useSetRecoilState(mapsDataState);

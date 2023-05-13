@@ -9,6 +9,7 @@ import {
 import { useEffect, useState } from 'react';
 import { endpoints } from './api';
 import { useUserMutators, useUserState } from '@/globalStates/firebaseUserState';
+import { useCommunityMutators } from '@/globalStates/useCommunityState';
 import { useUserRoleMutators } from '@/globalStates/userRoleState';
 import { User } from '@/types/user';
 import { app } from '@/utils/firebase';
@@ -47,6 +48,7 @@ export const useIsRegisterEmail = (): boolean | undefined => {
   const [isRegisteredEmail, setIsRegisteredEmail] = useState<boolean | undefined>();
   const [, setStatusCode] = useState<number | undefined>();
   const { setUserRole } = useUserRoleMutators();
+  const { setCommunity } = useCommunityMutators();
   const user = useUserState();
 
   useEffect(() => {
@@ -63,6 +65,10 @@ export const useIsRegisterEmail = (): boolean | undefined => {
 
           setUserRole(resUser.data.role);
           setStatusCode(resUser.status);
+          setCommunity({
+            communityId: resUser.data.communityId,
+            communityName: resUser.data.communityName,
+          });
         } catch (error) {
           if (axios.isAxiosError(error) && error.response) {
             console.error(error.message); //Axiosの例外オブジェクトとして扱える
@@ -73,7 +79,7 @@ export const useIsRegisterEmail = (): boolean | undefined => {
       };
       checkRegisterdEmail();
     }
-  }, [setUserRole, user]);
+  }, [setUserRole, setCommunity, user]);
 
   return isRegisteredEmail;
 };

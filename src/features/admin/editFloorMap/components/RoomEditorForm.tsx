@@ -2,7 +2,7 @@ import { TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useState } from 'react';
 import { Button } from '@/components/common/Button';
-import { useEditingMapMutators } from '@/features/admin/editFloorMap/hooks/editingMapState';
+import { useEditingMapMutators } from '@/features/admin/editFloorMap/globalstate/editingMapState';
 import { Building, EditorRoom } from '@/types/roomFloormap';
 
 export const RoomEditorForm = (props: {

@@ -6,7 +6,7 @@ import { endpoints } from '@/utils/api';
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const API_URL = `${endpoints.users}`;
+  const API_URL = `${endpoints.users}/1`;
   const res = await fetch(API_URL);
   const data = await res.json();
   return {

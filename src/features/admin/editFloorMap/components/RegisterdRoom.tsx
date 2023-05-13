@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { RoomEditorForm } from '@/features/admin/editFloorMap/RoomEditorForm';
+import { RoomEditorForm } from '@/features/admin/editFloorMap/components/RoomEditorForm';
 import {
   useEditingMapMutators,
   useEditingMapState,
-} from '@/features/admin/editFloorMap/hooks/editingMapState';
-import { useMapsDataMutators } from '@/features/admin/editFloorMap/hooks/mapState';
+} from '@/features/admin/editFloorMap/globalstate/editingMapState';
+import { useMapsDataMutators } from '@/features/admin/editFloorMap/globalstate/mapState';
 import { Building, EditorRoom } from '@/types/roomFloormap';
 
 export const RegisterdRoom = (props: { room: EditorRoom; building: Building }) => {

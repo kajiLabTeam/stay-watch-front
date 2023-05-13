@@ -1,8 +1,8 @@
 import React from 'react';
-import { EditingPolygonCanvas } from '@/features/admin/editFloorMap/EditingPolygonCanvas';
-import { FloorMapCanvas } from '@/features/admin/editFloorMap/FloorMapCanvas';
-import { RoomCanvas } from '@/features/admin/editFloorMap/RoomCanvas';
-import { useMapsDataState } from '@/features/admin/editFloorMap/hooks/mapState';
+import { EditingPolygonCanvas } from '@/features/admin/editFloorMap/components/EditingPolygonCanvas';
+import { FloorMapCanvas } from '@/features/admin/editFloorMap/components/FloorMapCanvas';
+import { RoomCanvas } from '@/features/admin/editFloorMap/components/RoomCanvas';
+import { useMapsDataState } from '@/features/admin/editFloorMap/globalstate/mapState';
 import { FloorMapRoom } from '@/types/roomFloormap';
 
 export const MapCanvas = (props: {

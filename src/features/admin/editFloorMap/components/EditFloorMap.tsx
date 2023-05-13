@@ -1,13 +1,17 @@
-import { BuildingSelector } from '@/features/admin/editFloorMap/BuildingSelector';
-import { MapCanvas } from '@/features/admin/editFloorMap/MapCanvas';
-import { RegisterdRooms } from '@/features/admin/editFloorMap/RegisterdRooms';
-import { useEditingMapState } from '@/features/admin/editFloorMap/hooks/editingMapState';
+import { BuildingSelector } from '@/features/admin/editFloorMap/components/BuildingSelector';
+import { MapCanvas } from '@/features/admin/editFloorMap/components/MapCanvas';
+import { RegisterdRooms } from '@/features/admin/editFloorMap/components/RegisterdRooms';
+import { useEditingMapState } from '@/features/admin/editFloorMap/globalstate/editingMapState';
+import { useCommunityState } from '@/globalStates/useCommunityState';
 import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
 import { EditorRoom, Building } from '@/types/roomFloormap';
 import { endpoints } from '@/utils/api';
 
 export const EditFloorMap = () => {
-  const { data: rooms } = useSuspenseSWR<EditorRoom[]>(`${endpoints.getRoomsEditorByCommunityID}`);
+  const community = useCommunityState();
+  const { data: rooms } = useSuspenseSWR<EditorRoom[]>(
+    `${endpoints.getRoomsEditorByCommunityID}/${community.communityId}`,
+  );
   const { data: buildings } = useSuspenseSWR<Building[]>(`${endpoints.getBuildingsEditor}`);
   const { currentSelectedBuildingIndex } = useEditingMapState();
 

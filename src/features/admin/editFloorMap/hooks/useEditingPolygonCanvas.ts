@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import {
   useEditingMapMutators,
   useEditingMapState,
-} from '@/features/admin/editFloorMap/hooks/editingMapState';
+} from '@/features/admin/editFloorMap/globalstate/editingMapState';
 
 export const useEditingPolygonCanvas = () => {
   const { isEditingRoom } = useEditingMapState();

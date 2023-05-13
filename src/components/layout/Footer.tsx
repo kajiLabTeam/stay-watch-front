@@ -1,10 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useCommunityState } from '@/globalStates/useCommunityState';
 import { useBgColor } from '@/hooks/commonhook';
 import { pagesPath } from '@/utils/$path';
 
 const Footer = () => {
   const bgColors = useBgColor();
+  const community = useCommunityState();
 
   return (
     <div>
@@ -13,6 +15,7 @@ const Footer = () => {
           <a> New! Stay Watch</a>
         </Link>
       </header>
+      <p className='mr-8 text-right text-xl text-gray-400'>{community.communityName}</p>
       <div className='fixed bottom-0 w-full'>
         <div className='flex h-16 items-center justify-evenly bg-blue-400 text-white'>
           <Link href='/'>

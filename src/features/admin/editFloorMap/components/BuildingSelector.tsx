@@ -2,7 +2,7 @@ import React from 'react';
 import {
   useEditingMapMutators,
   useEditingMapState,
-} from '@/features/admin/editFloorMap/hooks/editingMapState';
+} from '@/features/admin/editFloorMap/globalstate/editingMapState';
 import { Building } from '@/types/roomFloormap';
 
 export const BuildingSelector = (props: { buildings: Building[] }) => {

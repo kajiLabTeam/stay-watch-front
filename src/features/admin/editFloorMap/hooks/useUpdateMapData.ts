@@ -1,6 +1,6 @@
 // src/hooks/useUpdateMapData.ts
 import { useEffect, useState } from 'react';
-import { useEditingMapState } from '@/features/admin/editFloorMap/hooks/editingMapState';
+import { useEditingMapState } from '@/features/admin/editFloorMap/globalstate/editingMapState';
 import { EditorRoom, Building } from '@/types/roomFloormap';
 
 export const useRoomMapData = (
