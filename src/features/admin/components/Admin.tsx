@@ -6,8 +6,6 @@ import EditFloorMap from '@/features/admin/editFloorMap/components/EditFloorMap'
 import UserEditor from '@/features/admin/editUser/components/EditUser';
 import { useUserRoleState } from '@/globalStates/userRoleState';
 
-
-
 export const Admin = () => {
   const [activeTab, setActiveTab] = useState<string | null>('first');
   const userRole = useUserRoleState();
