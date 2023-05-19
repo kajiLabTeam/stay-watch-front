@@ -1,52 +1,53 @@
-import axios from 'axios';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { SizeMe } from 'react-sizeme';
 import PopoverTop from '@/features/roomHistory/PopoverTop';
+import { useCommunityState } from '@/globalStates/useCommunityState';
+import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
+import { EditorRoom } from '@/types/roomFloormap';
 import RoomInformation from '@/types/roomInformation';
 import RoomStatus from '@/types/roomStatus';
+import StayerType from '@/types/stayer';
 import { endpoints } from '@/utils/api';
 
 export const FloorMap = () => {
+  const community = useCommunityState();
   const [roomsStatus, setRoomsStatus] = useState<RoomStatus[]>([]);
   const [roomInformation, setRoomInformation] = useState<RoomInformation[]>([
     { roomID: 1, roomName: '', top: 0, left: 0 },
   ]);
+  const { data: stayers } = useSuspenseSWR<StayerType[]>(`${endpoints.stayers}`);
+  const { data: rooms } = useSuspenseSWR<EditorRoom[]>(
+    `${endpoints.getRoomsEditorByCommunityID}/${community.communityId}`,
+  );
 
   useEffect(() => {
-    axios
-      .get(`${endpoints.stayers}`)
-      .then((res) => {
-        const roomCount = 5;
-        const roomsStatusArray: RoomStatus[] = [];
-
-        for (let i = 0; i < roomCount; i++) {
-          const usersName: string[] = [];
-          for (let j = 0; j < res.data.length; j++) {
-            if (res.data[j].roomID === i + 1) {
-              usersName.push(res.data[j].name);
-            }
-          }
-          roomsStatusArray.push({
-            roomID: i + 1,
-            userCount: usersName.length,
-            usersName: usersName,
-          });
+    const tmpRoomsStatus: RoomStatus[] = [];
+    const tmpRoomsInformation: RoomInformation[] = [];
+    rooms.map((room) => {
+      const tmpRoomStatus: RoomStatus = {
+        roomID: room.roomId,
+        userCount: 0,
+        usersName: [],
+      };
+      const tmpRoomInformation: RoomInformation = {
+        roomID: room.roomId,
+        roomName: room.roomName,
+        top: (room.polygon[0][1] + room.polygon[1][1]) / 36,
+        left: (room.polygon[0][0] + room.polygon[1][0]) / 58,
+      };
+      tmpRoomsInformation.push(tmpRoomInformation);
+      stayers.map((stayer) => {
+        if (stayer.roomId === room.roomId) {
+          tmpRoomStatus.userCount += 1;
+          tmpRoomStatus.usersName.push(stayer.name);
         }
-        setRoomsStatus(roomsStatusArray);
-      })
-      .catch((err) => {
-        console.error(err);
       });
-
-    axios
-      .get('/room.json')
-      .then((res) => {
-        setRoomInformation(res.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      tmpRoomsStatus.push(tmpRoomStatus);
+    });
+    setRoomsStatus(tmpRoomsStatus);
+    setRoomInformation(tmpRoomsInformation);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -55,7 +56,12 @@ export const FloorMap = () => {
         if (size.height != null && size.width != null) {
           return (
             <div className='relative mt-14'>
-              <Image src={'/kajlab-room.jpg'} alt='kajlab-room' width='1600vmin' height='900vmin' />
+              <Image
+                src={'/floor_maps/4g-honkan-bekkan.jpg'}
+                alt='kajlab-room'
+                width='1600vmin'
+                height='900vmin'
+              />
               {roomsStatus.map((roomStatus) => {
                 if (size.height != null && size.width != null) {
                   return (
@@ -91,7 +97,6 @@ export const FloorMap = () => {
                   );
                 }
               })}
-              {/* <img src={"/kajlab-room.jpg"} alt="" /> */}
             </div>
           );
         }
