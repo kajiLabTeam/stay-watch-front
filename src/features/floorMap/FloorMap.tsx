@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { SizeMe } from 'react-sizeme';
-import PopoverTop from '@/features/roomHistory/PopoverTop';
+import PopoverTop from '@/features/floorMap/PopoverTop';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
 import { EditorRoom } from '@/types/roomFloormap';
