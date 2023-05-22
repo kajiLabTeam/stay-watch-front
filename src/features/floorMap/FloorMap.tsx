@@ -29,6 +29,12 @@ export const FloorMap = () => {
               />
               {roomsStatus.map((roomStatus) => {
                 if (size.height != null && size.width != null) {
+                  console.log('roomInformationの中');
+                  console.log(roomInformation);
+                  console.log('roomStatusの中');
+                  console.log(roomStatus);
+                  console.log('sizeの中');
+                  console.log(size);
                   return (
                     <div
                       key={roomStatus.roomID}
