@@ -14,7 +14,7 @@ export const useRoomState = () => {
   );
   const { data: stayers } = useSuspenseSWR<StayerType[]>(`${endpoints.stayers}`);
   const [roomsStatus, setRoomsStatus] = useState<RoomStatus[]>([]);
-  const [roomInformation] = useState<RoomInformation[]>([]);
+  const [roomInformation, setRoomInformation] = useState<RoomInformation[]>([]);
 
   useEffect(() => {
     const tmpRoomsStatus: RoomStatus[] = [];
@@ -41,8 +41,7 @@ export const useRoomState = () => {
       tmpRoomsStatus.push(tmpRoomStatus);
     });
     setRoomsStatus(tmpRoomsStatus);
-    // APIから取得する場合はこっちで。ただこのままだと数回に一回レンダリングで不具合が出る。
-    // setRoomInformation(tmpRoomsInformation);
+    setRoomInformation(tmpRoomsInformation);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

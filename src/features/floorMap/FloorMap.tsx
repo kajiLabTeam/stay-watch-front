@@ -1,19 +1,10 @@
 import Image from 'next/image';
-import { useState } from 'react';
 import { SizeMe } from 'react-sizeme';
 import PopoverTop from '@/features/floorMap/PopoverTop';
 import { useRoomState } from '@/features/floorMap/roomState';
-import RoomInformation from '@/types/roomInformation';
 
 export const FloorMap = () => {
-  const { roomsStatus } = useRoomState();
-  const [roomInformation] = useState<RoomInformation[]>([
-    { roomID: 1, roomName: '学生部屋', top: 93, left: 91.7 },
-    { roomID: 2, roomName: 'スマートルーム', top: 62.5, left: 35.5 },
-    { roomID: 3, roomName: '院生室', top: 62.5, left: 59.7 },
-    { roomID: 4, roomName: 'FA部屋', top: 62.5, left: 66.2 },
-    { roomID: 5, roomName: '教員部屋', top: 93, left: 85.5 },
-  ]);
+  const { roomsStatus, roomInformation } = useRoomState();
 
   return (
     <SizeMe monitorHeight monitorWidth>
@@ -28,13 +19,7 @@ export const FloorMap = () => {
                 height='900vmin'
               />
               {roomsStatus.map((roomStatus) => {
-                if (size.height != null && size.width != null) {
-                  console.log('roomInformationの中');
-                  console.log(roomInformation);
-                  console.log('roomStatusの中');
-                  console.log(roomStatus);
-                  console.log('sizeの中');
-                  console.log(size);
+                if (size.height != null && size.width != null && roomInformation && roomStatus) {
                   return (
                     <div
                       key={roomStatus.roomID}
