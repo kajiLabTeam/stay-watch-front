@@ -45,7 +45,7 @@ export const useRoomState = () => {
     setRoomsStatus(tmpRoomsStatus);
     setRoomInformation(tmpRoomsInformation);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [rooms, stayers]);
 
   return { roomsStatus, roomInformation };
 };
