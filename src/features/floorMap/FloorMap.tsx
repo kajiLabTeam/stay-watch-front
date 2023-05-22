@@ -82,7 +82,6 @@ export const FloorMap = () => {
                         fontSize: size.width / 65,
                       }}
                     >
-                      {console.log(roomInformation[roomStatus.roomID - 1])}
                       <PopoverTop
                         key={roomStatus.roomID}
                         roomID={roomStatus.roomID}
