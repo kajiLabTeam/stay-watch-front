@@ -30,10 +30,8 @@ export const useRoomState = () => {
       const tmpRoomInformation: RoomInformation = {
         roomID: room.roomId,
         roomName: room.roomName,
-        // top: (room.polygon[0][1] + room.polygon[1][1]) / 36,
-        // left: (room.polygon[0][0] + room.polygon[1][0]) / 58,
-        top: 93,
-        left: 92,
+        top: (room.polygon[0][1] + room.polygon[1][1]) / 36,
+        left: (room.polygon[0][0] + room.polygon[1][0]) / 58,
       };
       tmpRoomsInformation.push(tmpRoomInformation);
       stayers.map((stayer) => {

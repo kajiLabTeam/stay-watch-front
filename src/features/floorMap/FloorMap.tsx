@@ -1,10 +1,73 @@
 import Image from 'next/image';
+import { useState } from 'react';
 import { SizeMe } from 'react-sizeme';
 import PopoverTop from '@/features/floorMap/PopoverTop';
-import { useRoomState } from '@/features/floorMap/roomState';
+// import { useRoomState } from '@/features/floorMap/roomState';
+import RoomInformation from '@/types/roomInformation';
+import RoomStatus from '@/types/roomStatus';
 
 export const FloorMap = () => {
-  const { roomsStatus, roomInformation } = useRoomState();
+  //const { roomsStatus, roomInformation } = useRoomState();
+  const [roomsStatus] = useState<RoomStatus[]>([
+    {
+      roomID: 1,
+      userCount: 2,
+      usersName: ['tarou', 'jirou'],
+    },
+    {
+      roomID: 2,
+      userCount: 1,
+      usersName: ['tarou'],
+    },
+    {
+      roomID: 3,
+      userCount: 1,
+      usersName: ['tarou'],
+    },
+    {
+      roomID: 4,
+      userCount: 1,
+      usersName: ['tarou'],
+    },
+    {
+      roomID: 5,
+      userCount: 1,
+      usersName: ['tarou'],
+    },
+  ]);
+
+  const [roomInformation] = useState<RoomInformation[]>([
+    {
+      roomID: 1,
+      roomName: '学生1',
+      top: 93,
+      left: 90,
+    },
+    {
+      roomID: 2,
+      roomName: '学生2',
+      top: 83,
+      left: 80,
+    },
+    {
+      roomID: 3,
+      roomName: '学生3',
+      top: 73,
+      left: 90,
+    },
+    {
+      roomID: 4,
+      roomName: '学生4',
+      top: 43,
+      left: 90,
+    },
+    {
+      roomID: 5,
+      roomName: '学生5',
+      top: 33,
+      left: 90,
+    },
+  ]);
 
   return (
     <SizeMe monitorHeight monitorWidth>
