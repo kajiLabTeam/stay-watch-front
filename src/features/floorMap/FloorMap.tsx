@@ -1,19 +1,10 @@
 import Image from 'next/image';
-import { useState } from 'react';
 import { SizeMe } from 'react-sizeme';
 import PopoverTop from '@/features/floorMap/PopoverTop';
 import { useRoomState } from '@/features/floorMap/roomState';
-import RoomInformation from '@/types/roomInformation';
 
 export const FloorMap = () => {
-  const { roomsStatus } = useRoomState();
-  const [roomInformation] = useState<RoomInformation[]>([
-    { roomID: 1, roomName: 'student', top: 93, left: 91.7 },
-    { roomID: 2, roomName: 'smart', top: 62.5, left: 35.5 },
-    { roomID: 3, roomName: 'master', top: 62.5, left: 59.7 },
-    { roomID: 4, roomName: 'FA', top: 62.5, left: 66.2 },
-    { roomID: 5, roomName: 'teacher', top: 93, left: 85.5 },
-  ]);
+  const { roomsStatus, roomInformation } = useRoomState();
 
   return (
     <SizeMe monitorHeight monitorWidth>

@@ -14,8 +14,12 @@ export const useRoomState = () => {
   );
   const { data: stayers } = useSuspenseSWR<StayerType[]>(`${endpoints.stayers}`);
   const [roomsStatus, setRoomsStatus] = useState<RoomStatus[]>([]);
-  const [roomInformation, setRoomInformation] = useState<RoomInformation[]>([
-    { roomID: 1, roomName: '', top: 0, left: 0 },
+  const [roomInformation] = useState<RoomInformation[]>([
+    { roomID: 1, roomName: '学生部屋', top: 93, left: 91.7 },
+    { roomID: 2, roomName: 'スマートルーム', top: 62.5, left: 35.5 },
+    { roomID: 3, roomName: '院生室', top: 62.5, left: 59.7 },
+    { roomID: 4, roomName: 'FA部屋', top: 62.5, left: 66.2 },
+    { roomID: 5, roomName: '教員部屋', top: 93, left: 85.5 },
   ]);
 
   useEffect(() => {
@@ -43,7 +47,8 @@ export const useRoomState = () => {
       tmpRoomsStatus.push(tmpRoomStatus);
     });
     setRoomsStatus(tmpRoomsStatus);
-    setRoomInformation(tmpRoomsInformation);
+    // APIから取得する場合はこっちで。ただこのままだと数回に一回レンダリングで不具合が出る。
+    // setRoomInformation(tmpRoomsInformation);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
