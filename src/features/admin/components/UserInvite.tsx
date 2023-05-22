@@ -4,7 +4,6 @@ import { BLEUnRegisteredForm } from './BLEUnRegisteredForm';
 import { BLERegisteredForm } from '@/features/admin/components/BLERegisteredForm';
 import { useUserRoleState } from '@/globalStates/userRoleState';
 
-
 const UserInvite: FC = () => {
   const userRole = useUserRoleState();
 
