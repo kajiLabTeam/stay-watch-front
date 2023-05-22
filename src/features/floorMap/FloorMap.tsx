@@ -25,17 +25,8 @@ export const FloorMap = () => {
                       key={roomStatus.roomID}
                       className='absolute  text-red-400'
                       style={{
-                        left:
-                          (size.width / 100) *
-                          (roomInformation[roomStatus.roomID - 1] != null
-                            ? roomInformation[roomStatus.roomID - 1].left
-                            : 0),
-                        top:
-                          ((size.height - 10) / 100) *
-                          (roomInformation[roomStatus.roomID - 1] != null
-                            ? roomInformation[roomStatus.roomID - 1].top
-                            : 0),
-                        fontSize: size.width / 65,
+                        left: 90,
+                        top: 80,
                       }}
                     >
                       <PopoverTop
