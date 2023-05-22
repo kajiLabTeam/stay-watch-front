@@ -19,32 +19,33 @@ export const useRoomState = () => {
   ]);
 
   useEffect(() => {
-    const tmpRoomsStatus: RoomStatus[] = [];
-    const tmpRoomsInformation: RoomInformation[] = [];
-    rooms.map((room) => {
-      const tmpRoomStatus: RoomStatus = {
-        roomID: room.roomId,
-        userCount: 0,
-        usersName: [],
-      };
-      const tmpRoomInformation: RoomInformation = {
-        roomID: room.roomId,
-        roomName: room.roomName,
-        top: (room.polygon[0][1] + room.polygon[1][1]) / 36,
-        left: (room.polygon[0][0] + room.polygon[1][0]) / 58,
-      };
-      tmpRoomsInformation.push(tmpRoomInformation);
-      stayers.map((stayer) => {
-        if (stayer.roomId === room.roomId) {
-          tmpRoomStatus.userCount += 1;
-          tmpRoomStatus.usersName.push(stayer.name);
-        }
+    if (rooms && stayers) {
+      const tmpRoomsStatus: RoomStatus[] = [];
+      const tmpRoomsInformation: RoomInformation[] = [];
+      rooms.forEach((room) => {
+        const tmpRoomStatus: RoomStatus = {
+          roomID: room.roomId,
+          userCount: 0,
+          usersName: [],
+        };
+        const tmpRoomInformation: RoomInformation = {
+          roomID: room.roomId,
+          roomName: room.roomName,
+          top: (room.polygon[0][1] + room.polygon[1][1]) / 36,
+          left: (room.polygon[0][0] + room.polygon[1][0]) / 58,
+        };
+        tmpRoomsInformation.push(tmpRoomInformation);
+        stayers.forEach((stayer) => {
+          if (stayer.roomId === room.roomId) {
+            tmpRoomStatus.userCount += 1;
+            tmpRoomStatus.usersName.push(stayer.name);
+          }
+        });
+        tmpRoomsStatus.push(tmpRoomStatus);
       });
-      tmpRoomsStatus.push(tmpRoomStatus);
-    });
-    setRoomsStatus(tmpRoomsStatus);
-    setRoomInformation(tmpRoomsInformation);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      setRoomsStatus(tmpRoomsStatus);
+      setRoomInformation(tmpRoomsInformation);
+    }
   }, [rooms, stayers]);
 
   return { roomsStatus, roomInformation };
