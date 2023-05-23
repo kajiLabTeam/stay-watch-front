@@ -1,12 +1,10 @@
 import Image from 'next/image';
-import { useState } from 'react';
 import { SizeMe } from 'react-sizeme';
 import PopoverTop from '@/features/floorMap/PopoverTop';
 import { useRoomState } from '@/features/floorMap/roomState';
 
 export const FloorMap = () => {
   const { roomsStatus, roomInformation } = useRoomState();
-  const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     <SizeMe monitorHeight monitorWidth>
@@ -17,12 +15,14 @@ export const FloorMap = () => {
               <Image
                 src={'/floor_maps/4g-honkan-bekkan.jpg'}
                 alt='kajlab-room'
+                layout='responsive'
                 width='1600vmin'
                 height='900vmin'
-                onLoad={() => setImageLoaded(true)}
               />
               {roomsStatus.map((roomStatus) => {
-                if (size.height != null && size.width != null && imageLoaded) {
+                if (size.height != null && size.width != null) {
+                  console.log('サイズ：');
+                  console.log(size);
                   return (
                     <div
                       key={roomStatus.roomID}
