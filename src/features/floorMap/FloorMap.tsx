@@ -20,7 +20,7 @@ export const FloorMap = () => {
                 height='900vmin'
               />
               {roomsStatus.map((roomStatus) => {
-                if (size.height != null && size.width != null) {
+                if (size.height != null && size.width != null && size.height > 24) {
                   console.log('サイズ：');
                   console.log(size);
                   return (
