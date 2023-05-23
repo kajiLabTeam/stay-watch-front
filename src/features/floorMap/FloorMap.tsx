@@ -30,6 +30,8 @@ export const FloorMap = () => {
                     ? roomInformation[roomStatus.roomID - 1].top
                     : 0);
                 const fontSize = size.width! / 65;
+                console.log('高さ：');
+                console.log(top);
 
                 return (
                   <div
