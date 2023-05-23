@@ -1,10 +1,12 @@
 import Image from 'next/image';
+import { useState } from 'react';
 import { SizeMe } from 'react-sizeme';
 import PopoverTop from '@/features/floorMap/PopoverTop';
 import { useRoomState } from '@/features/floorMap/roomState';
 
 export const FloorMap = () => {
   const { roomsStatus, roomInformation } = useRoomState();
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     <SizeMe monitorHeight monitorWidth>
@@ -17,45 +19,42 @@ export const FloorMap = () => {
                 alt='kajlab-room'
                 width='1600vmin'
                 height='900vmin'
+                onLoad={() => setImageLoaded(true)}
               />
               {roomsStatus.map((roomStatus) => {
-                const left =
-                  (size.width! / 100) *
-                  (roomInformation[roomStatus.roomID - 1] != null
-                    ? roomInformation[roomStatus.roomID - 1].left
-                    : 0);
-                const top =
-                  ((size.height! - 10) / 100) *
-                  (roomInformation[roomStatus.roomID - 1] != null
-                    ? roomInformation[roomStatus.roomID - 1].top
-                    : 0);
-                const fontSize = size.width! / 65;
-                console.log('サイズheight：');
-                console.log(size.height);
-
-                return (
-                  <div
-                    key={roomStatus.roomID}
-                    className='absolute text-red-400'
-                    style={{
-                      left,
-                      top,
-                      fontSize,
-                    }}
-                  >
-                    <PopoverTop
+                if (size.height != null && size.width != null && imageLoaded) {
+                  return (
+                    <div
                       key={roomStatus.roomID}
-                      roomID={roomStatus.roomID}
-                      userCount={roomStatus.userCount}
-                      usersName={roomStatus.usersName}
-                      roomName={
-                        roomInformation[roomStatus.roomID - 1] != null
-                          ? roomInformation[roomStatus.roomID - 1].roomName
-                          : ''
-                      }
-                    />
-                  </div>
-                );
+                      className='absolute  text-red-400'
+                      style={{
+                        left:
+                          (size.width / 100) *
+                          (roomInformation[roomStatus.roomID - 1] != null
+                            ? roomInformation[roomStatus.roomID - 1].left
+                            : 0),
+                        top:
+                          ((size.height - 10) / 100) *
+                          (roomInformation[roomStatus.roomID - 1] != null
+                            ? roomInformation[roomStatus.roomID - 1].top
+                            : 0),
+                        fontSize: size.width / 65,
+                      }}
+                    >
+                      <PopoverTop
+                        key={roomStatus.roomID}
+                        roomID={roomStatus.roomID}
+                        userCount={roomStatus.userCount}
+                        usersName={roomStatus.usersName}
+                        roomName={
+                          roomInformation[roomStatus.roomID - 1] != null
+                            ? roomInformation[roomStatus.roomID - 1].roomName
+                            : ''
+                        }
+                      />
+                    </div>
+                  );
+                }
               })}
             </div>
           );
