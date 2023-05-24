@@ -23,3 +23,11 @@ export type Building = {
   buildingName: string;
   buildingImagePath: string;
 };
+
+export type PopoverRoom = {
+  roomId: number;
+  roomName: string;
+  userNames: string[];
+  left: number;
+  top: number;
+};

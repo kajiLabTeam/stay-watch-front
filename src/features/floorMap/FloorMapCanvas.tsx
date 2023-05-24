@@ -1,9 +1,15 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import React from 'react';
+//import PopoverTop from '@/features/floorMap/PopoverTop';
 import { useRoomState } from '@/features/floorMap/roomState';
+import { PopoverRoom } from '@/types/roomFloormap';
 
 export const FloorMapCanvas = () => {
   const { roomsStatus, roomsInformation } = useRoomState();
+  const [viewingRoomId, setViewingRoomId] = useState(0);
+  const [popoverTop, setPopoverTop] = useState(0);
+  const [popoverLeft, setPopoverLeft] = useState(0);
+  const [popoverRoom, setPopoverRoom] = useState<PopoverRoom>();
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const CANVAS_WIDTH = 2880;
   const CANVAS_HEIGHT = 1800;
@@ -66,9 +72,11 @@ export const FloorMapCanvas = () => {
     };
   }, [roomsInformation, roomsStatus]);
 
+  // canvasがクリックされた時の処理
   const displayPopover = (e: React.MouseEvent<HTMLCanvasElement>) => {
     console.log('要素での座標');
     console.log(e.clientX);
+    console.log(e.clientY);
     const canvasElementRatio = canvasRef.current!.clientWidth / CANVAS_WIDTH;
     const rect = canvasRef.current?.getBoundingClientRect();
     console.log('canvas内での座標');
@@ -76,14 +84,29 @@ export const FloorMapCanvas = () => {
     const clientCanvasY = Math.trunc((e.clientY - Math.floor(rect!.top)) / canvasElementRatio);
     console.log(clientCanvasX);
     console.log(clientCanvasY);
+    let clickedRoom = false;
     roomsInformation.map((roomInformation) => {
       if (
         Math.abs(clientCanvasX - roomInformation.left) < 50 &&
         Math.abs(clientCanvasY - roomInformation.top) < 50
       ) {
-        console.log(roomInformation.roomName);
+        console.log(viewingRoomId);
+        clickedRoom = true;
+        setPopoverRoom({
+          roomId: roomInformation.roomID,
+          roomName: roomInformation.roomName,
+          userNames: ['tarou', 'jirou'],
+          left: roomInformation.left,
+          top: roomInformation.top,
+        });
+        setViewingRoomId(roomInformation.roomID);
+        setPopoverLeft(e.clientX);
+        setPopoverTop(e.clientY);
       }
     });
+    if (!clickedRoom) {
+      setViewingRoomId(0);
+    }
   };
 
   return (
@@ -96,6 +119,20 @@ export const FloorMapCanvas = () => {
         height={CANVAS_HEIGHT}
         onClick={displayPopover}
       />
+      {viewingRoomId !== 0 && canvasRef.current && (
+        <div
+          className='absolute  text-red-400'
+          style={{
+            left: popoverLeft,
+            top: popoverTop,
+            fontSize: canvasRef.current.clientHeight / 30,
+          }}
+        >
+          ここにポップアップが出る
+          {popoverRoom?.roomName}
+          {console.log(popoverRoom)}
+        </div>
+      )}
     </div>
   );
 };
