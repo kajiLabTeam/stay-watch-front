@@ -6,6 +6,8 @@ import { useRoomState } from '@/features/floorMap/roomState';
 
 export const FloorMap = () => {
   const { roomsStatus, roomInformation } = useRoomState();
+  //const imageElement = useRef<HTMLElement>();
+  // const [componentSize, setComponentSize] = useState({ width: 0, height: 0 });
   const [componentHeight, setComponentHeight] = useState(0);
   const [componentWidth, setComponentWidth] = useState(0);
 
@@ -13,6 +15,10 @@ export const FloorMap = () => {
     <SizeMe monitorHeight monitorWidth>
       {({ size }) => {
         if (size.height != null && size.width != null) {
+          // setComponentSize({
+          //   width: 80,
+          //   height: 90,
+          // });
           setComponentHeight(size.height);
           setComponentWidth(size.width);
           return (
@@ -20,10 +26,13 @@ export const FloorMap = () => {
               <Image
                 src={'/floor_maps/4g-honkan-bekkan.jpg'}
                 alt='kajlab-room'
+                layout='responsive'
                 width='1600vmin'
                 height='900vmin'
               />
               {roomsStatus.map((roomStatus) => {
+                console.log('サイズ：');
+                console.log(componentHeight);
                 return (
                   <div
                     key={roomStatus.roomID}
