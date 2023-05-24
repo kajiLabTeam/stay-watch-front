@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react';
+import React from 'react';
 import { useRoomState } from '@/features/floorMap/roomState';
 
 export const FloorMapCanvas = () => {
@@ -65,6 +66,26 @@ export const FloorMapCanvas = () => {
     };
   }, [roomsInformation, roomsStatus]);
 
+  const displayPopover = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    console.log('要素での座標');
+    console.log(e.clientX);
+    const canvasElementRatio = canvasRef.current!.clientWidth / CANVAS_WIDTH;
+    const rect = canvasRef.current?.getBoundingClientRect();
+    console.log('canvas内での座標');
+    const clientCanvasX = Math.trunc((e.clientX - Math.floor(rect!.left)) / canvasElementRatio);
+    const clientCanvasY = Math.trunc((e.clientY - Math.floor(rect!.top)) / canvasElementRatio);
+    console.log(clientCanvasX);
+    console.log(clientCanvasY);
+    roomsInformation.map((roomInformation) => {
+      if (
+        Math.abs(clientCanvasX - roomInformation.left) < 50 &&
+        Math.abs(clientCanvasY - roomInformation.top) < 50
+      ) {
+        console.log(roomInformation.roomName);
+      }
+    });
+  };
+
   return (
     <div className='border-x-4 border-b-4'>
       <canvas
@@ -73,6 +94,7 @@ export const FloorMapCanvas = () => {
         ref={canvasRef}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
+        onClick={displayPopover}
       />
     </div>
   );
