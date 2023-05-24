@@ -1,13 +1,13 @@
 import { NextPage } from 'next';
 import { Suspense } from 'react';
 import ErrorBoundary from '@/components/common/ErrorBoundary';
-import { FloorMap } from '@/features/floorMap/FloorMap';
+import { FloorMapCanvas } from '@/features/floorMap/FloorMapCanvas';
 
 const FloorMapPage: NextPage = () => {
   return (
     <ErrorBoundary>
       <Suspense fallback={<div>loading...</div>}>
-        <FloorMap />
+        <FloorMapCanvas />
       </Suspense>
     </ErrorBoundary>
   );
