@@ -14,7 +14,7 @@ export const useRoomState = () => {
   );
   const { data: stayers } = useSuspenseSWR<StayerType[]>(`${endpoints.stayers}`);
   const [roomsStatus, setRoomsStatus] = useState<RoomStatus[]>([]);
-  const [roomInformation, setRoomInformation] = useState<RoomInformation[]>([
+  const [roomsInformation, setRoomsInformation] = useState<RoomInformation[]>([
     { roomID: 1, roomName: '', top: 0, left: 0 },
   ]);
 
@@ -31,8 +31,8 @@ export const useRoomState = () => {
         const tmpRoomInformation: RoomInformation = {
           roomID: room.roomId,
           roomName: room.roomName,
-          top: (room.polygon[0][1] + room.polygon[1][1]) / 36,
-          left: (room.polygon[0][0] + room.polygon[1][0]) / 58,
+          top: room.polygon[0][1] + room.polygon[1][1],
+          left: room.polygon[0][0] + room.polygon[1][0],
         };
         tmpRoomsInformation.push(tmpRoomInformation);
         stayers.forEach((stayer) => {
@@ -44,9 +44,9 @@ export const useRoomState = () => {
         tmpRoomsStatus.push(tmpRoomStatus);
       });
       setRoomsStatus(tmpRoomsStatus);
-      setRoomInformation(tmpRoomsInformation);
+      setRoomsInformation(tmpRoomsInformation);
     }
   }, [rooms, stayers]);
 
-  return { roomsStatus, roomInformation };
+  return { roomsStatus, roomsInformation };
 };

@@ -5,7 +5,7 @@ import PopoverTop from '@/features/floorMap/PopoverTop';
 import { useRoomState } from '@/features/floorMap/roomState';
 
 export const FloorMap = () => {
-  const { roomsStatus, roomInformation } = useRoomState();
+  const { roomsStatus, roomsInformation } = useRoomState();
   //const imageElement = useRef<HTMLElement>();
   // const [componentSize, setComponentSize] = useState({ width: 0, height: 0 });
   const [componentHeight, setComponentHeight] = useState(0);
@@ -40,13 +40,13 @@ export const FloorMap = () => {
                     style={{
                       left:
                         (componentWidth / 100) *
-                        (roomInformation[roomStatus.roomID - 1] != null
-                          ? roomInformation[roomStatus.roomID - 1].left
+                        (roomsInformation[roomStatus.roomID - 1] != null
+                          ? roomsInformation[roomStatus.roomID - 1].left
                           : 0),
                       top:
                         ((componentHeight - 10) / 100) *
-                        (roomInformation[roomStatus.roomID - 1] != null
-                          ? roomInformation[roomStatus.roomID - 1].top
+                        (roomsInformation[roomStatus.roomID - 1] != null
+                          ? roomsInformation[roomStatus.roomID - 1].top
                           : 0),
                       fontSize: componentWidth / 65,
                     }}
@@ -57,8 +57,8 @@ export const FloorMap = () => {
                       userCount={roomStatus.userCount}
                       usersName={roomStatus.usersName}
                       roomName={
-                        roomInformation[roomStatus.roomID - 1] != null
-                          ? roomInformation[roomStatus.roomID - 1].roomName
+                        roomsInformation[roomStatus.roomID - 1] != null
+                          ? roomsInformation[roomStatus.roomID - 1].roomName
                           : ''
                       }
                     />
