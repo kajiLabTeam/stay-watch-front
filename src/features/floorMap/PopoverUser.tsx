@@ -5,7 +5,7 @@ type Props = {
 
 const PopoverUser = (props: Props) => {
   return (
-    <div className='mt-2 bg-slate-200 p-[5%]'>
+    <div className='mt-2 min-w-fit whitespace-nowrap bg-slate-200 p-[5%]'>
       <p>{props.roomName}</p>
       {props.userNames.map((userName: string) => (
         <p key={userName}>{userName}</p>
