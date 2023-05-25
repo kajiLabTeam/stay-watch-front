@@ -31,3 +31,12 @@ export type PopoverRoom = {
   left: number;
   top: number;
 };
+
+export type ViewerRoom = {
+  roomId: number;
+  roomName: string;
+  userNames: string[];
+  userCount: number;
+  left: number;
+  top: number;
+};

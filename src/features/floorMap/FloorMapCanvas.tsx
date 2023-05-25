@@ -5,7 +5,7 @@ import { useRoomState } from '@/features/floorMap/roomState';
 import { PopoverRoom } from '@/types/roomFloormap';
 
 export const FloorMapCanvas = () => {
-  const { roomsStatus, roomsInformation } = useRoomState();
+  const { viewerRooms } = useRoomState();
   const [viewingRoomId, setViewingRoomId] = useState(0);
   const [popoverRoom, setPopoverRoom] = useState<PopoverRoom>();
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -52,18 +52,14 @@ export const FloorMapCanvas = () => {
     const drawUsersToCanvas = () => {
       if (ctx) {
         console.log('drawUsersToCanvas開始');
-        console.log(roomsStatus);
-        roomsInformation.map((roomInformation) => {
+        console.log(viewerRooms);
+        viewerRooms.map((viewerRoom) => {
           // console.log(roomInformation);
           // console.log('1描きよ');
           ctx.font = '48px serif';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
-          ctx.fillText(
-            String(roomsStatus[roomInformation.roomID - 1].userCount),
-            roomInformation.left,
-            roomInformation.top,
-          );
+          ctx.fillText(String(viewerRoom.userCount), viewerRoom.left, viewerRoom.top);
         });
         console.log('drawUsersToCanvas終了');
       }
@@ -73,7 +69,7 @@ export const FloorMapCanvas = () => {
       drawBuildingToCanvas(buildingImage);
       drawUsersToCanvas();
     };
-  }, [roomsInformation, roomsStatus]);
+  }, [viewerRooms]);
 
   // canvasがクリックされた時の処理
   const displayPopover = (e: React.MouseEvent<HTMLCanvasElement>) => {
@@ -88,21 +84,21 @@ export const FloorMapCanvas = () => {
     console.log(clientCanvasX);
     console.log(clientCanvasY);
     let clickedRoom = false;
-    roomsInformation.map((roomInformation) => {
+    viewerRooms.map((viewerRoom) => {
       if (
-        Math.abs(clientCanvasX - roomInformation.left) < 50 &&
-        Math.abs(clientCanvasY - roomInformation.top) < 50
+        Math.abs(clientCanvasX - viewerRoom.left) < 50 &&
+        Math.abs(clientCanvasY - viewerRoom.top) < 50
       ) {
         console.log(viewingRoomId);
         clickedRoom = true;
         setPopoverRoom({
-          roomId: roomInformation.roomID,
-          roomName: roomInformation.roomName,
-          userNames: roomsStatus[roomInformation.roomID - 1].usersName,
+          roomId: viewerRoom.roomId,
+          roomName: viewerRoom.roomName,
+          userNames: viewerRoom.userNames,
           left: e.clientX,
           top: e.clientY,
         });
-        setViewingRoomId(roomInformation.roomID);
+        setViewingRoomId(viewerRoom.roomId);
       }
     });
     if (!clickedRoom) {
