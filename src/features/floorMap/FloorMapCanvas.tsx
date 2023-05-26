@@ -33,7 +33,7 @@ export const FloorMapCanvas = () => {
     }
     buildingImage.src = `/floor_maps/4g-honkan-bekkan.jpg`;
 
-    const drawBuildingToCanvas = (buildingImage: HTMLImageElement) => {
+    const drawBuildingToCanvas = () => {
       if (ctx) {
         console.log('drawBuildingToCanvas開始');
         ctx.fillStyle = 'gray';
@@ -56,6 +56,7 @@ export const FloorMapCanvas = () => {
         viewerRooms.map((viewerRoom) => {
           // console.log(roomInformation);
           // console.log('1描きよ');
+          ctx.fillStyle = 'red';
           ctx.font = '48px serif';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
@@ -66,30 +67,30 @@ export const FloorMapCanvas = () => {
     };
 
     buildingImage.onload = () => {
-      drawBuildingToCanvas(buildingImage);
+      drawBuildingToCanvas();
       drawUsersToCanvas();
     };
   }, [viewerRooms]);
 
   // canvasがクリックされた時の処理
   const displayPopover = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    console.log('要素での座標');
-    console.log(e.clientX);
-    console.log(e.clientY);
+    // console.log('要素での座標');
+    // console.log(e.clientX);
+    // console.log(e.clientY);
     const canvasElementRatio = canvasRef.current!.clientWidth / CANVAS_WIDTH;
     const rect = canvasRef.current?.getBoundingClientRect();
-    console.log('canvas内での座標');
+    // console.log('canvas内での座標');
     const clientCanvasX = Math.trunc((e.clientX - Math.floor(rect!.left)) / canvasElementRatio);
     const clientCanvasY = Math.trunc((e.clientY - Math.floor(rect!.top)) / canvasElementRatio);
-    console.log(clientCanvasX);
-    console.log(clientCanvasY);
+    // console.log(clientCanvasX);
+    // console.log(clientCanvasY);
     let clickedRoom = false;
     viewerRooms.map((viewerRoom) => {
       if (
         Math.abs(clientCanvasX - viewerRoom.left) < 50 &&
         Math.abs(clientCanvasY - viewerRoom.top) < 50
       ) {
-        console.log(viewingRoomId);
+        // console.log(viewingRoomId);
         clickedRoom = true;
         setPopoverRoom({
           roomId: viewerRoom.roomId,
