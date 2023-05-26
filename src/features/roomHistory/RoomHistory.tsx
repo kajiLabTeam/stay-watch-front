@@ -1,6 +1,6 @@
+import { useDocumentTitle } from '@mantine/hooks';
 import Image from 'next/image';
 import { useState } from 'react';
-
 import { useWindowSize } from 'usehooks-ts';
 import RoomTabDate from './RoomTabDate';
 import { useCurrentPage } from './roomHistoryhook';
@@ -10,6 +10,7 @@ import Log from '@/types/log';
 import { endpoints } from '@/utils/api';
 
 const RoomHistory = () => {
+  useDocumentTitle('滞在者履歴');
   const { width } = useWindowSize();
 
   const [page, PreviousPage, NextPage] = useCurrentPage();

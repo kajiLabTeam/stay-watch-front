@@ -1,8 +1,10 @@
+import { useDocumentTitle } from '@mantine/hooks';
 import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
 import StayerType from '@/types/stayer';
 import { endpoints } from '@/utils/api';
 
 const Stayer = () => {
+  useDocumentTitle('滞在者一覧');
   const { data } = useSuspenseSWR<StayerType[]>(`${endpoints.stayers}`);
 
   return (
