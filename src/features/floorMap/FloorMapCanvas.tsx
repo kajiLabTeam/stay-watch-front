@@ -30,11 +30,9 @@ export const FloorMapCanvas = () => {
       ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
       ctx.strokeRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
       console.log('初期化終了');
-    }
-    buildingImage.src = `/floor_maps/4g-honkan-bekkan.jpg`;
+      buildingImage.src = `/floor_maps/4g-honkan-bekkan.jpg`;
 
-    const drawBuildingToCanvas = () => {
-      if (ctx) {
+      const drawBuildingToCanvas = () => {
         console.log('drawBuildingToCanvas開始');
         ctx.fillStyle = 'gray';
         ctx.strokeRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -46,11 +44,9 @@ export const FloorMapCanvas = () => {
           buildingImage.height * (CANVAS_HEIGHT / buildingImage.height),
         );
         console.log('drawBuildingToCanvas終了');
-      }
-    };
+      };
 
-    const drawUsersToCanvas = () => {
-      if (ctx) {
+      const drawUsersToCanvas = () => {
         console.log('drawUsersToCanvas開始');
         console.log(viewerRooms);
         viewerRooms.map((viewerRoom) => {
@@ -63,13 +59,12 @@ export const FloorMapCanvas = () => {
           ctx.fillText(String(viewerRoom.userCount), viewerRoom.left, viewerRoom.top);
         });
         console.log('drawUsersToCanvas終了');
-      }
-    };
-
-    buildingImage.onload = () => {
-      drawBuildingToCanvas();
-      drawUsersToCanvas();
-    };
+      };
+      buildingImage.onload = () => {
+        drawBuildingToCanvas();
+        drawUsersToCanvas();
+      };
+    }
   }, [viewerRooms]);
 
   // canvasがクリックされた時の処理
