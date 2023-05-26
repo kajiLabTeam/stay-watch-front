@@ -18,9 +18,7 @@ export const FloorMapCanvas = () => {
   };
 
   useEffect(() => {
-    // roomStatus,roomsInformationが更新されたら動く
-    // console.log(roomsInformation);
-    // console.log(roomsStatus);
+    // viewerRoomsが更新されたら動く
     const buildingImage = new Image();
     const ctx: CanvasRenderingContext2D | null = getContext(); // ctx の型を CanvasRenderingContext2D | null に指定
     if (ctx && viewerRooms) {
@@ -67,7 +65,7 @@ export const FloorMapCanvas = () => {
     }
   }, [viewerRooms]);
 
-  // canvasがクリックされた時の処理
+  // canvas上でマウスが動いた時の処理
   const displayPopover = (e: React.MouseEvent<HTMLCanvasElement>) => {
     // console.log('要素での座標');
     // console.log(e.clientX);
@@ -81,6 +79,7 @@ export const FloorMapCanvas = () => {
     // console.log(clientCanvasY);
     let clickedRoom = false;
     viewerRooms?.map((viewerRoom) => {
+      // ?なのはviewerRoomsがnullだったらcanvasの初期化が行われないためdisplayPopvoerがそもそも動かない
       if (
         Math.abs(clientCanvasX - viewerRoom.left) < 50 &&
         Math.abs(clientCanvasY - viewerRoom.top) < 50
