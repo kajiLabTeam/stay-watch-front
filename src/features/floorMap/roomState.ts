@@ -11,7 +11,7 @@ export const useRoomState = () => {
     `${endpoints.getRoomsEditorByCommunityID}/${community.communityId}`,
   );
   const { data: stayers } = useSuspenseSWR<StayerType[]>(`${endpoints.stayers}`);
-  const [viewerRooms, setViewerRooms] = useState<ViewerRoom[]>([]);
+  const [viewerRooms, setViewerRooms] = useState<ViewerRoom[] | null>(null);
 
   useEffect(() => {
     if (rooms && stayers) {

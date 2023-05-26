@@ -23,7 +23,7 @@ export const FloorMapCanvas = () => {
     // console.log(roomsStatus);
     const buildingImage = new Image();
     const ctx: CanvasRenderingContext2D | null = getContext(); // ctx の型を CanvasRenderingContext2D | null に指定
-    if (ctx) {
+    if (ctx && viewerRooms) {
       // 初期化処理
       console.log('初期化開始');
       ctx.fillStyle = 'white';
@@ -80,7 +80,7 @@ export const FloorMapCanvas = () => {
     // console.log(clientCanvasX);
     // console.log(clientCanvasY);
     let clickedRoom = false;
-    viewerRooms.map((viewerRoom) => {
+    viewerRooms?.map((viewerRoom) => {
       if (
         Math.abs(clientCanvasX - viewerRoom.left) < 50 &&
         Math.abs(clientCanvasY - viewerRoom.top) < 50
