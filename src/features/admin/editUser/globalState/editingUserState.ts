@@ -1,6 +1,5 @@
 import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
 
-
 const editingUserState = atom({
   key: 'editingUserAtom',
   default: {

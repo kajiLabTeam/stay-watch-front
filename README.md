@@ -1,90 +1,77 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-## development
+## production
 
 https://stay-watch-go.kajilab.tk/
 
-コミットやプルを送る前に下のを実行して自動修正をかける
-(ファイル変更時に自動で実行するようにする方法もある)
+## development
 
-```
-yarn fix
-```
+develop ブランチの vercel
+https://stay-watch-front-fd19.vercel.app/
 
 ### 環境構築の手順 <br><br>
-1. stay-watch-backend のREADME を見てバックエンドの環境構築を行う
+
+1. stay-watch-backend の README を見てバックエンドの環境構築を行う
 
 2. stay-watch-front のクローン
 
-    GitHub Desktop からstay-watch-front を任意のディレクトリにクローンする
+   stay-watch-front をクローンする
 
 3. .env.local の作成
 
-    /stay-watch-front/ のディレクトリに .env.local ファイルを作成する
+   /stay-watch-front/ のディレクトリに .env.local ファイルを作成する
 
-    中身は先駆者からもらう
-
+   中身は先駆者からもらう
 
 4. yarn のインストール
 
-    ```
-    sudo npm install -g yarn
-    ```
+   ```
+   sudo npm install -g yarn
+   ```
 
 5. npm run が使えるようにする
 
-    ```
-    npm i npm-run-all
-    ```
+   ```
+   npm i npm-run-all
+   ```
 
-6. ESLint のインストール
+6. 実行
 
-    ```
-    sudo npm install -g eslint
-    ```
+   下のを実行し localhost:3000/ で開ければ完了
 
-7. 実行
+   ```
+   yarn dev
+   ```
 
-    下のを実行し localhost:3000/ で開ければ完了
-    ```
-    yarn dev
-    ```
-
-### 必要なVSCodeの拡張機能<br><br>
+### 必要な VSCode の拡張機能<br><br>
 
 - Prettier - Code formatter
 
-    以下を行うとコードを整えてくれる
-    ```
-    yarn fix
-    ```
-
-- EJS langage support
-
-    .ejs ファイルを編集するときにあると便利
+  コードを整えてくれる
 
 - ESLint
 
-    「console.log() があるとwarningを出す」などのプロジェクト独自のコード規則を設定できる
+  「console.log() があると warning を出す」などのプロジェクト独自のコード規則を設定できる
 
-- Tailwind Css
+- Tailwind CSS IntelliSense
 
-    本プロジェクトに用いられているTailwind CSS を編集するときにあると便利
+  本プロジェクトに用いられている Tailwind CSS を編集するときにあると便利
 
 - OpenAPI(Swagger) Editor
 
-    swagger.yml を編集する上であるとよい
+  swagger.yml を編集する上であるとよい
 
 - Swagger Viewer
 
-    Shift + command + p でswagger.yml のプレビューができる
+  Shift + command + p で swagger.yml のプレビューができる
+
+### よくあるエラーの対処法<br><br>
+
+- Yarn Build or Lint Error
+
+  フォーマットルールに沿っていないコードである場合に出る
+
+  下のコマンドを行うとコードを整形してくれて解決できる  
+  ( 保存時に自動で整形してくれるように設定するのがおすすめ )
+
+  ```
+  yarn fix
+  ```
