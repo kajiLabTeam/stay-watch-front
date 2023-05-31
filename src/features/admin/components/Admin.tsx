@@ -1,10 +1,12 @@
 import { Tabs } from '@mantine/core';
+import { useDocumentTitle } from '@mantine/hooks';
 import { useState } from 'react';
 import EditFloorMap from '@/features/admin/editFloorMap/components/EditFloorMap';
 import UserEditor from '@/features/admin/editUser/components/EditUser';
 import { useUserRoleState } from '@/globalStates/userRoleState';
 
 export const Admin = () => {
+  useDocumentTitle('管理者ページ');
   const [activeTab, setActiveTab] = useState<string | null>('first');
   const userRole = useUserRoleState();
 
