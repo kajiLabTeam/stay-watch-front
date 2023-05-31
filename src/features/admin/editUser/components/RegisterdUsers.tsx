@@ -25,10 +25,7 @@ export const RegisterdUsers = () => {
         </thead>
         <tbody className='text-lg md:text-xl'>
           {users.map((user: UserEditor) => (
-            <RegisterdUser
-              user={user}
-              key={user.id}
-            />
+            <RegisterdUser user={user} key={user.id} />
           ))}
         </tbody>
       </table>

@@ -7,13 +7,10 @@ import {
 } from '@/features/admin/editUser/globalState/editingUserState';
 import { UserEditor } from '@/types/user';
 
-export const RegisterdUser = (props: {
-  user: UserEditor;
-}) => {
+export const RegisterdUser = (props: { user: UserEditor }) => {
   const { setEditingUserId } = useEditingUserMutators();
   const { editingUserId } = useEditingUserState();
   const { user } = props;
-
 
   return (
     <>
