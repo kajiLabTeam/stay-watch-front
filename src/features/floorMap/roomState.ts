@@ -34,8 +34,6 @@ export const useRoomState = () => {
         tmpViewerRooms.push(tmpViewerRoom);
       });
       setViewerRooms(tmpViewerRooms);
-      // console.log('viewerRoomsはこれだ');
-      // console.log(viewerRooms);
     }
   }, [rooms, stayers]);
 
