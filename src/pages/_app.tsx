@@ -1,3 +1,4 @@
+import { useFavicon } from '@mantine/hooks';
 import type { AppProps } from 'next/app';
 import 'tailwindcss/tailwind.css';
 import { RecoilRoot } from 'recoil';
@@ -9,6 +10,7 @@ import AuthToken from '@/features/Auth/AuthToken';
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 function MyApp({ Component, pageProps }: AppProps) {
+  useFavicon('/favicon2.svg');
   return (
     <RecoilRoot>
       <SWRConfig
