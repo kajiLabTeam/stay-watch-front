@@ -9,7 +9,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     env:
-      NEXT_PUBLIC_BASE_URL: https://go-staywatch.kajilab.tk
+      NEXT_PUBLIC_BASE_URL: https://staywatch-backend.kajilab.tk
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
