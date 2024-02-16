@@ -26,7 +26,7 @@ export const useBgColor = (): Item => {
   useEffect(() => {
     if (pathname === pagesPath.$url().pathname) {
       setBgColors({
-        stayer: 'bg-red-400',
+        stayer: 'bg-staywatch-button',
         roomHistory: '',
         userInformation: '',
         floorMap: '',
@@ -35,7 +35,7 @@ export const useBgColor = (): Item => {
     } else if (pathname === pagesPath.roomHistory.$url().pathname) {
       setBgColors({
         stayer: '',
-        roomHistory: 'bg-red-400',
+        roomHistory: 'bg-staywatch-button',
         userInformation: '',
         floorMap: '',
         SimulataneousStay: '',
@@ -44,7 +44,7 @@ export const useBgColor = (): Item => {
       setBgColors({
         stayer: '',
         roomHistory: '',
-        userInformation: 'bg-red-400',
+        userInformation: 'bg-staywatch-button',
         floorMap: '',
         SimulataneousStay: '',
       });
@@ -53,7 +53,7 @@ export const useBgColor = (): Item => {
         stayer: '',
         roomHistory: '',
         userInformation: '',
-        floorMap: 'bg-red-400',
+        floorMap: 'bg-staywatch-button',
         SimulataneousStay: '',
       });
     } else if (pathname === pagesPath.simulataneousStay.$url().pathname) {
@@ -62,7 +62,7 @@ export const useBgColor = (): Item => {
         roomHistory: '',
         userInformation: '',
         floorMap: '',
-        SimulataneousStay: 'bg-red-400',
+        SimulataneousStay: 'bg-staywatch-button',
       });
     }
   }, [pathname]);
