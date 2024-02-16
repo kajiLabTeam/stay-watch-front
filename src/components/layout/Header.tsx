@@ -11,7 +11,7 @@ const Header = () => {
 
   return (
     <header>
-      <div className='flex h-20 items-center justify-around bg-staywatch-header text-xs text-white shadow-md md:text-lg lg:text-2xl'>
+      <div className='flex h-20 items-center justify-around bg-staywatch-yellow text-xs shadow-md md:text-lg lg:text-2xl'>
         <div className='flex h-full items-center gap-8'>
           <div className='mt-2 cursor-pointer'>
             <Link href={pagesPath.$url()} passHref>

@@ -1,3 +1,5 @@
+//import { rem } from '@mantine/core'
+//import { IconHome } from '@tabler/icons';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCommunityState } from '@/globalStates/useCommunityState';
@@ -25,7 +27,13 @@ const Footer = () => {
               <div
                 className={`flex flex-col items-center gap-1 rounded-md py-1 px-2 ${buttonColors.bgColors.stayer} ${buttonColors.textColors.stayer}`}
               >
-                <Image src='/homeWhite.png' alt='stayer' width={20} height={20} />
+                <Image
+                  src={`/home-${buttonColors.iconColors.stayer}.png`}
+                  alt='stayer'
+                  width={20}
+                  height={20}
+                />
+                {/* <IconHome/> */}
                 <div>滞在者</div>
               </div>
             </a>
@@ -35,7 +43,12 @@ const Footer = () => {
               <div
                 className={`flex flex-col items-center gap-1 rounded-md py-1 px-2 ${buttonColors.bgColors.roomHistory} ${buttonColors.textColors.roomHistory}`}
               >
-                <Image src='/historyWhite.png' alt='history' width={20} height={20} />
+                <Image
+                  src={`/history-${buttonColors.iconColors.roomHistory}.png`}
+                  alt='history'
+                  width={20}
+                  height={20}
+                />
                 <div>滞在履歴</div>
               </div>
             </a>
@@ -45,7 +58,12 @@ const Footer = () => {
               <div
                 className={`flex flex-col items-center gap-1 rounded-md py-1 px-2 ${buttonColors.bgColors.userInformation} ${buttonColors.textColors.userInformation}`}
               >
-                <Image src='/userInfoWhite.png' alt='userInfo' width={15} height={20} />
+                <Image
+                  src={`/userinfo-${buttonColors.iconColors.userInformation}.png`}
+                  alt='userInfo'
+                  width={15}
+                  height={20}
+                />
                 <div>利用者情報</div>
               </div>
             </a>
@@ -55,7 +73,12 @@ const Footer = () => {
               <div
                 className={`flex flex-col items-center gap-1 rounded-md py-1 px-2 ${buttonColors.bgColors.floorMap} ${buttonColors.textColors.floorMap}`}
               >
-                <Image src='/mapWhite.png' alt='map' width={20} height={20} />
+                <Image
+                  src={`/map-${buttonColors.iconColors.floorMap}.png`}
+                  alt='map'
+                  width={20}
+                  height={20}
+                />
                 <div>滞在者マップ</div>
               </div>
             </a>

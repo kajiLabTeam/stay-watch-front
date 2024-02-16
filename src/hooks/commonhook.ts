@@ -7,6 +7,7 @@ import { pagesPath } from '@/utils/$path';
 type UseHeaderButtonColorReturn = {
   bgColors: Item;
   textColors: Item;
+  iconColors: Item;
 };
 
 type Item = {
@@ -24,6 +25,8 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
   const unselectedButtonTextColor = 'text-staywatch-orange';
   const selectedButtonBgColor = 'bg-staywatch-orange';
   const unselectedButtonBgColor = '';
+  const selectedButtonIconColor = 'white';
+  const unselectedButtonIconColor = 'orange';
   const [buttonColors, setButtonColors] = useState<UseHeaderButtonColorReturn>({
     bgColors: {
       stayer: '',
@@ -38,6 +41,13 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
       userInformation: unselectedButtonTextColor,
       floorMap: unselectedButtonTextColor,
       SimulataneousStay: unselectedButtonTextColor,
+    },
+    iconColors: {
+      stayer: unselectedButtonIconColor,
+      roomHistory: unselectedButtonIconColor,
+      userInformation: unselectedButtonIconColor,
+      floorMap: unselectedButtonIconColor,
+      SimulataneousStay: unselectedButtonIconColor,
     },
   });
 
@@ -58,6 +68,13 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
           floorMap: unselectedButtonTextColor,
           SimulataneousStay: unselectedButtonTextColor,
         },
+        iconColors: {
+          stayer: selectedButtonIconColor,
+          roomHistory: unselectedButtonIconColor,
+          userInformation: unselectedButtonIconColor,
+          floorMap: unselectedButtonIconColor,
+          SimulataneousStay: unselectedButtonIconColor,
+        },
       });
     } else if (pathname === pagesPath.roomHistory.$url().pathname) {
       setButtonColors({
@@ -74,6 +91,13 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
           userInformation: unselectedButtonTextColor,
           floorMap: unselectedButtonTextColor,
           SimulataneousStay: unselectedButtonTextColor,
+        },
+        iconColors: {
+          stayer: unselectedButtonIconColor,
+          roomHistory: selectedButtonIconColor,
+          userInformation: unselectedButtonIconColor,
+          floorMap: unselectedButtonIconColor,
+          SimulataneousStay: unselectedButtonIconColor,
         },
       });
     } else if (pathname === pagesPath.userInformation.$url().pathname) {
@@ -92,6 +116,13 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
           floorMap: unselectedButtonTextColor,
           SimulataneousStay: unselectedButtonTextColor,
         },
+        iconColors: {
+          stayer: unselectedButtonIconColor,
+          roomHistory: unselectedButtonIconColor,
+          userInformation: selectedButtonIconColor,
+          floorMap: unselectedButtonIconColor,
+          SimulataneousStay: unselectedButtonIconColor,
+        },
       });
     } else if (pathname === pagesPath.floorMap.$url().pathname) {
       setButtonColors({
@@ -109,6 +140,13 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
           floorMap: selectedButtonTextColor,
           SimulataneousStay: unselectedButtonTextColor,
         },
+        iconColors: {
+          stayer: unselectedButtonIconColor,
+          roomHistory: unselectedButtonIconColor,
+          userInformation: unselectedButtonIconColor,
+          floorMap: selectedButtonIconColor,
+          SimulataneousStay: unselectedButtonIconColor,
+        },
       });
     } else if (pathname === pagesPath.simulataneousStay.$url().pathname) {
       setButtonColors({
@@ -125,6 +163,13 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
           userInformation: unselectedButtonTextColor,
           floorMap: unselectedButtonTextColor,
           SimulataneousStay: selectedButtonTextColor,
+        },
+        iconColors: {
+          stayer: unselectedButtonIconColor,
+          roomHistory: unselectedButtonIconColor,
+          userInformation: unselectedButtonIconColor,
+          floorMap: unselectedButtonIconColor,
+          SimulataneousStay: selectedButtonIconColor,
         },
       });
     }
