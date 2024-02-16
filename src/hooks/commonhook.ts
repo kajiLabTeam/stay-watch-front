@@ -4,6 +4,11 @@ import { useEffect, useState } from 'react';
 import { pagesPath } from '@/utils/$path';
 // import { baseURL } from "@/utils/api";
 
+type UseHeaderButtonColorReturn = {
+  bgColors: Item;
+  textColors: Item;
+};
+
 type Item = {
   stayer: string;
   roomHistory: string;
@@ -12,62 +17,120 @@ type Item = {
   SimulataneousStay: string;
 };
 
-export const useBgColor = (): Item => {
+export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
   const router = useRouter();
   const { pathname } = router;
-  const [bgColors, setBgColors] = useState<Item>({
-    stayer: '',
-    roomHistory: '',
-    userInformation: '',
-    floorMap: '',
-    SimulataneousStay: '',
+  const selectedButtonTextColor = 'text-white';
+  const unselectedButtonTextColor = 'text-staywatch-orange';
+  const selectedButtonBgColor = 'bg-staywatch-orange';
+  const unselectedButtonBgColor = '';
+  const [buttonColors, setButtonColors] = useState<UseHeaderButtonColorReturn>({
+    bgColors: {
+      stayer: '',
+      roomHistory: '',
+      userInformation: '',
+      floorMap: '',
+      SimulataneousStay: '',
+    },
+    textColors: {
+      stayer: unselectedButtonTextColor,
+      roomHistory: unselectedButtonTextColor,
+      userInformation: unselectedButtonTextColor,
+      floorMap: unselectedButtonTextColor,
+      SimulataneousStay: unselectedButtonTextColor,
+    },
   });
 
   useEffect(() => {
     if (pathname === pagesPath.$url().pathname) {
-      setBgColors({
-        stayer: 'bg-staywatch-button',
-        roomHistory: '',
-        userInformation: '',
-        floorMap: '',
-        SimulataneousStay: '',
+      setButtonColors({
+        bgColors: {
+          stayer: selectedButtonBgColor,
+          roomHistory: unselectedButtonBgColor,
+          userInformation: unselectedButtonBgColor,
+          floorMap: unselectedButtonBgColor,
+          SimulataneousStay: unselectedButtonBgColor,
+        },
+        textColors: {
+          stayer: selectedButtonTextColor,
+          roomHistory: unselectedButtonTextColor,
+          userInformation: unselectedButtonTextColor,
+          floorMap: unselectedButtonTextColor,
+          SimulataneousStay: unselectedButtonTextColor,
+        },
       });
     } else if (pathname === pagesPath.roomHistory.$url().pathname) {
-      setBgColors({
-        stayer: '',
-        roomHistory: 'bg-staywatch-button',
-        userInformation: '',
-        floorMap: '',
-        SimulataneousStay: '',
+      setButtonColors({
+        bgColors: {
+          stayer: unselectedButtonBgColor,
+          roomHistory: selectedButtonBgColor,
+          userInformation: unselectedButtonBgColor,
+          floorMap: unselectedButtonBgColor,
+          SimulataneousStay: unselectedButtonBgColor,
+        },
+        textColors: {
+          stayer: unselectedButtonTextColor,
+          roomHistory: selectedButtonTextColor,
+          userInformation: unselectedButtonTextColor,
+          floorMap: unselectedButtonTextColor,
+          SimulataneousStay: unselectedButtonTextColor,
+        },
       });
     } else if (pathname === pagesPath.userInformation.$url().pathname) {
-      setBgColors({
-        stayer: '',
-        roomHistory: '',
-        userInformation: 'bg-staywatch-button',
-        floorMap: '',
-        SimulataneousStay: '',
+      setButtonColors({
+        bgColors: {
+          stayer: unselectedButtonBgColor,
+          roomHistory: unselectedButtonBgColor,
+          userInformation: selectedButtonBgColor,
+          floorMap: unselectedButtonBgColor,
+          SimulataneousStay: unselectedButtonBgColor,
+        },
+        textColors: {
+          stayer: unselectedButtonTextColor,
+          roomHistory: unselectedButtonTextColor,
+          userInformation: selectedButtonTextColor,
+          floorMap: unselectedButtonTextColor,
+          SimulataneousStay: unselectedButtonTextColor,
+        },
       });
     } else if (pathname === pagesPath.floorMap.$url().pathname) {
-      setBgColors({
-        stayer: '',
-        roomHistory: '',
-        userInformation: '',
-        floorMap: 'bg-staywatch-button',
-        SimulataneousStay: '',
+      setButtonColors({
+        bgColors: {
+          stayer: unselectedButtonBgColor,
+          roomHistory: unselectedButtonBgColor,
+          userInformation: unselectedButtonBgColor,
+          floorMap: selectedButtonBgColor,
+          SimulataneousStay: unselectedButtonBgColor,
+        },
+        textColors: {
+          stayer: unselectedButtonTextColor,
+          roomHistory: unselectedButtonTextColor,
+          userInformation: unselectedButtonTextColor,
+          floorMap: selectedButtonTextColor,
+          SimulataneousStay: unselectedButtonTextColor,
+        },
       });
     } else if (pathname === pagesPath.simulataneousStay.$url().pathname) {
-      setBgColors({
-        stayer: '',
-        roomHistory: '',
-        userInformation: '',
-        floorMap: '',
-        SimulataneousStay: 'bg-staywatch-button',
+      setButtonColors({
+        bgColors: {
+          stayer: unselectedButtonBgColor,
+          roomHistory: unselectedButtonBgColor,
+          userInformation: unselectedButtonBgColor,
+          floorMap: unselectedButtonBgColor,
+          SimulataneousStay: selectedButtonBgColor,
+        },
+        textColors: {
+          stayer: unselectedButtonTextColor,
+          roomHistory: unselectedButtonTextColor,
+          userInformation: unselectedButtonTextColor,
+          floorMap: unselectedButtonTextColor,
+          SimulataneousStay: selectedButtonTextColor,
+        },
       });
     }
   }, [pathname]);
 
-  return bgColors;
+  return buttonColors;
 };
 
 // const attendanceRegister = (callback: () => void) => {

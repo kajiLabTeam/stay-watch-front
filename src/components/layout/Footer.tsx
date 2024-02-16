@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCommunityState } from '@/globalStates/useCommunityState';
-import { useBgColor } from '@/hooks/commonhook';
+import { useHeaderButtonColor } from '@/hooks/commonhook';
 import { pagesPath } from '@/utils/$path';
 
 const Footer = () => {
-  const bgColors = useBgColor();
+  const buttonColors = useHeaderButtonColor();
   const community = useCommunityState();
 
   return (
@@ -13,7 +13,7 @@ const Footer = () => {
       <header className='h-12 bg-staywatch-header text-center shadow-md'>
         <div className='pt-1'>
           <Link href={pagesPath.$url()} passHref>
-            <Image src="/logo.png" width={136} height={39} alt='logo'/>
+            <Image src='/logo.png' width={136} height={39} alt='logo' />
           </Link>
         </div>
       </header>
@@ -22,9 +22,8 @@ const Footer = () => {
         <div className='flex h-16 items-center justify-evenly bg-staywatch-header text-white'>
           <Link href='/'>
             <a>
-              {/* <div className="flex flex-col items-center gap-1 px-2 py-1 rounded"> */}
               <div
-                className={`flex flex-col items-center gap-1 rounded-md py-1 px-2 ${bgColors.stayer}`}
+                className={`flex flex-col items-center gap-1 rounded-md py-1 px-2 ${buttonColors.bgColors.stayer} ${buttonColors.textColors.stayer}`}
               >
                 <Image src='/homeWhite.png' alt='stayer' width={20} height={20} />
                 <div>滞在者</div>
@@ -34,7 +33,7 @@ const Footer = () => {
           <Link href={pagesPath.roomHistory.$url()}>
             <a>
               <div
-                className={`flex flex-col items-center gap-1 rounded-md py-1 px-2 ${bgColors.roomHistory} text-staywatch-button`}
+                className={`flex flex-col items-center gap-1 rounded-md py-1 px-2 ${buttonColors.bgColors.roomHistory} ${buttonColors.textColors.roomHistory}`}
               >
                 <Image src='/historyWhite.png' alt='history' width={20} height={20} />
                 <div>滞在履歴</div>
@@ -44,7 +43,7 @@ const Footer = () => {
           <Link href={pagesPath.userInformation.$url()}>
             <a>
               <div
-                className={`flex flex-col items-center gap-1 rounded-md py-1 px-2 ${bgColors.userInformation} text-staywatch-button`}
+                className={`flex flex-col items-center gap-1 rounded-md py-1 px-2 ${buttonColors.bgColors.userInformation} ${buttonColors.textColors.userInformation}`}
               >
                 <Image src='/userInfoWhite.png' alt='userInfo' width={15} height={20} />
                 <div>利用者情報</div>
@@ -54,7 +53,7 @@ const Footer = () => {
           <Link href={pagesPath.floorMap.$url()}>
             <a>
               <div
-                className={`flex flex-col items-center gap-1 rounded-md py-1 px-2 ${bgColors.floorMap} text-staywatch-button`}
+                className={`flex flex-col items-center gap-1 rounded-md py-1 px-2 ${buttonColors.bgColors.floorMap} ${buttonColors.textColors.floorMap}`}
               >
                 <Image src='/mapWhite.png' alt='map' width={20} height={20} />
                 <div>滞在者マップ</div>
