@@ -73,7 +73,6 @@ const RoomHistory = () => {
   return (
     <div>
       <div className='mt-6 flex justify-between text-2xl md:text-3xl'>
-        <div>滞在者履歴</div>
         <div>
           <button
             onClick={() => {
@@ -95,14 +94,13 @@ const RoomHistory = () => {
         </div>
       ) : (
         <div>
-          <div className='my-4 border' />
           <table className='w-full table-fixed text-xs sm:text-base md:text-2xl'>
             <thead>
-              <tr className='bg-gray-700 text-left text-white'>
-                <th className='w-1/5 border py-2  px-4'>Date</th>
-                <th className=' border  px-4'>Name</th>
-                <th className=' border px-4'>Period</th>
-                <th className=' border px-4'>Room</th>
+              <tr className='bg-staywatch-black text-left text-white'>
+                <th className='w-1/5 border py-2  px-4'>日にち</th>
+                <th className=' border  px-4'>名前</th>
+                <th className=' border px-4'>時刻</th>
+                <th className=' border px-4'>部屋</th>
               </tr>
             </thead>
             <tbody className=''>{Period()}</tbody>
