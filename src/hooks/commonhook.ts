@@ -22,8 +22,8 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
   const router = useRouter();
   const { pathname } = router;
   const selectedButtonTextColor = 'text-white';
-  const unselectedButtonTextColor = 'text-staywatch-orange';
-  const selectedButtonBgColor = 'bg-staywatch-orange';
+  const unselectedButtonTextColor = 'text-staywatch-accent';
+  const selectedButtonBgColor = 'bg-staywatch-accent';
   const unselectedButtonBgColor = '';
   const selectedButtonIconColor = 'white';
   const unselectedButtonIconColor = 'orange';

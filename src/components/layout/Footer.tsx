@@ -12,7 +12,7 @@ const Footer = () => {
 
   return (
     <div>
-      <header className='h-12 bg-staywatch-yellow text-center shadow-md'>
+      <header className='h-12 bg-staywatch-main text-center shadow-md'>
         <div className='pt-1'>
           <Link href={pagesPath.$url()} passHref>
             <Image src='/logo.png' width={136} height={39} alt='logo' />
@@ -21,7 +21,7 @@ const Footer = () => {
       </header>
       <p className='mr-8 text-right text-xl text-gray-400'>{community.communityName}</p>
       <div className='fixed bottom-0 w-full'>
-        <div className='flex h-16 items-center justify-evenly bg-staywatch-yellow text-white'>
+        <div className='flex h-16 items-center justify-evenly bg-staywatch-main text-white'>
           <Link href='/'>
             <a>
               <div

@@ -11,38 +11,38 @@ const Header = () => {
 
   return (
     <header>
-      <div className='flex h-20 items-center justify-around bg-staywatch-yellow text-xs shadow-md md:text-lg lg:text-2xl'>
+      <div className='flex h-20 items-center justify-around bg-staywatch-main text-xs shadow-md md:text-lg lg:text-2xl'>
         <div className='flex h-full items-center gap-8'>
           <div className='mt-2 cursor-pointer'>
             <Link href={pagesPath.$url()} passHref>
               <Image src='/logo.png' width={248} height={70} alt='logo' />
             </Link>
           </div>
-          {/* <p className={`bg-staywatch-orange text-staywatch-orange`}>aaa</p> */}
+          {/* <p className={`bg-staywatch-accent text-staywatch-accent`}>aaa</p> */}
           <Link href={pagesPath.$url()}>
             <a
-              className={`rounded-md border-2 border-staywatch-orange ${buttonColors.bgColors.stayer} p-2 ${buttonColors.textColors.stayer} shadow-sm`}
+              className={`rounded-md ${buttonColors.bgColors.stayer} p-2 ${buttonColors.textColors.stayer}`}
             >
               滞在者
             </a>
           </Link>
           <Link href={pagesPath.roomHistory.$url()}>
             <a
-              className={`rounded-md border-2 border-staywatch-orange ${buttonColors.bgColors.roomHistory} p-2 ${buttonColors.textColors.roomHistory} shadow-sm`}
+              className={`rounded-md ${buttonColors.bgColors.roomHistory} p-2 ${buttonColors.textColors.roomHistory}`}
             >
               滞在履歴
             </a>
           </Link>
           <Link href={pagesPath.userInformation.$url()}>
             <a
-              className={`rounded-md border-2 border-staywatch-orange ${buttonColors.bgColors.userInformation} p-2 ${buttonColors.textColors.userInformation} shadow-sm`}
+              className={`rounded-md ${buttonColors.bgColors.userInformation} p-2 ${buttonColors.textColors.userInformation}`}
             >
               利用者情報
             </a>
           </Link>
           <Link href={pagesPath.floorMap.$url()}>
             <a
-              className={`rounded-md border-2 border-staywatch-orange ${buttonColors.bgColors.floorMap} p-2 ${buttonColors.textColors.floorMap} shadow-sm`}
+              className={`rounded-md ${buttonColors.bgColors.floorMap} p-2 ${buttonColors.textColors.floorMap}`}
             >
               滞在者マップ
             </a>

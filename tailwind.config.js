@@ -41,13 +41,12 @@ const customColors = {
     DEFAULT:'#40BFB0',
   },
   staywatch: {
-    'yellow': '#F9EB76',
+    'main': '#F9EB76',
     'green': '#00D098',
     'blue': '#2FB7FF',
     'red': '#FF104E',
-    'orange': '#EF7637',
+    'accent': '#44A5CB',
   }
-
 }
 
 module.exports = {
