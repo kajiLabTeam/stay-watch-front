@@ -24,10 +24,10 @@ const Stayer = () => {
         <tbody>
           {formatStayerDataForTable(stayers, rooms).map((stayersInRoom) => (
             <tr className='border text-left' key={stayersInRoom.room}>
-              <td className="px-2">{stayersInRoom.room}</td>
+              <td className="px-2 text-sm md:text-2xl">{stayersInRoom.room}</td>
               <td className="border">
                 {stayersInRoom.stayers.map((stayerInRoom) => (
-                  <div className="py-2 px-1" key={stayerInRoom.name}>
+                  <div className="p-0.5 text-sm md:py-2 md:text-2xl" key={stayerInRoom.name}>
                     {stayerInRoom.name}（
                     {stayerInRoom.tags.map((tag, index) => (
                       <span key={tag.id}>
