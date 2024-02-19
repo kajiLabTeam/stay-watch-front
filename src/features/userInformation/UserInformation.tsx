@@ -16,13 +16,11 @@ const UserInformation = () => {
 
   return (
     <div>
-      <div className='mt-6 text-2xl md:text-3xl'>利用者一覧</div>
-      <div className='my-4 border' />
-      <table className='w-full table-fixed text-xl sm:text-base md:text-2xl'>
+      <table className='mt-5 w-full table-fixed text-xl sm:text-base md:text-2xl'>
         <thead>
-          <tr className='bg-gray-700 text-left text-white'>
-            <th className='w-1/2 border py-2 px-4'>Name</th>
-            <th className='border py-2 px-4'>Attribute</th>
+          <tr className='bg-staywatch-black text-left text-white'>
+            <th className='w-1/2 border py-2 px-4'>名前</th>
+            <th className='border py-2 px-4'>タグ</th>
           </tr>
         </thead>
         <tbody className='text-lg md:text-2xl'>
@@ -30,9 +28,10 @@ const UserInformation = () => {
             <tr className='text-left' key={user.id}>
               <td className='border py-2 px-4'>{user.name}</td>
               <td className='flex flex-col  border py-2 px-4 md:flex-row md:gap-4'>
-                {user.tags.map((tag) => (
+                {user.tags.map((tag, index) => (
                   <div className='' key={tag.id}>
                     {tag.name}
+                    {index !== user.tags.length - 1 && " , "}
                   </div>
                 ))}
               </td>
