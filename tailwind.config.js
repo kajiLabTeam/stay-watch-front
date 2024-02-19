@@ -46,6 +46,7 @@ const customColors = {
     'blue': '#2FB7FF',
     'red': '#FF104E',
     'accent': '#44A5CB',
+    'black': '#333333',
   }
 }
 
