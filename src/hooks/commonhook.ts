@@ -26,7 +26,7 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
   const selectedButtonBgColor = 'bg-staywatch-accent';
   const unselectedButtonBgColor = '';
   const selectedButtonIconColor = 'white';
-  const unselectedButtonIconColor = 'orange';
+  const unselectedButtonIconColor = 'blue';
   const [buttonColors, setButtonColors] = useState<UseHeaderButtonColorReturn>({
     bgColors: {
       stayer: '',

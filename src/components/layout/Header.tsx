@@ -11,7 +11,7 @@ const Header = () => {
 
   return (
     <header>
-      <div className='flex h-20 items-center justify-around bg-staywatch-main text-xs shadow-md md:text-lg lg:text-2xl'>
+      <div className='flex h-20 items-center justify-around bg-staywatch-main text-xs font-bold shadow-md md:text-lg lg:text-2xl'>
         <div className='flex h-full items-center gap-8'>
           <div className='mt-2 cursor-pointer'>
             <Link href={pagesPath.$url()} passHref>
@@ -21,28 +21,28 @@ const Header = () => {
           {/* <p className={`bg-staywatch-accent text-staywatch-accent`}>aaa</p> */}
           <Link href={pagesPath.$url()}>
             <a
-              className={`rounded-md ${buttonColors.bgColors.stayer} p-2 ${buttonColors.textColors.stayer}`}
+              className={`rounded-md ${buttonColors.bgColors.stayer} p-3 ${buttonColors.textColors.stayer}`}
             >
               滞在者
             </a>
           </Link>
           <Link href={pagesPath.roomHistory.$url()}>
             <a
-              className={`rounded-md ${buttonColors.bgColors.roomHistory} p-2 ${buttonColors.textColors.roomHistory}`}
+              className={`rounded-md ${buttonColors.bgColors.roomHistory} p-3 ${buttonColors.textColors.roomHistory}`}
             >
               滞在履歴
             </a>
           </Link>
           <Link href={pagesPath.userInformation.$url()}>
             <a
-              className={`rounded-md ${buttonColors.bgColors.userInformation} p-2 ${buttonColors.textColors.userInformation}`}
+              className={`rounded-md ${buttonColors.bgColors.userInformation} p-3 ${buttonColors.textColors.userInformation}`}
             >
               利用者情報
             </a>
           </Link>
           <Link href={pagesPath.floorMap.$url()}>
             <a
-              className={`rounded-md ${buttonColors.bgColors.floorMap} p-2 ${buttonColors.textColors.floorMap}`}
+              className={`rounded-md ${buttonColors.bgColors.floorMap} p-3 ${buttonColors.textColors.floorMap}`}
             >
               滞在者マップ
             </a>
