@@ -50,6 +50,13 @@ const customColors = {
   }
 }
 
+const customFonts = {
+  zenmaru: {
+    'light':['Zen Maru Gothic'],
+  }
+  
+}
+
 module.exports = {
   mode: 'jit',
   content: [
@@ -59,6 +66,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        zenmaru: ["Zen Maru Gothic"],
+      },
       colors: {
         forest: customColors.forest,
         gamboge: customColors.gamboge,
