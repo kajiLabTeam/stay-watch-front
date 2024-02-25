@@ -21,7 +21,7 @@ const Header = () => {
           {/* <p className={`bg-staywatch-accent text-staywatch-accent`}>aaa</p> */}
           <Link href={pagesPath.$url()}>
             <a
-              className={`rounded-md font-zenmaru ${buttonColors.bgColors.stayer} p-3 ${buttonColors.textColors.stayer}`}
+              className={`rounded-md ${buttonColors.bgColors.stayer} p-3 ${buttonColors.textColors.stayer}`}
             >
               滞在者
             </a>

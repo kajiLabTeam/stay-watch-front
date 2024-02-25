@@ -45,16 +45,9 @@ const customColors = {
     'green': '#00D098',
     'blue': '#2FB7FF',
     'red': '#FF104E',
-    'accent': '#44A5CB',
+    'accent': '#1E5266',
     'black': '#333333',
   }
-}
-
-const customFonts = {
-  zenmaru: {
-    'light':['Zen Maru Gothic'],
-  }
-  
 }
 
 module.exports = {
@@ -67,7 +60,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        zenmaru: ["Zen Maru Gothic"],
+        kosugi: ["Kosugi Maru"],
       },
       colors: {
         forest: customColors.forest,
