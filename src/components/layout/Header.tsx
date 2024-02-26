@@ -18,7 +18,7 @@ const Header = () => {
               <Image src='/logo.png' width={248} height={70} alt='logo' />
             </Link>
           </div>
-          {/* <p className={`bg-staywatch-accent text-staywatch-accent`}>aaa</p> */}
+          {/* <p className={`bg-staywatch-accent text-staywatch-accent`}>選択したボタンの背景色と文字色が変化</p> */}
           <Link href={pagesPath.$url()}>
             <a
               className={`rounded-md ${buttonColors.bgColors.stayer} p-3 ${buttonColors.textColors.stayer}`}

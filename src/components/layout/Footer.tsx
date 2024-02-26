@@ -33,7 +33,6 @@ const Footer = () => {
                   width={20}
                   height={20}
                 />
-                {/* <IconHome/> */}
                 <div>滞在者</div>
               </div>
             </a>
