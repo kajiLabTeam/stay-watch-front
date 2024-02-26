@@ -31,7 +31,7 @@ const UserInformation = () => {
                 {user.tags.map((tag, index) => (
                   <div className='' key={tag.id}>
                     {tag.name}
-                    {index !== user.tags.length - 1 && " , "}
+                    {index !== user.tags.length - 1 && ' , '}
                   </div>
                 ))}
               </td>
