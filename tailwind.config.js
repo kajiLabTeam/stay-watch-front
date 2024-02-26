@@ -1,3 +1,14 @@
+const customColors = {
+  staywatch: {
+    'main': '#F9EB76',
+    'green': '#00D098',
+    'blue': '#2FB7FF',
+    'red': '#FF104E',
+    'accent': '#1E5266',
+    'black': '#333333',
+  }
+}
+
 module.exports = {
   mode: 'jit',
   content: [
@@ -6,7 +17,14 @@ module.exports = {
     './src/features/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        kosugi: ["Kosugi Maru"],
+      },
+      colors: {
+        staywatch: customColors.staywatch,
+      },
+    },
     screens: {
       sm: '640px',
       md: '840px',

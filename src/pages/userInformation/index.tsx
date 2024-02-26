@@ -1,29 +1,15 @@
-import { NextPage, GetStaticProps, InferGetStaticPropsType } from 'next';
-import { SWRConfig } from 'swr';
+import { NextPage } from 'next';
+import { Suspense } from 'react';
+import ErrorBoundary from '@/components/common/ErrorBoundary';
 import UserInformation from '@/features/userInformation/UserInformation';
-import { endpoints } from '@/utils/api';
 
-type Props = InferGetStaticPropsType<typeof getStaticProps>;
-
-export const getStaticProps: GetStaticProps = async () => {
-  const API_URL = `${endpoints.users}/1`;
-  const res = await fetch(API_URL);
-  const data = await res.json();
-  return {
-    props: {
-      fallback: {
-        [API_URL]: data,
-      },
-    },
-  };
-};
-
-const UserInformationIndex: NextPage<Props> = (props) => {
-  const { fallback } = props;
+const UserInformationIndex: NextPage = () => {
   return (
-    <SWRConfig value={{ fallback }}>
-      <UserInformation />
-    </SWRConfig>
+    <ErrorBoundary>
+      <Suspense fallback={<div>loading...</div>}>
+        <UserInformation />
+      </Suspense>
+    </ErrorBoundary>
   );
 };
 
