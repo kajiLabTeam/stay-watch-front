@@ -2,6 +2,7 @@
 
 import type { AppProps } from 'next/app';
 import 'tailwindcss/tailwind.css';
+import '@mantine/core/styles.css';
 import { RecoilRoot } from 'recoil';
 import { SWRConfig } from 'swr';
 import Layout from '@/components/layout/Layout';
