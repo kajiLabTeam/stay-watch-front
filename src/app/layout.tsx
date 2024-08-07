@@ -7,6 +7,7 @@ import { SWRConfig } from 'swr';
 import Layout from '@/components/layout/Layout';
 import AuthEmail from '@/features/Auth/AuthEmail';
 import AuthToken from '@/features/Auth/AuthToken';
+import { MantineProvider } from '@mantine/core';
 
 // export const metadata = {
 //   title: '滞在ウォッチ',
@@ -27,15 +28,17 @@ export default function RootLayout({
       </head>
       <body>
       <RecoilRoot>
-        <SWRConfig value={{fetcher}}>
-          <Layout>
-            <AuthToken>
-              <AuthEmail>
-                {children}
-              </AuthEmail>
-            </AuthToken>
-          </Layout>
-        </SWRConfig>
+        <MantineProvider>
+          <SWRConfig value={{fetcher}}>
+            <Layout>
+              <AuthToken>
+                <AuthEmail>
+                  {children}
+                </AuthEmail>
+              </AuthToken>
+            </Layout>
+          </SWRConfig>
+        </MantineProvider>
       </RecoilRoot>
       </body>
     </html>

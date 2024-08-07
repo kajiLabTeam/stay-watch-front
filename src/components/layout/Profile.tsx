@@ -1,7 +1,6 @@
 "use client"
 import { Avatar } from '@mantine/core';
 import { Menu } from '@mantine/core';
-import { NextLink } from '@mantine/next';
 import { useState } from 'react';
 import { Confirmation } from '@/components/common/Confirmation';
 import { useUserState } from '@/globalStates/firebaseUserState';
@@ -30,7 +29,7 @@ export const Profile = () => {
           <Menu.Label>{user?.displayName}</Menu.Label>
           {/* 2の場合は研究室の管理者 */}
           {userRole != null && userRole === 2 && (
-            <Menu.Item component={NextLink} href={paths.admin.$url()}>
+            <Menu.Item>
               管理者ページ
             </Menu.Item>
           )}
