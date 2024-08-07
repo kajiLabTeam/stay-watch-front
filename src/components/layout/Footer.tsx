@@ -1,3 +1,4 @@
+"use client"
 //import { rem } from '@mantine/core'
 //import { IconHome } from '@tabler/icons';
 import Image from 'next/image';
@@ -14,7 +15,7 @@ const Footer = () => {
     <div>
       <header className='h-12 bg-staywatch-main text-center shadow-md'>
         <div className='pt-1'>
-          <Link href={pagesPath.$url()} passHref>
+          <Link href={pagesPath.stayer.$url()} passHref>
             <Image src='/logo.png' width={136} height={39} alt='logo' />
           </Link>
         </div>
@@ -23,7 +24,7 @@ const Footer = () => {
       <div className='fixed bottom-0 w-full'>
         <div className='flex h-16 items-center justify-evenly bg-staywatch-main text-white'>
           <Link href='/'>
-            <a>
+            <div>
               <div
                 className={`flex flex-col items-center gap-1 rounded-md py-1 px-2 ${buttonColors.bgColors.stayer} ${buttonColors.textColors.stayer}`}
               >
@@ -35,10 +36,10 @@ const Footer = () => {
                 />
                 <div>滞在者</div>
               </div>
-            </a>
+            </div>
           </Link>
           <Link href={pagesPath.roomHistory.$url()}>
-            <a>
+            <div>
               <div
                 className={`flex flex-col items-center gap-1 rounded-md py-1 px-2 ${buttonColors.bgColors.roomHistory} ${buttonColors.textColors.roomHistory}`}
               >
@@ -50,10 +51,10 @@ const Footer = () => {
                 />
                 <div>滞在履歴</div>
               </div>
-            </a>
+            </div>
           </Link>
           <Link href={pagesPath.userInformation.$url()}>
-            <a>
+            <div>
               <div
                 className={`flex flex-col items-center gap-1 rounded-md py-1 px-2 ${buttonColors.bgColors.userInformation} ${buttonColors.textColors.userInformation}`}
               >
@@ -65,10 +66,10 @@ const Footer = () => {
                 />
                 <div>利用者情報</div>
               </div>
-            </a>
+            </div>
           </Link>
           <Link href={pagesPath.floorMap.$url()}>
-            <a>
+            <div>
               <div
                 className={`flex flex-col items-center gap-1 rounded-md py-1 px-2 ${buttonColors.bgColors.floorMap} ${buttonColors.textColors.floorMap}`}
               >
@@ -80,7 +81,7 @@ const Footer = () => {
                 />
                 <div>滞在者マップ</div>
               </div>
-            </a>
+            </div>
           </Link>
         </div>
       </div>

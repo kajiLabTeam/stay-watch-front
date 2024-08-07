@@ -1,5 +1,5 @@
 // import axios from "axios";
-import { useRouter } from 'next/router';
+import { useRouter, usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { pagesPath } from '@/utils/$path';
 // import { baseURL } from "@/utils/api";
@@ -20,7 +20,7 @@ type Item = {
 
 export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
   const router = useRouter();
-  const { pathname } = router;
+  const pathname = usePathname();
   const selectedButtonTextColor = 'text-white';
   const unselectedButtonTextColor = 'text-staywatch-accent';
   const selectedButtonBgColor = 'bg-staywatch-accent';
@@ -52,7 +52,7 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
   });
 
   useEffect(() => {
-    if (pathname === pagesPath.$url().pathname) {
+    if (pathname === pagesPath.stayer.$url().pathname) {
       setButtonColors({
         bgColors: {
           stayer: selectedButtonBgColor,

@@ -1,3 +1,4 @@
+"use client"
 import Image from 'next/image';
 import Link from 'next/link';
 import { Profile } from '@/components/layout/Profile';
@@ -14,38 +15,38 @@ const Header = () => {
       <div className='flex h-20 items-center justify-around bg-staywatch-main text-xs font-bold shadow-md md:text-lg lg:text-2xl'>
         <div className='flex h-full items-center gap-8'>
           <div className='mt-2 cursor-pointer'>
-            <Link href={pagesPath.$url()} passHref>
+            <Link href={pagesPath.stayer.$url()} passHref>
               <Image src='/logo.png' width={248} height={70} alt='logo' />
             </Link>
           </div>
           {/* <p className={`bg-staywatch-accent text-staywatch-accent`}>選択したボタンの背景色と文字色が変化</p> */}
-          <Link href={pagesPath.$url()}>
-            <a
+          <Link href={pagesPath.stayer.$url()}>
+            <div
               className={`rounded-md ${buttonColors.bgColors.stayer} p-3 ${buttonColors.textColors.stayer}`}
             >
               滞在者
-            </a>
+            </div>
           </Link>
           <Link href={pagesPath.roomHistory.$url()}>
-            <a
+            <div
               className={`rounded-md ${buttonColors.bgColors.roomHistory} p-3 ${buttonColors.textColors.roomHistory}`}
             >
               滞在履歴
-            </a>
+            </div>
           </Link>
           <Link href={pagesPath.userInformation.$url()}>
-            <a
+            <div
               className={`rounded-md ${buttonColors.bgColors.userInformation} p-3 ${buttonColors.textColors.userInformation}`}
             >
               利用者情報
-            </a>
+            </div>
           </Link>
           <Link href={pagesPath.floorMap.$url()}>
-            <a
+            <div
               className={`rounded-md ${buttonColors.bgColors.floorMap} p-3 ${buttonColors.textColors.floorMap}`}
             >
               滞在者マップ
-            </a>
+            </div>
           </Link>
         </div>
         <div className='text-center'>
