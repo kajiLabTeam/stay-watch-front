@@ -37,25 +37,6 @@ export default function RootLayout({
           </Layout>
         </SWRConfig>
       </RecoilRoot>
-        {/* <div>{children}</div> */}
-        {/* <RecoilRoot>
-          <SWRConfig
-            value={{
-              fetcher,
-            }}
-          >
-            <Layout>
-              <AuthToken>
-                <AuthEmail>
-                  {children}
-                  <div>
-                    あいうえお
-                  </div>
-                </AuthEmail>
-              </AuthToken>
-            </Layout>
-          </SWRConfig>
-        </RecoilRoot> */}
       </body>
     </html>
   );

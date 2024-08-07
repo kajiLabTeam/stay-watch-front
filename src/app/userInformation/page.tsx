@@ -1,16 +1,17 @@
+"use client"
 import { NextPage } from 'next';
 import { Suspense } from 'react';
 import ErrorBoundary from '@/components/common/ErrorBoundary';
-import { FloorMapCanvas } from '@/features/floorMap/FloorMapCanvas';
+import UserInformation from '@/features/userInformation/UserInformation';
 
-const FloorMapPage: NextPage = () => {
+const UserInformationIndex: NextPage = () => {
   return (
     <ErrorBoundary>
       <Suspense fallback={<div>loading...</div>}>
-        <FloorMapCanvas />
+        <UserInformation />
       </Suspense>
     </ErrorBoundary>
   );
 };
 
-export default FloorMapPage;
+export default UserInformationIndex;

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { useHeaderButtonColor } from '@/hooks/commonhook';
 import { pagesPath } from '@/utils/$path';
+import { paths } from '@/utils/path';
 
 const Footer = () => {
   const buttonColors = useHeaderButtonColor();
@@ -15,8 +16,8 @@ const Footer = () => {
     <div>
       <header className='h-12 bg-staywatch-main text-center shadow-md'>
         <div className='pt-1'>
-          <Link href={pagesPath.stayer.$url()} passHref>
-            <Image src='/logo.png' width={136} height={39} alt='logo' />
+          <Link href={paths.stayer.$url()} passHref>
+            <Image src='/logo.png' width={136} height={39} alt='logo' className='mx-auto'/>
           </Link>
         </div>
       </header>
@@ -38,7 +39,7 @@ const Footer = () => {
               </div>
             </div>
           </Link>
-          <Link href={pagesPath.roomHistory.$url()}>
+          <Link href={paths.roomHistory.$url()}>
             <div>
               <div
                 className={`flex flex-col items-center gap-1 rounded-md py-1 px-2 ${buttonColors.bgColors.roomHistory} ${buttonColors.textColors.roomHistory}`}
@@ -53,7 +54,7 @@ const Footer = () => {
               </div>
             </div>
           </Link>
-          <Link href={pagesPath.userInformation.$url()}>
+          <Link href={paths.userInformation.$url()}>
             <div>
               <div
                 className={`flex flex-col items-center gap-1 rounded-md py-1 px-2 ${buttonColors.bgColors.userInformation} ${buttonColors.textColors.userInformation}`}
@@ -68,7 +69,7 @@ const Footer = () => {
               </div>
             </div>
           </Link>
-          <Link href={pagesPath.floorMap.$url()}>
+          <Link href={paths.floorMap.$url()}>
             <div>
               <div
                 className={`flex flex-col items-center gap-1 rounded-md py-1 px-2 ${buttonColors.bgColors.floorMap} ${buttonColors.textColors.floorMap}`}

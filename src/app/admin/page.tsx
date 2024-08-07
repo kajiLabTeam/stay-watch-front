@@ -1,16 +1,17 @@
+"use client"
 import { NextPage } from 'next';
 import { Suspense } from 'react';
 import ErrorBoundary from '@/components/common/ErrorBoundary';
-import UserInformation from '@/features/userInformation/UserInformation';
+import { Admin } from '@/features/admin/components/Admin';
 
-const UserInformationIndex: NextPage = () => {
+const AdminPage: NextPage = () => {
   return (
     <ErrorBoundary>
       <Suspense fallback={<div>loading...</div>}>
-        <UserInformation />
+        <Admin />
       </Suspense>
     </ErrorBoundary>
   );
 };
 
-export default UserInformationIndex;
+export default AdminPage;

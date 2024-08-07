@@ -1,16 +1,17 @@
+"use client"
 import { NextPage } from 'next';
 import { Suspense } from 'react';
 import ErrorBoundary from '@/components/common/ErrorBoundary';
-import RoomHistory from '@/features/roomHistory/RoomHistory';
+import { Admin } from '@/features/admin/components/Admin';
 
-const RoomHistoryPage: NextPage = () => {
-  // const { fallback } = props;
+const AdminPage: NextPage = () => {
   return (
     <ErrorBoundary>
       <Suspense fallback={<div>loading...</div>}>
-        <RoomHistory />
+        <Admin />
       </Suspense>
     </ErrorBoundary>
   );
 };
-export default RoomHistoryPage;
+
+export default AdminPage;
