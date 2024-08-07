@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { Profile } from '@/components/layout/Profile';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { useHeaderButtonColor } from '@/hooks/commonhook';
-import { pagesPath } from '@/utils/$path';
 import { paths } from '@/utils/path';
 
 const Header = () => {

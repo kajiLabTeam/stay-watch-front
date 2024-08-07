@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { Confirmation } from '@/components/common/Confirmation';
 import { useUserState } from '@/globalStates/firebaseUserState';
 import { useUserRoleState } from '@/globalStates/userRoleState';
-import { pagesPath } from '@/utils/$path';
 import { logout } from '@/utils/Auth';
 import { paths } from '@/utils/path';
 

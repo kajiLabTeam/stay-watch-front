@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { useHeaderButtonColor } from '@/hooks/commonhook';
-import { pagesPath } from '@/utils/$path';
 import { paths } from '@/utils/path';
 
 const Footer = () => {
