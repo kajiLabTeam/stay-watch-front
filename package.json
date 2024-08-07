@@ -5,8 +5,6 @@
   "scripts": {
     "dev": "run-p dev:*",
     "dev:next": "next dev",
-    "dev:path": "pathpida --ignorePath .gitignore --watch",
-    "dev:fixPathPrettier": "prettier --write src/utils/\\$path.ts",
     "build": "next build",
     "start": "next start",
     "lint": "run-p lint:*",
