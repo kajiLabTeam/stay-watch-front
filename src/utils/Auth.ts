@@ -7,7 +7,7 @@ import {
   onAuthStateChanged,
 } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import { endpoints } from './api';
+import { endpoints } from './endpoint';
 import { useUserMutators, useUserState } from '@/globalStates/firebaseUserState';
 import { useCommunityMutators } from '@/globalStates/useCommunityState';
 import { useUserRoleMutators } from '@/globalStates/userRoleState';

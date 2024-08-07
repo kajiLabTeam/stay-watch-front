@@ -17,7 +17,7 @@ export const Admin = () => {
   return (
     <Tabs
       value={activeTab}
-      onTabChange={setActiveTab}
+      onChange={setActiveTab}
       orientation={'vertical'}
       variant={'outline'}
       color={'blue'}
@@ -37,6 +37,7 @@ export const Admin = () => {
 
       <Tabs.Panel value='first' className='border-l-4'>
         <UserEditor />
+        {/* <div>firstdayo</div> */}
       </Tabs.Panel>
       <Tabs.Panel value='second' className='border-l-4'>
         <EditFloorMap />

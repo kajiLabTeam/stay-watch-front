@@ -4,7 +4,7 @@ import { useEditingMapState } from '@/features/admin/editFloorMap/globalstate/ed
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
 import { EditorRoom, Building } from '@/types/roomFloormap';
-import { endpoints } from '@/utils/api';
+import { endpoints } from '@/utils/endpoint';
 
 // マップデータ描画するのに必要なオブジェクト
 const mapsDataState = atom({

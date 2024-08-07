@@ -7,7 +7,7 @@ import { useCurrentPage } from './roomHistoryhook';
 import { Button } from '@/components/common/Button';
 import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
 import Log from '@/types/log';
-import { endpoints } from '@/utils/api';
+import { endpoints } from '@/utils/endpoint';
 
 const RoomHistory = () => {
   useDocumentTitle('滞在者履歴');

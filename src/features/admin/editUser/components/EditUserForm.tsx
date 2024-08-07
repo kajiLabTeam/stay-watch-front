@@ -1,3 +1,4 @@
+"use client"
 import { TextInput, MultiSelect, Select, LoadingOverlay, Alert } from '@mantine/core';
 import { Button, Modal } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
@@ -13,13 +14,13 @@ import { useEditingUserMutators } from '@/features/admin/editUser/globalState/ed
 import { useSelectTags } from '@/features/admin/editUser/hooks/tagSelector';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { UserEditor } from '@/types/user';
-import { endpoints } from '@/utils/api';
+import { endpoints } from '@/utils/endpoint';
 
 export const EditUserForm = (props: { user: UserEditor }) => {
   const { user } = props;
   const community = useCommunityState();
   const selectTags = useSelectTags();
-  const currentTagIds = user.tags.map((tag) => tag.id);
+  const currentTagIds = user.tags.map((tag) => tag.id.toString());
   const [visible] = useDisclosure(true);
   const [opened, { open, close }] = useDisclosure(false);
   const { mutate } = useSWRConfig();
@@ -58,7 +59,7 @@ export const EditUserForm = (props: { user: UserEditor }) => {
       name: user.name,
       uuid: user.uuid.slice(-5),
       email: user.email,
-      role: user.role,
+      role: user.role.toString(),
       communityId: 0,
       beaconName: user.beaconName,
       tagIds: currentTagIds,
@@ -69,7 +70,7 @@ export const EditUserForm = (props: { user: UserEditor }) => {
   return (
     <div>
       {(loadingDeleteUser || loadingUpdateUser) && (
-        <LoadingOverlay visible={visible} overlayBlur={3} />
+        <LoadingOverlay visible={visible} overlayProps={{blur: 3}} />
       )}
       <Modal opened={opened} onClose={close} title='削除確認'>
         <div className='my-4 border' />
@@ -140,7 +141,7 @@ export const EditUserForm = (props: { user: UserEditor }) => {
           />
           <div className='flex pt-3'>
             <div className='mr-auto space-x-4'>
-              <Button type='submit' className='bg-blue-400' color='blue'>
+              <Button type='submit' className='bg-staywatch-accent' color='#1e5266'>
                 保存
               </Button>
               <Button

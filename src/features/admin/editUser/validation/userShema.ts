@@ -15,10 +15,10 @@ export const userSchema = z.object({
     .regex(new RegExp('^$|@gmail.com$'), { message: '〜@gmail.comの形式で入力してください' }),
   // .email({ message: '有効なメールアドレスを入力してください' })
   // .min(1, { message: '必須項目です' }),
-  role: z.number(),
+  role: z.string(),
   communityId: z.number(),
   beaconName: z.string().min(1, { message: '必須項目です' }),
-  tagIds: z.array(z.number()).min(1, { message: '少なくとも1つは選択してください' }),
+  tagIds: z.array(z.string()).min(1, { message: '少なくとも1つは選択してください' }),
 });
 
 export type CreateInputType = z.infer<typeof userSchema>;

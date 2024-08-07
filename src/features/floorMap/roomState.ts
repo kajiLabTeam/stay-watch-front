@@ -3,7 +3,7 @@ import { useCommunityState } from '@/globalStates/useCommunityState';
 import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
 import { EditorRoom, ViewerRoom } from '@/types/roomFloormap';
 import StayerType from '@/types/stayer';
-import { endpoints } from '@/utils/api';
+import { endpoints } from '@/utils/endpoint';
 
 export const useRoomState = () => {
   const community = useCommunityState();

@@ -5,7 +5,7 @@ import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
 import { EditorRoom, Building, SubmitRoom } from '@/types/roomFloormap';
-import { endpoints } from '@/utils/api';
+import { endpoints } from '@/utils/endpoint';
 
 const editingMapState = atom({
   key: 'editingMapAtom',

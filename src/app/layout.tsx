@@ -1,7 +1,8 @@
 "use client"
 
 import type { AppProps } from 'next/app';
-import 'tailwindcss/tailwind.css';
+// import 'tailwindcss/tailwind.css';
+import "./globals.css";
 import '@mantine/core/styles.css';
 import { RecoilRoot } from 'recoil';
 import { SWRConfig } from 'swr';

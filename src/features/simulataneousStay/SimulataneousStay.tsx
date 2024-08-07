@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import TabDate from '@/features/simulataneousStay/TabDate';
 import { User } from '@/types/user';
-import { baseURL } from '@/utils/api';
+import { baseURL } from '@/utils/endpoint';
 
 type selectUser = {
   value: string;

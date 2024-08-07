@@ -2,7 +2,7 @@ import { useDocumentTitle } from '@mantine/hooks';
 import useSWR from 'swr';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { UserAttribute } from '@/types/user';
-import { endpoints } from '@/utils/api';
+import { endpoints } from '@/utils/endpoint';
 
 const UserInformation = () => {
   useDocumentTitle('利用者一覧');

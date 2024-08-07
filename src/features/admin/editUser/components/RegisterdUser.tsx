@@ -1,4 +1,5 @@
-import React from 'react';
+"use client"
+import React, { useState } from 'react';
 import { roleSelector } from '../constants/roleSelector';
 import { EditUserForm } from '@/features/admin/editUser/components/EditUserForm';
 import {
@@ -15,6 +16,7 @@ export const RegisterdUser = (props: { user: UserEditor }) => {
   return (
     <>
       {user.id === editingUserId && (
+        // フォーム表示
         <tr className='bg-gray-50 md:text-xl'>
           <td colSpan={5}>
             <EditUserForm user={user} />

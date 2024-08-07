@@ -3,7 +3,7 @@ import { formatStayerDataForTable } from './utils';
 import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
 import { EditorRoom } from '@/types/roomFloormap';
 import StayerType from '@/types/stayer';
-import { endpoints } from '@/utils/api';
+import { endpoints } from '@/utils/endpoint';
 
 const Stayer = () => {
   useDocumentTitle('滞在者一覧');

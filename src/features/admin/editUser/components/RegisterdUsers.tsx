@@ -1,9 +1,10 @@
+"use client"
 import React from 'react';
 import { RegisterdUser } from './RegisterdUser';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
 import { UserEditor } from '@/types/user';
-import { endpoints } from '@/utils/api';
+import { endpoints } from '@/utils/endpoint';
 
 export const RegisterdUsers = () => {
   const community = useCommunityState();
