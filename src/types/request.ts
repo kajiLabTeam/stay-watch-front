@@ -6,10 +6,10 @@ type UserRequestBase = {
   communityId: number;
   beaconName: string;
   tagIds: number[];
-}
+};
 
-export type CreateUserRequest = UserRequestBase
+export type CreateUserRequest = UserRequestBase;
 
 export type UpdateUserRequest = UserRequestBase & {
   id: number;
-}
+};

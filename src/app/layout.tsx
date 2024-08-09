@@ -1,53 +1,39 @@
-import type { AppProps } from 'next/app';
-// import 'tailwindcss/tailwind.css';
-import "./globals.css";
+import './globals.css';
 import '@mantine/core/styles.css';
-import { RecoilRoot } from 'recoil';
-import { SWRConfig } from 'swr';
+import { MantineProvider } from '@mantine/core';
+import { Metadata } from 'next';
+import React from 'react';
 import Layout from '@/components/layout/Layout';
 import AuthEmail from '@/features/Auth/AuthEmail';
 import AuthToken from '@/features/Auth/AuthToken';
-import { MantineProvider } from '@mantine/core';
-import { kosugiMaru } from '@/utils/fonts';
-import { Metadata } from 'next';
 import { RecoilProvider } from '@/features/admin/editUser/globalState/RecoilProvider';
 import { SWRProvider } from '@/features/admin/editUser/globalState/SWRProvider';
+import { kosugiMaru } from '@/utils/fonts';
 
 export const metadata: Metadata = {
   title: '滞在ウォッチ',
   description: 'コミュニティにおけるメンバーの滞在情報・履歴の確認ができるサービスです。',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ja">
-      <body  className={`${kosugiMaru.className}`}>
-      <RecoilProvider>
-        <MantineProvider>
-          <SWRProvider>
-            <Layout>
-              <AuthToken>
-                <AuthEmail>
-                  {children}
-                </AuthEmail>
-              </AuthToken>
-            </Layout>
-          </SWRProvider>
-        </MantineProvider>
-      </RecoilProvider>
+    <html lang='ja'>
+      <body className={`${kosugiMaru.className}`}>
+        <RecoilProvider>
+          <MantineProvider>
+            <SWRProvider>
+              <Layout>
+                <AuthToken>
+                  <AuthEmail>{children}</AuthEmail>
+                </AuthToken>
+              </Layout>
+            </SWRProvider>
+          </MantineProvider>
+        </RecoilProvider>
       </body>
     </html>
   );
 }
-
-
-
-
-
 
 // const fetcher = (url: string) => fetch(url).then((res) => res.json());
 

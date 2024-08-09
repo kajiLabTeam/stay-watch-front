@@ -1,7 +1,7 @@
-"use client"
-import ErrorBoundary from "@/components/common/ErrorBoundary";
-import Stayer from "@/features/stayer/Stayer";
-import { Suspense } from "react";
+'use client';
+import { Suspense } from 'react';
+import ErrorBoundary from '@/components/common/ErrorBoundary';
+import Stayer from '@/features/stayer/Stayer';
 
 const Home = () => {
   return (

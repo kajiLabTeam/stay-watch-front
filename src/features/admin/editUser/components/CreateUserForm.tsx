@@ -1,10 +1,10 @@
-"use client"
+'use client';
 import { TextInput, MultiSelect, Select, LoadingOverlay, Alert } from '@mantine/core';
 import { Button } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useSWRConfig } from 'swr';
 import { roleSelector } from '../constants/roleSelector';
@@ -13,8 +13,8 @@ import { beaconSelector } from '@/features/admin/editUser/constants/beaconSelect
 import { useAlertModeMutators } from '@/features/admin/editUser/globalState/alertModeState';
 import { useSelectTags } from '@/features/admin/editUser/hooks/tagSelector';
 import { useCommunityState } from '@/globalStates/useCommunityState';
-import { endpoints } from '@/utils/endpoint';
 import { CreateUserRequest } from '@/types/request';
+import { endpoints } from '@/utils/endpoint';
 
 export const CreateUserForm = () => {
   const community = useCommunityState();
@@ -31,20 +31,17 @@ export const CreateUserForm = () => {
 
   // const [{ value, loading, error }, doFetch] = useAsyncFn(async (values) => {  // こうするとvalueもとれる。
   const [{ loading, error }, submitCreateUser] = useAsyncFn(async (values) => {
-    console.log(values)
-    let numTagIds:number[] = [];
-    values.tagIds.map((tagId: string) => (
-      numTagIds.push(parseInt(tagId))
-    ));
-    let createUserRequest:CreateUserRequest = {
+    let numTagIds: number[] = [];
+    values.tagIds.map((tagId: string) => numTagIds.push(parseInt(tagId)));
+    let createUserRequest: CreateUserRequest = {
       name: values.name,
       uuid: values.uuid,
       email: values.email,
       role: parseInt(values.role),
       communityId: community.communityId,
       beaconName: values.beaconName,
-      tagIds: numTagIds
-    }
+      tagIds: numTagIds,
+    };
     await axios.post(endpoints.users, createUserRequest);
     // これより下は成功した時のみ動作する
     mutate(`${endpoints.adminUsers}/${community.communityId}`);
@@ -66,8 +63,6 @@ export const CreateUserForm = () => {
   });
 
   useEffect(() => {
-    console.log("beaconName変わったよ")
-    console.log(form.values)
     if (form.values.beaconName === 'FCS1301') {
       form.setValues({ uuid: '' });
     } else {
@@ -79,7 +74,7 @@ export const CreateUserForm = () => {
 
   return (
     <div>
-      {loading && <LoadingOverlay visible={visible} overlayProps={{blur: 3}} />}
+      {loading && <LoadingOverlay visible={visible} overlayProps={{ blur: 3 }} />}
       <div className='rounded-lg bg-slate-200'>
         <h1 className='pt-4 text-center text-3xl font-bold text-slate-800'>新規登録</h1>
         <form
@@ -141,7 +136,6 @@ export const CreateUserForm = () => {
               エラーが発生しました
             </Alert>
           )}
-
         </form>
       </div>
     </div>

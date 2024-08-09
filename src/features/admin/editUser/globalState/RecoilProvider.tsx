@@ -1,14 +1,16 @@
-"use client"
+'use client';
 
-import { FC, ReactNode, memo } from "react"
-import { RecoilRoot } from "recoil"
+import { FC, ReactNode, memo } from 'react';
+import { RecoilRoot } from 'recoil';
 
 type Props = {
-  children: ReactNode
-}
+  children: ReactNode;
+};
 
 export const RecoilProvider: FC<Props> = memo((props) => {
-  const { children } = props
+  const { children } = props;
 
-  return <RecoilRoot>{children}</RecoilRoot>
-})
+  return <RecoilRoot>{children}</RecoilRoot>;
+});
+
+RecoilProvider.displayName = 'RecoilProvider';

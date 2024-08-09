@@ -1,18 +1,17 @@
-"use client"
-import ErrorBoundary from "@/components/common/ErrorBoundary";
-import Stayer from "@/features/stayer/Stayer";
-import { Suspense } from "react";
-import { useRouter } from "next/navigation";
+'use client';
+import { useRouter } from 'next/navigation';
+import { Suspense } from 'react';
+import ErrorBoundary from '@/components/common/ErrorBoundary';
 
 const Home = () => {
-  const router = useRouter()
-  router.push("/stayer")
-  router.refresh()
+  const router = useRouter();
+  router.push('/stayer');
+  router.refresh();
 
   return (
     <ErrorBoundary>
       <Suspense fallback={<div>loading...</div>}>
-        <div></div>
+        <div />
       </Suspense>
     </ErrorBoundary>
   );

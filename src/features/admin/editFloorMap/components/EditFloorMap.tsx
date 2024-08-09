@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import { BuildingSelector } from '@/features/admin/editFloorMap/components/BuildingSelector';
 import { MapCanvas } from '@/features/admin/editFloorMap/components/MapCanvas';
 import { RegisterdRooms } from '@/features/admin/editFloorMap/components/RegisterdRooms';

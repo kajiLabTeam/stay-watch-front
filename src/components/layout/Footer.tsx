@@ -1,4 +1,4 @@
-"use client"
+'use client';
 //import { rem } from '@mantine/core'
 //import { IconHome } from '@tabler/icons';
 import Image from 'next/image';
@@ -16,7 +16,7 @@ const Footer = () => {
       <header className='h-12 bg-staywatch-main text-center shadow-md'>
         <div className='pt-1'>
           <Link href={paths.stayer.$url()} passHref>
-            <Image src='/logo.png' width={136} height={39} alt='logo' className='mx-auto'/>
+            <Image src='/logo.png' width={136} height={39} alt='logo' className='mx-auto' />
           </Link>
         </div>
       </header>

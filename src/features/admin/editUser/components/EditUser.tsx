@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import { Alert } from '@mantine/core';
 import { CreateUserForm } from '@/features/admin/editUser/components/CreateUserForm';
 import { RegisterdUsers } from '@/features/admin/editUser/components/RegisterdUsers';

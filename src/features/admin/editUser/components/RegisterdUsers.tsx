@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import React from 'react';
 import { RegisterdUser } from './RegisterdUser';
 import { useCommunityState } from '@/globalStates/useCommunityState';

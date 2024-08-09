@@ -1,7 +1,7 @@
-import { Inter, Kosugi_Maru } from "next/font/google";
+import { Kosugi_Maru } from 'next/font/google';
 
 export const kosugiMaru = Kosugi_Maru({
-  subsets: ["latin"],
-  display: "swap",
-  weight: "400"
-})
+  subsets: ['latin'],
+  display: 'swap',
+  weight: '400',
+});

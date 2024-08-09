@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import { NextPage } from 'next';
 import { Suspense } from 'react';
 import ErrorBoundary from '@/components/common/ErrorBoundary';

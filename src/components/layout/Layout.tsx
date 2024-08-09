@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import { ReactNode } from 'react';
 import { useWindowSize } from 'usehooks-ts';
 import Foot from '@/components/layout/Footer';

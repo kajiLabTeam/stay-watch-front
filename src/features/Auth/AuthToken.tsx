@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import 'tailwindcss/tailwind.css';
 import { FC, ReactNode } from 'react';
 import NotLogin from '@/components/common/NotLogin';
