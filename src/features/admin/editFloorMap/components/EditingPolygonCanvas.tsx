@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 
 import { useEditingPolygonCanvas } from '@/features/admin/editFloorMap/hooks/useEditingPolygonCanvas';

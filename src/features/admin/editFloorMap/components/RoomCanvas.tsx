@@ -1,3 +1,4 @@
+'use client';
 import React, { useEffect, useRef, RefObject } from 'react';
 import { useUserRoleState } from '@/globalStates/userRoleState';
 

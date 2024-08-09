@@ -1,3 +1,4 @@
+'use client';
 import { useRef, useEffect, useState } from 'react';
 import React from 'react';
 import { useRoomState } from '@/features/floorMap/roomState';

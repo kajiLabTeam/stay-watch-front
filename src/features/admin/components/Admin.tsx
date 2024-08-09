@@ -1,3 +1,4 @@
+'use client';
 import { Tabs } from '@mantine/core';
 import { useDocumentTitle } from '@mantine/hooks';
 import { useState } from 'react';

@@ -14,19 +14,21 @@ const RoomHistory = () => {
   const { width } = useWindowSize();
 
   const [page, PreviousPage, NextPage] = useCurrentPage();
-  const { data: logs } = useSuspenseSWR<Log[]>(`${endpoints.logs}?page=${page}`);
+  const { data: logs, isLoading } = useSuspenseSWR<Log[]>(`${endpoints.logs}?page=${page}`);
   const [isGantt, setIsGantt] = useState(false);
 
   const nextButton = () => {
     //最後のデータだった時
-    if (logs.slice(-1)[0]?.id === 1) {
-      return <div />;
+    if (logs) {
+      if (logs.slice(-1)[0]?.id === 1) {
+        return <div />;
+      }
+      return (
+        <Button color='blue' onClick={NextPage}>
+          次へ
+        </Button>
+      );
     }
-    return (
-      <Button color='blue' onClick={NextPage}>
-        次へ
-      </Button>
-    );
   };
 
   const prevButton = () => {
@@ -42,32 +44,34 @@ const RoomHistory = () => {
   };
 
   const Period = () => {
-    return [...logs].map((log) => {
-      if (log.endAt === '2016-01-01 00:00:00') {
-        //退出してない場合
+    if (isLoading) return <div>ローディング中だよ</div>;
+    if (logs)
+      return [...logs].map((log) => {
+        if (log.endAt === '2016-01-01 00:00:00') {
+          //退出してない場合
+          return (
+            <tr className='text-left' key={log.id}>
+              <td className='border py-2 md:px-4 '>{log.startAt.substring(0, 10)}</td>
+              <td className='border px-4 py-2'>{log.name}</td>
+              <td className='border px-4 py-2'>
+                {log.startAt.substring(10, log.startAt.length - 3)} ~
+              </td>
+              <td className='border px-4 py-2'>{log.room}</td>
+            </tr>
+          );
+        }
         return (
           <tr className='text-left' key={log.id}>
-            <td className='border py-2 md:px-4 '>{log.startAt.substring(0, 10)}</td>
+            <td className='border py-2 md:px-4'>{log.startAt.substring(0, 10)}</td>
             <td className='border px-4 py-2'>{log.name}</td>
             <td className='border px-4 py-2'>
               {log.startAt.substring(10, log.startAt.length - 3)} ~
+              {log.endAt.substring(10, log.endAt.length - 3)}
             </td>
             <td className='border px-4 py-2'>{log.room}</td>
           </tr>
         );
-      }
-      return (
-        <tr className='text-left' key={log.id}>
-          <td className='border py-2 md:px-4'>{log.startAt.substring(0, 10)}</td>
-          <td className='border px-4 py-2'>{log.name}</td>
-          <td className='border px-4 py-2'>
-            {log.startAt.substring(10, log.startAt.length - 3)} ~
-            {log.endAt.substring(10, log.endAt.length - 3)}
-          </td>
-          <td className='border px-4 py-2'>{log.room}</td>
-        </tr>
-      );
-    });
+      });
   };
 
   return (

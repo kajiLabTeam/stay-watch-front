@@ -10,28 +10,33 @@ import { endpoints } from '@/utils/endpoint';
 
 export const EditFloorMap = () => {
   const community = useCommunityState();
-  const { data: rooms } = useSuspenseSWR<EditorRoom[]>(
+  const { data: rooms, isLoading: roomsIsLoading } = useSuspenseSWR<EditorRoom[]>(
     `${endpoints.getRoomsEditorByCommunityID}/${community.communityId}`,
   );
-  const { data: buildings } = useSuspenseSWR<Building[]>(`${endpoints.getBuildingsEditor}`);
+  const { data: buildings, isLoading: buildingsIsLoading } = useSuspenseSWR<Building[]>(
+    `${endpoints.getBuildingsEditor}`,
+  );
   const { currentSelectedBuildingIndex } = useEditingMapState();
 
-  return (
-    <div>
-      <div className='flex'>
-        <div className='w-full'>
-          <BuildingSelector buildings={buildings} />
-          <MapCanvas
-            buildingImagePath={buildings[currentSelectedBuildingIndex].buildingImagePath}
-            currentSelectedBuildingId={buildings[currentSelectedBuildingIndex].buildingId}
-          />
-        </div>
-        <div className='mt-10 w-1/4 rounded-lg border border-red-500'>
-          <RegisterdRooms rooms={rooms} buildings={buildings} />
+  if (roomsIsLoading || buildingsIsLoading) return <div>loadingda...</div>;
+  if (buildings && rooms)
+    return (
+      <div>
+        <div className='flex'>
+          <div className='w-full'>
+            <BuildingSelector buildings={buildings} />
+            <MapCanvas
+              buildingImagePath={buildings[currentSelectedBuildingIndex].buildingImagePath}
+              currentSelectedBuildingId={buildings[currentSelectedBuildingIndex].buildingId}
+            />
+          </div>
+          <div className='mt-10 w-1/4 rounded-lg border border-red-500'>
+            <RegisterdRooms rooms={rooms} buildings={buildings} />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  return <></>;
 };
 
 export default EditFloorMap;

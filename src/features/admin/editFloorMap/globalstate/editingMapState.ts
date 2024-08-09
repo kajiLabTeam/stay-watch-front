@@ -80,12 +80,14 @@ export const useEditingMapMutators = () => {
   );
 
   const setCurrentSelectedBuildingIndex = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setEditingMap((prev) => ({
-      ...prev,
-      currentSelectedBuildingIndex: buildings.findIndex(
-        (building) => building.buildingName === event.target.value,
-      ),
-    }));
+    if (buildings) {
+      setEditingMap((prev) => ({
+        ...prev,
+        currentSelectedBuildingIndex: buildings.findIndex(
+          (building) => building.buildingName === event.target.value,
+        ),
+      }));
+    }
   };
 
   const setIsEditingRoom = (isEditingRoom: boolean) => {

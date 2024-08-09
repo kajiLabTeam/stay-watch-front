@@ -35,7 +35,7 @@ export const useRoomState = () => {
       });
       setViewerRooms(tmpViewerRooms);
     }
-  }, [rooms, stayers]);
+  }, [stayers, rooms]);
 
   return { viewerRooms };
 };
