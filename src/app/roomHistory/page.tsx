@@ -1,10 +1,9 @@
 'use client';
-import { NextPage } from 'next';
 import { Suspense } from 'react';
 import ErrorBoundary from '@/components/common/ErrorBoundary';
 import RoomHistory from '@/features/roomHistory/RoomHistory';
 
-const RoomHistoryPage: NextPage = () => {
+const RoomHistoryPage = () => {
   // const { fallback } = props;
   return (
     <ErrorBoundary>

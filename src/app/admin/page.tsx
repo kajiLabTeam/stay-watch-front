@@ -1,10 +1,9 @@
 'use client';
-import { NextPage } from 'next';
 import { Suspense } from 'react';
 import ErrorBoundary from '@/components/common/ErrorBoundary';
 import { Admin } from '@/features/admin/components/Admin';
 
-const AdminPage: NextPage = () => {
+const AdminPage = () => {
   return (
     <ErrorBoundary>
       <Suspense fallback={<div>loading...</div>}>
