@@ -10,6 +10,7 @@ import Layout from '@/components/layout/Layout';
 import AuthEmail from '@/features/Auth/AuthEmail';
 import AuthToken from '@/features/Auth/AuthToken';
 import { MantineProvider } from '@mantine/core';
+import { kosugiMaru } from '@/utils/fonts';
 
 // export const metadata = {
 //   title: '滞在ウォッチ',
@@ -28,7 +29,7 @@ export default function RootLayout({
       <head>
         
       </head>
-      <body>
+      <body  className={`${kosugiMaru.className}`}>
       <RecoilRoot>
         <MantineProvider>
           <SWRConfig value={{fetcher}}>
