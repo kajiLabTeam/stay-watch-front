@@ -48,23 +48,23 @@ const RoomHistory = () => {
         return (
           <tr className='text-left' key={log.id}>
             <td className='border py-2 md:px-4 '>{log.startAt.substring(0, 10)}</td>
-            <td className='border py-2 px-4'>{log.name}</td>
-            <td className='border py-2 px-4'>
+            <td className='border px-4 py-2'>{log.name}</td>
+            <td className='border px-4 py-2'>
               {log.startAt.substring(10, log.startAt.length - 3)} ~
             </td>
-            <td className='border py-2 px-4'>{log.room}</td>
+            <td className='border px-4 py-2'>{log.room}</td>
           </tr>
         );
       }
       return (
         <tr className='text-left' key={log.id}>
           <td className='border py-2 md:px-4'>{log.startAt.substring(0, 10)}</td>
-          <td className='border py-2 px-4'>{log.name}</td>
-          <td className='border py-2 px-4'>
+          <td className='border px-4 py-2'>{log.name}</td>
+          <td className='border px-4 py-2'>
             {log.startAt.substring(10, log.startAt.length - 3)} ~
             {log.endAt.substring(10, log.endAt.length - 3)}
           </td>
-          <td className='border py-2 px-4'>{log.room}</td>
+          <td className='border px-4 py-2'>{log.room}</td>
         </tr>
       );
     });
@@ -97,7 +97,7 @@ const RoomHistory = () => {
           <table className='w-full table-fixed text-xs sm:text-base md:text-2xl'>
             <thead>
               <tr className='bg-staywatch-black text-left text-white'>
-                <th className='w-1/5 border py-2  px-4'>日にち</th>
+                <th className='w-1/5 border px-4  py-2'>日にち</th>
                 <th className=' border  px-4'>名前</th>
                 <th className=' border px-4'>時刻</th>
                 <th className=' border px-4'>部屋</th>
