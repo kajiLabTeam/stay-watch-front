@@ -1,15 +1,10 @@
 import useSWR from 'swr';
 
-export const useSuspenseSWR = <T>(url: string) => {
-  const fetcher = async (url: string): Promise<any> => {
-    const resonse = await fetch(url);
-    const data = resonse.json();
-    return data;
-  };
+const fetcher = async (url: string) => {
+  return await fetch(url).then((res) => res.json());
+}
 
-  const { data, error } = useSWR<T>(url, fetcher, { suspense: true });
-  // if(data == undefined){
-  //   return {error}
-  // }
-  return { data: data ?? ({} as T), error };
+export const useSuspenseSWR = <T>(url: string) => {
+  const { data, error, isLoading } = useSWR<T>(url, fetcher);
+  return { data: data, error, isLoading };
 };
