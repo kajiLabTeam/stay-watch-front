@@ -15,6 +15,7 @@ import { useSelectTags } from '@/features/admin/editUser/hooks/tagSelector';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { UserEditor } from '@/types/user';
 import { endpoints } from '@/utils/endpoint';
+import { UpdateUserRequest } from '@/types/request';
 
 export const EditUserForm = (props: { user: UserEditor }) => {
   const { user } = props;
@@ -34,9 +35,22 @@ export const EditUserForm = (props: { user: UserEditor }) => {
     }, 5000);
   };
 
-  const [{ loading: loadingUpdateUser, error: errorUpdateUser }, updateUser] = useAsyncFn(
-    async (values) => {
-      await axios.put(endpoints.users, values);
+  const [{ loading: loadingUpdateUser, error: errorUpdateUser }, updateUser] = useAsyncFn(async (values) => {
+      let numTagIds:number[] = [];
+      values.tagIds.map((tagId: string) => (
+        numTagIds.push(parseInt(tagId))
+      ));
+      let updateUserRequest:UpdateUserRequest = {
+        id: user.id,
+        name: values.name,
+        uuid: values.uuid,
+        email: values.email,
+        role: parseInt(values.role),
+        communityId: community.communityId,
+        beaconName: values.beaconName,
+        tagIds: numTagIds
+      }
+      await axios.put(endpoints.users, updateUserRequest);
       mutate(`${endpoints.adminUsers}/${community.communityId}`);
       setEditingUserId(-1);
       displayAlert(2);

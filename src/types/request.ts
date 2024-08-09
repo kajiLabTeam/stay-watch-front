@@ -1,4 +1,4 @@
-export type CreateUserRequest = {
+type UserRequestBase = {
   name: string;
   uuid: string;
   email: string;
@@ -6,4 +6,10 @@ export type CreateUserRequest = {
   communityId: number;
   beaconName: string;
   tagIds: number[];
+}
+
+export type CreateUserRequest = UserRequestBase
+
+export type UpdateUserRequest = UserRequestBase & {
+  id: number;
 }

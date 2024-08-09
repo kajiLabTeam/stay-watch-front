@@ -90,7 +90,7 @@ export const CreateUserForm = () => {
         >
           <TextInput placeholder='tarou' label='名前' {...form.getInputProps('name')} />
           <TextInput
-            label='Gメールアドレす（任意）'
+            label='Gメールアドレス（任意）'
             placeholder='your@gmail.com'
             {...form.getInputProps('email')}
           />
@@ -125,7 +125,7 @@ export const CreateUserForm = () => {
           />
           <div className='pt-3'>
             <Button type='submit' className='bg-staywatch-accent' color='#1e5266'>
-              登録す
+              登録する
             </Button>
           </div>
 
