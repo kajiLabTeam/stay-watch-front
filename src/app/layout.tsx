@@ -1,5 +1,3 @@
-"use client"
-
 import type { AppProps } from 'next/app';
 // import 'tailwindcss/tailwind.css';
 import "./globals.css";
@@ -11,13 +9,14 @@ import AuthEmail from '@/features/Auth/AuthEmail';
 import AuthToken from '@/features/Auth/AuthToken';
 import { MantineProvider } from '@mantine/core';
 import { kosugiMaru } from '@/utils/fonts';
+import { Metadata } from 'next';
+import { RecoilProvider } from '@/features/admin/editUser/globalState/RecoilProvider';
+import { SWRProvider } from '@/features/admin/editUser/globalState/SWRProvider';
 
-// export const metadata = {
-//   title: '滞在ウォッチ',
-//   description: 'コミュニティにおけるメンバーの滞在情報・履歴の確認ができるサービスです。',
-// };
-
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+export const metadata: Metadata = {
+  title: '滞在ウォッチ',
+  description: 'コミュニティにおけるメンバーの滞在情報・履歴の確認ができるサービスです。',
+};
 
 export default function RootLayout({
   children,
@@ -26,13 +25,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
-      <head>
-        
-      </head>
       <body  className={`${kosugiMaru.className}`}>
-      <RecoilRoot>
+      <RecoilProvider>
         <MantineProvider>
-          <SWRConfig value={{fetcher}}>
+          <SWRProvider>
             <Layout>
               <AuthToken>
                 <AuthEmail>
@@ -40,9 +36,9 @@ export default function RootLayout({
                 </AuthEmail>
               </AuthToken>
             </Layout>
-          </SWRConfig>
+          </SWRProvider>
         </MantineProvider>
-      </RecoilRoot>
+      </RecoilProvider>
       </body>
     </html>
   );
