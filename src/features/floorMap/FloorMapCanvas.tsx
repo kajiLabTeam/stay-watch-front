@@ -9,7 +9,7 @@ export const FloorMapCanvas = () => {
     useFloorMapCanvas();
 
   return (
-    <div className='mb-80 border-x-4 border-b-4'>
+    <div className='mb-80 mt-3 border'>
       <canvas
         id='canvas'
         className='w-full'
