@@ -33,4 +33,5 @@ export const RegisterdUsers = () => {
         </table>
       </div>
     );
+  return <></>;
 };
