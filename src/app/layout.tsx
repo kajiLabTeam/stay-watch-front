@@ -6,16 +6,16 @@ import { Metadata } from 'next';
 import React from 'react';
 import Layout from '@/components/layout/Layout';
 import AuthEmail from '@/features/Auth/AuthEmail';
-import AuthToken from '@/features/Auth/AuthToken';
+import AuthSwitcher from '@/features/Auth/AuthSwitcher';
 import { RecoilProvider } from '@/features/admin/editUser/globalState/RecoilProvider';
 import { SWRProvider } from '@/features/admin/editUser/globalState/SWRProvider';
 import { kosugiMaru } from '@/utils/fonts';
-import Favicon from '/public/favicon.ico'
+import Favicon from '/public/favicon.ico';
 
 export const metadata: Metadata = {
   title: '滞在ウォッチ',
   description: 'コミュニティにおけるメンバーの滞在情報・履歴の確認ができるサービスです。',
-  icons: [{rel: 'icon', url: Favicon.src}]
+  icons: [{ rel: 'icon', url: Favicon.src }],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -26,9 +26,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <MantineProvider>
             <SWRProvider>
               <Layout>
-                <AuthToken>
+                <AuthSwitcher>
                   <AuthEmail>{children}</AuthEmail>
-                </AuthToken>
+                </AuthSwitcher>
               </Layout>
             </SWRProvider>
           </MantineProvider>
