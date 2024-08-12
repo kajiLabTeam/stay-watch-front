@@ -5,6 +5,8 @@ import {
   signInWithRedirect,
   signOut,
   onAuthStateChanged,
+  // signInWithPopup,
+  // UserCredential,
 } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { endpoints } from './endpoint';
@@ -15,9 +17,11 @@ import { User } from '@/types/user';
 import { app } from '@/utils/firebase';
 
 export const login = (): Promise<void> => {
+// export const login = (): Promise<UserCredential> => {
   const provider = new GoogleAuthProvider();
   const auth = getAuth(app);
   return signInWithRedirect(auth, provider);
+  //return signInWithPopup(auth, provider); // ローカルホストで実行する際はPopupでないとサインインできないため注意
 };
 
 export const logout = (): Promise<void> => {
