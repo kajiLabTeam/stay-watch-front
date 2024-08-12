@@ -17,7 +17,7 @@ import { User } from '@/types/user';
 import { app } from '@/utils/firebase';
 
 export const login = (): Promise<void> => {
-// export const login = (): Promise<UserCredential> => {
+  // export const login = (): Promise<UserCredential> => {
   const provider = new GoogleAuthProvider();
   const auth = getAuth(app);
   return signInWithRedirect(auth, provider);

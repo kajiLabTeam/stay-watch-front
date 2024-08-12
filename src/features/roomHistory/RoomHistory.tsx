@@ -5,6 +5,7 @@ import { useWindowSize } from 'usehooks-ts';
 import RoomTabDate from './RoomTabDate';
 import { useCurrentPage } from './roomHistoryhook';
 import { Button } from '@/components/common/Button';
+import Loading from '@/components/common/Loading';
 import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
 import Log from '@/types/log';
 import { endpoints } from '@/utils/endpoint';
@@ -44,7 +45,7 @@ const RoomHistory = () => {
   };
 
   const Period = () => {
-    if (isLoading) return <div>ローディング中だよ</div>;
+    if (isLoading) return <Loading message='滞在情報取得中' />;
     if (logs)
       return [...logs].map((log) => {
         if (log.endAt === '2016-01-01 00:00:00') {

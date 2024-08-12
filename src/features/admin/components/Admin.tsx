@@ -38,7 +38,6 @@ export const Admin = () => {
 
       <Tabs.Panel value='first' className='border-l-4'>
         <UserEditor />
-        {/* <div>firstdayo</div> */}
       </Tabs.Panel>
       <Tabs.Panel value='second' className='border-l-4'>
         <EditFloorMap />

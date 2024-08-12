@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import { RegisterdUser } from './RegisterdUser';
+import Loading from '@/components/common/Loading';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
 import { UserEditor } from '@/types/user';
@@ -33,5 +34,5 @@ export const RegisterdUsers = () => {
         </table>
       </div>
     );
-  return <></>;
+  return <Loading message='ユーザ情報取得中' />;
 };

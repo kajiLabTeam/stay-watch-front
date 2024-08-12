@@ -1,5 +1,6 @@
 import { useDocumentTitle } from '@mantine/hooks';
 import { formatStayerDataForTable } from './utils';
+import Loading from '@/components/common/Loading';
 import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
 import { EditorRoom } from '@/types/roomFloormap';
 import StayerType from '@/types/stayer';
@@ -14,7 +15,7 @@ const Stayer = () => {
     `${endpoints.getRoomsEditorByCommunityID}/2`,
   );
 
-  if (isLoadingRooms || isLoadingStayers) return <div>ローディング中だよ</div>;
+  if (isLoadingRooms || isLoadingStayers) return <Loading message='滞在情報取得中' />;
   if (rooms && stayers)
     return (
       <div>

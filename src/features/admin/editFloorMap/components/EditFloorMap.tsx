@@ -1,4 +1,5 @@
 'use client';
+import Loading from '@/components/common/Loading';
 import { BuildingSelector } from '@/features/admin/editFloorMap/components/BuildingSelector';
 import { MapCanvas } from '@/features/admin/editFloorMap/components/MapCanvas';
 import { RegisterdRooms } from '@/features/admin/editFloorMap/components/RegisterdRooms';
@@ -18,7 +19,7 @@ export const EditFloorMap = () => {
   );
   const { currentSelectedBuildingIndex } = useEditingMapState();
 
-  if (roomsIsLoading || buildingsIsLoading) return <div>loadingda...</div>;
+  if (roomsIsLoading || buildingsIsLoading) return <Loading message='マップ情報取得中' />;
   if (buildings && rooms)
     return (
       <div>
