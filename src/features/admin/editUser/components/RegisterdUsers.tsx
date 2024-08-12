@@ -3,13 +3,13 @@ import React from 'react';
 import { RegisterdUser } from './RegisterdUser';
 import Loading from '@/components/common/Loading';
 import { useCommunityState } from '@/globalStates/useCommunityState';
-import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
+import { useGetAPI } from '@/hooks/useGetAPI';
 import { UserEditor } from '@/types/user';
 import { endpoints } from '@/utils/endpoint';
 
 export const RegisterdUsers = () => {
   const community = useCommunityState();
-  const { data: users } = useSuspenseSWR<UserEditor[]>(
+  const { data: users } = useGetAPI<UserEditor[]>(
     `${endpoints.adminUsers}/${community.communityId}`,
   );
 

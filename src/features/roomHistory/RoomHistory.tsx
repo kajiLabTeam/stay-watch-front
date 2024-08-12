@@ -6,7 +6,7 @@ import RoomTabDate from './RoomTabDate';
 import { useCurrentPage } from './roomHistoryhook';
 import { Button } from '@/components/common/Button';
 import Loading from '@/components/common/Loading';
-import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
+import { useGetAPI } from '@/hooks/useGetAPI';
 import Log from '@/types/log';
 import { endpoints } from '@/utils/endpoint';
 
@@ -15,7 +15,7 @@ const RoomHistory = () => {
   const { width } = useWindowSize();
 
   const [page, PreviousPage, NextPage] = useCurrentPage();
-  const { data: logs, isLoading } = useSuspenseSWR<Log[]>(`${endpoints.logs}?page=${page}`);
+  const { data: logs, isLoading } = useGetAPI<Log[]>(`${endpoints.logs}?page=${page}`);
   const [isGantt, setIsGantt] = useState(false);
 
   const nextButton = () => {

@@ -1,17 +1,17 @@
 import { useDocumentTitle } from '@mantine/hooks';
 import { formatStayerDataForTable } from './utils';
 import Loading from '@/components/common/Loading';
-import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
+import { useGetAPI } from '@/hooks/useGetAPI';
 import { EditorRoom } from '@/types/roomFloormap';
 import StayerType from '@/types/stayer';
 import { endpoints } from '@/utils/endpoint';
 
 const Stayer = () => {
   useDocumentTitle('滞在者一覧');
-  const { data: stayers, isLoading: isLoadingStayers } = useSuspenseSWR<StayerType[]>(
+  const { data: stayers, isLoading: isLoadingStayers } = useGetAPI<StayerType[]>(
     `${endpoints.stayers}`,
   );
-  const { data: rooms, isLoading: isLoadingRooms } = useSuspenseSWR<EditorRoom[]>(
+  const { data: rooms, isLoading: isLoadingRooms } = useGetAPI<EditorRoom[]>(
     `${endpoints.getRoomsEditorByCommunityID}/2`,
   );
 

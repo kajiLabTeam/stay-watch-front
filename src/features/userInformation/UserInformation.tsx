@@ -1,7 +1,7 @@
 import { useDocumentTitle } from '@mantine/hooks';
 import Loading from '@/components/common/Loading';
 import { useCommunityState } from '@/globalStates/useCommunityState';
-import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
+import { useGetAPI } from '@/hooks/useGetAPI';
 import { UserAttribute } from '@/types/user';
 import { endpoints } from '@/utils/endpoint';
 
@@ -12,7 +12,7 @@ const UserInformation = () => {
     data: users,
     error,
     isLoading,
-  } = useSuspenseSWR<UserAttribute[]>(`${endpoints.users}/${community.communityId}`);
+  } = useGetAPI<UserAttribute[]>(`${endpoints.users}/${community.communityId}`);
 
   if (error) return <div>failed to load</div>;
   if (isLoading) return <Loading message='利用者情報取得中' />;

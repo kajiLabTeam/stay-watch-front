@@ -5,16 +5,16 @@ import { MapCanvas } from '@/features/admin/editFloorMap/components/MapCanvas';
 import { RegisterdRooms } from '@/features/admin/editFloorMap/components/RegisterdRooms';
 import { useEditingMapState } from '@/features/admin/editFloorMap/globalstate/editingMapState';
 import { useCommunityState } from '@/globalStates/useCommunityState';
-import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
+import { useGetAPI } from '@/hooks/useGetAPI';
 import { EditorRoom, Building } from '@/types/roomFloormap';
 import { endpoints } from '@/utils/endpoint';
 
 export const EditFloorMap = () => {
   const community = useCommunityState();
-  const { data: rooms, isLoading: roomsIsLoading } = useSuspenseSWR<EditorRoom[]>(
+  const { data: rooms, isLoading: roomsIsLoading } = useGetAPI<EditorRoom[]>(
     `${endpoints.getRoomsEditorByCommunityID}/${community.communityId}`,
   );
-  const { data: buildings, isLoading: buildingsIsLoading } = useSuspenseSWR<Building[]>(
+  const { data: buildings, isLoading: buildingsIsLoading } = useGetAPI<Building[]>(
     `${endpoints.getBuildingsEditor}`,
   );
   const { currentSelectedBuildingIndex } = useEditingMapState();

@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useCommunityState } from '@/globalStates/useCommunityState';
-import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
+import { useGetAPI } from '@/hooks/useGetAPI';
 import { EditorRoom, ViewerRoom } from '@/types/roomFloormap';
 import StayerType from '@/types/stayer';
 import { endpoints } from '@/utils/endpoint';
 
 export const useRoomState = () => {
   const community = useCommunityState();
-  const { data: rooms } = useSuspenseSWR<EditorRoom[]>(
+  const { data: rooms } = useGetAPI<EditorRoom[]>(
     `${endpoints.getRoomsEditorByCommunityID}/${community.communityId}`,
   );
-  const { data: stayers } = useSuspenseSWR<StayerType[]>(`${endpoints.stayers}`);
+  const { data: stayers } = useGetAPI<StayerType[]>(`${endpoints.stayers}`);
   const [viewerRooms, setViewerRooms] = useState<ViewerRoom[] | null>(null);
 
   useEffect(() => {
