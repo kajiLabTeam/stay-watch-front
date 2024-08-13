@@ -48,7 +48,10 @@ export const useIsSigned = (): boolean | undefined => {
   return isSigned;
 };
 
-export const useIsRegisterEmail = (): {isRegisteredEmail: boolean | undefined, status: number} => {
+export const useIsRegisterEmail = (): {
+  isRegisteredEmail: boolean | undefined;
+  status: number;
+} => {
   const [isRegisteredEmail, setIsRegisteredEmail] = useState<boolean | undefined>();
   const [status, setStatus] = useState<number>(0);
   const { setUserRole } = useUserRoleMutators();
@@ -85,5 +88,5 @@ export const useIsRegisterEmail = (): {isRegisteredEmail: boolean | undefined, s
     }
   }, [setUserRole, setCommunity, user]);
 
-  return {isRegisteredEmail, status};
+  return { isRegisteredEmail, status };
 };

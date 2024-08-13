@@ -9,7 +9,7 @@ type Props = {
 };
 
 const AuthEmail: FC<Props> = ({ children }) => {
-  const {isRegisteredEmail, status} = useIsRegisterEmail();
+  const { isRegisteredEmail, status } = useIsRegisterEmail();
   if (isRegisteredEmail === undefined) {
     return <Loading message='権限確認中' />;
   }

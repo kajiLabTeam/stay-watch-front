@@ -1,13 +1,8 @@
 'use client';
-import ErrorBoundary from '@/components/common/ErrorBoundary';
 import { Admin } from '@/features/admin/components/Admin';
 
 const AdminPage = () => {
-  return (
-    <ErrorBoundary>
-      <Admin />
-    </ErrorBoundary>
-  );
+  return <Admin />;
 };
 
 export default AdminPage;
