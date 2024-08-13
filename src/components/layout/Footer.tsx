@@ -1,6 +1,4 @@
 'use client';
-//import { rem } from '@mantine/core'
-//import { IconHome } from '@tabler/icons';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCommunityState } from '@/globalStates/useCommunityState';

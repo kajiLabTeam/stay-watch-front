@@ -10,12 +10,6 @@ export const Confirmation = (props: Props) => {
 
   const register = async () => {
     props.remove();
-    //     axios
-    //       .post(`${baseURL}/user/v1/attendance`, {
-    //         meetingID: meetingID,
-    //       })
-    //       .then(() => window.alert("成功しました"))
-    //       .catch(() => window.alert("エラーが発生しました"));
   };
 
   return (

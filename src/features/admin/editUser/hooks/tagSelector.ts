@@ -15,14 +15,6 @@ const dataToSelectTag = (tags: Tag[]): tagSelector[] => {
   }));
 };
 
-// const dataToSelectTag = (tags: Tag[]): string[] => {
-//   let outTags:string[] = [];
-//   tags.map((tag) => (
-//     outTags.push(tag.name)
-//   ));
-//   return outTags;
-// };
-
 export const useSelectTags = () => {
   const community = useCommunityState();
   const { data: tags } = useSWR<Tag[]>(`${endpoints.tags}/${community.communityId}`);
