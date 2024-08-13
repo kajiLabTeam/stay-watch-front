@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import { RegisterdUser } from './RegisterdUser';
+import Error from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { useGetAPI } from '@/hooks/useGetAPI';
@@ -9,10 +10,11 @@ import { endpoints } from '@/utils/endpoint';
 
 export const RegisterdUsers = () => {
   const community = useCommunityState();
-  const { data: users } = useGetAPI<UserEditor[]>(
+  const { data: users, error } = useGetAPI<UserEditor[]>(
     `${endpoints.adminUsers}/${community.communityId}`,
   );
 
+  if (error) return <Error message='ユーザ情報取得失敗' />;
   if (users)
     return (
       <div>

@@ -1,5 +1,6 @@
 import { useDocumentTitle } from '@mantine/hooks';
 import { formatStayerDataForTable } from './utils';
+import Error from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import { EditorRoom } from '@/types/roomFloormap';
@@ -8,14 +9,19 @@ import { endpoints } from '@/utils/endpoint';
 
 const Stayer = () => {
   useDocumentTitle('滞在者一覧');
-  const { data: stayers, isLoading: isLoadingStayers } = useGetAPI<StayerType[]>(
-    `${endpoints.stayers}`,
-  );
-  const { data: rooms, isLoading: isLoadingRooms } = useGetAPI<EditorRoom[]>(
-    `${endpoints.getRoomsEditorByCommunityID}/2`,
-  );
+  const {
+    data: stayers,
+    error: errorStayers,
+    isLoading: isLoadingStayers,
+  } = useGetAPI<StayerType[]>(`${endpoints.stayers}`);
+  const {
+    data: rooms,
+    error: errorRooms,
+    isLoading: isLoadingRooms,
+  } = useGetAPI<EditorRoom[]>(`${endpoints.getRoomsEditorByCommunityID}/2`);
 
   if (isLoadingRooms || isLoadingStayers) return <Loading message='滞在情報取得中' />;
+  if (errorStayers || errorRooms) return <Error message='滞在情報取得失敗' />;
   if (rooms && stayers)
     return (
       <div>

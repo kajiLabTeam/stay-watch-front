@@ -1,4 +1,5 @@
 'use client';
+import Error from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
 import { BuildingSelector } from '@/features/admin/editFloorMap/components/BuildingSelector';
 import { MapCanvas } from '@/features/admin/editFloorMap/components/MapCanvas';
@@ -37,7 +38,7 @@ export const EditFloorMap = () => {
         </div>
       </div>
     );
-  return <></>;
+  return <Error message='滞在情報取得失敗' />;
 };
 
 export default EditFloorMap;

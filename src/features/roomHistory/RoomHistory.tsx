@@ -5,6 +5,7 @@ import { useWindowSize } from 'usehooks-ts';
 import RoomTabDate from './RoomTabDate';
 import { useCurrentPage } from './roomHistoryhook';
 import { Button } from '@/components/common/Button';
+import Error from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import Log from '@/types/log';
@@ -15,7 +16,7 @@ const RoomHistory = () => {
   const { width } = useWindowSize();
 
   const [page, PreviousPage, NextPage] = useCurrentPage();
-  const { data: logs, isLoading } = useGetAPI<Log[]>(`${endpoints.logs}?page=${page}`);
+  const { data: logs, error, isLoading } = useGetAPI<Log[]>(`${endpoints.logs}?page=${page}`);
   const [isGantt, setIsGantt] = useState(false);
 
   const nextButton = () => {
@@ -46,6 +47,7 @@ const RoomHistory = () => {
 
   const Period = () => {
     if (isLoading) return <Loading message='滞在情報取得中' />;
+    if (error) return <Error message='滞在情報取得失敗' />;
     if (logs)
       return [...logs].map((log) => {
         if (log.endAt === '2016-01-01 00:00:00') {

@@ -1,4 +1,5 @@
 import { useDocumentTitle } from '@mantine/hooks';
+import Error from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { useGetAPI } from '@/hooks/useGetAPI';
@@ -14,9 +15,8 @@ const UserInformation = () => {
     isLoading,
   } = useGetAPI<UserAttribute[]>(`${endpoints.users}/${community.communityId}`);
 
-  if (error) return <div>failed to load</div>;
   if (isLoading) return <Loading message='利用者情報取得中' />;
-
+  if (error) return <Error message='利用者情報取得失敗' />;
   if (users)
     return (
       <div>
