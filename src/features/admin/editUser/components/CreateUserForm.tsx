@@ -1,3 +1,4 @@
+'use client';
 import { TextInput, MultiSelect, Select, LoadingOverlay, Alert } from '@mantine/core';
 import { Button } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
@@ -12,7 +13,8 @@ import { beaconSelector } from '@/features/admin/editUser/constants/beaconSelect
 import { useAlertModeMutators } from '@/features/admin/editUser/globalState/alertModeState';
 import { useSelectTags } from '@/features/admin/editUser/hooks/tagSelector';
 import { useCommunityState } from '@/globalStates/useCommunityState';
-import { endpoints } from '@/utils/api';
+import { CreateUserRequest } from '@/types/request';
+import { endpoints } from '@/utils/endpoint';
 
 export const CreateUserForm = () => {
   const community = useCommunityState();
@@ -28,8 +30,19 @@ export const CreateUserForm = () => {
   const { mutate } = useSWRConfig();
 
   // const [{ value, loading, error }, doFetch] = useAsyncFn(async (values) => {  // こうするとvalueもとれる。
-  const [{ loading, error }, doFetch] = useAsyncFn(async (values) => {
-    await axios.post(endpoints.users, values);
+  const [{ loading, error }, submitCreateUser] = useAsyncFn(async (values) => {
+    let numTagIds: number[] = [];
+    values.tagIds.map((tagId: string) => numTagIds.push(parseInt(tagId)));
+    let createUserRequest: CreateUserRequest = {
+      name: values.name,
+      uuid: values.uuid,
+      email: values.email,
+      role: parseInt(values.role),
+      communityId: community.communityId,
+      beaconName: values.beaconName,
+      tagIds: numTagIds,
+    };
+    await axios.post(endpoints.users, createUserRequest);
     // これより下は成功した時のみ動作する
     mutate(`${endpoints.adminUsers}/${community.communityId}`);
     displayAlert(1);
@@ -41,7 +54,7 @@ export const CreateUserForm = () => {
       name: '',
       uuid: '',
       email: '',
-      role: 1,
+      role: '1',
       communityId: 0,
       beaconName: '',
       tagIds: [],
@@ -61,14 +74,13 @@ export const CreateUserForm = () => {
 
   return (
     <div>
-      {loading && <LoadingOverlay visible={visible} overlayBlur={3} />}
+      {loading && <LoadingOverlay visible={visible} overlayProps={{ blur: 3 }} />}
       <div className='rounded-lg bg-slate-200'>
         <h1 className='pt-4 text-center text-3xl font-bold text-slate-800'>新規登録</h1>
         <form
-          className=' flex flex-col px-10 py-4'
+          className='flex flex-col px-10 py-4'
           onSubmit={form.onSubmit((values) => {
-            const modifiedValues = { ...values, communityId: community.communityId }; // 初期値をcommunity.communityIdにしてもうまく入らないためフォーム送信の直前にコミュニティIDを更新
-            doFetch(modifiedValues);
+            submitCreateUser(values);
           })}
         >
           <TextInput placeholder='tarou' label='名前' {...form.getInputProps('name')} />
@@ -107,10 +119,11 @@ export const CreateUserForm = () => {
             {...form.getInputProps('tagIds')}
           />
           <div className='pt-3'>
-            <Button type='submit' className='bg-blue-400' color='blue'>
+            <Button type='submit' className='bg-staywatch-accent' color='#1e5266'>
               登録する
             </Button>
           </div>
+
           {/* @ts-ignore (error.responseが取得できるにもかかわらず型定義がされていないため) */}
           {error && error.response.status === 409 && (
             <Alert title='失敗' color='red'>

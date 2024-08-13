@@ -1,3 +1,4 @@
+'use client';
 import { TextInput, MultiSelect, Select, LoadingOverlay, Alert } from '@mantine/core';
 import { Button, Modal } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
@@ -12,14 +13,15 @@ import { useAlertModeMutators } from '@/features/admin/editUser/globalState/aler
 import { useEditingUserMutators } from '@/features/admin/editUser/globalState/editingUserState';
 import { useSelectTags } from '@/features/admin/editUser/hooks/tagSelector';
 import { useCommunityState } from '@/globalStates/useCommunityState';
+import { UpdateUserRequest } from '@/types/request';
 import { UserEditor } from '@/types/user';
-import { endpoints } from '@/utils/api';
+import { endpoints } from '@/utils/endpoint';
 
 export const EditUserForm = (props: { user: UserEditor }) => {
   const { user } = props;
   const community = useCommunityState();
   const selectTags = useSelectTags();
-  const currentTagIds = user.tags.map((tag) => tag.id);
+  const currentTagIds = user.tags.map((tag) => tag.id.toString());
   const [visible] = useDisclosure(true);
   const [opened, { open, close }] = useDisclosure(false);
   const { mutate } = useSWRConfig();
@@ -35,7 +37,19 @@ export const EditUserForm = (props: { user: UserEditor }) => {
 
   const [{ loading: loadingUpdateUser, error: errorUpdateUser }, updateUser] = useAsyncFn(
     async (values) => {
-      await axios.put(endpoints.users, values);
+      let numTagIds: number[] = [];
+      values.tagIds.map((tagId: string) => numTagIds.push(parseInt(tagId)));
+      let updateUserRequest: UpdateUserRequest = {
+        id: user.id,
+        name: values.name,
+        uuid: values.uuid,
+        email: values.email,
+        role: parseInt(values.role),
+        communityId: community.communityId,
+        beaconName: values.beaconName,
+        tagIds: numTagIds,
+      };
+      await axios.put(endpoints.users, updateUserRequest);
       mutate(`${endpoints.adminUsers}/${community.communityId}`);
       setEditingUserId(-1);
       displayAlert(2);
@@ -58,7 +72,7 @@ export const EditUserForm = (props: { user: UserEditor }) => {
       name: user.name,
       uuid: user.uuid.slice(-5),
       email: user.email,
-      role: user.role,
+      role: user.role.toString(),
       communityId: 0,
       beaconName: user.beaconName,
       tagIds: currentTagIds,
@@ -69,7 +83,7 @@ export const EditUserForm = (props: { user: UserEditor }) => {
   return (
     <div>
       {(loadingDeleteUser || loadingUpdateUser) && (
-        <LoadingOverlay visible={visible} overlayBlur={3} />
+        <LoadingOverlay visible={visible} overlayProps={{ blur: 3 }} />
       )}
       <Modal opened={opened} onClose={close} title='削除確認'>
         <div className='my-4 border' />
@@ -140,7 +154,7 @@ export const EditUserForm = (props: { user: UserEditor }) => {
           />
           <div className='flex pt-3'>
             <div className='mr-auto space-x-4'>
-              <Button type='submit' className='bg-blue-400' color='blue'>
+              <Button type='submit' className='bg-staywatch-accent' color='#1e5266'>
                 保存
               </Button>
               <Button

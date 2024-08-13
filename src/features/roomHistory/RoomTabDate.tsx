@@ -1,8 +1,9 @@
 import { Tab } from '@headlessui/react';
 import useSWR from 'swr';
+import Loading from '@/components/common/Loading';
 import TabRoom from '@/features/simulataneousStay/TabRoom';
 import GanttStayLog from '@/types/ganttStayLog';
-import { endpoints } from '@/utils/api';
+import { endpoints } from '@/utils/endpoint';
 
 // @ts-ignore
 function classNames(...classes) {
@@ -15,7 +16,7 @@ export default function RoomTabDate() {
     // データがまだない場合は読み込み中のUIを表示する
   }
   if (error) return <div>failed to load</div>;
-  if (!data) return <div>loading...</div>;
+  if (!data) return <Loading message='滞在情報取得中' />;
 
   return (
     <div className='max-w-md  pt-8 sm:px-0'>

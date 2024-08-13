@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useEditingMapState } from '@/features/admin/editFloorMap/globalstate/editingMapState';
 import { useCommunityState } from '@/globalStates/useCommunityState';
-import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
+import { useGetAPI } from '@/hooks/useGetAPI';
 import { EditorRoom, Building } from '@/types/roomFloormap';
-import { endpoints } from '@/utils/api';
+import { endpoints } from '@/utils/endpoint';
 
 // マップデータ描画するのに必要なオブジェクト
 const mapsDataState = atom({
@@ -28,10 +28,10 @@ export const useMapsDataState = () => {
 
 export const useMapsDataMutators = () => {
   const community = useCommunityState();
-  const { data: rooms } = useSuspenseSWR<EditorRoom[]>(
+  const { data: rooms } = useGetAPI<EditorRoom[]>(
     `${endpoints.getRoomsEditorByCommunityID}/${community.communityId}`,
   );
-  const { data: buildings } = useSuspenseSWR<Building[]>(`${endpoints.getBuildingsEditor}`);
+  const { data: buildings } = useGetAPI<Building[]>(`${endpoints.getBuildingsEditor}`);
   const { currentSelectedBuildingIndex } = useEditingMapState();
   const setMapsData = useSetRecoilState(mapsDataState);
 

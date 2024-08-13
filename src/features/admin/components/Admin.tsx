@@ -1,3 +1,4 @@
+'use client';
 import { Tabs } from '@mantine/core';
 import { useDocumentTitle } from '@mantine/hooks';
 import { useState } from 'react';
@@ -17,7 +18,7 @@ export const Admin = () => {
   return (
     <Tabs
       value={activeTab}
-      onTabChange={setActiveTab}
+      onChange={setActiveTab}
       orientation={'vertical'}
       variant={'outline'}
       color={'blue'}

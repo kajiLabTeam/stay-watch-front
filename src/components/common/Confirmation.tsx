@@ -10,19 +10,13 @@ export const Confirmation = (props: Props) => {
 
   const register = async () => {
     props.remove();
-    //     axios
-    //       .post(`${baseURL}/user/v1/attendance`, {
-    //         meetingID: meetingID,
-    //       })
-    //       .then(() => window.alert("成功しました"))
-    //       .catch(() => window.alert("エラーが発生しました"));
   };
 
   return (
     <>
       <>
         <div className='fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none'>
-          <div className='relative my-6 mx-auto w-auto max-w-3xl'>
+          <div className='relative mx-auto my-6 w-auto max-w-3xl'>
             <div className='flex h-44 w-[500px] flex-col items-center justify-start gap-4 rounded-lg border-0 bg-white shadow-lg outline-none focus:outline-none'>
               <select
                 className='mt-6  rounded-md border-4 text-black'
@@ -41,7 +35,7 @@ export const Confirmation = (props: Props) => {
                 </button>
                 {meetingID! && (
                   <button
-                    className='rounded-md  bg-blue-500 py-2 px-4 text-white'
+                    className='rounded-md  bg-blue-500 px-4 py-2 text-white'
                     onClick={register}
                   >
                     登録

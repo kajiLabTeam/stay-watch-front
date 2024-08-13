@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { User } from '@/types/user';
-import { endpoints } from '@/utils/api';
+import { endpoints } from '@/utils/endpoint';
 
 type selectUser = {
   value: number;

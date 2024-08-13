@@ -3,9 +3,9 @@ import axios from 'axios';
 import React, { useCallback } from 'react';
 import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useCommunityState } from '@/globalStates/useCommunityState';
-import { useSuspenseSWR } from '@/hooks/useSuspenseSWR';
+import { useGetAPI } from '@/hooks/useGetAPI';
 import { EditorRoom, Building, SubmitRoom } from '@/types/roomFloormap';
-import { endpoints } from '@/utils/api';
+import { endpoints } from '@/utils/endpoint';
 
 const editingMapState = atom({
   key: 'editingMapAtom',
@@ -26,10 +26,10 @@ export const useEditingMapState = () => {
 
 export const useEditingMapMutators = () => {
   const community = useCommunityState();
-  const { data: rooms } = useSuspenseSWR<EditorRoom[]>(
+  const { data: rooms } = useGetAPI<EditorRoom[]>(
     `${endpoints.getRoomsEditorByCommunityID}/${community.communityId}`,
   );
-  const { data: buildings } = useSuspenseSWR<Building[]>(`${endpoints.getBuildingsEditor}`);
+  const { data: buildings } = useGetAPI<Building[]>(`${endpoints.getBuildingsEditor}`);
   const { editingPolygon, currentSelectedBuildingIndex } = useEditingMapState();
 
   const setEditingMap = useSetRecoilState(editingMapState);
@@ -80,12 +80,14 @@ export const useEditingMapMutators = () => {
   );
 
   const setCurrentSelectedBuildingIndex = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setEditingMap((prev) => ({
-      ...prev,
-      currentSelectedBuildingIndex: buildings.findIndex(
-        (building) => building.buildingName === event.target.value,
-      ),
-    }));
+    if (buildings) {
+      setEditingMap((prev) => ({
+        ...prev,
+        currentSelectedBuildingIndex: buildings.findIndex(
+          (building) => building.buildingName === event.target.value,
+        ),
+      }));
+    }
   };
 
   const setIsEditingRoom = (isEditingRoom: boolean) => {

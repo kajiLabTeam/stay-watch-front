@@ -36,7 +36,7 @@ const GanttChart = (props: Props) => {
       const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
       dateAxis.extraMin = 0.9;
       dateAxis.extraMax = 0.9;
-      dateAxis.renderer.labels.template.location = 0.0001; // この1行を消したときの違いを確認すると何の設定なのか圧倒的にイメージしやすい
+      //dateAxis.renderer.labels.template.location = 0.0001; // この1行を消したときの違いを確認すると何の設定なのか圧倒的にイメージしやすい
       const categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
 
       // 適用したデータに対してy軸として設定したフィールドを指定

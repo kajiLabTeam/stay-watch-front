@@ -1,3 +1,4 @@
+'use client';
 import { TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useState } from 'react';

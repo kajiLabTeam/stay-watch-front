@@ -1,7 +1,7 @@
 // import axios from "axios";
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { pagesPath } from '@/utils/$path';
+import { paths } from '@/utils/path';
 // import { baseURL } from "@/utils/api";
 
 type UseHeaderButtonColorReturn = {
@@ -19,8 +19,7 @@ type Item = {
 };
 
 export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
-  const router = useRouter();
-  const { pathname } = router;
+  const pathname = usePathname();
   const selectedButtonTextColor = 'text-white';
   const unselectedButtonTextColor = 'text-staywatch-accent';
   const selectedButtonBgColor = 'bg-staywatch-accent';
@@ -52,7 +51,7 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
   });
 
   useEffect(() => {
-    if (pathname === pagesPath.$url().pathname) {
+    if (pathname === paths.stayer.$url().pathname) {
       setButtonColors({
         bgColors: {
           stayer: selectedButtonBgColor,
@@ -76,7 +75,7 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
           SimulataneousStay: unselectedButtonIconColor,
         },
       });
-    } else if (pathname === pagesPath.roomHistory.$url().pathname) {
+    } else if (pathname === paths.roomHistory.$url().pathname) {
       setButtonColors({
         bgColors: {
           stayer: unselectedButtonBgColor,
@@ -100,7 +99,7 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
           SimulataneousStay: unselectedButtonIconColor,
         },
       });
-    } else if (pathname === pagesPath.userInformation.$url().pathname) {
+    } else if (pathname === paths.userInformation.$url().pathname) {
       setButtonColors({
         bgColors: {
           stayer: unselectedButtonBgColor,
@@ -124,7 +123,7 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
           SimulataneousStay: unselectedButtonIconColor,
         },
       });
-    } else if (pathname === pagesPath.floorMap.$url().pathname) {
+    } else if (pathname === paths.floorMap.$url().pathname) {
       setButtonColors({
         bgColors: {
           stayer: unselectedButtonBgColor,
@@ -148,7 +147,7 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
           SimulataneousStay: unselectedButtonIconColor,
         },
       });
-    } else if (pathname === pagesPath.simulataneousStay.$url().pathname) {
+    } else if (pathname === paths.simulataneousStay.$url().pathname) {
       setButtonColors({
         bgColors: {
           stayer: unselectedButtonBgColor,

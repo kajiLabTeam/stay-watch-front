@@ -1,4 +1,4 @@
-export const pagesPath = {
+export const paths = {
   admin: {
     $url: (url?: { hash?: string }) => ({ pathname: '/admin' as const, hash: url?.hash }),
   },
@@ -14,10 +14,12 @@ export const pagesPath = {
       hash: url?.hash,
     }),
   },
+  stayer: {
+    $url: (url?: { hash?: string }) => ({ pathname: '/stayer' as const, hash: url?.hash }),
+  },
   userInformation: {
     $url: (url?: { hash?: string }) => ({ pathname: '/userInformation' as const, hash: url?.hash }),
   },
-  $url: (url?: { hash?: string }) => ({ pathname: '/' as const, hash: url?.hash }),
 };
 
-export type PagesPath = typeof pagesPath;
+export type PagesPath = typeof paths;

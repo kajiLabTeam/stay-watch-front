@@ -1,3 +1,4 @@
+'use client';
 import { useRef, useEffect, useState } from 'react';
 import React from 'react';
 import { useRoomState } from '@/features/floorMap/roomState';
@@ -25,7 +26,7 @@ export const useFloorMapCanvas = () => {
       ctx.fillStyle = 'white';
       ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
       ctx.strokeRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-      buildingImage.src = `/floor_maps/4g-honkan-bekkan.jpg`;
+      buildingImage.src = `/floor_maps/14goukan.jpg`;
 
       const drawBuildingToCanvas = () => {
         ctx.fillStyle = 'gray';

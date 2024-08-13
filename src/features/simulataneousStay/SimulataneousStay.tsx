@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import TabDate from '@/features/simulataneousStay/TabDate';
 import { User } from '@/types/user';
-import { baseURL } from '@/utils/api';
+import { baseURL } from '@/utils/endpoint';
 
 type selectUser = {
   value: string;
@@ -70,7 +70,7 @@ const SimulataneousStay = () => {
           label='コロナ陽性者を選択してください'
           placeholder='ユーザを選択'
           searchable
-          nothingFound='No options'
+          nothingFoundMessage='No options'
           data={selectUsers}
           onChange={(e) => {
             if (e !== null) {
@@ -94,7 +94,7 @@ const SimulataneousStay = () => {
           })}
         </div> */}
         <button
-          className='mt-8 rounded bg-blue-500 py-1 px-2 font-bold text-white hover:bg-blue-400 md:py-2 md:px-4'
+          className='mt-8 rounded bg-blue-500 px-2 py-1 font-bold text-white hover:bg-blue-400 md:px-4 md:py-2'
           onClick={outPutJson}
         >
           JSON出力

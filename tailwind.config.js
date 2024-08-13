@@ -18,9 +18,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        kosugi: ["Kosugi Maru"],
-      },
       colors: {
         staywatch: customColors.staywatch,
       },
