@@ -48,9 +48,9 @@ export const useIsSigned = (): boolean | undefined => {
   return isSigned;
 };
 
-export const useIsRegisterEmail = (): boolean | undefined => {
+export const useIsRegisterEmail = (): {isRegisteredEmail: boolean | undefined, status: number} => {
   const [isRegisteredEmail, setIsRegisteredEmail] = useState<boolean | undefined>();
-  const [, setStatusCode] = useState<number | undefined>();
+  const [status, setStatus] = useState<number>(0);
   const { setUserRole } = useUserRoleMutators();
   const { setCommunity } = useCommunityMutators();
   const user = useUserState();
@@ -68,7 +68,7 @@ export const useIsRegisterEmail = (): boolean | undefined => {
           setIsRegisteredEmail(true);
 
           setUserRole(resUser.data.role);
-          setStatusCode(resUser.status);
+          setStatus(resUser.status);
           setCommunity({
             communityId: resUser.data.communityId,
             communityName: resUser.data.communityName,
@@ -76,7 +76,7 @@ export const useIsRegisterEmail = (): boolean | undefined => {
         } catch (error) {
           if (axios.isAxiosError(error) && error.response) {
             console.error(error.message); //Axiosの例外オブジェクトとして扱える
-            setStatusCode(error.response?.status);
+            setStatus(error.response?.status);
           }
           setIsRegisteredEmail(false);
         }
@@ -85,5 +85,5 @@ export const useIsRegisterEmail = (): boolean | undefined => {
     }
   }, [setUserRole, setCommunity, user]);
 
-  return isRegisteredEmail;
+  return {isRegisteredEmail, status};
 };
