@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import { endpoints } from './endpoint';
 import { useUserMutators, useUserState } from '@/globalStates/firebaseUserState';
 import { useCommunityMutators } from '@/globalStates/useCommunityState';
+import { useUserEmailMutators, useUserEmailState } from '@/globalStates/userEmailState';
 import { useUserRoleMutators } from '@/globalStates/userRoleState';
 import { User } from '@/types/user';
 import { app } from '@/utils/firebase';
@@ -57,9 +58,14 @@ export const useIsRegisterEmail = (): {
   const { setUserRole } = useUserRoleMutators();
   const { setCommunity } = useCommunityMutators();
   const user = useUserState();
+  const email = useUserEmailState();
+  const { setUserEmail } = useUserEmailMutators();
 
   useEffect(() => {
-    if (user) {
+    if (email) {
+      setIsRegisteredEmail(true);
+    }
+    if (!email && user) {
       const checkRegisterdEmail = async () => {
         try {
           const token = await user.getIdToken();
@@ -76,6 +82,7 @@ export const useIsRegisterEmail = (): {
             communityId: resUser.data.communityId,
             communityName: resUser.data.communityName,
           });
+          setUserEmail(resUser.data.email);
         } catch (error) {
           if (axios.isAxiosError(error) && error.response) {
             console.error(error.message); //Axiosの例外オブジェクトとして扱える
