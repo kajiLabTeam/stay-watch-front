@@ -1,4 +1,7 @@
 export const paths = {
+  root: {
+    $url: (url?: { hash?: string }) => ({ pathname: '/' as const, hash: url?.hash }),
+  },
   admin: {
     $url: (url?: { hash?: string }) => ({ pathname: '/admin' as const, hash: url?.hash }),
   },

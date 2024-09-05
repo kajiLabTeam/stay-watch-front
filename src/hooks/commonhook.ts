@@ -51,7 +51,31 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
   });
 
   useEffect(() => {
-    if (pathname === paths.stayer.$url().pathname) {
+    if (pathname === paths.root.$url().pathname) {
+      setButtonColors({
+        bgColors: {
+          stayer: selectedButtonBgColor,
+          roomHistory: unselectedButtonBgColor,
+          userInformation: unselectedButtonBgColor,
+          floorMap: unselectedButtonBgColor,
+          SimulataneousStay: unselectedButtonBgColor,
+        },
+        textColors: {
+          stayer: selectedButtonTextColor,
+          roomHistory: unselectedButtonTextColor,
+          userInformation: unselectedButtonTextColor,
+          floorMap: unselectedButtonTextColor,
+          SimulataneousStay: unselectedButtonTextColor,
+        },
+        iconColors: {
+          stayer: selectedButtonIconColor,
+          roomHistory: unselectedButtonIconColor,
+          userInformation: unselectedButtonIconColor,
+          floorMap: unselectedButtonIconColor,
+          SimulataneousStay: unselectedButtonIconColor,
+        },
+      });
+    } else if (pathname === paths.stayer.$url().pathname) {
       setButtonColors({
         bgColors: {
           stayer: selectedButtonBgColor,

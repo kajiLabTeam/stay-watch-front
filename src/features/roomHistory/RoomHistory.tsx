@@ -57,7 +57,7 @@ const RoomHistory = () => {
               <td className='border py-2 md:px-4 '>{log.startAt.substring(0, 10)}</td>
               <td className='border px-4 py-2'>{log.name}</td>
               <td className='border px-4 py-2'>
-                {log.startAt.substring(10, log.startAt.length - 3)} ~
+                {log.startAt.substring(10, log.startAt.length - 3)} -
               </td>
               <td className='border px-4 py-2'>{log.room}</td>
             </tr>
@@ -68,7 +68,7 @@ const RoomHistory = () => {
             <td className='border py-2 md:px-4'>{log.startAt.substring(0, 10)}</td>
             <td className='border px-4 py-2'>{log.name}</td>
             <td className='border px-4 py-2'>
-              {log.startAt.substring(10, log.startAt.length - 3)} ~
+              {log.startAt.substring(10, log.startAt.length - 3)} -
               {log.endAt.substring(10, log.endAt.length - 3)}
             </td>
             <td className='border px-4 py-2'>{log.room}</td>
