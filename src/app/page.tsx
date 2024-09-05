@@ -1,12 +1,9 @@
 'use client';
+import Stayer from '@/features/stayer/Stayer';
 import { useRouter } from 'next/navigation';
 
 const Home = () => {
-  const router = useRouter();
-  router.push('/stayer');
-  router.refresh();
-
-  return <></>;
+  return <Stayer />;
 };
 
 export default Home;
