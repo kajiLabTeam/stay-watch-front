@@ -43,7 +43,7 @@ export const useFloorMapCanvas = () => {
       const drawUsersToCanvas = () => {
         viewerRooms.map((viewerRoom) => {
           ctx.fillStyle = 'red';
-          ctx.font = '48px serif';
+          ctx.font = "bold 60px 'Segoe Print', san-serif";
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
           ctx.fillText(String(viewerRoom.userCount), viewerRoom.left, viewerRoom.top);
