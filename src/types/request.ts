@@ -10,6 +10,10 @@ type UserRequestBase = {
 
 export type CreateUserRequest = UserRequestBase;
 
+export type CreatePrivateBeaconUserRequest = UserRequestBase & {
+  privateKey: string;
+}
+
 export type UpdateUserRequest = UserRequestBase & {
   id: number;
 };
