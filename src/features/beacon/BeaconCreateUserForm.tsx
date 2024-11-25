@@ -99,7 +99,7 @@ function BeaconRegisterForm({ privateKey }: PropsType) {
           {/* @ts-ignore (error.responseが取得できるにもかかわらず型定義がされていないため) */}
           {error && error.response.status === 409 && (
             <Alert title='失敗' color='red'>
-              登録済みのユーザです
+              登録済みのビーコンです
             </Alert>
           )}
           {/* @ts-ignore (error.responseが取得できるにもかかわらず型定義がされていないため) */}
