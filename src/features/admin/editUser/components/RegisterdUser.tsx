@@ -30,7 +30,12 @@ export const RegisterdUser = (props: { user: UserEditor }) => {
               {user.name}
             </button>
           </td>
-          <td className='min-w-fit whitespace-nowrap border px-4 py-1'>{user.uuid}</td>
+          {user.beaconName == "StayWatchBeacon"  ? (
+              <td className='min-w-fit whitespace-nowrap border px-4 py-1'>******</td>
+            ) : (
+              <td className='min-w-fit whitespace-nowrap border px-4 py-1'>{user.uuid}</td>
+            )
+          }
           <td className='min-w-fit whitespace-nowrap border px-4 py-1'>
             {roleSelector[user.role - 1].label}
           </td>
