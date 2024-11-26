@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useAsyncFn } from 'react-use';
 import { useSWRConfig } from 'swr';
 import { beaconSelector } from '../constants/beaconSelector';
+import { UI_DATA } from '../constants/uidata';
 import { userSchema } from '../validation/userShema';
 import { roleSelector } from '@/features/admin/editUser/constants/roleSelector';
 import { useAlertModeMutators } from '@/features/admin/editUser/globalState/alertModeState';
@@ -139,7 +140,7 @@ export const EditUserForm = (props: { user: UserEditor }) => {
               {...form.getInputProps('role')}
             />
           </div>
-          {form.values.beaconName === 'FCS1301' && (
+          {form.values.beaconName === UI_DATA.BEACON_NAME_FCS1301 && (
             <TextInput
               label='ビーコンのID（5文字）'
               placeholder='UUID'
