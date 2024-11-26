@@ -16,6 +16,7 @@ import { useCommunityState } from '@/globalStates/useCommunityState';
 import { UpdateUserRequest } from '@/types/request';
 import { UserEditor } from '@/types/user';
 import { endpoints } from '@/utils/endpoint';
+import { UI_DATA } from '../constants/uidata';
 
 export const EditUserForm = (props: { user: UserEditor }) => {
   const { user } = props;
@@ -139,7 +140,7 @@ export const EditUserForm = (props: { user: UserEditor }) => {
               {...form.getInputProps('role')}
             />
           </div>
-          {form.values.beaconName === 'FCS1301' && (
+          {form.values.beaconName === UI_DATA.BEACON_NAME_FCS1301 && (
             <TextInput
               label='ビーコンのID（5文字）'
               placeholder='UUID'

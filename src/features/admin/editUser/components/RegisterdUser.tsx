@@ -7,6 +7,7 @@ import {
   useEditingUserState,
 } from '@/features/admin/editUser/globalState/editingUserState';
 import { UserEditor } from '@/types/user';
+import { UI_DATA } from '../constants/uidata';
 
 export const RegisterdUser = (props: { user: UserEditor }) => {
   const { setEditingUserId } = useEditingUserMutators();
@@ -30,7 +31,7 @@ export const RegisterdUser = (props: { user: UserEditor }) => {
               {user.name}
             </button>
           </td>
-          {user.beaconName == "StayWatchBeacon"  ? (
+          {user.beaconName == UI_DATA.BEACON_NAME_STAYWATCHBEACON ? (
               <td className='min-w-fit whitespace-nowrap border px-4 py-1'>******</td>
             ) : (
               <td className='min-w-fit whitespace-nowrap border px-4 py-1'>{user.uuid}</td>

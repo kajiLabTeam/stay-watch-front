@@ -13,6 +13,7 @@ import { useGetAPI } from '@/hooks/useGetAPI';
 import { UpdatePrivateBeaconUserRequest } from '@/types/request';
 import { User } from '@/types/user';
 import { endpoints } from '@/utils/endpoint';
+import { UI_DATA } from '../admin/editUser/constants/uidata';
 
 type UsersSelectData = {
   label: string;
@@ -42,7 +43,7 @@ function BeaconEditUserForm({ privateKey }: PropsType) {
   const [{ loading, error }, submitEditUser] = useAsyncFn(async (values) => {
     let updateUserRequest: UpdatePrivateBeaconUserRequest = {
       id: parseInt(values.id),
-      beaconName: 'StayWatchBeacon',
+      beaconName: UI_DATA.BEACON_NAME_STAYWATCHBEACON,
       privateKey: privateKey,
     };
     await axios.put(endpoints.users, updateUserRequest);

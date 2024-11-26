@@ -15,6 +15,7 @@ import { useSelectTags } from '@/features/admin/editUser/hooks/tagSelector';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { CreateUserRequest } from '@/types/request';
 import { endpoints } from '@/utils/endpoint';
+import { UI_DATA } from '../constants/uidata';
 
 export const CreateUserForm = () => {
   const community = useCommunityState();
@@ -63,7 +64,7 @@ export const CreateUserForm = () => {
   });
 
   useEffect(() => {
-    if (form.values.beaconName === 'FCS1301') {
+    if (form.values.beaconName === UI_DATA.BEACON_NAME_FCS1301) {
       form.setValues({ uuid: '' });
     } else {
       // 00000にしておかないと見えない入力欄だがバリデーションで引っ掛かってしまう
@@ -105,7 +106,7 @@ export const CreateUserForm = () => {
               {...form.getInputProps('role')}
             />
           </div>
-          {form.values.beaconName === 'FCS1301' && (
+          {form.values.beaconName === UI_DATA.BEACON_NAME_FCS1301 && (
             <TextInput
               label='ビーコンのID（5文字）'
               placeholder='UUID'

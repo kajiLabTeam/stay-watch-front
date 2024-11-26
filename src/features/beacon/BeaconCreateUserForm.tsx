@@ -11,6 +11,7 @@ import { privacyBeaconUserSchema } from './validation/userShema';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { CreatePrivateBeaconUserRequest } from '@/types/request';
 import { endpoints } from '@/utils/endpoint';
+import { UI_DATA } from '../admin/editUser/constants/uidata';
 
 type PropsType = {
   privateKey: string;
@@ -38,7 +39,7 @@ function BeaconRegisterForm({ privateKey }: PropsType) {
       email: values.email,
       role: parseInt(values.role),
       communityId: community.communityId,
-      beaconName: 'StayWatchBeacon',
+      beaconName: UI_DATA.BEACON_NAME_STAYWATCHBEACON,
       tagIds: numTagIds,
       privateKey: privateKey,
     };
