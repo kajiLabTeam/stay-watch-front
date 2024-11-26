@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useAsyncFn } from 'react-use';
 import { useSWRConfig } from 'swr';
 import { beaconSelector } from '../constants/beaconSelector';
+import { UI_DATA } from '../constants/uidata';
 import { userSchema } from '../validation/userShema';
 import { roleSelector } from '@/features/admin/editUser/constants/roleSelector';
 import { useAlertModeMutators } from '@/features/admin/editUser/globalState/alertModeState';
@@ -16,7 +17,6 @@ import { useCommunityState } from '@/globalStates/useCommunityState';
 import { UpdateUserRequest } from '@/types/request';
 import { UserEditor } from '@/types/user';
 import { endpoints } from '@/utils/endpoint';
-import { UI_DATA } from '../constants/uidata';
 
 export const EditUserForm = (props: { user: UserEditor }) => {
   const { user } = props;

@@ -1,13 +1,13 @@
 'use client';
 import React from 'react';
 import { roleSelector } from '../constants/roleSelector';
+import { UI_DATA } from '../constants/uidata';
 import { EditUserForm } from '@/features/admin/editUser/components/EditUserForm';
 import {
   useEditingUserMutators,
   useEditingUserState,
 } from '@/features/admin/editUser/globalState/editingUserState';
 import { UserEditor } from '@/types/user';
-import { UI_DATA } from '../constants/uidata';
 
 export const RegisterdUser = (props: { user: UserEditor }) => {
   const { setEditingUserId } = useEditingUserMutators();
@@ -31,12 +31,11 @@ export const RegisterdUser = (props: { user: UserEditor }) => {
               {user.name}
             </button>
           </td>
-          {user.beaconName == UI_DATA.BEACON_NAME_STAYWATCHBEACON ? (
-              <td className='min-w-fit whitespace-nowrap border px-4 py-1'>******</td>
-            ) : (
-              <td className='min-w-fit whitespace-nowrap border px-4 py-1'>{user.uuid}</td>
-            )
-          }
+          {user.beaconName === UI_DATA.BEACON_NAME_STAYWATCHBEACON ? (
+            <td className='min-w-fit whitespace-nowrap border px-4 py-1'>******</td>
+          ) : (
+            <td className='min-w-fit whitespace-nowrap border px-4 py-1'>{user.uuid}</td>
+          )}
           <td className='min-w-fit whitespace-nowrap border px-4 py-1'>
             {roleSelector[user.role - 1].label}
           </td>

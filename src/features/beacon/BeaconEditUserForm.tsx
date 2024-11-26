@@ -5,6 +5,7 @@ import { useDisclosure } from '@mantine/hooks';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
+import { UI_DATA } from '../admin/editUser/constants/uidata';
 import { useAlertModeMutators } from '../admin/editUser/globalState/alertModeState';
 import { privacyBeaconEditUserSchema } from './validation/privacyBeaconEditUserSchema';
 import Error from '@/components/common/Error';
@@ -13,7 +14,6 @@ import { useGetAPI } from '@/hooks/useGetAPI';
 import { UpdatePrivateBeaconUserRequest } from '@/types/request';
 import { User } from '@/types/user';
 import { endpoints } from '@/utils/endpoint';
-import { UI_DATA } from '../admin/editUser/constants/uidata';
 
 type UsersSelectData = {
   label: string;

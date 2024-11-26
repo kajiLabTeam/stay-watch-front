@@ -5,13 +5,13 @@ import { useDisclosure } from '@mantine/hooks';
 import axios from 'axios';
 import { useAsyncFn } from 'react-use';
 import { roleSelector } from '../admin/editUser/constants/roleSelector';
+import { UI_DATA } from '../admin/editUser/constants/uidata';
 import { useAlertModeMutators } from '../admin/editUser/globalState/alertModeState';
 import { useSelectTags } from '../admin/editUser/hooks/tagSelector';
 import { privacyBeaconUserSchema } from './validation/userShema';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { CreatePrivateBeaconUserRequest } from '@/types/request';
 import { endpoints } from '@/utils/endpoint';
-import { UI_DATA } from '../admin/editUser/constants/uidata';
 
 type PropsType = {
   privateKey: string;

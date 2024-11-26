@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useSWRConfig } from 'swr';
 import { roleSelector } from '../constants/roleSelector';
+import { UI_DATA } from '../constants/uidata';
 import { userSchema } from '../validation/userShema';
 import { beaconSelector } from '@/features/admin/editUser/constants/beaconSelector';
 import { useAlertModeMutators } from '@/features/admin/editUser/globalState/alertModeState';
@@ -15,7 +16,6 @@ import { useSelectTags } from '@/features/admin/editUser/hooks/tagSelector';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { CreateUserRequest } from '@/types/request';
 import { endpoints } from '@/utils/endpoint';
-import { UI_DATA } from '../constants/uidata';
 
 export const CreateUserForm = () => {
   const community = useCommunityState();
