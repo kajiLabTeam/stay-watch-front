@@ -1,3 +1,4 @@
+import { Select } from '@mantine/core';
 import { useDocumentTitle } from '@mantine/hooks';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -9,6 +10,7 @@ import Error from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import Log from '@/types/log';
+import { UserAttribute } from '@/types/user';
 import { endpoints } from '@/utils/endpoint';
 
 const RoomHistory = () => {
@@ -16,7 +18,13 @@ const RoomHistory = () => {
   const { width } = useWindowSize();
 
   const [page, PreviousPage, NextPage] = useCurrentPage();
-  const { data: logs, error, isLoading } = useGetAPI<Log[]>(`${endpoints.logs}?page=${page}`);
+  const [selectedUserID, setSelectedUserID] = useState<string | null>(null);
+  const { data: logs, error, isLoading } = useGetAPI<Log[]>(
+    `${endpoints.logs}?${selectedUserID ? `user-id=${selectedUserID}` : ''}`);
+  // user-id が入力された場合
+  const handleUserChange = (value: string | null) => {
+    setSelectedUserID(value);
+  };
   const [isGantt, setIsGantt] = useState(false);
 
   const nextButton = () => {
@@ -43,6 +51,30 @@ const RoomHistory = () => {
       );
     }
     return <div />;
+  };
+
+  const userSelecter = () => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { data: users, error, isLoading } = useGetAPI<UserAttribute[]>(`${endpoints.users}`);
+    if (isLoading) return <Loading message='利用者情報取得中' />;
+    if (error) return <Error message='利用者情報取得失敗' />;
+    if (users)
+      return (
+        <Select
+          placeholder="user name"
+          data={
+            users
+              ? users.map(user => ({
+                value: user.id.toString(),
+                label: user.name
+              }))
+              : []
+          }
+          searchable
+          nothingFoundMessage="ユーザが見つかりません"
+          onChange={handleUserChange}
+        />
+      );
   };
 
   const Period = () => {
@@ -80,7 +112,7 @@ const RoomHistory = () => {
   return (
     <div>
       <div className='mt-6 flex justify-between text-2xl md:text-3xl'>
-        <div>
+        <div className='mt-6 flex justify-between'>
           <button
             onClick={() => {
               setIsGantt(!isGantt);
@@ -89,9 +121,12 @@ const RoomHistory = () => {
             {isGantt ? (
               <Image src='/ganttAnother.png' alt='stayer' width={27} height={27} />
             ) : (
-              <Image src='/gantt.png' alt='stayer' width={27} height={27} />
+              <>
+                <Image src='/gantt.png' alt='stayer' width={27} height={27} />
+              </>
             )}
           </button>
+          <div>{userSelecter()}</div>
         </div>
       </div>
       {isGantt ? (
