@@ -1,6 +1,7 @@
 import { Select } from '@mantine/core';
 import { useDocumentTitle } from '@mantine/hooks';
 import Image from 'next/image';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { useWindowSize } from 'usehooks-ts';
 import RoomTabDate from './RoomTabDate';
@@ -8,6 +9,7 @@ import { useCurrentPage } from './roomHistoryhook';
 import { Button } from '@/components/common/Button';
 import Error from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
+import * as RoomHistoryComponents from "@/features/roomHistory/components/Index"
 import { useGetAPI } from '@/hooks/useGetAPI';
 import Log from '@/types/log';
 import { UserAttribute } from '@/types/user';
@@ -16,21 +18,41 @@ import { endpoints } from '@/utils/endpoint';
 const RoomHistory = () => {
   useDocumentTitle('滞在者履歴');
   const { width } = useWindowSize();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
-  const [page, PreviousPage, NextPage] = useCurrentPage();
-  const [selectedUserID, setSelectedUserID] = useState<string | null>(null);
+  const [CurrentOffset, CurrentPage, PreviousPage, NextPage] = useCurrentPage();
+
+  const selectedUserID = searchParams.get('user-id') || undefined;
+
   const { data: logs, error, isLoading } = useGetAPI<Log[]>(
-    `${endpoints.logs}?${selectedUserID ? `user-id=${selectedUserID}` : ''}`);
+    `${endpoints.logs}?offset=${CurrentOffset}${selectedUserID ? `&&user-id=${selectedUserID}` : ''}`);
+  const [isGantt, setIsGantt] = useState(false);
+
+  const updateQueryParams = (params: Record<string, string | undefined>) => {
+    const newParams = new URLSearchParams(searchParams.toString());
+
+    Object.entries(params).forEach(([key, value]) => {
+      if (value === undefined) {
+        newParams.delete(key);
+      } else {
+        newParams.set(key, value);
+      }
+    });
+
+    router.push(`${pathname}?${newParams.toString()}`, { scroll: false });
+  };
+
   // user-id が入力された場合
   const handleUserChange = (value: string | null) => {
-    setSelectedUserID(value);
+    updateQueryParams({ 'user-id': value || undefined });
   };
-  const [isGantt, setIsGantt] = useState(false);
 
   const nextButton = () => {
     //最後のデータだった時
     if (logs) {
-      if (logs.slice(-1)[0]?.id === 1) {
+      if (logs && logs.slice(-1)[0]?.id === 1) {
         return <div />;
       }
       return (
@@ -39,18 +61,6 @@ const RoomHistory = () => {
         </Button>
       );
     }
-  };
-
-  const prevButton = () => {
-    //pageが1より大きい時にボタンを表示
-    if (page > 1) {
-      return (
-        <Button color='blue' onClick={PreviousPage}>
-          前へ
-        </Button>
-      );
-    }
-    return <div />;
   };
 
   const userSelecter = () => {
@@ -73,6 +83,7 @@ const RoomHistory = () => {
           searchable
           nothingFoundMessage="ユーザが見つかりません"
           onChange={handleUserChange}
+          value={selectedUserID}
         />
       );
   };
@@ -127,6 +138,7 @@ const RoomHistory = () => {
             )}
           </button>
           <div>{userSelecter()}</div>
+          {/* <div>{RoomHistoryComponents.tmeUserSelecter()}</div> */}
         </div>
       </div>
       {isGantt ? (
@@ -153,14 +165,14 @@ const RoomHistory = () => {
         if (width > 853) {
           return (
             <div>
-              <div className='fixed inset-y-1/2 left-4'>{prevButton()}</div>
+              <div className='fixed inset-y-1/2 left-4'>{RoomHistoryComponents.prevButton(CurrentPage, PreviousPage)}</div>
               <div className='fixed inset-y-1/2 right-4'>{nextButton()}</div>
             </div>
           );
         }
         return (
           <div className='mt-2 flex h-10 w-full justify-between text-white md:mt-4'>
-            <div>{prevButton()}</div>
+            <div>{RoomHistoryComponents.prevButton(CurrentPage, PreviousPage)}</div>
             <div>{nextButton()}</div>
           </div>
         );
