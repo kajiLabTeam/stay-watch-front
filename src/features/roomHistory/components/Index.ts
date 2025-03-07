@@ -1,3 +1,3 @@
-import prevButton from "./PrevButton";
+import prevButton from './PrevButton';
 
 export { prevButton };

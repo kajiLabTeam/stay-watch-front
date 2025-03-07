@@ -9,7 +9,7 @@ import { useCurrentPage } from './roomHistoryhook';
 import { Button } from '@/components/common/Button';
 import Error from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
-import * as RoomHistoryComponents from "@/features/roomHistory/components/Index"
+import * as RoomHistoryComponents from '@/features/roomHistory/components/Index';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import Log from '@/types/log';
 import { UserAttribute } from '@/types/user';
@@ -26,8 +26,15 @@ const RoomHistory = () => {
 
   const selectedUserID = searchParams.get('user-id') || undefined;
 
-  const { data: logs, error, isLoading } = useGetAPI<Log[]>(
-    `${endpoints.logs}?offset=${CurrentOffset}${selectedUserID ? `&&user-id=${selectedUserID}` : ''}`);
+  const {
+    data: logs,
+    error,
+    isLoading,
+  } = useGetAPI<Log[]>(
+    `${endpoints.logs}?offset=${CurrentOffset}${
+      selectedUserID ? `&&user-id=${selectedUserID}` : ''
+    }`,
+  );
   const [isGantt, setIsGantt] = useState(false);
 
   const updateQueryParams = (params: Record<string, string | undefined>) => {
@@ -71,17 +78,17 @@ const RoomHistory = () => {
     if (users)
       return (
         <Select
-          placeholder="user name"
+          placeholder='user name'
           data={
             users
-              ? users.map(user => ({
-                value: user.id.toString(),
-                label: user.name
-              }))
+              ? users.map((user) => ({
+                  value: user.id.toString(),
+                  label: user.name,
+                }))
               : []
           }
           searchable
-          nothingFoundMessage="ユーザが見つかりません"
+          nothingFoundMessage='ユーザが見つかりません'
           onChange={handleUserChange}
           value={selectedUserID}
         />
@@ -165,7 +172,9 @@ const RoomHistory = () => {
         if (width > 853) {
           return (
             <div>
-              <div className='fixed inset-y-1/2 left-4'>{RoomHistoryComponents.prevButton(CurrentPage, PreviousPage)}</div>
+              <div className='fixed inset-y-1/2 left-4'>
+                {RoomHistoryComponents.prevButton(CurrentPage, PreviousPage)}
+              </div>
               <div className='fixed inset-y-1/2 right-4'>{nextButton()}</div>
             </div>
           );
