@@ -1,26 +1,22 @@
-import { Select } from '@mantine/core';
 import { useDocumentTitle } from '@mantine/hooks';
 import Image from 'next/image';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { useWindowSize } from 'usehooks-ts';
 import RoomTabDate from './RoomTabDate';
 import { useCurrentPage } from './roomHistoryhook';
-import { Button } from '@/components/common/Button';
 import Error from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
 import * as RoomHistoryComponents from '@/features/roomHistory/components/Index';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import Log from '@/types/log';
-import { UserAttribute } from '@/types/user';
 import { endpoints } from '@/utils/endpoint';
 
 const RoomHistory = () => {
   useDocumentTitle('滞在者履歴');
   const { width } = useWindowSize();
   const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
+  const HistoryCount = 60;
 
   const [CurrentOffset, CurrentPage, PreviousPage, NextPage] = useCurrentPage();
 
@@ -36,64 +32,6 @@ const RoomHistory = () => {
     }`,
   );
   const [isGantt, setIsGantt] = useState(false);
-
-  const updateQueryParams = (params: Record<string, string | undefined>) => {
-    const newParams = new URLSearchParams(searchParams.toString());
-
-    Object.entries(params).forEach(([key, value]) => {
-      if (value === undefined) {
-        newParams.delete(key);
-      } else {
-        newParams.set(key, value);
-      }
-    });
-
-    router.push(`${pathname}?${newParams.toString()}`, { scroll: false });
-  };
-
-  // user-id が入力された場合
-  const handleUserChange = (value: string | null) => {
-    updateQueryParams({ 'user-id': value || undefined });
-  };
-
-  const nextButton = () => {
-    //最後のデータだった時
-    if (logs) {
-      if (logs && logs.slice(-1)[0]?.id === 1) {
-        return <div />;
-      }
-      return (
-        <Button color='blue' onClick={NextPage}>
-          次へ
-        </Button>
-      );
-    }
-  };
-
-  const userSelecter = () => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const { data: users, error, isLoading } = useGetAPI<UserAttribute[]>(`${endpoints.users}`);
-    if (isLoading) return <Loading message='利用者情報取得中' />;
-    if (error) return <Error message='利用者情報取得失敗' />;
-    if (users)
-      return (
-        <Select
-          placeholder='user name'
-          data={
-            users
-              ? users.map((user) => ({
-                  value: user.id.toString(),
-                  label: user.name,
-                }))
-              : []
-          }
-          searchable
-          nothingFoundMessage='ユーザが見つかりません'
-          onChange={handleUserChange}
-          value={selectedUserID}
-        />
-      );
-  };
 
   const Period = () => {
     if (isLoading) return <Loading message='滞在情報取得中' />;
@@ -144,8 +82,7 @@ const RoomHistory = () => {
               </>
             )}
           </button>
-          <div>{userSelecter()}</div>
-          {/* <div>{RoomHistoryComponents.tmeUserSelecter()}</div> */}
+          <div>{RoomHistoryComponents.UserSelecter(selectedUserID)}</div>
         </div>
       </div>
       {isGantt ? (
@@ -173,16 +110,18 @@ const RoomHistory = () => {
           return (
             <div>
               <div className='fixed inset-y-1/2 left-4'>
-                {RoomHistoryComponents.prevButton(CurrentPage, PreviousPage)}
+                {RoomHistoryComponents.PrevButton(CurrentPage, PreviousPage)}
               </div>
-              <div className='fixed inset-y-1/2 right-4'>{nextButton()}</div>
+              <div className='fixed inset-y-1/2 right-4'>
+                {RoomHistoryComponents.NextButton(CurrentPage, NextPage, HistoryCount)}
+              </div>
             </div>
           );
         }
         return (
           <div className='mt-2 flex h-10 w-full justify-between text-white md:mt-4'>
-            <div>{RoomHistoryComponents.prevButton(CurrentPage, PreviousPage)}</div>
-            <div>{nextButton()}</div>
+            <div>{RoomHistoryComponents.PrevButton(CurrentPage, PreviousPage)}</div>
+            <div>{RoomHistoryComponents.NextButton(CurrentPage, NextPage, HistoryCount)}</div>
           </div>
         );
       })()}
