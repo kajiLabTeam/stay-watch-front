@@ -26,7 +26,8 @@ const RoomHistory = () => {
     error,
     isLoading,
   } = useGetAPI<LogsListResponce>(
-    `${endpoints.logs}?offset=${CurrentOffset}${selectedUserID ? `&&user-id=${selectedUserID}` : ''
+    `${endpoints.logs}?offset=${CurrentOffset}${
+      selectedUserID ? `&&user-id=${selectedUserID}` : ''
     }`,
   );
   const [isGantt, setIsGantt] = useState(false);

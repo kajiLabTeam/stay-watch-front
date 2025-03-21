@@ -9,7 +9,7 @@ type Log = {
 type LogsListResponce = {
   logs?: Log[];
   count: number;
-}
+};
 
 // export default Log;
 export default LogsListResponce;
