@@ -26,14 +26,13 @@ const RoomHistory = () => {
     error,
     isLoading,
   } = useGetAPI<LogsListResponce>(
-    `${endpoints.logs}?offset=${CurrentOffset}${
-      selectedUserID ? `&&user-id=${selectedUserID}` : ''
+    `${endpoints.logs}?offset=${CurrentOffset}${selectedUserID ? `&&user-id=${selectedUserID}` : ''
     }`,
   );
   const [isGantt, setIsGantt] = useState(false);
 
   const Period = (roomHistoryLog?: LogsListResponce) => {
-    if (!roomHistoryLog || !roomHistoryLog.logs) return <p>history data is null</p>;
+    if (!roomHistoryLog || !roomHistoryLog.logs) return null;
     const log = roomHistoryLog.logs;
     if (isLoading) return <Loading message='滞在情報取得中' />;
     if (error) return <Error message='滞在情報取得失敗' />;
