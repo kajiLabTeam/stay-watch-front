@@ -108,7 +108,8 @@ const RoomHistory = () => {
         </div>
       )}
       {(() => {
-        if (!roomHistoryLog || roomHistoryLog.count === 0) return <p>履歴がありません</p>;
+        if (!roomHistoryLog) return <Loading message='滞在情報取得中' />;
+        if (roomHistoryLog.count === 0) return <p>履歴がありません</p>;
         const historyCount = roomHistoryLog.count;
         if (width > 853) {
           return (
