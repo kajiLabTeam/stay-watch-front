@@ -9,7 +9,7 @@ import Error from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
 import * as RoomHistoryComponents from '@/features/roomHistory/components/Index';
 import { useGetAPI } from '@/hooks/useGetAPI';
-import LogsListResponce from '@/types/log';
+import LogsListResponse from '@/types/log';
 import { endpoints } from '@/utils/endpoint';
 
 const RoomHistory = () => {
@@ -25,14 +25,14 @@ const RoomHistory = () => {
     data: roomHistoryLog,
     error,
     isLoading,
-  } = useGetAPI<LogsListResponce>(
+  } = useGetAPI<LogsListResponse>(
     `${endpoints.logs}?offset=${CurrentOffset}${
       selectedUserID ? `&&user-id=${selectedUserID}` : ''
     }`,
   );
   const [isGantt, setIsGantt] = useState(false);
 
-  const Period = (roomHistoryLog?: LogsListResponce) => {
+  const Period = (roomHistoryLog?: LogsListResponse) => {
     if (!roomHistoryLog || !roomHistoryLog.logs) return null;
     const log = roomHistoryLog.logs;
     if (isLoading) return <Loading message='滞在情報取得中' />;
