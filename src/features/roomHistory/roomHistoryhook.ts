@@ -51,7 +51,7 @@ export const useHandleUserChange = () => {
   return (value: string | null) => {
     updateQueryParams({
       'user-id': value || undefined,
-      page: '1'
+      page: '1',
     });
   };
 };
