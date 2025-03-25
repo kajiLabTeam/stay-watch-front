@@ -6,10 +6,10 @@ type Log = {
   room: string;
 };
 
-type LogsListResponce = {
+type LogsListResponse = {
   logs?: Log[];
   count: number;
 };
 
 // export default Log;
-export default LogsListResponce;
+export default LogsListResponse;
