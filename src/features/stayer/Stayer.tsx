@@ -38,7 +38,7 @@ const Stayer = () => {
                 <td className='px-2 text-sm md:text-2xl'>{stayersInRoom.room}</td>
                 <td className='border'>
                   {stayersInRoom.stayers.map((stayerInRoom) => {
-                    if (stayerInRoom.name.includes("実験")) return null;
+                    if (stayerInRoom.name.includes('実験')) return null;
                     return (
                       <div className='p-0.5 text-sm md:py-2 md:text-2xl' key={stayerInRoom.name}>
                         {stayerInRoom.name}（
