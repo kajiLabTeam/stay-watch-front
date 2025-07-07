@@ -9,6 +9,7 @@ import { UI_DATA } from '../admin/editUser/constants/uidata';
 import { useAlertModeMutators } from '../admin/editUser/globalState/alertModeState';
 import { useSelectTags } from '../admin/editUser/hooks/tagSelector';
 import { privacyBeaconUserSchema } from './validation/userShema';
+import { useUserState } from '@/globalStates/firebaseUserState';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { CreatePrivateBeaconUserRequest } from '@/types/request';
 import { endpoints } from '@/utils/endpoint';
@@ -19,6 +20,7 @@ type PropsType = {
 
 function BeaconRegisterForm({ privateKey }: PropsType) {
   const community = useCommunityState();
+  const firebaseUser = useUserState();
   const selectTags = useSelectTags();
   const [visible] = useDisclosure(true);
   const { setAlertMode } = useAlertModeMutators();
@@ -31,22 +33,30 @@ function BeaconRegisterForm({ privateKey }: PropsType) {
 
   // // const [{ value, loading, error }, doFetch] = useAsyncFn(async (values) => {  // こうするとvalueもとれる。
   const [{ loading, error }, submitCreateUser] = useAsyncFn(async (values) => {
-    let numTagIds: number[] = [];
-    values.tagIds.map((tagId: string) => numTagIds.push(parseInt(tagId)));
-    let createUserRequest: CreatePrivateBeaconUserRequest = {
-      name: values.name,
-      uuid: '',
-      email: values.email,
-      role: parseInt(values.role),
-      communityId: community.communityId,
-      beaconName: UI_DATA.BEACON_NAME_STAYWATCHBEACON,
-      tagIds: numTagIds,
-      privateKey: privateKey,
-    };
-    await axios.post(endpoints.users, createUserRequest);
-    // これより下は成功した時のみ動作する
-    displayAlert(1);
-    form.reset();
+    if (firebaseUser) {
+      let numTagIds: number[] = [];
+      values.tagIds.map((tagId: string) => numTagIds.push(parseInt(tagId)));
+      let createUserRequest: CreatePrivateBeaconUserRequest = {
+        name: values.name,
+        uuid: '',
+        email: values.email,
+        role: parseInt(values.role),
+        communityId: community.communityId,
+        beaconName: UI_DATA.BEACON_NAME_STAYWATCHBEACON,
+        tagIds: numTagIds,
+        privateKey: privateKey,
+      };
+      const token = await firebaseUser.getIdToken();
+      await axios.post(endpoints.users, createUserRequest, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      // これより下は成功した時のみ動作する
+      displayAlert(1);
+      form.reset();
+    }
   });
 
   const form = useForm({

@@ -13,6 +13,7 @@ import { roleSelector } from '@/features/admin/editUser/constants/roleSelector';
 import { useAlertModeMutators } from '@/features/admin/editUser/globalState/alertModeState';
 import { useEditingUserMutators } from '@/features/admin/editUser/globalState/editingUserState';
 import { useSelectTags } from '@/features/admin/editUser/hooks/tagSelector';
+import { useUserState } from '@/globalStates/firebaseUserState';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { UpdateUserRequest } from '@/types/request';
 import { UserEditor } from '@/types/user';
@@ -20,6 +21,7 @@ import { endpoints } from '@/utils/endpoint';
 
 export const EditUserForm = (props: { user: UserEditor }) => {
   const { user } = props;
+  const firebaseUser = useUserState();
   const community = useCommunityState();
   const selectTags = useSelectTags();
   const currentTagIds = user.tags.map((tag) => tag.id.toString());
@@ -38,32 +40,47 @@ export const EditUserForm = (props: { user: UserEditor }) => {
 
   const [{ loading: loadingUpdateUser, error: errorUpdateUser }, updateUser] = useAsyncFn(
     async (values) => {
-      let numTagIds: number[] = [];
-      values.tagIds.map((tagId: string) => numTagIds.push(parseInt(tagId)));
-      let updateUserRequest: UpdateUserRequest = {
-        id: user.id,
-        name: values.name,
-        uuid: values.uuid,
-        email: values.email,
-        role: parseInt(values.role),
-        communityId: community.communityId,
-        beaconName: values.beaconName,
-        tagIds: numTagIds,
-      };
-      await axios.put(endpoints.users, updateUserRequest);
-      mutate(`${endpoints.adminUsers}/${community.communityId}`);
-      setEditingUserId(-1);
-      displayAlert(2);
+      if (firebaseUser) {
+        let numTagIds: number[] = [];
+        values.tagIds.map((tagId: string) => numTagIds.push(parseInt(tagId)));
+        let updateUserRequest: UpdateUserRequest = {
+          id: user.id,
+          name: values.name,
+          uuid: values.uuid,
+          email: values.email,
+          role: parseInt(values.role),
+          communityId: community.communityId,
+          beaconName: values.beaconName,
+          tagIds: numTagIds,
+        };
+        const token = await firebaseUser.getIdToken();
+        await axios.put(endpoints.users, updateUserRequest, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+        mutate(`${endpoints.adminUsers}/${community.communityId}`);
+        setEditingUserId(-1);
+        displayAlert(2);
+      }
     },
   );
 
   const [{ loading: loadingDeleteUser, error: errorDeleteUser }, deleteUser] = useAsyncFn(
     async (userId) => {
-      await axios.delete(`${endpoints.users}/${userId}`);
-      // これより下は成功した時のみ動作する
-      mutate(`${endpoints.adminUsers}/${community.communityId}`);
-      setEditingUserId(-1);
-      displayAlert(3);
+      if (firebaseUser) {
+        const token = await firebaseUser.getIdToken();
+        await axios.delete(`${endpoints.users}/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        // これより下は成功した時のみ動作する
+        mutate(`${endpoints.adminUsers}/${community.communityId}`);
+        setEditingUserId(-1);
+        displayAlert(3);
+      }
     },
   );
 

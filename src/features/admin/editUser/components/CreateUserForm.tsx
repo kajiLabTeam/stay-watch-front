@@ -13,11 +13,13 @@ import { userSchema } from '../validation/userShema';
 import { beaconSelector } from '@/features/admin/editUser/constants/beaconSelector';
 import { useAlertModeMutators } from '@/features/admin/editUser/globalState/alertModeState';
 import { useSelectTags } from '@/features/admin/editUser/hooks/tagSelector';
+import { useUserState } from '@/globalStates/firebaseUserState';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { CreateUserRequest } from '@/types/request';
 import { endpoints } from '@/utils/endpoint';
 
 export const CreateUserForm = () => {
+  const user = useUserState();
   const community = useCommunityState();
   const selectTags = useSelectTags();
   const [visible] = useDisclosure(true);
@@ -32,22 +34,30 @@ export const CreateUserForm = () => {
 
   // const [{ value, loading, error }, doFetch] = useAsyncFn(async (values) => {  // こうするとvalueもとれる。
   const [{ loading, error }, submitCreateUser] = useAsyncFn(async (values) => {
-    let numTagIds: number[] = [];
-    values.tagIds.map((tagId: string) => numTagIds.push(parseInt(tagId)));
-    let createUserRequest: CreateUserRequest = {
-      name: values.name,
-      uuid: values.uuid,
-      email: values.email,
-      role: parseInt(values.role),
-      communityId: community.communityId,
-      beaconName: values.beaconName,
-      tagIds: numTagIds,
-    };
-    await axios.post(endpoints.users, createUserRequest);
-    // これより下は成功した時のみ動作する
-    mutate(`${endpoints.adminUsers}/${community.communityId}`);
-    displayAlert(1);
-    form.reset();
+    if (user) {
+      let numTagIds: number[] = [];
+      values.tagIds.map((tagId: string) => numTagIds.push(parseInt(tagId)));
+      let createUserRequest: CreateUserRequest = {
+        name: values.name,
+        uuid: values.uuid,
+        email: values.email,
+        role: parseInt(values.role),
+        communityId: community.communityId,
+        beaconName: values.beaconName,
+        tagIds: numTagIds,
+      };
+      const token = await user.getIdToken();
+      await axios.post(endpoints.users, createUserRequest, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      // これより下は成功した時のみ動作する
+      mutate(`${endpoints.adminUsers}/${community.communityId}`);
+      displayAlert(1);
+      form.reset();
+    }
   });
 
   const form = useForm({
