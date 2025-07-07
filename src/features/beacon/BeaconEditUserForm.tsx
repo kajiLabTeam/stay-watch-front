@@ -9,6 +9,7 @@ import { UI_DATA } from '../admin/editUser/constants/uidata';
 import { useAlertModeMutators } from '../admin/editUser/globalState/alertModeState';
 import { privacyBeaconEditUserSchema } from './validation/privacyBeaconEditUserSchema';
 import Error from '@/components/common/Error';
+import { useUserState } from '@/globalStates/firebaseUserState';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import { UpdatePrivateBeaconUserRequest } from '@/types/request';
@@ -28,6 +29,7 @@ function BeaconEditUserForm({ privateKey }: PropsType) {
   const [visible] = useDisclosure(true);
   const { setAlertMode } = useAlertModeMutators();
   const community = useCommunityState();
+  const firebaseUser = useUserState();
   const [usersSelecter, setUsersSelecter] = useState<Array<UsersSelectData>>([]);
   const { data: users, error: errorUsers } = useGetAPI<User[]>(
     `${endpoints.users}/${community.communityId}`,
@@ -41,15 +43,24 @@ function BeaconEditUserForm({ privateKey }: PropsType) {
 
   // // const [{ value, loading, error }, doFetch] = useAsyncFn(async (values) => {  // こうするとvalueもとれる。
   const [{ loading, error }, submitEditUser] = useAsyncFn(async (values) => {
-    let updateUserRequest: UpdatePrivateBeaconUserRequest = {
-      id: parseInt(values.id),
-      beaconName: UI_DATA.BEACON_NAME_STAYWATCHBEACON,
-      privateKey: privateKey,
-    };
-    await axios.put(endpoints.users, updateUserRequest);
-    // これより下は成功した時のみ動作する
-    displayAlert(2);
-    form.reset();
+    if (firebaseUser) {
+      let updateUserRequest: UpdatePrivateBeaconUserRequest = {
+        id: parseInt(values.id),
+        beaconName: UI_DATA.BEACON_NAME_STAYWATCHBEACON,
+        privateKey: privateKey,
+      };
+      const token = await firebaseUser.getIdToken();
+      await axios.put(endpoints.users, updateUserRequest, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      // これより下は成功した時のみ動作する
+      displayAlert(2);
+      form.reset();
+    }
   });
 
   useEffect(() => {
