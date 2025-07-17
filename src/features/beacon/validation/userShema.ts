@@ -11,7 +11,7 @@ export const privacyBeaconUserSchema = z.object({
   // .email({ message: '有効なメールアドレスを入力してください' })
   // .min(1, { message: '必須項目です' }),
   role: z.string(),
-  tagIds: z.array(z.string()).min(1, { message: '少なくとも1つは選択してください' }),
+  tagNames: z.array(z.string()).min(1, { message: '少なくとも1つは選択してください' }),
 });
 
 export type CreateInputType = z.infer<typeof privacyBeaconUserSchema>;
