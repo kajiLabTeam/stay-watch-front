@@ -5,7 +5,7 @@ export const userSchema = z.object({
     .string()
     .min(1, { message: '12文字以内で入力してください' })
     .max(12, { message: '12文字以内で入力してください' }),
-    uuid: z
+  uuid: z
     .string()
     .regex(new RegExp('^[0-9a-f]*$'), { message: '0〜9とa〜fで入力してください' })
     .min(5, { message: '5文字で入力してください' })

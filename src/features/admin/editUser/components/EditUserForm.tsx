@@ -1,9 +1,10 @@
 'use client';
-import { TextInput, MultiSelect, Select, LoadingOverlay, Alert } from '@mantine/core';
+import { TextInput, MultiSelect, Select, LoadingOverlay, Alert, TagsInput } from '@mantine/core';
 import { Button, Modal } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
 import axios from 'axios';
+import { useEffect } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useSWRConfig } from 'swr';
 import { beaconSelector } from '../constants/beaconSelector';
@@ -24,7 +25,7 @@ export const EditUserForm = (props: { user: UserEditor }) => {
   const firebaseUser = useUserState();
   const community = useCommunityState();
   const selectTags = useSelectTags();
-  const currentTagIds = user.tags.map((tag) => tag.id.toString());
+  const currentTagNames = user.tags.map((tag) => tag.name);
   const [visible] = useDisclosure(true);
   const [opened, { open, close }] = useDisclosure(false);
   const { mutate } = useSWRConfig();
@@ -41,8 +42,6 @@ export const EditUserForm = (props: { user: UserEditor }) => {
   const [{ loading: loadingUpdateUser, error: errorUpdateUser }, updateUser] = useAsyncFn(
     async (values) => {
       if (firebaseUser) {
-        let numTagIds: number[] = [];
-        values.tagIds.map((tagId: string) => numTagIds.push(parseInt(tagId)));
         let updateUserRequest: UpdateUserRequest = {
           id: user.id,
           name: values.name,
@@ -51,7 +50,7 @@ export const EditUserForm = (props: { user: UserEditor }) => {
           role: parseInt(values.role),
           communityId: community.communityId,
           beaconName: values.beaconName,
-          tagIds: numTagIds,
+          tagNames: values.tagNames,
         };
         const token = await firebaseUser.getIdToken();
         await axios.put(endpoints.users, updateUserRequest, {
@@ -93,7 +92,7 @@ export const EditUserForm = (props: { user: UserEditor }) => {
       role: user.role.toString(),
       communityId: 0,
       beaconName: user.beaconName,
-      tagIds: currentTagIds,
+      tagNames: currentTagNames,
     },
     validate: zodResolver(userSchema),
   });
@@ -164,11 +163,11 @@ export const EditUserForm = (props: { user: UserEditor }) => {
               {...form.getInputProps('uuid')}
             />
           )}
-          <MultiSelect
+          <TagsInput
             label='タグ'
-            placeholder='属性を選択してください'
+            placeholder='タグを選択してください'
             data={selectTags}
-            {...form.getInputProps('tagIds')}
+            {...form.getInputProps('tagNames')}
           />
           <div className='flex pt-3'>
             <div className='mr-auto space-x-4'>

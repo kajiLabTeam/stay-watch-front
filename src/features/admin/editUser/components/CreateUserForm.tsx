@@ -81,11 +81,6 @@ export const CreateUserForm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.values.beaconName, form.setValues]);
 
-  useEffect(() => {
-    console.log(form.values.tagNames);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form.values.tagNames]);
-
   return (
     <div>
       {loading && <LoadingOverlay visible={visible} overlayProps={{ blur: 3 }} />}

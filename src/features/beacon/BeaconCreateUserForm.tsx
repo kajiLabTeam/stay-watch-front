@@ -1,5 +1,5 @@
 'use client';
-import { Alert, Button, LoadingOverlay, MultiSelect, Select, TextInput } from '@mantine/core';
+import { Alert, Button, LoadingOverlay, Select, TagsInput, TextInput } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
 import axios from 'axios';
@@ -34,8 +34,6 @@ function BeaconRegisterForm({ privateKey }: PropsType) {
   // // const [{ value, loading, error }, doFetch] = useAsyncFn(async (values) => {  // こうするとvalueもとれる。
   const [{ loading, error }, submitCreateUser] = useAsyncFn(async (values) => {
     if (firebaseUser) {
-      let numTagIds: number[] = [];
-      values.tagIds.map((tagId: string) => numTagIds.push(parseInt(tagId)));
       let createUserRequest: CreatePrivateBeaconUserRequest = {
         name: values.name,
         uuid: '',
@@ -43,7 +41,7 @@ function BeaconRegisterForm({ privateKey }: PropsType) {
         role: parseInt(values.role),
         communityId: community.communityId,
         beaconName: UI_DATA.BEACON_NAME_STAYWATCHBEACON,
-        tagIds: numTagIds,
+        tagNames: values.tagNames,
         privateKey: privateKey,
       };
       const token = await firebaseUser.getIdToken();
@@ -65,7 +63,7 @@ function BeaconRegisterForm({ privateKey }: PropsType) {
       email: '',
       role: '1',
       communityId: 0,
-      tagIds: [],
+      tagNames: [],
     },
     validate: zodResolver(privacyBeaconUserSchema),
   });
@@ -95,11 +93,11 @@ function BeaconRegisterForm({ privateKey }: PropsType) {
               {...form.getInputProps('role')}
             />
           </div>
-          <MultiSelect
+          <TagsInput
             label='タグ'
             placeholder='タグを選択してください'
             data={selectTags}
-            {...form.getInputProps('tagIds')}
+            {...form.getInputProps('tagNames')}
           />
           <div className='pt-3'>
             <Button type='submit' className='bg-staywatch-accent' color='#1e5266'>
