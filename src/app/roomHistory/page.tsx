@@ -1,7 +1,8 @@
 'use client';
-import * as RoomHistoryComponents from '@/features/roomHistory/components/Index';
+
+import RoomHistory from "@/features/roomHistory/components/RoomHistory";
 
 const RoomHistoryPage = () => {
-  return <RoomHistoryComponents.RoomHistory />;
+  return <RoomHistory />;
 };
 export default RoomHistoryPage;
