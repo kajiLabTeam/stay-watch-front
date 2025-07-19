@@ -3,8 +3,8 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { useWindowSize } from 'usehooks-ts';
-import nextButton from './NextButton';
-import PrevButton from './PrevButton';
+import { NextButton } from './NextButton';
+import { PrevButton } from './PrevButton';
 import UserSelecter from './UserSelecter';
 import Error from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
@@ -120,7 +120,7 @@ const RoomHistory = () => {
                 {PrevButton(CurrentPage, PreviousPage)}
               </div>
               <div className='fixed inset-y-1/2 right-4'>
-                {nextButton(CurrentPage, NextPage, historyCount)}
+                {NextButton(CurrentPage, NextPage, historyCount)}
               </div>
             </div>
           );
@@ -128,7 +128,7 @@ const RoomHistory = () => {
         return (
           <div className='mt-2 flex h-10 w-full justify-between text-white md:mt-4'>
             <div>{PrevButton(CurrentPage, PreviousPage)}</div>
-            <div>{nextButton(CurrentPage, NextPage, historyCount)}</div>
+            <div>{NextButton(CurrentPage, NextPage, historyCount)}</div>
           </div>
         );
       })()}

@@ -1,6 +1,6 @@
 import { Button } from '@mantine/core';
 
-const nextButton = (CurrentPage: number, NextPage: () => void, HistoryCount: number) => {
+export const NextButton = (CurrentPage: number, NextPage: () => void, HistoryCount: number) => {
   const limit = 30;
   const MaxPage = HistoryCount / limit;
   if (CurrentPage >= MaxPage) {
@@ -12,5 +12,3 @@ const nextButton = (CurrentPage: number, NextPage: () => void, HistoryCount: num
     </Button>
   );
 };
-
-export default nextButton;
