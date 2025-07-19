@@ -9,7 +9,7 @@ type Props = {
   roomName: string;
 };
 
-const PopoverTop = (props: Props) => {
+export const PopoverTop = (props: Props) => {
   return (
     <div className='max-w-sm '>
       <Popover className='relative'>
@@ -50,5 +50,3 @@ const PopoverTop = (props: Props) => {
     </div>
   );
 };
-
-export default PopoverTop;

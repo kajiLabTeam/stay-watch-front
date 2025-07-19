@@ -1,8 +1,8 @@
 'use client';
 import { useDocumentTitle } from '@mantine/hooks';
 import React from 'react';
-import { useFloorMapCanvas } from './useFloorMapCanvas';
-import PopoverUser from '@/features/floorMap/PopoverUser';
+import { useFloorMapCanvas } from '../hooks/useFloorMapCanvas';
+import * as FloorMapComponents from '@/features/floorMap/components/Index';
 
 export const FloorMapCanvas = () => {
   useDocumentTitle('滞在者マップ');
@@ -29,7 +29,10 @@ export const FloorMapCanvas = () => {
             fontSize: canvasRef.current.clientHeight / 40,
           }}
         >
-          <PopoverUser roomName={popoverRoom.roomName} userNames={popoverRoom.userNames} />
+          <FloorMapComponents.PopoverUser
+            roomName={popoverRoom.roomName}
+            userNames={popoverRoom.userNames}
+          />
         </div>
       )}
     </div>
