@@ -1,8 +1,9 @@
 'use client';
-import * as FloorMapComponents from '@/features/floorMap/components/Index';
+
+import { FloorMapCanvas } from '@/features/floorMap/components/FloorMapCanvas';
 
 const FloorMapPage = () => {
-  return <FloorMapComponents.FloorMapCanvas />;
+  return <FloorMapCanvas />;
 };
 
 export default FloorMapPage;
