@@ -1,10 +1,9 @@
 'use client';
-import { TextInput, MultiSelect, Select, LoadingOverlay, Alert, TagsInput } from '@mantine/core';
+import { TextInput, Select, LoadingOverlay, Alert, TagsInput } from '@mantine/core';
 import { Button, Modal } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
 import axios from 'axios';
-import { useEffect } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useSWRConfig } from 'swr';
 import { beaconSelector } from '../constants/beaconSelector';
