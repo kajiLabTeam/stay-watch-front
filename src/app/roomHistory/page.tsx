@@ -1,6 +1,6 @@
 'use client';
 
-import RoomHistory from "@/features/roomHistory/components/RoomHistory";
+import RoomHistory from '@/features/roomHistory/components/RoomHistory';
 
 const RoomHistoryPage = () => {
   return <RoomHistory />;
