@@ -18,7 +18,7 @@ export const userSchema = z.object({
   role: z.string(),
   communityId: z.number(),
   beaconName: z.string().min(1, { message: '必須項目です' }),
-  tagIds: z.array(z.string()).min(1, { message: '少なくとも1つは選択してください' }),
+  tagNames: z.array(z.string()).min(1, { message: '少なくとも1つは選択してください' }),
 });
 
 export type CreateInputType = z.infer<typeof userSchema>;

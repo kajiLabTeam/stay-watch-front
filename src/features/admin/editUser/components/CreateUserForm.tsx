@@ -1,5 +1,5 @@
 'use client';
-import { TextInput, MultiSelect, Select, LoadingOverlay, Alert } from '@mantine/core';
+import { TextInput, Select, LoadingOverlay, Alert, TagsInput } from '@mantine/core';
 import { Button } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
@@ -35,8 +35,6 @@ export const CreateUserForm = () => {
   // const [{ value, loading, error }, doFetch] = useAsyncFn(async (values) => {  // こうするとvalueもとれる。
   const [{ loading, error }, submitCreateUser] = useAsyncFn(async (values) => {
     if (user) {
-      let numTagIds: number[] = [];
-      values.tagIds.map((tagId: string) => numTagIds.push(parseInt(tagId)));
       let createUserRequest: CreateUserRequest = {
         name: values.name,
         uuid: values.uuid,
@@ -44,7 +42,7 @@ export const CreateUserForm = () => {
         role: parseInt(values.role),
         communityId: community.communityId,
         beaconName: values.beaconName,
-        tagIds: numTagIds,
+        tagNames: values.tagNames,
       };
       const token = await user.getIdToken();
       await axios.post(endpoints.users, createUserRequest, {
@@ -68,7 +66,7 @@ export const CreateUserForm = () => {
       role: '1',
       communityId: 0,
       beaconName: '',
-      tagIds: [],
+      tagNames: [],
     },
     validate: zodResolver(userSchema),
   });
@@ -123,11 +121,11 @@ export const CreateUserForm = () => {
               {...form.getInputProps('uuid')}
             />
           )}
-          <MultiSelect
+          <TagsInput
             label='タグ'
             placeholder='タグを選択してください'
             data={selectTags}
-            {...form.getInputProps('tagIds')}
+            {...form.getInputProps('tagNames')}
           />
           <div className='pt-3'>
             <Button type='submit' className='bg-staywatch-accent' color='#1e5266'>

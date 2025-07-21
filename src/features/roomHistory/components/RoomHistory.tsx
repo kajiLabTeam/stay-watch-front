@@ -3,11 +3,13 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { useWindowSize } from 'usehooks-ts';
-import RoomTabDate from './RoomTabDate';
-import { useCurrentPage } from './roomHistoryhook';
+import { NextButton } from './NextButton';
+import { PrevButton } from './PrevButton';
+import UserSelecter from './UserSelecter';
 import Error from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
-import * as RoomHistoryComponents from '@/features/roomHistory/components/Index';
+import RoomTabDate from '@/features/roomHistory/components/RoomTabDate';
+import { useCurrentPage } from '@/features/roomHistory/roomHistoryhook';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import LogsListResponse from '@/types/log';
 import { endpoints } from '@/utils/endpoint';
@@ -84,7 +86,7 @@ const RoomHistory = () => {
               </>
             )}
           </button>
-          <div>{RoomHistoryComponents.UserSelecter(selectedUserID)}</div>
+          <div>{UserSelecter(selectedUserID)}</div>
         </div>
       </div>
       {isGantt ? (
@@ -115,18 +117,18 @@ const RoomHistory = () => {
           return (
             <div>
               <div className='fixed inset-y-1/2 left-4'>
-                {RoomHistoryComponents.PrevButton(CurrentPage, PreviousPage)}
+                {PrevButton(CurrentPage, PreviousPage)}
               </div>
               <div className='fixed inset-y-1/2 right-4'>
-                {RoomHistoryComponents.NextButton(CurrentPage, NextPage, historyCount)}
+                {NextButton(CurrentPage, NextPage, historyCount)}
               </div>
             </div>
           );
         }
         return (
           <div className='mt-2 flex h-10 w-full justify-between text-white md:mt-4'>
-            <div>{RoomHistoryComponents.PrevButton(CurrentPage, PreviousPage)}</div>
-            <div>{RoomHistoryComponents.NextButton(CurrentPage, NextPage, historyCount)}</div>
+            <div>{PrevButton(CurrentPage, PreviousPage)}</div>
+            <div>{NextButton(CurrentPage, NextPage, historyCount)}</div>
           </div>
         );
       })()}

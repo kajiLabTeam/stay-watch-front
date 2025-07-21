@@ -40,7 +40,9 @@ export const RegisterdUser = (props: { user: UserEditor }) => {
             {roleSelector[user.role - 1].label}
           </td>
           <td className='min-w-fit whitespace-nowrap border px-4 py-1'>{user.beaconName}</td>
-          <td className='whitespace-nowrap border px-4 py-1'>{user.tags[0].name}</td>
+          <td className='whitespace-nowrap border px-4 py-1'>
+            {user.tags.length > 0 ? user.tags[0].name : ''}
+          </td>
         </tr>
       )}
     </>

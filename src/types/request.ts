@@ -5,7 +5,7 @@ type UserRequestBase = {
   role: number;
   communityId: number;
   beaconName: string;
-  tagIds: number[];
+  tagNames: string[];
 };
 
 export type CreateUserRequest = UserRequestBase;

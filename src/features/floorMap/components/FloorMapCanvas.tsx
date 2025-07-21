@@ -1,8 +1,8 @@
 'use client';
 import { useDocumentTitle } from '@mantine/hooks';
 import React from 'react';
-import { useFloorMapCanvas } from './useFloorMapCanvas';
-import PopoverUser from '@/features/floorMap/PopoverUser';
+import { useFloorMapCanvas } from '../hooks/useFloorMapCanvas';
+import { PopoverUser } from './PopoverUser';
 
 export const FloorMapCanvas = () => {
   useDocumentTitle('滞在者マップ');

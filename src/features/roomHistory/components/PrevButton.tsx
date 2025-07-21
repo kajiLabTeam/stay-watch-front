@@ -1,6 +1,6 @@
 import { Button } from '@mantine/core';
 
-const PrevButton = (CurrentPage: number, PreviousPage: () => void) => {
+export const PrevButton = (CurrentPage: number, PreviousPage: () => void) => {
   //pageが1より大きい時にボタンを表示
   if (CurrentPage > 1) {
     return (
@@ -11,5 +11,3 @@ const PrevButton = (CurrentPage: number, PreviousPage: () => void) => {
   }
   return <div />;
 };
-
-export default PrevButton;
