@@ -1,7 +1,7 @@
 import { Tab } from '@headlessui/react';
-import useSWR from 'swr';
 import Loading from '@/components/common/Loading';
 import TabRoom from '@/features/simulataneousStay/TabRoom';
+import { useGetAPI } from '@/hooks/useGetAPI';
 import GanttStayLog from '@/types/ganttStayLog';
 import { endpoints } from '@/utils/endpoint';
 
@@ -11,7 +11,7 @@ function classNames(...classes) {
 }
 
 export default function RoomTabDate() {
-  const { data, error } = useSWR<GanttStayLog[]>(`${endpoints.logsGantt}`);
+  const { data, error } = useGetAPI<GanttStayLog[]>(`${endpoints.logsGantt}`);
   if (data !== null) {
     // データがまだない場合は読み込み中のUIを表示する
   }
