@@ -1,9 +1,9 @@
 import { Select } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
-import TabDate from '@/features/simulataneousStay/TabDate';
 import { User } from '@/types/user';
 import { baseURL } from '@/utils/endpoint';
+import TabDate from '@/features/stayLogGraph/components/TabDate';
 
 type selectUser = {
   value: string;

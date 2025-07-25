@@ -1,8 +1,8 @@
 import { Tab } from '@headlessui/react';
 import useSWR from 'swr';
-import TabRoom from '@/features/simulataneousStay/TabRoom';
 import GanttStayLog from '@/types/ganttStayLog';
 import { baseURL } from '@/utils/endpoint';
+import TabRoom from '@/features/stayLogGraph/components/TabRoom';
 
 // @ts-ignore
 function classNames(...classes) {
