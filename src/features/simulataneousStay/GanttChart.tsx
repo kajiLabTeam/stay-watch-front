@@ -1,6 +1,6 @@
 import * as am4charts from '@amcharts/amcharts4/charts';
 import * as am4core from '@amcharts/amcharts4/core';
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { ChartData, StayTime } from '@/types/ganttStayLog';
 
 //propsの型定義
@@ -8,13 +8,35 @@ type Props = {
   stayTimes: StayTime[];
 };
 
+const getStartOfDayUnixTime = (unixTime: number): number => {
+  const date = new Date(unixTime); // UNIX時間 → Dateオブジェクトに変換
+  date.setHours(0, 0, 0, 0);       // 時分秒ミリ秒をすべて0に設定
+  return date.getTime();           // 0時のUNIX時間（ミリ秒）を返す
+}
+
+const getEndOfDayUnixTime = (unixTime: number): number => {
+  const date = new Date(unixTime); // UNIX時間 → Dateオブジェクトに変換
+  date.setHours(23, 59, 59, 999);  // 23時59分59秒999ミリ秒に設定
+  return date.getTime();           // その日の終わりのUNIX時間（ミリ秒）を返す
+}
+
 const GanttChart = (props: Props) => {
+  // const [currentDayStartUnixTime, setCurrentDayStartUnixTime] = useState<number>(0);
+  // const [currentDayEndUnixTime, setCurrentDayEndUnixTime] = useState<number>(0);
   const divRef = useRef<HTMLDivElement | null>(null);
   const chartRef = useRef<am4charts.XYChart | null>(null);
 
   let chartData: ChartData[] = [];
+  let currentDayStartUnixTime = 0
+  let currentDayEndUnixTime = 0
 
+  let isGotCurrentDayTime = false
   props.stayTimes.forEach((stayTime) => {
+    if(!isGotCurrentDayTime){
+      currentDayStartUnixTime = getStartOfDayUnixTime(stayTime.startAt)
+      currentDayEndUnixTime = getEndOfDayUnixTime(stayTime.endAt)
+      isGotCurrentDayTime = true
+    }
     chartData.push({
       name: stayTime.userName,
       color: stayTime.color,
@@ -29,16 +51,22 @@ const GanttChart = (props: Props) => {
       chart.height = 500;
       chart.paddingTop = 0;
       chart.paddingBottom = 0;
+      chart.width = 1000
       // chart.colors.list = [am4core.color("#008000")];
 
       chart.dateFormatter.dateFormat = 'yyyy-MM-dd HH:mm:ss';
       chart.data = chartData; // データの適用
       const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-      dateAxis.extraMin = 0.9;
-      dateAxis.extraMax = 0.9;
-      //dateAxis.renderer.labels.template.location = 0.0001; // この1行を消したときの違いを確認すると何の設定なのか圧倒的にイメージしやすい
-      const categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
 
+      // グラフの初期値と最後値を指定
+      dateAxis.min = currentDayStartUnixTime
+      dateAxis.max = currentDayEndUnixTime
+      // dateAxis.max = 
+      // dateAxis.extraMin = 0.2;
+      // dateAxis.extraMax = 0.2;
+      //dateAxis.renderer.labels.template.location = 0.0001; // この1行を消したときの違いを確認すると何の設定なのか圧倒的にイメージしやすい
+      
+      const categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
       // 適用したデータに対してy軸として設定したフィールドを指定
       // 今回はcategory
       categoryAxis.dataFields.category = 'name';
