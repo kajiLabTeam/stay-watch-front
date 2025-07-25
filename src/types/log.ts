@@ -1,4 +1,4 @@
-type Log = {
+export type Log = {
   id: number;
   name: string;
   startAt: string;
@@ -6,10 +6,7 @@ type Log = {
   room: string;
 };
 
-type LogsListResponse = {
+export type LogsListResponse = {
   logs?: Log[];
   count: number;
 };
-
-// export default Log;
-export default LogsListResponse;

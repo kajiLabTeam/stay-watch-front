@@ -1,13 +1,19 @@
 import { Button } from '@mantine/core';
 
-export const NextButton = (CurrentPage: number, NextPage: () => void, HistoryCount: number) => {
+type NextButtonProps = {
+  currentPage: number;
+  nextPage: () => void;
+  historyCount: number;
+};
+
+export const NextButton = ({ currentPage, nextPage, historyCount }: NextButtonProps) => {
   const limit = 30;
-  const MaxPage = HistoryCount / limit;
-  if (CurrentPage >= MaxPage) {
+  const MaxPage = historyCount / limit;
+  if (currentPage >= MaxPage) {
     return <div />;
   }
   return (
-    <Button color='blue' onClick={NextPage}>
+    <Button color='blue' onClick={nextPage}>
       次へ
     </Button>
   );
