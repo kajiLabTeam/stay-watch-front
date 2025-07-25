@@ -1,6 +1,6 @@
 import { Tab } from '@headlessui/react';
 import Loading from '@/components/common/Loading';
-import TabRoom from '@/features/simulataneousStay/TabRoom';
+import TabRoom from '@/features/stayLogGraph/components/TabRoom';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import GanttStayLog from '@/types/ganttStayLog';
 import { endpoints } from '@/utils/endpoint';
