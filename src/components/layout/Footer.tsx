@@ -19,7 +19,7 @@ const Footer = () => {
         </div>
       </div>
       <p className='mr-8 text-right text-xl text-gray-400'>{community.communityName}</p>
-      <div className='fixed bottom-0 w-full'>
+      <div className='fixed bottom-0 z-50 w-full'>
         <div className='flex h-16 items-center justify-evenly bg-staywatch-main text-white'>
           <Link href='/'>
             <div>

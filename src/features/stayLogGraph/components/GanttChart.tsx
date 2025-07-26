@@ -7,10 +7,11 @@ import { getEndOfDayUnixTime, getStartOfDayUnixTime } from '@/utils/dateUtils';
 //propsの型定義
 type Props = {
   stayTimes: StayTime[];
-  graphWidth: number;
+  width: number;
+  height: number;
 };
 
-const GanttChart = ({ stayTimes, graphWidth }: Props) => {
+const GanttChart = ({ stayTimes, width, height }: Props) => {
   const divRef = useRef<HTMLDivElement | null>(null);
   const chartRef = useRef<am4charts.XYChart | null>(null);
 
@@ -36,11 +37,14 @@ const GanttChart = ({ stayTimes, graphWidth }: Props) => {
   useLayoutEffect(() => {
     if (divRef.current) {
       const chart = am4core.create(divRef.current, am4charts.XYChart);
-      chart.height = 500;
+      if (stayTimes.length < 5) {
+        chart.height = 50 * stayTimes.length;
+      } else if (stayTimes.length < 10) {
+        chart.height = 30 * stayTimes.length;
+      }
       chart.paddingTop = 0;
       chart.paddingBottom = 0;
-      chart.width = graphWidth;
-      // chart.colors.list = [am4core.color("#008000")];
+      chart.width = width;
 
       chart.dateFormatter.dateFormat = 'yyyy-MM-dd HH:mm:ss';
       chart.data = chartData; // データの適用
@@ -49,10 +53,14 @@ const GanttChart = ({ stayTimes, graphWidth }: Props) => {
       // グラフの初期値と最後値を指定
       dateAxis.min = currentDayStartUnixTime;
       dateAxis.max = currentDayEndUnixTime;
-      // dateAxis.max =
-      // dateAxis.extraMin = 0.2;
-      // dateAxis.extraMax = 0.2;
-      //dateAxis.renderer.labels.template.location = 0.0001; // この1行を消したときの違いを確認すると何の設定なのか圧倒的にイメージしやすい
+      dateAxis.baseInterval = {
+        timeUnit: 'hour',
+        count: 1,
+      };
+      dateAxis.gridIntervals.setAll([
+        { timeUnit: 'hour', count: 6 }, // ← ★ グリッドを3時間間隔に固定
+      ]);
+      // dateAxis.renderer.labels.template.location = 0.0001; // この1行を消したときの違いを確認すると何の設定なのか圧倒的にイメージしやすい
 
       const categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
       // 適用したデータに対してy軸として設定したフィールドを指定
@@ -105,7 +113,7 @@ const GanttChart = ({ stayTimes, graphWidth }: Props) => {
 
   return (
     <div>
-      <div ref={divRef} style={{ height: 600, width: '100%', marginTop: '100px' }} />
+      <div ref={divRef} style={{ height: height, width: '100%', marginTop: '100px' }} />
     </div>
   );
 };

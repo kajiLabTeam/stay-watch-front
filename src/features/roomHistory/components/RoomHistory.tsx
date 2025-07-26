@@ -9,7 +9,7 @@ import { StayLogTable } from './StayLogTable';
 import UserSelecter from './UserSelecter';
 import Error from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
-import RoomTabDate from '@/features/roomHistory/components/RoomTabDate';
+import { StayLogGraph } from '@/features/stayLogGraph/components/StayLogGraph';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import { LogsListResponse } from '@/types/log';
 import { UserAttribute } from '@/types/user';
@@ -66,7 +66,7 @@ const RoomHistory = () => {
         {isGantt ? (
           <>
             <div className='my-4 border' />
-            <RoomTabDate />
+            <StayLogGraph />
           </>
         ) : (
           <>
@@ -98,6 +98,7 @@ const RoomHistory = () => {
         )}
       </>
     );
+  return <></>;
 };
 
 export default RoomHistory;

@@ -1,4 +1,5 @@
 import { Tab } from '@headlessui/react';
+import { useWindowSize } from 'react-use';
 import GanttChart from './GanttChart';
 import { Room } from '@/types/ganttStayLog';
 
@@ -12,8 +13,10 @@ type Props = {
 };
 
 const TabRoom = (props: Props) => {
+  const { height, width: windowWidth } = useWindowSize();
+
   return (
-    <div className='max-w-md  pt-8 sm:px-0'>
+    <div className='pt-8 sm:px-0'>
       <Tab.Group>
         <Tab.List className='flex space-x-1 rounded-xl bg-blue-900/20 p-1'>
           {props.rooms.map((room) => {
@@ -35,10 +38,12 @@ const TabRoom = (props: Props) => {
             );
           })}
         </Tab.List>
-        <Tab.Panels className=' w-[1240px] '>
+        <Tab.Panels>
           {props.rooms.map((room) => (
             <Tab.Panel key={room.id}>
-              <GanttChart stayTimes={room.stayTimes} graphWidth={800} />
+              <div className={`w-[${windowWidth}px]`}>
+                <GanttChart stayTimes={room.stayTimes} height={height} width={windowWidth / 1.2} />
+              </div>
             </Tab.Panel>
           ))}
         </Tab.Panels>

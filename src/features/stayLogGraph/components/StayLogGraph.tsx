@@ -1,30 +1,25 @@
 import { Tab } from '@headlessui/react';
-import useSWR from 'swr';
-import GanttStayLog from '@/types/ganttStayLog';
-import { baseURL } from '@/utils/endpoint';
+import Loading from '@/components/common/Loading';
 import TabRoom from '@/features/stayLogGraph/components/TabRoom';
+import { useGetAPI } from '@/hooks/useGetAPI';
+import GanttStayLog from '@/types/ganttStayLog';
+import { endpoints } from '@/utils/endpoint';
 
 // @ts-ignore
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-type Props = {
-  id: string;
-};
-
-export default function TabDate(props: Props) {
-  const { data, error } = useSWR<GanttStayLog[]>(
-    `${baseURL}/room/v1/list/simultaneous/${props.id}`,
-  );
+export const StayLogGraph = () => {
+  const { data, error } = useGetAPI<GanttStayLog[]>(`${endpoints.logsGantt}`);
   if (data !== null) {
     // データがまだない場合は読み込み中のUIを表示する
   }
   if (error) return <div>failed to load</div>;
-  if (!data) return <div>loading...</div>;
+  if (!data) return <Loading message='滞在情報取得中' />;
 
   return (
-    <div className='max-w-md  pt-8 sm:px-0'>
+    <div className='pt-8 sm:px-0'>
       <Tab.Group>
         <Tab.List className='flex space-x-1 rounded-xl bg-blue-900/20 p-1'>
           {data.map((item) => {
@@ -46,7 +41,7 @@ export default function TabDate(props: Props) {
             );
           })}
         </Tab.List>
-        <Tab.Panels className=' w-[1240px] '>
+        <Tab.Panels>
           {data.map((item) => (
             <Tab.Panel key={item.id}>
               <TabRoom rooms={item.rooms} key={item.id} />
@@ -56,4 +51,4 @@ export default function TabDate(props: Props) {
       </Tab.Group>
     </div>
   );
-}
+};
