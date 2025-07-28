@@ -1,139 +1,104 @@
 import { useDocumentTitle } from '@mantine/hooks';
 import Image from 'next/image';
-import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { useWindowSize } from 'usehooks-ts';
+import { useParamChange } from '../hooks/useParamChange';
 import { NextButton } from './NextButton';
 import { PrevButton } from './PrevButton';
+import { StayLogTable } from './StayLogTable';
 import UserSelecter from './UserSelecter';
 import Error from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
-import RoomTabDate from '@/features/roomHistory/components/RoomTabDate';
-import { useCurrentPage } from '@/features/roomHistory/roomHistoryhook';
+import { StayLogGraph } from '@/features/stayLogGraph/components/StayLogGraph';
 import { useGetAPI } from '@/hooks/useGetAPI';
-import LogsListResponse from '@/types/log';
+import { LogsListResponse } from '@/types/log';
+import { UserAttribute } from '@/types/user';
 import { endpoints } from '@/utils/endpoint';
 
 const RoomHistory = () => {
   useDocumentTitle('滞在者履歴');
   const { width } = useWindowSize();
-  const searchParams = useSearchParams();
-
-  const [CurrentOffset, CurrentPage, PreviousPage, NextPage] = useCurrentPage();
-
-  const selectedUserID = searchParams.get('user-id') || undefined;
+  const [currentOffset, currentPage, currentUserID, previousPage, nextPage, updateSelectedUser] =
+    useParamChange();
+  const [isGantt, setIsGantt] = useState(false);
 
   const {
     data: roomHistoryLog,
-    error,
-    isLoading,
+    error: stayLogError,
+    isLoading: isLoadingStayLog,
   } = useGetAPI<LogsListResponse>(
-    `${endpoints.logs}?offset=${CurrentOffset}${
-      selectedUserID ? `&&user-id=${selectedUserID}` : ''
-    }`,
+    `${endpoints.logs}?offset=${currentOffset}${currentUserID ? `&&user-id=${currentUserID}` : ''}`,
   );
-  const [isGantt, setIsGantt] = useState(false);
 
-  const Period = (roomHistoryLog?: LogsListResponse) => {
-    if (!roomHistoryLog || !roomHistoryLog.logs) return null;
-    const log = roomHistoryLog.logs;
-    if (isLoading) return <Loading message='滞在情報取得中' />;
-    if (error) return <Error message='滞在情報取得失敗' />;
-    if (log)
-      return [...log].map((log) => {
-        // {log.map((log:)=>{
-        if (log.endAt === '2016-01-01 00:00:00') {
-          //退出してない場合
-          return (
-            <tr className='text-left' key={log.id}>
-              <td className='border py-2 md:px-4 '>{log.startAt.substring(0, 10)}</td>
-              <td className='border px-4 py-2'>{log.name}</td>
-              <td className='border px-4 py-2'>
-                {log.startAt.substring(10, log.startAt.length - 3)} -
-              </td>
-              <td className='border px-4 py-2'>{log.room}</td>
-            </tr>
-          );
-        }
-        return (
-          <tr className='text-left' key={log.id}>
-            <td className='border py-2 md:px-4'>{log.startAt.substring(0, 10)}</td>
-            <td className='border px-4 py-2'>{log.name}</td>
-            <td className='border px-4 py-2'>
-              {log.startAt.substring(10, log.startAt.length - 3)} -
-              {log.endAt.substring(10, log.endAt.length - 3)}
-            </td>
-            <td className='border px-4 py-2'>{log.room}</td>
-          </tr>
-        );
-      });
-  };
+  const {
+    data: users,
+    error: usersError,
+    isLoading: isLoadingUsers,
+  } = useGetAPI<UserAttribute[]>(`${endpoints.users}`);
 
-  return (
-    <div>
-      <div className='mt-6 flex justify-between text-2xl md:text-3xl'>
-        <div className='mt-6 flex justify-between'>
-          <button
-            onClick={() => {
-              setIsGantt(!isGantt);
-            }}
-          >
-            {isGantt ? (
-              <Image src='/ganttAnother.png' alt='stayer' width={27} height={27} />
-            ) : (
-              <>
-                <Image src='/gantt.png' alt='stayer' width={27} height={27} />
-              </>
-            )}
-          </button>
-          <div>{UserSelecter(selectedUserID)}</div>
-        </div>
-      </div>
-      {isGantt ? (
-        <div>
-          <div className='my-4 border' />
-          <RoomTabDate />
-        </div>
-      ) : (
-        <div>
-          <table className='w-full table-fixed text-xs sm:text-base md:text-2xl'>
-            <thead>
-              <tr className='bg-staywatch-black text-left text-white'>
-                <th className='w-1/5 border px-4  py-2'>日にち</th>
-                <th className=' border  px-4'>名前</th>
-                <th className=' border px-4'>時刻</th>
-                <th className=' border px-4'>部屋</th>
-              </tr>
-            </thead>
-            <tbody className=''>{Period(roomHistoryLog)}</tbody>
-          </table>
-        </div>
-      )}
-      {(() => {
-        if (!roomHistoryLog) return null;
-        if (roomHistoryLog.count === 0) return <p>履歴がありません</p>;
-        const historyCount = roomHistoryLog.count;
-        if (width > 853) {
-          return (
-            <div>
-              <div className='fixed inset-y-1/2 left-4'>
-                {PrevButton(CurrentPage, PreviousPage)}
-              </div>
-              <div className='fixed inset-y-1/2 right-4'>
-                {NextButton(CurrentPage, NextPage, historyCount)}
-              </div>
-            </div>
-          );
-        }
-        return (
-          <div className='mt-2 flex h-10 w-full justify-between text-white md:mt-4'>
-            <div>{PrevButton(CurrentPage, PreviousPage)}</div>
-            <div>{NextButton(CurrentPage, NextPage, historyCount)}</div>
+  if (isLoadingStayLog || isLoadingUsers) return <Loading message='滞在履歴取得中' />;
+  if (stayLogError || usersError) return <Error message='滞在履歴取得失敗' />;
+  if (users && roomHistoryLog && roomHistoryLog.logs)
+    return (
+      <>
+        <div className='mt-6 flex justify-between text-2xl md:text-3xl'>
+          <div className='mt-6 flex justify-between'>
+            <button
+              onClick={() => {
+                setIsGantt(!isGantt);
+              }}
+            >
+              {isGantt ? (
+                <Image src='/ganttAnother.png' alt='stayer' width={27} height={27} />
+              ) : (
+                <>
+                  <Image src='/gantt.png' alt='stayer' width={27} height={27} />
+                </>
+              )}
+            </button>
+            <UserSelecter
+              users={users}
+              handleUserID={updateSelectedUser}
+              paramsUserID={currentUserID}
+            />
           </div>
-        );
-      })()}
-    </div>
-  );
+        </div>
+        {isGantt ? (
+          <>
+            <div className='my-4 border' />
+            <StayLogGraph />
+          </>
+        ) : (
+          <>
+            <StayLogTable stayLogs={roomHistoryLog.logs} />
+          </>
+        )}
+        {width > 853 ? (
+          <div>
+            <div className='fixed inset-y-1/2 left-4'>
+              <PrevButton currentPage={currentOffset} previousPage={previousPage} />
+            </div>
+            <div className='fixed inset-y-1/2 right-4'>
+              <NextButton
+                currentPage={currentPage}
+                nextPage={nextPage}
+                historyCount={roomHistoryLog.count}
+              />
+            </div>
+          </div>
+        ) : (
+          <div className='mt-2 flex h-10 w-full justify-between text-white md:mt-4'>
+            <PrevButton currentPage={currentOffset} previousPage={previousPage} />
+            <NextButton
+              currentPage={currentPage}
+              nextPage={nextPage}
+              historyCount={roomHistoryLog.count}
+            />
+          </div>
+        )}
+      </>
+    );
+  return <></>;
 };
 
 export default RoomHistory;

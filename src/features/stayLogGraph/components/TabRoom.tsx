@@ -1,11 +1,7 @@
 import { Tab } from '@headlessui/react';
-// import GanttChart from "@/components/simulataneousStay/GanttChart";
-import dynamic from 'next/dynamic';
+import { useWindowSize } from 'react-use';
+import GanttChart from './GanttChart';
 import { Room } from '@/types/ganttStayLog';
-
-const GanttChart = dynamic(() => import('./GanttChart'), {
-  ssr: false,
-});
 
 // @ts-ignore
 function classNames(...classes) {
@@ -16,12 +12,14 @@ type Props = {
   rooms: Room[];
 };
 
-const TabRoom = (props: Props) => {
+const TabRoom = ({ rooms }: Props) => {
+  const { height, width: windowWidth } = useWindowSize();
+
   return (
-    <div className='max-w-md  pt-8 sm:px-0'>
+    <div className='pt-8 sm:px-0'>
       <Tab.Group>
         <Tab.List className='flex space-x-1 rounded-xl bg-blue-900/20 p-1'>
-          {props.rooms.map((room) => {
+          {rooms.map((room) => {
             return (
               <Tab
                 key={room.id}
@@ -40,10 +38,12 @@ const TabRoom = (props: Props) => {
             );
           })}
         </Tab.List>
-        <Tab.Panels className=' w-[1240px] '>
-          {props.rooms.map((room) => (
+        <Tab.Panels>
+          {rooms.map((room) => (
             <Tab.Panel key={room.id}>
-              <GanttChart stayTimes={room.stayTimes} />
+              <div style={{ width: `${windowWidth}px` }}>
+                <GanttChart stayTimes={room.stayTimes} height={height} width={windowWidth / 1.2} />
+              </div>
             </Tab.Panel>
           ))}
         </Tab.Panels>
