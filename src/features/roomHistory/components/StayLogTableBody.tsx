@@ -6,10 +6,11 @@ type StayLogTableBodyProps = {
 };
 
 export const StayLogTableBody = ({ stayLogs }: StayLogTableBodyProps) => {
+  const ONGOING_STAY_MARKER = '2016-01-01 00:00:00';
   return (
     <tbody>
       {stayLogs.map((stayLog) => {
-        if (stayLog.endAt === '2016-01-01 00:00:00') {
+        if (stayLog.endAt === ONGOING_STAY_MARKER) {
           // 退出していない場合
           return (
             <tr className='text-left' key={stayLog.id}>
