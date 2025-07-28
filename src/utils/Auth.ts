@@ -20,11 +20,11 @@ import { app } from '@/utils/firebase';
 export const login = (): Promise<UserCredential> | Promise<void> => {
   const provider = new GoogleAuthProvider();
   const auth = getAuth(app);
-  const enviroment = process.env.NEXT_PUBLIC_NODE_ENV;
-  if (enviroment === 'production') {
+  const environment = process.env.NEXT_PUBLIC_NODE_ENV;
+  if (environment === 'production') {
     // 本番環境
     return signInWithRedirect(auth, provider);
-  } else if (enviroment === 'development') {
+  } else if (environment === 'development') {
     // 開発環境
     return signInWithPopup(auth, provider); // ローカルホストで実行する際はPopupでないとサインインできないため注意
   }
