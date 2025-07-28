@@ -2,11 +2,11 @@ import axios, { AxiosResponse } from 'axios';
 import {
   getAuth,
   GoogleAuthProvider,
-  signInWithRedirect,
   signOut,
   onAuthStateChanged,
-  // signInWithPopup,
-  // UserCredential,
+  UserCredential,
+  signInWithPopup,
+  signInWithRedirect,
 } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { endpoints } from './endpoint';
@@ -17,12 +17,19 @@ import { useUserRoleMutators } from '@/globalStates/userRoleState';
 import { User } from '@/types/user';
 import { app } from '@/utils/firebase';
 
-export const login = (): Promise<void> => {
-  // export const login = (): Promise<UserCredential> => {
+export const login = (): Promise<UserCredential> | Promise<void> => {
   const provider = new GoogleAuthProvider();
   const auth = getAuth(app);
-  return signInWithRedirect(auth, provider);
-  //return signInWithPopup(auth, provider); // ローカルホストで実行する際はPopupでないとサインインできないため注意
+  const enviroment = process.env.NEXT_PUBLIC_NODE_ENV;
+  if (enviroment === 'production') {
+    // 本番環境
+    return signInWithRedirect(auth, provider);
+  } else if (enviroment === 'development') {
+    // 開発環境
+    return signInWithPopup(auth, provider); // ローカルホストで実行する際はPopupでないとサインインできないため注意
+  }
+  // 設定されていない場合Popupでやる
+  return signInWithPopup(auth, provider); // ローカルホストで実行する際はPopupでないとサインインできないため注意
 };
 
 export const logout = (): Promise<void> => {
