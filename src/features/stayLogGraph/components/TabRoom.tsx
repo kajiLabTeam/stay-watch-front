@@ -41,7 +41,7 @@ const TabRoom = ({ rooms }: Props) => {
         <Tab.Panels>
           {rooms.map((room) => (
             <Tab.Panel key={room.id}>
-              <div className={`w-[${windowWidth}px]`}>
+              <div style={{ width: `${windowWidth}px` }}>
                 <GanttChart stayTimes={room.stayTimes} height={height} width={windowWidth / 1.2} />
               </div>
             </Tab.Panel>
