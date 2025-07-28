@@ -12,12 +12,8 @@ function classNames(...classes) {
 
 export const StayLogGraph = () => {
   const { data, error } = useGetAPI<GanttStayLog[]>(`${endpoints.logsGantt}`);
-  if (data !== null) {
-    // データがまだない場合は読み込み中のUIを表示する
-  }
-  if (error) return <div>failed to load</div>;
+  if (error) return <div>滞在グラフデータ取得失敗</div>;
   if (!data) return <Loading message='滞在情報取得中' />;
-
   return (
     <div className='pt-8 sm:px-0'>
       <Tab.Group>

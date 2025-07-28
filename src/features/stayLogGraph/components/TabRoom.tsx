@@ -12,14 +12,14 @@ type Props = {
   rooms: Room[];
 };
 
-const TabRoom = (props: Props) => {
+const TabRoom = ({ rooms }: Props) => {
   const { height, width: windowWidth } = useWindowSize();
 
   return (
     <div className='pt-8 sm:px-0'>
       <Tab.Group>
         <Tab.List className='flex space-x-1 rounded-xl bg-blue-900/20 p-1'>
-          {props.rooms.map((room) => {
+          {rooms.map((room) => {
             return (
               <Tab
                 key={room.id}
@@ -39,7 +39,7 @@ const TabRoom = (props: Props) => {
           })}
         </Tab.List>
         <Tab.Panels>
-          {props.rooms.map((room) => (
+          {rooms.map((room) => (
             <Tab.Panel key={room.id}>
               <div className={`w-[${windowWidth}px]`}>
                 <GanttChart stayTimes={room.stayTimes} height={height} width={windowWidth / 1.2} />
