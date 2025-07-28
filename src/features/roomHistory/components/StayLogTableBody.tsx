@@ -37,38 +37,4 @@ export const StayLogTableBody = ({ stayLogs }: StayLogTableBodyProps) => {
       })}
     </tbody>
   );
-  // if (stayLogs){
-  //   return [...stayLogs].map((log) => {
-  //     // {log.map((log:)=>{
-  //     if (log.endAt === '2016-01-01 00:00:00') {
-  //       //退出してない場合
-  //       return (
-  //         <tr className='text-left' key={log.id}>
-  //           <td className='border py-2 md:px-4 '>{log.startAt.substring(0, 10)}</td>
-  //           <td className='border px-4 py-2'>{log.name}</td>
-  //           <td className='border px-4 py-2'>
-  //             {log.startAt.substring(10, log.startAt.length - 3)} -
-  //           </td>
-  //           <td className='border px-4 py-2'>{log.room}</td>
-  //         </tr>
-  //       );
-  //     }
-  //     return (
-  //       <tr className='text-left' key={log.id}>
-  //         <td className='border py-2 md:px-4'>{log.startAt.substring(0, 10)}</td>
-  //         <td className='border px-4 py-2'>{log.name}</td>
-  //         <td className='border px-4 py-2'>
-  //           {log.startAt.substring(10, log.startAt.length - 3)} -
-  //           {log.endAt.substring(10, log.endAt.length - 3)}
-  //         </td>
-  //         <td className='border px-4 py-2'>{log.room}</td>
-  //       </tr>
-  //     );
-  //   });
-  // }
-  // return (
-  //   <tbody>
-
-  //   </tbody>
-  //   )
 };
