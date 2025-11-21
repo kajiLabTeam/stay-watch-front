@@ -10,6 +10,7 @@ import UserSelecter from './UserSelecter';
 import Error from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
 import { StayLogGraph } from '@/features/stayLogGraph/components/StayLogGraph';
+import { useCommunityState } from '@/globalStates/useCommunityState';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import { LogsListResponse } from '@/types/log';
 import { UserAttribute } from '@/types/user';
@@ -21,6 +22,7 @@ const RoomHistory = () => {
   const [currentOffset, currentPage, currentUserID, previousPage, nextPage, updateSelectedUser] =
     useParamChange();
   const [isGantt, setIsGantt] = useState(false);
+  const community = useCommunityState();
 
   const {
     data: roomHistoryLog,
@@ -34,7 +36,7 @@ const RoomHistory = () => {
     data: users,
     error: usersError,
     isLoading: isLoadingUsers,
-  } = useGetAPI<UserAttribute[]>(`${endpoints.users}`);
+  } = useGetAPI<UserAttribute[]>(`${endpoints.users}/${community.communityId}`);
 
   if (isLoadingStayLog || isLoadingUsers) return <Loading message='滞在履歴取得中' />;
   if (stayLogError || usersError) return <Error message='滞在履歴取得失敗' />;
