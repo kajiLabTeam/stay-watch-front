@@ -1,4 +1,5 @@
 import { useDocumentTitle } from '@mantine/hooks';
+import { Badge } from '@/components/common/Badge';
 import Error from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
 import { useCommunityState } from '@/globalStates/useCommunityState';
@@ -19,30 +20,19 @@ const UserInformation = () => {
   if (error) return <Error message='利用者情報取得失敗' />;
   if (users)
     return (
-      <div>
-        <table className='mt-5 w-full table-fixed text-xl sm:text-base md:text-2xl'>
-          <thead>
-            <tr className='bg-staywatch-black text-left text-white'>
-              <th className='w-1/2 border px-4 py-2'>名前</th>
-              <th className='border px-4 py-2'>タグ</th>
-            </tr>
-          </thead>
-          <tbody className='text-lg md:text-2xl'>
-            {users.map((user) => (
-              <tr className='text-left' key={user.id}>
-                <td className='border px-4 py-2'>{user.name}</td>
-                <td className='flex flex-col  border px-4 py-2 md:flex-row md:gap-4'>
-                  {user.tags.map((tag, index) => (
-                    <div className='' key={tag.id}>
-                      {tag.name}
-                      {index !== user.tags.length - 1 && ' , '}
-                    </div>
-                  ))}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className='mt-5 w-full border text-base md:text-xl'>
+        {users.map((user) => (
+          <div className='w-full text-left' key={user.id}>
+            <td className='flex items-center border px-4 py-2'>
+              {user.name}
+              {user.tags.map((tag) => (
+                <div className='ml-1' key={tag.id}>
+                  <Badge name={tag.name}/>
+                </div>
+              ))}
+            </td>
+          </div>
+        ))}
       </div>
     );
   return <></>;
