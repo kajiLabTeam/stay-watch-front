@@ -46,7 +46,7 @@ function BeaconEditUserForm({ privateKey }: PropsType) {
     if (firebaseUser) {
       let updateUserRequest: UpdatePrivateBeaconUserRequest = {
         id: parseInt(values.id),
-        beaconName: UI_DATA.BEACON_NAME_STAYWATCHBEACON,
+        beaconName: UI_DATA.BEACON_NAME_PRIVBEACON,
         privateKey: privateKey,
       };
       const token = await firebaseUser.getIdToken();

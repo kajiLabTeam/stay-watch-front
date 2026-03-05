@@ -31,13 +31,19 @@ export const CreateUserForm = (props : {beaconTypes: BeaconType[]}) => {
   };
   const { mutate } = useSWRConfig();
 
-  const beaconSelector = beaconTypes.map((beaconType) => ({
-    value: beaconType.beaconName,
-    label: beaconType.beaconName,
-    disabled: beaconType.uuidEditable,
-  }));
+  const beaconSelector = [
+    ...beaconTypes.map((beaconType) => ({
+      value: beaconType.beaconName,
+      label: beaconType.beaconName,
+      disabled: beaconType.uuidEditable,
+    })),
+    {
+      value: "",
+      label: "未所持",
+      disabled: false,
+    },
+  ];
 
-  // const [{ value, loading, error }, doFetch] = useAsyncFn(async (values) => {  // こうするとvalueもとれる。
   const [{ loading, error }, submitCreateUser] = useAsyncFn(async (values) => {
     if (user) {
       let createUserRequest: CreateUserRequest = {
