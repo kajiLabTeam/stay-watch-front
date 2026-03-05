@@ -137,10 +137,6 @@ export const EditUserForm = (props: { user: UserEditor, beaconTypes: BeaconType[
             (values) => {
               const modifiedValues = { ...values, communityId: community.communityId };
               updateUser(modifiedValues);
-            },
-            (errors) => {
-              console.log("バリデーション失敗")
-              console.log(errors)
             }
           )}
         >
