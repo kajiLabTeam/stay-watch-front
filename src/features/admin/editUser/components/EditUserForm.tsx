@@ -30,11 +30,18 @@ export const EditUserForm = (props: { user: UserEditor, beaconTypes: BeaconType[
   const { setEditingUserId } = useEditingUserMutators();
   const { setAlertMode } = useAlertModeMutators();
 
-  const beaconSelector = beaconTypes.map((beaconType) => ({
-    value: beaconType.beaconName,
-    label: beaconType.beaconName,
-    disabled: beaconType.uuidEditable,
-  }));
+  const beaconSelector = [
+    ...beaconTypes.map((beaconType) => ({
+      value: beaconType.beaconName,
+      label: beaconType.beaconName,
+      disabled: beaconType.uuidEditable,
+    })),
+    {
+      value: "",
+      label: "未所持",
+      disabled: false,
+    },
+  ];
 
   const displayAlert = (alertMode: number) => {
     setAlertMode(alertMode);
@@ -55,6 +62,7 @@ export const EditUserForm = (props: { user: UserEditor, beaconTypes: BeaconType[
           communityId: community.communityId,
           beaconName: values.beaconName,
           tagNames: values.tagNames,
+          
         };
         const token = await firebaseUser.getIdToken();
         await axios.put(endpoints.users, updateUserRequest, {
