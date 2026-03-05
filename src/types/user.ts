@@ -36,6 +36,7 @@ export type extendedUser = {
 export type UserEditor = User & {
   beaconUuidEditable: boolean;
   beaconName: string;
+  privBeaconKeySuffix: string;
   tags: [
     {
       id: number;

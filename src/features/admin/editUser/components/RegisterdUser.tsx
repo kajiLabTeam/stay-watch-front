@@ -1,7 +1,7 @@
 'use client';
-import { Badge } from '@mantine/core';
 import React from 'react';
 import { roleSelector } from '../constants/roleSelector';
+import { Badge } from '@/components/common/Badge';
 import { EditUserForm } from '@/features/admin/editUser/components/EditUserForm';
 import {
   useEditingUserMutators,
@@ -31,11 +31,11 @@ export const RegisterdUser = (props: { user: UserEditor, beaconTypes: BeaconType
             <button onClick={() => setEditingUserId(user.id)} className='underline'>
               {user.name}
             </button>
-            <div className='ml-2'>
+            <div className='ml-2 flex items-center'>
               {user.tags.map((tag) => (
-                <Badge variant='light' color='indigo' size='lg' key={`${user.id}${tag.name}`}>
-                  {tag.name}
-                </Badge>
+                <div key={`${user.id}${tag.name}div`} className='mr-1'>
+                  <Badge key={`${user.id}${tag.name}badge`} name={tag.name}/>
+                </div>
               ))}
             </div>
           </td>
@@ -44,6 +44,9 @@ export const RegisterdUser = (props: { user: UserEditor, beaconTypes: BeaconType
           </td>
           <td className='min-w-fit whitespace-nowrap border px-4 py-1'>
             {user.beaconName  === "" ? "未所持" : user.beaconName}
+          </td>
+          <td className='min-w-fit whitespace-nowrap border px-4 py-1'>
+            {user.privBeaconKeySuffix  === "" ? "" : `****${user.privBeaconKeySuffix}`}
           </td>
         </tr>
       )}

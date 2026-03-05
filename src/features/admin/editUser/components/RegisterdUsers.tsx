@@ -17,6 +17,7 @@ export const RegisterdUsers = (props: { users: UserEditor[], beaconTypes: Beacon
               <th className='border px-4 py-1'>名前</th>
               <th className='border px-4 py-1'>権限</th>
               <th className='whitespace-nowrap border px-4 py-1'>ビーコン形態</th>
+              <th className='whitespace-nowrap border px-4 py-1'>PrivBeaonキー</th>
             </tr>
           </thead>
           <tbody className='text-lg md:text-xl'>
