@@ -5,7 +5,7 @@ import Loading from '@/components/common/Loading';
 import { BeaconType } from '@/types/beacon';
 import { UserEditor } from '@/types/user';
 
-export const RegisterdUsers = (props: { users: UserEditor[], beaconTypes: BeaconType[] }) => {
+export const RegisterdUsers = (props: { users: UserEditor[]; beaconTypes: BeaconType[] }) => {
   const { users, beaconTypes } = props;
 
   if (users && beaconTypes)

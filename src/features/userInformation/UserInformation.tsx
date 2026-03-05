@@ -27,7 +27,7 @@ const UserInformation = () => {
               {user.name}
               {user.tags.map((tag) => (
                 <div className='ml-1' key={tag.id}>
-                  <Badge name={tag.name}/>
+                  <Badge name={tag.name} />
                 </div>
               ))}
             </td>

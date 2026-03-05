@@ -39,12 +39,15 @@ const Stayer = () => {
                 <td className='px-2 text-sm md:text-2xl'>{stayersInRoom.room}</td>
                 <td className='border'>
                   {stayersInRoom.stayers.map((stayerInRoom) => (
-                    <div className='flex items-center p-0.5 text-sm md:py-2 md:text-2xl' key={stayerInRoom.name}>
+                    <div
+                      className='flex items-center p-0.5 text-sm md:py-2 md:text-2xl'
+                      key={stayerInRoom.name}
+                    >
                       {stayerInRoom.name}
-                      <div className='md:ml-1 flex'>
+                      <div className='flex md:ml-1'>
                         {stayerInRoom.tags.map((tag) => (
                           <span key={tag.id} className='ml-1 w-fit'>
-                            <Badge name={tag.name}/>
+                            <Badge name={tag.name} />
                           </span>
                         ))}
                       </div>

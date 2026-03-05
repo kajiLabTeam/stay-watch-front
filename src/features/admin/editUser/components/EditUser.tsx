@@ -16,13 +16,13 @@ export const EditUser = () => {
   const { data: users, error: usersError } = useGetAPI<UserEditor[]>(
     `${endpoints.adminUsers}/${community.communityId}`,
   );
-  const { data: beaconTypes, error:beaconTypesError} = useGetAPI<BeaconType[]>(
-    `${endpoints.beacons}`
-  )
+  const { data: beaconTypes, error: beaconTypesError } = useGetAPI<BeaconType[]>(
+    `${endpoints.beacons}`,
+  );
 
-  if (usersError) return <Error message='ユーザ情報取得失敗' />
-  if (beaconTypesError) return <Error message='ビーコン情報取得失敗'/>
-  if (users && beaconTypes){
+  if (usersError) return <Error message='ユーザ情報取得失敗' />;
+  if (beaconTypesError) return <Error message='ビーコン情報取得失敗' />;
+  if (users && beaconTypes) {
     return (
       <div>
         <div className='flex'>
@@ -36,7 +36,7 @@ export const EditUser = () => {
                 {alertMode === 3 && '1名のユーザが削除されました'}
               </Alert>
             )}
-            <RegisterdUsers users={users} beaconTypes={beaconTypes}/>
+            <RegisterdUsers users={users} beaconTypes={beaconTypes} />
           </div>
         </div>
       </div>

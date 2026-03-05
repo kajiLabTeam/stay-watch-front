@@ -10,7 +10,7 @@ import {
 import { BeaconType } from '@/types/beacon';
 import { UserEditor } from '@/types/user';
 
-export const RegisterdUser = (props: { user: UserEditor, beaconTypes: BeaconType[] }) => {
+export const RegisterdUser = (props: { user: UserEditor; beaconTypes: BeaconType[] }) => {
   const { setEditingUserId } = useEditingUserMutators();
   const { editingUserId } = useEditingUserState();
   const { user, beaconTypes } = props;
@@ -21,7 +21,7 @@ export const RegisterdUser = (props: { user: UserEditor, beaconTypes: BeaconType
         // フォーム表示
         <tr className='bg-gray-50 md:text-xl'>
           <td colSpan={5}>
-            <EditUserForm user={user} beaconTypes={beaconTypes}/>
+            <EditUserForm user={user} beaconTypes={beaconTypes} />
           </td>
         </tr>
       )}
@@ -34,7 +34,7 @@ export const RegisterdUser = (props: { user: UserEditor, beaconTypes: BeaconType
             <div className='ml-2 flex items-center'>
               {user.tags.map((tag) => (
                 <div key={`${user.id}${tag.name}div`} className='mr-1'>
-                  <Badge key={`${user.id}${tag.name}badge`} name={tag.name}/>
+                  <Badge key={`${user.id}${tag.name}badge`} name={tag.name} />
                 </div>
               ))}
             </div>
@@ -43,10 +43,10 @@ export const RegisterdUser = (props: { user: UserEditor, beaconTypes: BeaconType
             {roleSelector[user.role - 1].label}
           </td>
           <td className='min-w-fit whitespace-nowrap border px-4 py-1'>
-            {user.beaconName  === "" ? "未所持" : user.beaconName}
+            {user.beaconName === '' ? '未所持' : user.beaconName}
           </td>
           <td className='min-w-fit whitespace-nowrap border px-4 py-1'>
-            {user.privBeaconKeySuffix  === "" ? "" : `****${user.privBeaconKeySuffix}`}
+            {user.privBeaconKeySuffix === '' ? '' : `****${user.privBeaconKeySuffix}`}
           </td>
         </tr>
       )}

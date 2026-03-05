@@ -18,7 +18,7 @@ import { UpdateUserRequest } from '@/types/request';
 import { UserEditor } from '@/types/user';
 import { endpoints } from '@/utils/endpoint';
 
-export const EditUserForm = (props: { user: UserEditor, beaconTypes: BeaconType[] }) => {
+export const EditUserForm = (props: { user: UserEditor; beaconTypes: BeaconType[] }) => {
   const { user, beaconTypes } = props;
   const firebaseUser = useUserState();
   const community = useCommunityState();
@@ -37,8 +37,8 @@ export const EditUserForm = (props: { user: UserEditor, beaconTypes: BeaconType[
       disabled: beaconType.uuidEditable,
     })),
     {
-      value: "",
-      label: "未所持",
+      value: '',
+      label: '未所持',
       disabled: false,
     },
   ];
@@ -62,7 +62,6 @@ export const EditUserForm = (props: { user: UserEditor, beaconTypes: BeaconType[
           communityId: community.communityId,
           beaconName: values.beaconName,
           tagNames: values.tagNames,
-          
         };
         const token = await firebaseUser.getIdToken();
         await axios.put(endpoints.users, updateUserRequest, {
@@ -141,12 +140,10 @@ export const EditUserForm = (props: { user: UserEditor, beaconTypes: BeaconType[
         <h1 className='pt-2 text-left text-2xl text-slate-800'>{user.name}</h1>
         <form
           className=' flex flex-col'
-          onSubmit={form.onSubmit(
-            (values) => {
-              const modifiedValues = { ...values, communityId: community.communityId };
-              updateUser(modifiedValues);
-            }
-          )}
+          onSubmit={form.onSubmit((values) => {
+            const modifiedValues = { ...values, communityId: community.communityId };
+            updateUser(modifiedValues);
+          })}
         >
           <TextInput placeholder='tarou' label='名前' {...form.getInputProps('name')} />
           <TextInput

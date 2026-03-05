@@ -16,7 +16,7 @@ import { BeaconType } from '@/types/beacon';
 import { CreateUserRequest } from '@/types/request';
 import { endpoints } from '@/utils/endpoint';
 
-export const CreateUserForm = (props : {beaconTypes: BeaconType[]}) => {
+export const CreateUserForm = (props: { beaconTypes: BeaconType[] }) => {
   const { beaconTypes } = props;
   const user = useUserState();
   const community = useCommunityState();
@@ -38,8 +38,8 @@ export const CreateUserForm = (props : {beaconTypes: BeaconType[]}) => {
       disabled: beaconType.uuidEditable,
     })),
     {
-      value: "",
-      label: "未所持",
+      value: '',
+      label: '未所持',
       disabled: false,
     },
   ];
