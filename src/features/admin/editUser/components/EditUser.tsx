@@ -42,6 +42,7 @@ export const EditUser = () => {
       </div>
     );
   }
+  return <></>;
 };
 
 export default EditUser;
