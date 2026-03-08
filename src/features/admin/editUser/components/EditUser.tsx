@@ -1,6 +1,7 @@
 'use client';
 import { Alert } from '@mantine/core';
 import Error from '@/components/common/Error';
+import Loading from '@/components/common/Loading';
 import { CreateUserForm } from '@/features/admin/editUser/components/CreateUserForm';
 import { RegisterdUsers } from '@/features/admin/editUser/components/RegisterdUsers';
 import { useAlertModeState } from '@/features/admin/editUser/globalState/alertModeState';
@@ -22,27 +23,25 @@ export const EditUser = () => {
 
   if (usersError) return <Error message='ユーザ情報取得失敗' />;
   if (beaconTypesError) return <Error message='ビーコン情報取得失敗' />;
-  if (users && beaconTypes) {
-    return (
-      <div>
-        <div className='flex'>
-          <div className='mx-5 w-full'>
-            <CreateUserForm beaconTypes={beaconTypes} />
-            <div className='my-4 border' />
-            {alertMode > 0 && (
-              <Alert title='成功' color='green'>
-                {alertMode === 1 && '1名のユーザが新しく登録されました'}
-                {alertMode === 2 && '1名のユーザ情報が更新されました'}
-                {alertMode === 3 && '1名のユーザが削除されました'}
-              </Alert>
-            )}
-            <RegisterdUsers users={users} beaconTypes={beaconTypes} />
-          </div>
+  if (!users || !beaconTypes) return <Loading message='' />;
+  return (
+    <div>
+      <div className='flex'>
+        <div className='mx-5 w-full'>
+          <CreateUserForm beaconTypes={beaconTypes} />
+          <div className='my-4 border' />
+          {alertMode > 0 && (
+            <Alert title='成功' color='green'>
+              {alertMode === 1 && '1名のユーザが新しく登録されました'}
+              {alertMode === 2 && '1名のユーザ情報が更新されました'}
+              {alertMode === 3 && '1名のユーザが削除されました'}
+            </Alert>
+          )}
+          <RegisterdUsers users={users} beaconTypes={beaconTypes} />
         </div>
       </div>
-    );
-  }
-  return <></>;
+    </div>
+  );
 };
 
 export default EditUser;
