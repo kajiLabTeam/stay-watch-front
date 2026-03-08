@@ -22,15 +22,13 @@ const UserInformation = () => {
     return (
       <div className='mt-5 w-full border text-base md:text-xl'>
         {users.map((user) => (
-          <div className='w-full text-left' key={user.id}>
-            <td className='flex items-center border px-4 py-2'>
-              {user.name}
-              {user.tags.map((tag) => (
-                <div className='ml-1' key={tag.id}>
-                  <Badge name={tag.name} />
-                </div>
-              ))}
-            </td>
+          <div className='flex w-full items-center border px-4 py-2 text-left' key={user.id}>
+            {user.name}
+            {user.tags.map((tag) => (
+              <div className='ml-1' key={tag.id}>
+                <Badge name={tag.name} />
+              </div>
+            ))}
           </div>
         ))}
       </div>
