@@ -47,6 +47,13 @@ const Header = () => {
             滞在者マップ
           </div>
         </Link>
+        <Link href={paths.activityHeatmap.$url()}>
+          <div
+            className={`rounded-md ${buttonColors.bgColors.activityHeatmap} p-3 ${buttonColors.textColors.activityHeatmap}`}
+          >
+            活動確率
+          </div>
+        </Link>
       </div>
       <div className='text-center'>
         <p className='text-xl'>{community.communityName}</p>

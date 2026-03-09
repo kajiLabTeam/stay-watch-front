@@ -16,6 +16,7 @@ type Item = {
   userInformation: string;
   floorMap: string;
   SimulataneousStay: string;
+  activityHeatmap: string;
 };
 
 export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
@@ -33,6 +34,7 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
       userInformation: '',
       floorMap: '',
       SimulataneousStay: '',
+      activityHeatmap: '',
     },
     textColors: {
       stayer: unselectedButtonTextColor,
@@ -40,6 +42,7 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
       userInformation: unselectedButtonTextColor,
       floorMap: unselectedButtonTextColor,
       SimulataneousStay: unselectedButtonTextColor,
+      activityHeatmap: unselectedButtonTextColor,
     },
     iconColors: {
       stayer: unselectedButtonIconColor,
@@ -47,6 +50,7 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
       userInformation: unselectedButtonIconColor,
       floorMap: unselectedButtonIconColor,
       SimulataneousStay: unselectedButtonIconColor,
+      activityHeatmap: unselectedButtonIconColor,
     },
   });
 
@@ -59,6 +63,7 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
           userInformation: unselectedButtonBgColor,
           floorMap: unselectedButtonBgColor,
           SimulataneousStay: unselectedButtonBgColor,
+          activityHeatmap: unselectedButtonBgColor,
         },
         textColors: {
           stayer: selectedButtonTextColor,
@@ -66,6 +71,7 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
           userInformation: unselectedButtonTextColor,
           floorMap: unselectedButtonTextColor,
           SimulataneousStay: unselectedButtonTextColor,
+          activityHeatmap: unselectedButtonTextColor,
         },
         iconColors: {
           stayer: selectedButtonIconColor,
@@ -73,6 +79,7 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
           userInformation: unselectedButtonIconColor,
           floorMap: unselectedButtonIconColor,
           SimulataneousStay: unselectedButtonIconColor,
+          activityHeatmap: unselectedButtonIconColor,
         },
       });
     } else if (pathname === paths.stayer.$url().pathname) {
@@ -83,6 +90,7 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
           userInformation: unselectedButtonBgColor,
           floorMap: unselectedButtonBgColor,
           SimulataneousStay: unselectedButtonBgColor,
+          activityHeatmap: unselectedButtonBgColor,
         },
         textColors: {
           stayer: selectedButtonTextColor,
@@ -90,6 +98,7 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
           userInformation: unselectedButtonTextColor,
           floorMap: unselectedButtonTextColor,
           SimulataneousStay: unselectedButtonTextColor,
+          activityHeatmap: unselectedButtonTextColor,
         },
         iconColors: {
           stayer: selectedButtonIconColor,
@@ -97,6 +106,7 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
           userInformation: unselectedButtonIconColor,
           floorMap: unselectedButtonIconColor,
           SimulataneousStay: unselectedButtonIconColor,
+          activityHeatmap: unselectedButtonIconColor,
         },
       });
     } else if (pathname === paths.roomHistory.$url().pathname) {
@@ -107,6 +117,7 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
           userInformation: unselectedButtonBgColor,
           floorMap: unselectedButtonBgColor,
           SimulataneousStay: unselectedButtonBgColor,
+          activityHeatmap: unselectedButtonBgColor,
         },
         textColors: {
           stayer: unselectedButtonTextColor,
@@ -114,6 +125,7 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
           userInformation: unselectedButtonTextColor,
           floorMap: unselectedButtonTextColor,
           SimulataneousStay: unselectedButtonTextColor,
+          activityHeatmap: unselectedButtonTextColor,
         },
         iconColors: {
           stayer: unselectedButtonIconColor,
@@ -121,6 +133,7 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
           userInformation: unselectedButtonIconColor,
           floorMap: unselectedButtonIconColor,
           SimulataneousStay: unselectedButtonIconColor,
+          activityHeatmap: unselectedButtonIconColor,
         },
       });
     } else if (pathname === paths.userInformation.$url().pathname) {
@@ -131,6 +144,7 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
           userInformation: selectedButtonBgColor,
           floorMap: unselectedButtonBgColor,
           SimulataneousStay: unselectedButtonBgColor,
+          activityHeatmap: unselectedButtonBgColor,
         },
         textColors: {
           stayer: unselectedButtonTextColor,
@@ -138,6 +152,7 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
           userInformation: selectedButtonTextColor,
           floorMap: unselectedButtonTextColor,
           SimulataneousStay: unselectedButtonTextColor,
+          activityHeatmap: unselectedButtonTextColor,
         },
         iconColors: {
           stayer: unselectedButtonIconColor,
@@ -145,6 +160,7 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
           userInformation: selectedButtonIconColor,
           floorMap: unselectedButtonIconColor,
           SimulataneousStay: unselectedButtonIconColor,
+          activityHeatmap: unselectedButtonIconColor,
         },
       });
     } else if (pathname === paths.floorMap.$url().pathname) {
@@ -155,6 +171,7 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
           userInformation: unselectedButtonBgColor,
           floorMap: selectedButtonBgColor,
           SimulataneousStay: unselectedButtonBgColor,
+          activityHeatmap: unselectedButtonBgColor,
         },
         textColors: {
           stayer: unselectedButtonTextColor,
@@ -162,6 +179,7 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
           userInformation: unselectedButtonTextColor,
           floorMap: selectedButtonTextColor,
           SimulataneousStay: unselectedButtonTextColor,
+          activityHeatmap: unselectedButtonTextColor,
         },
         iconColors: {
           stayer: unselectedButtonIconColor,
@@ -169,6 +187,7 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
           userInformation: unselectedButtonIconColor,
           floorMap: selectedButtonIconColor,
           SimulataneousStay: unselectedButtonIconColor,
+          activityHeatmap: unselectedButtonIconColor,
         },
       });
     } else if (pathname === paths.simulataneousStay.$url().pathname) {
@@ -179,6 +198,7 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
           userInformation: unselectedButtonBgColor,
           floorMap: unselectedButtonBgColor,
           SimulataneousStay: selectedButtonBgColor,
+          activityHeatmap: unselectedButtonBgColor,
         },
         textColors: {
           stayer: unselectedButtonTextColor,
@@ -186,6 +206,7 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
           userInformation: unselectedButtonTextColor,
           floorMap: unselectedButtonTextColor,
           SimulataneousStay: selectedButtonTextColor,
+          activityHeatmap: unselectedButtonTextColor,
         },
         iconColors: {
           stayer: unselectedButtonIconColor,
@@ -193,6 +214,34 @@ export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
           userInformation: unselectedButtonIconColor,
           floorMap: unselectedButtonIconColor,
           SimulataneousStay: selectedButtonIconColor,
+          activityHeatmap: unselectedButtonIconColor,
+        },
+      });
+    } else if (pathname === paths.activityHeatmap.$url().pathname) {
+      setButtonColors({
+        bgColors: {
+          stayer: unselectedButtonBgColor,
+          roomHistory: unselectedButtonBgColor,
+          userInformation: unselectedButtonBgColor,
+          floorMap: unselectedButtonBgColor,
+          SimulataneousStay: unselectedButtonBgColor,
+          activityHeatmap: selectedButtonBgColor,
+        },
+        textColors: {
+          stayer: unselectedButtonTextColor,
+          roomHistory: unselectedButtonTextColor,
+          userInformation: unselectedButtonTextColor,
+          floorMap: unselectedButtonTextColor,
+          SimulataneousStay: unselectedButtonTextColor,
+          activityHeatmap: selectedButtonTextColor,
+        },
+        iconColors: {
+          stayer: unselectedButtonIconColor,
+          roomHistory: unselectedButtonIconColor,
+          userInformation: unselectedButtonIconColor,
+          floorMap: unselectedButtonIconColor,
+          SimulataneousStay: unselectedButtonIconColor,
+          activityHeatmap: selectedButtonIconColor,
         },
       });
     }

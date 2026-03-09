@@ -81,6 +81,16 @@ const Footer = () => {
               </div>
             </div>
           </Link>
+          <Link href={paths.activityHeatmap.$url()}>
+            <div>
+              <div
+                className={`flex flex-col items-center gap-1 rounded-md px-2 py-1 ${buttonColors.bgColors.activityHeatmap} ${buttonColors.textColors.activityHeatmap}`}
+              >
+                <div className='text-lg'>📊</div>
+                <div>活動確率</div>
+              </div>
+            </div>
+          </Link>
         </div>
       </div>
     </div>
