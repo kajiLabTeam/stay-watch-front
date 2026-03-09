@@ -37,13 +37,7 @@ const getWeekday = (): number => {
   return jsDay === 0 ? 6 : jsDay - 1;
 };
 
-const TIME_LABELS = [
-  { label: '0時', position: '0%' },
-  { label: '6時', position: '25%' },
-  { label: '12時', position: '50%' },
-  { label: '18時', position: '75%' },
-  { label: '24時', position: '100%' },
-];
+const TIME_LABELS = ['0時', '6時', '12時', '18時', '24時'];
 
 const ActivityHeatmap = () => {
   useDocumentTitle('活動確率ヒートマップ');
@@ -71,7 +65,7 @@ const ActivityHeatmap = () => {
           <div className='w-28 shrink-0' />
           <div className='relative flex-1'>
             <div className='flex justify-between text-xs text-gray-500'>
-              {TIME_LABELS.map(({ label }) => (
+              {TIME_LABELS.map((label) => (
                 <span key={label}>{label}</span>
               ))}
             </div>
