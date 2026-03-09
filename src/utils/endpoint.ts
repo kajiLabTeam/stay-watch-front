@@ -1,4 +1,5 @@
 export const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+const activityApiUrl = process.env.NEXT_PUBLIC_ACTIVITY_API_URL;
 
 //エンドポイントのURLを定義
 export const endpoints = {
@@ -15,5 +16,5 @@ export const endpoints = {
   extendedUsers: `${baseURL}/api/v1/users/extended`,
   beacons: `${baseURL}/api/v1/beacons`,
   tags: `${baseURL}/api/v1/tags`,
-  activityProbabilities: `${process.env.NEXT_PUBLIC_ACTIVITY_API_URL}/api/activities/probabilities`,
+  activityProbabilities: `${activityApiUrl ?? ''}/api/activities/probabilities`,
 };

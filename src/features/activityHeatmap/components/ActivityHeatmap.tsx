@@ -1,6 +1,6 @@
 import { useDocumentTitle } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
-import Error from '@/components/common/Error';
+import ErrorMessage from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import { ActivityProbabilitiesResponse } from '@/types/activity';
@@ -9,6 +9,8 @@ import { endpoints } from '@/utils/endpoint';
 const THEME_COLOR = '42, 171, 176'; // staywatch-main (#2AABB0) in RGB
 
 const buildGradient = (probabilities: number[]): string => {
+  if (probabilities.length === 0) return 'transparent';
+  if (probabilities.length === 1) return `rgba(${THEME_COLOR}, ${probabilities[0]})`;
   const stops = probabilities.map((prob, i) => {
     const percent = (i / (probabilities.length - 1)) * 100;
     return `rgba(${THEME_COLOR}, ${prob}) ${percent}%`;
@@ -52,7 +54,7 @@ const ActivityHeatmap = () => {
   const currentTimePercent = useCurrentTimePercent();
 
   if (isLoading) return <Loading message='活動確率を取得中...' />;
-  if (error || !response) return <Error message='活動確率の取得に失敗しました' />;
+  if (error || !response) return <ErrorMessage message='活動確率の取得に失敗しました' />;
 
   const activities = response.data;
 
