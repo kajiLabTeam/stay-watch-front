@@ -28,8 +28,18 @@ const useCurrentTimePercent = (): number => {
   const [percent, setPercent] = useState(calc);
 
   useEffect(() => {
-    const id = setInterval(() => setPercent(calc()), 60_000);
-    return () => clearInterval(id);
+    let intervalId: ReturnType<typeof setInterval> | undefined;
+    const delay = 60_000 - (Date.now() % 60_000);
+
+    const timeoutId = setTimeout(() => {
+      setPercent(calc());
+      intervalId = setInterval(() => setPercent(calc()), 60_000);
+    }, delay);
+
+    return () => {
+      clearTimeout(timeoutId);
+      if (intervalId) clearInterval(intervalId);
+    };
   }, []);
 
   return percent;
@@ -86,6 +96,11 @@ const ActivityHeatmap = () => {
                 title={activity.activity_name}
               >
                 {activity.activity_name}
+                <span className='sr-only'>
+                  {activity.probabilities
+                    .map((p, h) => `${h}時 ${Math.round(p * 100)}%`)
+                    .join(', ')}
+                </span>
               </div>
             ))}
           </div>
@@ -101,6 +116,7 @@ const ActivityHeatmap = () => {
                   key={activity.activity_name}
                   className='h-8 rounded'
                   style={{ background: buildGradient(activity.probabilities) }}
+                  aria-hidden='true'
                 />
               ))}
             </div>
