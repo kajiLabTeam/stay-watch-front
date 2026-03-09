@@ -1,6 +1,10 @@
 import { useDocumentTitle } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
-import { mockActivityProbabilities } from '../mockData';
+import Error from '@/components/common/Error';
+import Loading from '@/components/common/Loading';
+import { useGetAPI } from '@/hooks/useGetAPI';
+import { ActivityProbabilitiesResponse } from '@/types/activity';
+import { endpoints } from '@/utils/endpoint';
 
 const THEME_COLOR = '42, 171, 176'; // staywatch-main (#2AABB0) in RGB
 
@@ -27,6 +31,12 @@ const useCurrentTimePercent = (): number => {
   return percent;
 };
 
+const getWeekday = (): number => {
+  // JSのgetDay(): 0=日,1=月,...,6=土 → MySQL WEEKDAY: 0=月,...,6=日
+  const jsDay = new Date().getDay();
+  return jsDay === 0 ? 6 : jsDay - 1;
+};
+
 const TIME_LABELS = [
   { label: '0時', position: '0%' },
   { label: '6時', position: '25%' },
@@ -38,9 +48,19 @@ const TIME_LABELS = [
 const ActivityHeatmap = () => {
   useDocumentTitle('活動確率ヒートマップ');
 
-  // TODO: API接続時にuseGetAPIに差し替え
-  const activities = mockActivityProbabilities;
+  const {
+    data: response,
+    error,
+    isLoading,
+  } = useGetAPI<ActivityProbabilitiesResponse>(
+    `${endpoints.activityProbabilities}?weekday=${getWeekday()}`,
+  );
   const currentTimePercent = useCurrentTimePercent();
+
+  if (isLoading) return <Loading message='活動確率を取得中...' />;
+  if (error || !response) return <Error message='活動確率の取得に失敗しました' />;
+
+  const activities = response.data;
 
   return (
     <div className='mx-auto max-w-6xl p-6'>
@@ -63,11 +83,11 @@ const ActivityHeatmap = () => {
           <div className='flex w-28 shrink-0 flex-col gap-1'>
             {activities.map((activity) => (
               <div
-                key={activity.activityName}
+                key={activity.activity_name}
                 className='h-8 truncate text-right text-sm font-medium leading-8'
-                title={activity.activityName}
+                title={activity.activity_name}
               >
-                {activity.activityName}
+                {activity.activity_name}
               </div>
             ))}
           </div>
@@ -80,7 +100,7 @@ const ActivityHeatmap = () => {
             <div className='flex flex-col gap-1'>
               {activities.map((activity) => (
                 <div
-                  key={activity.activityName}
+                  key={activity.activity_name}
                   className='h-8 rounded'
                   style={{ background: buildGradient(activity.probabilities) }}
                 />

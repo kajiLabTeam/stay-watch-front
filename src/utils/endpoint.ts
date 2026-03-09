@@ -15,6 +15,5 @@ export const endpoints = {
   extendedUsers: `${baseURL}/api/v1/users/extended`,
   beacons: `${baseURL}/api/v1/beacons`,
   tags: `${baseURL}/api/v1/tags`,
-  // TODO: API確定後にコメントアウトを解除
-  // activityProbabilities: `${baseURL}/api/v1/activity-probabilities`,
+  activityProbabilities: `${process.env.NEXT_PUBLIC_ACTIVITY_API_URL}/api/activities/probabilities`,
 };
