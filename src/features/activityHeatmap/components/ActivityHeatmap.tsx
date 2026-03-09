@@ -8,11 +8,13 @@ import { endpoints } from '@/utils/endpoint';
 
 const THEME_COLOR = '42, 171, 176'; // staywatch-main (#2AABB0) in RGB
 
+// 各index=時刻の中心（例: index 12 → 12:00 = 11:30〜12:30の確率）
 const buildGradient = (probabilities: number[]): string => {
   if (probabilities.length === 0) return 'transparent';
   if (probabilities.length === 1) return `rgba(${THEME_COLOR}, ${probabilities[0]})`;
+  const total = probabilities.length;
   const stops = probabilities.map((prob, i) => {
-    const percent = (i / (probabilities.length - 1)) * 100;
+    const percent = ((i + 0.5) / total) * 100;
     return `rgba(${THEME_COLOR}, ${prob}) ${percent}%`;
   });
   return `linear-gradient(to right, ${stops.join(', ')})`;
