@@ -6,8 +6,6 @@ import { useDisclosure } from '@mantine/hooks';
 import axios from 'axios';
 import { useAsyncFn } from 'react-use';
 import { useSWRConfig } from 'swr';
-import { beaconSelector } from '../constants/beaconSelector';
-import { UI_DATA } from '../constants/uidata';
 import { userSchema } from '../validation/userShema';
 import { roleSelector } from '@/features/admin/editUser/constants/roleSelector';
 import { useAlertModeMutators } from '@/features/admin/editUser/globalState/alertModeState';
@@ -15,12 +13,13 @@ import { useEditingUserMutators } from '@/features/admin/editUser/globalState/ed
 import { useSelectTags } from '@/features/admin/editUser/hooks/tagSelector';
 import { useUserState } from '@/globalStates/firebaseUserState';
 import { useCommunityState } from '@/globalStates/useCommunityState';
+import { BeaconType } from '@/types/beacon';
 import { UpdateUserRequest } from '@/types/request';
 import { UserEditor } from '@/types/user';
 import { endpoints } from '@/utils/endpoint';
 
-export const EditUserForm = (props: { user: UserEditor }) => {
-  const { user } = props;
+export const EditUserForm = (props: { user: UserEditor; beaconTypes: BeaconType[] }) => {
+  const { user, beaconTypes } = props;
   const firebaseUser = useUserState();
   const community = useCommunityState();
   const selectTags = useSelectTags();
@@ -30,6 +29,19 @@ export const EditUserForm = (props: { user: UserEditor }) => {
   const { mutate } = useSWRConfig();
   const { setEditingUserId } = useEditingUserMutators();
   const { setAlertMode } = useAlertModeMutators();
+
+  const beaconSelector = [
+    ...beaconTypes.map((beaconType) => ({
+      value: beaconType.beaconName,
+      label: beaconType.beaconName,
+      disabled: beaconType.uuidEditable,
+    })),
+    {
+      value: '',
+      label: '未所持',
+      disabled: false,
+    },
+  ];
 
   const displayAlert = (alertMode: number) => {
     setAlertMode(alertMode);
@@ -155,13 +167,6 @@ export const EditUserForm = (props: { user: UserEditor }) => {
               {...form.getInputProps('role')}
             />
           </div>
-          {form.values.beaconName === UI_DATA.BEACON_NAME_FCS1301 && (
-            <TextInput
-              label='ビーコンのID（5文字）'
-              placeholder='UUID'
-              {...form.getInputProps('uuid')}
-            />
-          )}
           <TagsInput
             label='タグ'
             placeholder='タグを選択してください'

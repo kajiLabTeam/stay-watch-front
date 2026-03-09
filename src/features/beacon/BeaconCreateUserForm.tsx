@@ -40,7 +40,7 @@ function BeaconRegisterForm({ privateKey }: PropsType) {
         email: values.email,
         role: parseInt(values.role),
         communityId: community.communityId,
-        beaconName: UI_DATA.BEACON_NAME_STAYWATCHBEACON,
+        beaconName: UI_DATA.BEACON_NAME_PRIVBEACON,
         tagNames: values.tagNames,
         privateKey: privateKey,
       };

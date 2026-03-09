@@ -4,21 +4,20 @@ import { Button } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
 import axios from 'axios';
-import { useEffect } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useSWRConfig } from 'swr';
 import { roleSelector } from '../constants/roleSelector';
-import { UI_DATA } from '../constants/uidata';
 import { userSchema } from '../validation/userShema';
-import { beaconSelector } from '@/features/admin/editUser/constants/beaconSelector';
 import { useAlertModeMutators } from '@/features/admin/editUser/globalState/alertModeState';
 import { useSelectTags } from '@/features/admin/editUser/hooks/tagSelector';
 import { useUserState } from '@/globalStates/firebaseUserState';
 import { useCommunityState } from '@/globalStates/useCommunityState';
+import { BeaconType } from '@/types/beacon';
 import { CreateUserRequest } from '@/types/request';
 import { endpoints } from '@/utils/endpoint';
 
-export const CreateUserForm = () => {
+export const CreateUserForm = (props: { beaconTypes: BeaconType[] }) => {
+  const { beaconTypes } = props;
   const user = useUserState();
   const community = useCommunityState();
   const selectTags = useSelectTags();
@@ -32,7 +31,19 @@ export const CreateUserForm = () => {
   };
   const { mutate } = useSWRConfig();
 
-  // const [{ value, loading, error }, doFetch] = useAsyncFn(async (values) => {  // こうするとvalueもとれる。
+  const beaconSelector = [
+    ...beaconTypes.map((beaconType) => ({
+      value: beaconType.beaconName,
+      label: beaconType.beaconName,
+      disabled: beaconType.uuidEditable,
+    })),
+    {
+      value: '',
+      label: '未所持',
+      disabled: false,
+    },
+  ];
+
   const [{ loading, error }, submitCreateUser] = useAsyncFn(async (values) => {
     if (user) {
       let createUserRequest: CreateUserRequest = {
@@ -71,16 +82,6 @@ export const CreateUserForm = () => {
     validate: zodResolver(userSchema),
   });
 
-  useEffect(() => {
-    if (form.values.beaconName === UI_DATA.BEACON_NAME_FCS1301) {
-      form.setValues({ uuid: '' });
-    } else {
-      // 00000にしておかないと見えない入力欄だがバリデーションで引っ掛かってしまう
-      form.setValues({ uuid: '00000' });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form.values.beaconName, form.setValues]);
-
   return (
     <div>
       {loading && <LoadingOverlay visible={visible} overlayProps={{ blur: 3 }} />}
@@ -114,13 +115,6 @@ export const CreateUserForm = () => {
               {...form.getInputProps('role')}
             />
           </div>
-          {form.values.beaconName === UI_DATA.BEACON_NAME_FCS1301 && (
-            <TextInput
-              label='ビーコンのID（5文字）'
-              placeholder='UUID'
-              {...form.getInputProps('uuid')}
-            />
-          )}
           <TagsInput
             label='タグ'
             placeholder='タグを選択してください'
