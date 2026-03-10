@@ -51,7 +51,7 @@ const Header = () => {
           <div
             className={`rounded-md ${buttonColors.bgColors.activityHeatmap} p-3 ${buttonColors.textColors.activityHeatmap}`}
           >
-            活動確率
+            活動予報
           </div>
         </Link>
       </div>
