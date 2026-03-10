@@ -8,24 +8,31 @@ import { endpoints } from '@/utils/endpoint';
 
 const THEME_COLOR = '42, 171, 176'; // staywatch-main (#2AABB0) in RGB
 
+// 24時間分の確率からHOUR_START〜HOUR_ENDの範囲をグラデーションに変換
 // 各index=時刻の中心（例: index 12 → 12:00 = 11:30〜12:30の確率）
 const buildGradient = (probabilities: number[]): string => {
-  if (probabilities.length === 0) return 'transparent';
-  if (probabilities.length === 1) return `rgba(${THEME_COLOR}, ${probabilities[0]})`;
-  const total = probabilities.length;
-  const stops = probabilities.map((prob, i) => {
-    const percent = ((i + 0.5) / total) * 100;
+  const sliced = probabilities.slice(HOUR_START, HOUR_END);
+  if (sliced.length === 0) return 'transparent';
+  if (sliced.length === 1) return `rgba(${THEME_COLOR}, ${sliced[0]})`;
+  const stops = sliced.map((prob, i) => {
+    const percent = ((i + 0.5) / sliced.length) * 100;
     return `rgba(${THEME_COLOR}, ${prob}) ${percent}%`;
   });
   return `linear-gradient(to right, ${stops.join(', ')})`;
 };
 
-const useCurrentTimePercent = (): number => {
+const HOUR_START = 9;
+const HOUR_END = 20;
+const HOUR_RANGE = HOUR_END - HOUR_START;
+
+const useCurrentTimePercent = (): number | null => {
   const calc = () => {
     const now = new Date();
-    return ((now.getHours() * 60 + now.getMinutes()) / (24 * 60)) * 100;
+    const hours = now.getHours() + now.getMinutes() / 60;
+    if (hours < HOUR_START || hours > HOUR_END) return null;
+    return ((hours - HOUR_START) / HOUR_RANGE) * 100;
   };
-  const [percent, setPercent] = useState(calc);
+  const [percent, setPercent] = useState<number | null>(calc);
 
   useEffect(() => {
     let intervalId: ReturnType<typeof setInterval> | undefined;
@@ -51,7 +58,7 @@ const getWeekday = (): number => {
   return jsDay === 0 ? 6 : jsDay - 1;
 };
 
-const TIME_LABELS = ['0時', '6時', '12時', '18時', '24時'];
+const TIME_LABELS = ['9時', '12時', '15時', '18時', '20時'];
 
 const ActivityHeatmap = () => {
   useDocumentTitle('活動確率ヒートマップ');
@@ -98,7 +105,8 @@ const ActivityHeatmap = () => {
                 {activity.activity_name}
                 <span className='sr-only'>
                   {activity.probabilities
-                    .map((p, h) => `${h}時 ${Math.round(p * 100)}%`)
+                    .slice(HOUR_START, HOUR_END)
+                    .map((p, i) => `${HOUR_START + i}時 ${Math.round(p * 100)}%`)
                     .join(', ')}
                 </span>
               </div>
@@ -106,10 +114,12 @@ const ActivityHeatmap = () => {
           </div>
           {/* グラデーション列 + 現在時刻ライン */}
           <div className='relative flex-1'>
-            <div
-              className='pointer-events-none absolute top-0 z-10 h-full w-0.5 bg-red-500'
-              style={{ left: `${currentTimePercent}%` }}
-            />
+            {currentTimePercent !== null && (
+              <div
+                className='pointer-events-none absolute top-0 z-10 h-full w-0.5 bg-red-500'
+                style={{ left: `${currentTimePercent}%` }}
+              />
+            )}
             <div className='flex flex-col gap-1'>
               {activities.map((activity) => (
                 <div
