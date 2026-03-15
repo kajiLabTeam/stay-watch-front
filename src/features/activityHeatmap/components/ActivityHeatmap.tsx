@@ -1,37 +1,20 @@
 import { useDocumentTitle } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
+import {
+  DISPLAY_HOUR_END,
+  HOUR_END,
+  HOUR_RANGE,
+  HOUR_START,
+  THEME_COLOR,
+  buildGradient,
+  getWeekday,
+  probToAlpha,
+} from '../utils';
 import ErrorMessage from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import { ActivityProbabilitiesResponse } from '@/types/activity';
 import { endpoints } from '@/utils/endpoint';
-
-const THEME_COLOR = '42, 171, 176'; // staywatch-main (#2AABB0) in RGB
-
-// 確率値をalphaに変換: 0→0, 0.05→0.5, 0.1以上→1.0
-const probToAlpha = (prob: number): number => {
-  if (prob <= 0) return 0;
-  if (prob >= 0.1) return 1;
-  return Math.min(prob / 0.1, 1);
-};
-
-// 24時間分の確率からHOUR_START〜HOUR_ENDの範囲をグラデーションに変換
-// 各index=時刻の中心（例: index 12 → 12:00 = 11:30〜12:30の確率）
-const buildGradient = (probabilities: number[]): string => {
-  const sliced = probabilities.slice(HOUR_START, HOUR_END);
-  if (sliced.length === 0) return 'transparent';
-  if (sliced.length === 1) return `rgba(${THEME_COLOR}, ${probToAlpha(sliced[0])})`;
-  const stops = sliced.map((prob, i) => {
-    const percent = ((i + 0.5) / sliced.length) * 100;
-    return `rgba(${THEME_COLOR}, ${probToAlpha(prob)}) ${percent}%`;
-  });
-  return `linear-gradient(to right, ${stops.join(', ')})`;
-};
-
-const HOUR_START = 9;
-const HOUR_END = 21; // slice用（20時のデータを含む）
-const DISPLAY_HOUR_END = 20;
-const HOUR_RANGE = DISPLAY_HOUR_END - HOUR_START;
 
 const useCurrentTimePercent = (): number | null => {
   const calc = () => {
@@ -60,13 +43,7 @@ const useCurrentTimePercent = (): number | null => {
   return percent;
 };
 
-const getWeekday = (): number => {
-  // JSのgetDay(): 0=日,1=月,...,6=土 → MySQL WEEKDAY: 0=月,...,6=日
-  const jsDay = new Date().getDay();
-  return jsDay === 0 ? 6 : jsDay - 1;
-};
-
-const TIME_LABELS = ['9時', '12時', '15時', '18時', '20時'];
+const TIME_LABELS = [9, 12, 15, 18, 20];
 
 const ActivityHeatmap = () => {
   useDocumentTitle('活動予報ヒートマップ');
@@ -93,9 +70,15 @@ const ActivityHeatmap = () => {
         <div className='flex items-center gap-4'>
           <div className='w-36 shrink-0' />
           <div className='relative flex-1'>
-            <div className='flex justify-between text-sm text-gray-500'>
-              {TIME_LABELS.map((label) => (
-                <span key={label}>{label}</span>
+            <div className='relative h-5 text-sm text-gray-500'>
+              {TIME_LABELS.map((hour) => (
+                <span
+                  key={hour}
+                  className='absolute -translate-x-1/2'
+                  style={{ left: `${((hour - HOUR_START) / HOUR_RANGE) * 100}%` }}
+                >
+                  {hour}時
+                </span>
               ))}
             </div>
           </div>
@@ -148,7 +131,7 @@ const ActivityHeatmap = () => {
               <div
                 key={val}
                 className='h-4 w-8'
-                style={{ backgroundColor: `rgba(42, 171, 176, ${probToAlpha(val)})` }}
+                style={{ backgroundColor: `rgba(${THEME_COLOR}, ${probToAlpha(val)})` }}
               />
             ))}
           </div>
