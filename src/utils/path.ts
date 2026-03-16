@@ -23,6 +23,12 @@ export const paths = {
   userInformation: {
     $url: (url?: { hash?: string }) => ({ pathname: '/userInformation' as const, hash: url?.hash }),
   },
+  activityHeatmap: {
+    $url: (url?: { hash?: string }) => ({
+      pathname: '/activityHeatmap' as const,
+      hash: url?.hash,
+    }),
+  },
 };
 
 export type PagesPath = typeof paths;

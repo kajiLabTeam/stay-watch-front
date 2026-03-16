@@ -12,7 +12,7 @@ const Header = () => {
 
   return (
     <div className='flex h-20 items-center justify-around bg-staywatch-main text-xs font-bold shadow-md md:text-lg lg:text-2xl'>
-      <div className='flex h-full items-center gap-8'>
+      <div className='flex h-full items-center gap-2 md:gap-4 lg:gap-8'>
         <div className='mt-2 cursor-pointer'>
           <Link href={paths.stayer.$url()} passHref>
             <Image src='/logo.png' width={248} height={70} alt='logo' />
@@ -21,30 +21,37 @@ const Header = () => {
         {/* <p className={`bg-staywatch-accent text-staywatch-accent`}>選択したボタンの背景色と文字色が変化</p> */}
         <Link href={paths.stayer.$url()}>
           <div
-            className={`rounded-md ${buttonColors.bgColors.stayer} p-3 ${buttonColors.textColors.stayer}`}
+            className={`rounded-md ${buttonColors.bgColors.stayer} p-1.5 md:p-2 lg:p-3 ${buttonColors.textColors.stayer}`}
           >
             滞在者
           </div>
         </Link>
         <Link href={paths.roomHistory.$url()}>
           <div
-            className={`rounded-md ${buttonColors.bgColors.roomHistory} p-3 ${buttonColors.textColors.roomHistory}`}
+            className={`rounded-md ${buttonColors.bgColors.roomHistory} p-1.5 md:p-2 lg:p-3 ${buttonColors.textColors.roomHistory}`}
           >
             滞在履歴
           </div>
         </Link>
         <Link href={paths.userInformation.$url()}>
           <div
-            className={`rounded-md ${buttonColors.bgColors.userInformation} p-3 ${buttonColors.textColors.userInformation}`}
+            className={`rounded-md ${buttonColors.bgColors.userInformation} p-1.5 md:p-2 lg:p-3 ${buttonColors.textColors.userInformation}`}
           >
             利用者情報
           </div>
         </Link>
         <Link href={paths.floorMap.$url()}>
           <div
-            className={`rounded-md ${buttonColors.bgColors.floorMap} p-3 ${buttonColors.textColors.floorMap}`}
+            className={`rounded-md ${buttonColors.bgColors.floorMap} p-1.5 md:p-2 lg:p-3 ${buttonColors.textColors.floorMap}`}
           >
             滞在者マップ
+          </div>
+        </Link>
+        <Link href={paths.activityHeatmap.$url()}>
+          <div
+            className={`rounded-md ${buttonColors.bgColors.activityHeatmap} p-1.5 md:p-2 lg:p-3 ${buttonColors.textColors.activityHeatmap}`}
+          >
+            活動予報
           </div>
         </Link>
       </div>
