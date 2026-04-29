@@ -1,6 +1,6 @@
 ## production
 
-https://stay-watch-go.kajilab.tk/
+https://staywatch.kajilab.net/
 
 ## development
 
