@@ -76,6 +76,7 @@ const ActivityHeatmap = () => {
                   key={hour}
                   className='absolute -translate-x-1/2'
                   style={{ left: `${((hour - HOUR_START) / HOUR_RANGE) * 100}%` }}
+                  aria-label={`${hour}時`}
                 >
                   {hour}
                 </span>
