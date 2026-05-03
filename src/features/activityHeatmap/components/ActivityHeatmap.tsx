@@ -63,34 +63,34 @@ const ActivityHeatmap = () => {
   const activities = response.data;
 
   return (
-    <div className='mx-auto p-6'>
-      <h1 className='mb-6 text-2xl font-bold'>活動予報ヒートマップ</h1>
-      <div className='rounded-lg bg-white p-6 shadow'>
+    <div className='mx-auto px-1 py-3 md:p-6'>
+      <h1 className='mb-4 text-lg font-bold md:mb-6 md:text-2xl'>活動予報ヒートマップ</h1>
+      <div className='rounded-lg bg-white px-2 py-3 shadow md:p-6'>
         {/* 時刻ヘッダー */}
-        <div className='flex items-center gap-4'>
-          <div className='w-36 shrink-0' />
+        <div className='flex items-center gap-1 md:gap-4'>
+          <div className='w-16 shrink-0 md:w-36' />
           <div className='relative flex-1'>
-            <div className='relative h-5 text-sm text-gray-500'>
+            <div className='relative h-5 text-xs text-gray-500 md:text-sm'>
               {TIME_LABELS.map((hour) => (
                 <span
                   key={hour}
                   className='absolute -translate-x-1/2'
                   style={{ left: `${((hour - HOUR_START) / HOUR_RANGE) * 100}%` }}
                 >
-                  {hour}時
+                  {hour}
                 </span>
               ))}
             </div>
           </div>
         </div>
         {/* ヒートマップ行 */}
-        <div className='mt-3 flex gap-4'>
+        <div className='mt-2 flex gap-1 md:mt-3 md:gap-4'>
           {/* ラベル列 */}
-          <div className='flex w-36 shrink-0 flex-col gap-2'>
+          <div className='flex w-16 shrink-0 flex-col gap-1 md:w-36 md:gap-2'>
             {activities.map((activity) => (
               <div
                 key={activity.activity_name}
-                className='h-12 truncate text-right text-base font-medium leading-[3rem]'
+                className='h-8 truncate text-right text-xs font-medium leading-8 md:h-12 md:text-base md:leading-[3rem]'
                 title={activity.activity_name}
               >
                 {activity.activity_name}
@@ -111,11 +111,11 @@ const ActivityHeatmap = () => {
                 style={{ left: `${currentTimePercent}%` }}
               />
             )}
-            <div className='flex flex-col gap-2'>
+            <div className='flex flex-col gap-1 md:gap-2'>
               {activities.map((activity) => (
                 <div
                   key={activity.activity_name}
-                  className='h-12 rounded'
+                  className='h-8 rounded md:h-12'
                   style={{ background: buildGradient(activity.probabilities) }}
                   aria-hidden='true'
                 />
