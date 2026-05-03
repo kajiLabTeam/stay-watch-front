@@ -24,7 +24,6 @@ export const FloorMapCanvas = (props: {
       ctx.fillRect(0, 0, props.canvasWidth, props.canvasHeight);
       ctx.strokeRect(0, 0, props.canvasWidth, props.canvasHeight);
     }
-    buildingImage.src = `/floor_maps${props.buildingImagePath}`;
 
     function drawBuildingToCanvas(buildingImage: HTMLImageElement) {
       if (ctx) {
@@ -40,9 +39,11 @@ export const FloorMapCanvas = (props: {
       }
     }
 
+    // キャッシュヒット時のレースを避けるため、onload を src より先に設定する
     buildingImage.onload = () => {
       drawBuildingToCanvas(buildingImage);
     };
+    buildingImage.src = `/floor_maps${props.buildingImagePath}`;
   }, [props.buildingImagePath, props.canvasWidth, props.canvasHeight]);
 
   return (

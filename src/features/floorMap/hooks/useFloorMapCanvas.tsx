@@ -46,7 +46,6 @@ export const useFloorMapCanvas = () => {
       ctx.fillStyle = 'white';
       ctx.fillRect(0, 0, canvasSize.width, canvasSize.height);
       ctx.strokeRect(0, 0, canvasSize.width, canvasSize.height);
-      buildingImage.src = FLOOR_MAP_IMAGE_PATH;
 
       const drawBuildingToCanvas = () => {
         ctx.fillStyle = 'gray';
@@ -69,10 +68,12 @@ export const useFloorMapCanvas = () => {
           ctx.fillText(String(viewerRoom.userCount), viewerRoom.left, viewerRoom.top);
         });
       };
+      // キャッシュヒット時のレースを避けるため、onload を src より先に設定する
       buildingImage.onload = () => {
         drawBuildingToCanvas();
         drawUsersToCanvas();
       };
+      buildingImage.src = FLOOR_MAP_IMAGE_PATH;
     }
   }, [viewerRooms, canvasSize]);
 
