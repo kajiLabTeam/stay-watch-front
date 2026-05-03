@@ -12,17 +12,31 @@ export const MapCanvas = (props: {
 }) => {
   const mapsData = useMapsDataState();
   const [canvasSize, setCanvasSize] = useState<{ width: number; height: number } | null>(null);
+  const [loadError, setLoadError] = useState(false);
 
   useEffect(() => {
+    let cancelled = false;
     setCanvasSize(null);
+    setLoadError(false);
     const img = new Image();
     img.onload = () => {
-      setCanvasSize({ width: img.naturalWidth, height: img.naturalHeight });
+      if (!cancelled) {
+        setCanvasSize({ width: img.naturalWidth, height: img.naturalHeight });
+      }
+    };
+    img.onerror = () => {
+      if (!cancelled) {
+        setLoadError(true);
+      }
     };
     img.src = `/floor_maps${props.buildingImagePath}`;
+    return () => {
+      cancelled = true;
+    };
   }, [props.buildingImagePath]);
 
-  if (!canvasSize) return null;
+  if (loadError) return <div className='p-4 text-red-500'>マップ画像の読み込みに失敗しました</div>;
+  if (!canvasSize) return <div className='p-4'>マップ読み込み中…</div>;
 
   return (
     // "relative"でフロアマップ、登録済み部屋達、編集中の部屋、の複数canvasをレイヤーとして重ねている
