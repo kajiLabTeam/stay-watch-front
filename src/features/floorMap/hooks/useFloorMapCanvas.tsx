@@ -19,11 +19,22 @@ export const useFloorMapCanvas = () => {
 
   // 画像を事前ロードしてCanvasサイズを画像のnaturalサイズに合わせる
   useEffect(() => {
+    let cancelled = false;
     const probe = new Image();
     probe.onload = () => {
-      setCanvasSize({ width: probe.naturalWidth, height: probe.naturalHeight });
+      if (!cancelled) {
+        setCanvasSize({ width: probe.naturalWidth, height: probe.naturalHeight });
+      }
+    };
+    probe.onerror = () => {
+      if (!cancelled) {
+        console.error(`Failed to load floor map image: ${FLOOR_MAP_IMAGE_PATH}`);
+      }
     };
     probe.src = FLOOR_MAP_IMAGE_PATH;
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
