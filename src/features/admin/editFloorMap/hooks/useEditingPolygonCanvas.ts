@@ -4,14 +4,12 @@ import {
   useEditingMapState,
 } from '@/features/admin/editFloorMap/globalstate/editingMapState';
 
-export const useEditingPolygonCanvas = () => {
+export const useEditingPolygonCanvas = (canvasWidth: number, canvasHeight: number) => {
   const { isEditingRoom } = useEditingMapState();
   const { setEditingPolygon } = useEditingMapMutators();
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const CANVAS_WIDTH = 2880;
-  const CANVAS_HEIGHT = 1800;
   const MOUSE_DRAWING = 1;
   const MOUSE_NOT_DRAWING = 0;
 
@@ -22,7 +20,7 @@ export const useEditingPolygonCanvas = () => {
     y2: number,
     drawingCanvas: CanvasRenderingContext2D,
   ) => {
-    drawingCanvas.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    drawingCanvas.clearRect(0, 0, canvasWidth, canvasHeight);
     drawingCanvas.fillStyle = 'red';
     drawingCanvas.fillRect(x1, y1, x2 - x1, y2 - y1);
   };
@@ -34,7 +32,7 @@ export const useEditingPolygonCanvas = () => {
     if (!drawingCanvas) return;
 
     if (!isEditingRoom) {
-      drawingCanvas.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+      drawingCanvas.clearRect(0, 0, canvasWidth, canvasHeight);
     }
 
     if (canvasElement) {
@@ -43,11 +41,11 @@ export const useEditingPolygonCanvas = () => {
       let endX = 0;
       let endY = 0;
       let mouseMode = MOUSE_NOT_DRAWING;
-      let canvasElementRatio: number = canvasElement.clientWidth / CANVAS_WIDTH; // キャンバスサイズとウィンドウによって変わる要素サイズの比率
+      let canvasElementRatio: number = canvasElement.clientWidth / canvasWidth; // キャンバスサイズとウィンドウによって変わる要素サイズの比率
 
       if (isEditingRoom) {
         canvasElement.onclick = (e) => {
-          canvasElementRatio = canvasElement.clientWidth / CANVAS_WIDTH;
+          canvasElementRatio = canvasElement.clientWidth / canvasWidth;
 
           let rect = canvasElement.getBoundingClientRect();
 
@@ -75,7 +73,7 @@ export const useEditingPolygonCanvas = () => {
             // 四角かいていない時
           } else if (mouseMode === MOUSE_DRAWING) {
             // 四角を描いている途中
-            canvasElementRatio = canvasElement.clientWidth / CANVAS_WIDTH;
+            canvasElementRatio = canvasElement.clientWidth / canvasWidth;
             let rect = canvasElement.getBoundingClientRect();
             let canvasPositionX = Math.trunc(
               (e.clientX - Math.floor(rect.left)) / canvasElementRatio,
@@ -88,7 +86,7 @@ export const useEditingPolygonCanvas = () => {
         };
       }
     }
-  }, [canvasRef, isEditingRoom, setEditingPolygon]);
+  }, [canvasRef, isEditingRoom, setEditingPolygon, canvasWidth, canvasHeight]);
 
-  return { canvasRef, CANVAS_WIDTH, CANVAS_HEIGHT };
+  return { canvasRef };
 };
