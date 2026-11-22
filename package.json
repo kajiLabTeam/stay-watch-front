@@ -4,15 +4,15 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "dotenvx run -f .env.development -- vite",
+    "build": "dotenvx run -f .env.development -- vite build",
     "start": "vite preview",
     "format": "oxfmt ./src",
     "format:check": "oxfmt --check ./src",
     "lint": "oxlint --fix ./src",
     "lint:check": "oxlint ./src",
     "typecheck": "tsc --noEmit",
-    "deploy": "vite build --mode prod && wrangler deploy"
+    "deploy": "dotenvx run -f .env.prod -- vite build --mode prod && wrangler deploy"
   },
   "dependencies": {
     "@fontsource/kosugi-maru": "^5.3.0",
