@@ -1,5 +1,5 @@
 import { Tab } from '@headlessui/react';
-import { useWindowSize } from 'react-use';
+import { useViewportSize } from '@mantine/hooks';
 import GanttChart from './GanttChart';
 import { Room } from '@/types/ganttStayLog';
 
@@ -13,7 +13,7 @@ type Props = {
 };
 
 const TabRoom = ({ rooms }: Props) => {
-  const { height, width: windowWidth } = useWindowSize();
+  const { height, width: windowWidth } = useViewportSize();
 
   return (
     <div className='pt-8 sm:px-0'>

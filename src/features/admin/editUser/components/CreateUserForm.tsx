@@ -3,8 +3,7 @@ import { Button } from '@mantine/core';
 import { useForm, schemaResolver } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
 import axios from 'axios';
-import { useAsyncFn } from 'react-use';
-import { useSWRConfig } from 'swr';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { roleSelector } from '../constants/roleSelector';
 import { userSchema } from '../validation/userShema';
 import { useAlertModeMutators } from '@/features/admin/editUser/globalState/alertModeState';
@@ -28,7 +27,7 @@ export const CreateUserForm = (props: { beaconTypes: BeaconType[] }) => {
       setAlertMode(-1);
     }, 3000);
   };
-  const { mutate } = useSWRConfig();
+  const queryClient = useQueryClient();
 
   const beaconSelector = [
     ...beaconTypes.map((beaconType) => ({
@@ -43,29 +42,37 @@ export const CreateUserForm = (props: { beaconTypes: BeaconType[] }) => {
     },
   ];
 
-  const [{ loading, error }, submitCreateUser] = useAsyncFn(async (values) => {
-    if (user) {
-      let createUserRequest: CreateUserRequest = {
-        name: values.name,
-        uuid: values.uuid,
-        email: values.email,
-        role: parseInt(values.role),
-        communityId: community.communityId,
-        beaconName: values.beaconName,
-        tagNames: values.tagNames,
-      };
-      const token = await user.getIdToken();
-      await axios.post(endpoints.users, createUserRequest, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-      // これより下は成功した時のみ動作する
-      mutate(`${endpoints.adminUsers}/${community.communityId}`);
-      displayAlert(1);
-      form.reset();
-    }
+  const {
+    isPending: loading,
+    error,
+    mutate: submitCreateUser,
+  } = useMutation({
+    mutationFn: async (values: typeof form.values) => {
+      if (user) {
+        let createUserRequest: CreateUserRequest = {
+          name: values.name,
+          uuid: values.uuid,
+          email: values.email,
+          role: parseInt(values.role),
+          communityId: community.communityId,
+          beaconName: values.beaconName,
+          tagNames: values.tagNames,
+        };
+        const token = await user.getIdToken();
+        await axios.post(endpoints.users, createUserRequest, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+        // これより下は成功した時のみ動作する
+        queryClient.invalidateQueries({
+          queryKey: [`${endpoints.adminUsers}/${community.communityId}`],
+        });
+        displayAlert(1);
+        form.reset();
+      }
+    },
   });
 
   const form = useForm({

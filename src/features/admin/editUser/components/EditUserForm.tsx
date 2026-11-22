@@ -3,8 +3,7 @@ import { Button, Modal } from '@mantine/core';
 import { useForm, schemaResolver } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
 import axios from 'axios';
-import { useAsyncFn } from 'react-use';
-import { useSWRConfig } from 'swr';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { userSchema } from '../validation/userShema';
 import { roleSelector } from '@/features/admin/editUser/constants/roleSelector';
 import { useAlertModeMutators } from '@/features/admin/editUser/globalState/alertModeState';
@@ -25,7 +24,7 @@ export const EditUserForm = (props: { user: UserEditor; beaconTypes: BeaconType[
   const currentTagNames = user.tags.map((tag) => tag.name);
   const [visible] = useDisclosure(true);
   const [opened, { open, close }] = useDisclosure(false);
-  const { mutate } = useSWRConfig();
+  const queryClient = useQueryClient();
   const { setEditingUserId } = useEditingUserMutators();
   const { setAlertMode } = useAlertModeMutators();
 
@@ -49,8 +48,12 @@ export const EditUserForm = (props: { user: UserEditor; beaconTypes: BeaconType[
     }, 5000);
   };
 
-  const [{ loading: loadingUpdateUser, error: errorUpdateUser }, updateUser] = useAsyncFn(
-    async (values) => {
+  const {
+    isPending: loadingUpdateUser,
+    error: errorUpdateUser,
+    mutate: updateUser,
+  } = useMutation({
+    mutationFn: async (values: typeof form.values) => {
       if (firebaseUser) {
         let updateUserRequest: UpdateUserRequest = {
           id: user.id,
@@ -69,15 +72,21 @@ export const EditUserForm = (props: { user: UserEditor; beaconTypes: BeaconType[
             'Content-Type': 'application/json',
           },
         });
-        mutate(`${endpoints.adminUsers}/${community.communityId}`);
+        queryClient.invalidateQueries({
+          queryKey: [`${endpoints.adminUsers}/${community.communityId}`],
+        });
         setEditingUserId(-1);
         displayAlert(2);
       }
     },
-  );
+  });
 
-  const [{ loading: loadingDeleteUser, error: errorDeleteUser }, deleteUser] = useAsyncFn(
-    async (userId) => {
+  const {
+    isPending: loadingDeleteUser,
+    error: errorDeleteUser,
+    mutate: deleteUser,
+  } = useMutation({
+    mutationFn: async (userId: number) => {
       if (firebaseUser) {
         const token = await firebaseUser.getIdToken();
         await axios.delete(`${endpoints.users}/${userId}`, {
@@ -86,12 +95,14 @@ export const EditUserForm = (props: { user: UserEditor; beaconTypes: BeaconType[
           },
         });
         // これより下は成功した時のみ動作する
-        mutate(`${endpoints.adminUsers}/${community.communityId}`);
+        queryClient.invalidateQueries({
+          queryKey: [`${endpoints.adminUsers}/${community.communityId}`],
+        });
         setEditingUserId(-1);
         displayAlert(3);
       }
     },
-  );
+  });
 
   const form = useForm({
     initialValues: {

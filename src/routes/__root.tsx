@@ -4,7 +4,7 @@ import Layout from '@/components/layout/Layout';
 import AuthEmail from '@/features/Auth/AuthEmail';
 import AuthSwitcher from '@/features/Auth/AuthSwitcher';
 import { JotaiProvider } from '@/features/admin/editUser/globalState/JotaiProvider';
-import { SWRProvider } from '@/features/admin/editUser/globalState/SWRProvider';
+import { QueryProvider } from '@/features/admin/editUser/globalState/QueryProvider';
 
 export const Route = createRootRoute({
   component: RootLayout,
@@ -14,7 +14,7 @@ function RootLayout() {
   return (
     <JotaiProvider>
       <MantineProvider>
-        <SWRProvider>
+        <QueryProvider>
           <Layout>
             <AuthSwitcher>
               <AuthEmail>
@@ -22,7 +22,7 @@ function RootLayout() {
               </AuthEmail>
             </AuthSwitcher>
           </Layout>
-        </SWRProvider>
+        </QueryProvider>
       </MantineProvider>
     </JotaiProvider>
   );

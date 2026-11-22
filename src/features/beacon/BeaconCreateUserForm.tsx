@@ -2,7 +2,7 @@ import { Alert, Button, LoadingOverlay, Select, TagsInput, TextInput } from '@ma
 import { useForm, schemaResolver } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
 import axios from 'axios';
-import { useAsyncFn } from 'react-use';
+import { useMutation } from '@tanstack/react-query';
 import { roleSelector } from '../admin/editUser/constants/roleSelector';
 import { UI_DATA } from '../admin/editUser/constants/uidata';
 import { useAlertModeMutators } from '../admin/editUser/globalState/alertModeState';
@@ -30,30 +30,35 @@ function BeaconRegisterForm({ privateKey }: PropsType) {
     }, 5000);
   };
 
-  // // const [{ value, loading, error }, doFetch] = useAsyncFn(async (values) => {  // こうするとvalueもとれる。
-  const [{ loading, error }, submitCreateUser] = useAsyncFn(async (values) => {
-    if (firebaseUser) {
-      let createUserRequest: CreatePrivateBeaconUserRequest = {
-        name: values.name,
-        uuid: '',
-        email: values.email,
-        role: parseInt(values.role),
-        communityId: community.communityId,
-        beaconName: UI_DATA.BEACON_NAME_PRIVBEACON,
-        tagNames: values.tagNames,
-        privateKey: privateKey,
-      };
-      const token = await firebaseUser.getIdToken();
-      await axios.post(endpoints.users, createUserRequest, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-      // これより下は成功した時のみ動作する
-      displayAlert(1);
-      form.reset();
-    }
+  const {
+    isPending: loading,
+    error,
+    mutate: submitCreateUser,
+  } = useMutation({
+    mutationFn: async (values: typeof form.values) => {
+      if (firebaseUser) {
+        let createUserRequest: CreatePrivateBeaconUserRequest = {
+          name: values.name,
+          uuid: '',
+          email: values.email,
+          role: parseInt(values.role),
+          communityId: community.communityId,
+          beaconName: UI_DATA.BEACON_NAME_PRIVBEACON,
+          tagNames: values.tagNames,
+          privateKey: privateKey,
+        };
+        const token = await firebaseUser.getIdToken();
+        await axios.post(endpoints.users, createUserRequest, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+        // これより下は成功した時のみ動作する
+        displayAlert(1);
+        form.reset();
+      }
+    },
   });
 
   const form = useForm({

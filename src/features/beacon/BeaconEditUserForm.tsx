@@ -3,7 +3,7 @@ import { useForm, schemaResolver } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useAsyncFn } from 'react-use';
+import { useMutation } from '@tanstack/react-query';
 import { UI_DATA } from '../admin/editUser/constants/uidata';
 import { useAlertModeMutators } from '../admin/editUser/globalState/alertModeState';
 import { privacyBeaconEditUserSchema } from './validation/privacyBeaconEditUserSchema';
@@ -40,26 +40,31 @@ function BeaconEditUserForm({ privateKey }: PropsType) {
     }, 5000);
   };
 
-  // // const [{ value, loading, error }, doFetch] = useAsyncFn(async (values) => {  // こうするとvalueもとれる。
-  const [{ loading, error }, submitEditUser] = useAsyncFn(async (values) => {
-    if (firebaseUser) {
-      let updateUserRequest: UpdatePrivateBeaconUserRequest = {
-        id: parseInt(values.id),
-        beaconName: UI_DATA.BEACON_NAME_PRIVBEACON,
-        privateKey: privateKey,
-      };
-      const token = await firebaseUser.getIdToken();
-      await axios.put(endpoints.users, updateUserRequest, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
+  const {
+    isPending: loading,
+    error,
+    mutate: submitEditUser,
+  } = useMutation({
+    mutationFn: async (values: typeof form.values) => {
+      if (firebaseUser) {
+        let updateUserRequest: UpdatePrivateBeaconUserRequest = {
+          id: parseInt(values.id),
+          beaconName: UI_DATA.BEACON_NAME_PRIVBEACON,
+          privateKey: privateKey,
+        };
+        const token = await firebaseUser.getIdToken();
+        await axios.put(endpoints.users, updateUserRequest, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
 
-      // これより下は成功した時のみ動作する
-      displayAlert(2);
-      form.reset();
-    }
+        // これより下は成功した時のみ動作する
+        displayAlert(2);
+        form.reset();
+      }
+    },
   });
 
   useEffect(() => {
