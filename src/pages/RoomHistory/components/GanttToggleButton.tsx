@@ -3,7 +3,7 @@ interface GanttToggleButtonProps {
   onToggled: () => void;
 }
 
-export function GanttToggleButton({ isGantt, onToggled }: GanttToggleButtonProps) {
+export default function GanttToggleButton({ isGantt, onToggled }: GanttToggleButtonProps) {
   const imagePath = isGantt ? '/ganttAnother.png' : '/gantt.png';
 
   return (

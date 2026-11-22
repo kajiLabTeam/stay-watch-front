@@ -1,12 +1,12 @@
 import React from 'react';
 import { roleSelector } from '@/constants/roleSelector';
-import { Badge } from '@/components/common/Badge';
-import { EditUserForm } from './EditUserForm';
+import Badge from '@/components/common/Badge';
+import EditUserForm from './EditUserForm';
 import { useEditingUserMutators, useEditingUserState } from '@/atoms/editingUserAtom';
-import { BeaconType } from '@/types/beacon';
+import { BeaconType } from '@/pages/Admin/types/beacon';
 import { UserEditor } from '@/types/user';
 
-export const RegisterdUser = (props: { user: UserEditor; beaconTypes: BeaconType[] }) => {
+export default function RegisterdUser(props: { user: UserEditor; beaconTypes: BeaconType[] }) {
   const { setEditingUserId } = useEditingUserMutators();
   const { editingUserId } = useEditingUserState();
   const { user, beaconTypes } = props;
@@ -48,4 +48,4 @@ export const RegisterdUser = (props: { user: UserEditor; beaconTypes: BeaconType
       )}
     </>
   );
-};
+}

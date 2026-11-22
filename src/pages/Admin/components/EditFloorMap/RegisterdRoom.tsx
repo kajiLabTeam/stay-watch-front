@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { RoomEditorForm } from './RoomEditorForm';
-import { RoomHeaderRow } from './RoomHeaderRow';
+import RoomEditorForm from './RoomEditorForm';
+import RoomHeaderRow from './RoomHeaderRow';
 import { useEditingMapMutators, useEditingMapState } from '@/atoms/editingMapAtom';
 import { useMapsDataMutators } from '@/atoms/mapAtom';
 import { Building, EditorRoom } from '@/types/roomFloormap';
 
-export const RegisterdRoom = (props: { room: EditorRoom; building: Building }) => {
+export default function RegisterdRoom(props: { room: EditorRoom; building: Building }) {
   const { roomId, buildingId, roomName, polygon } = props.room;
   const [buttonText, setButtonText] = useState('編集');
 
@@ -65,4 +65,4 @@ export const RegisterdRoom = (props: { room: EditorRoom; building: Building }) =
       )}
     </div>
   );
-};
+}

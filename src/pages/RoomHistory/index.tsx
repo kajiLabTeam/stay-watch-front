@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import { useParamChange } from './hooks/useParamChange';
-import { RoomHistoryBody } from './components/RoomHistoryBody';
-import { RoomHistoryPagination } from './components/RoomHistoryPagination';
-import { RoomHistoryToolbar } from './components/RoomHistoryToolbar';
+import RoomHistoryBody from './components/RoomHistoryBody';
+import RoomHistoryPagination from './components/RoomHistoryPagination';
+import RoomHistoryToolbar from './components/RoomHistoryToolbar';
 import Error from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
 import { useCommunityState } from '@/atoms/communityAtom';
 import { useGetAPI } from '@/hooks/useGetAPI';
-import { LogsListResponse } from '@/types/log';
+import { LogsListResponse } from '@/pages/RoomHistory/types/log';
 import { UserAttribute } from '@/types/user';
 import { ENDPOINTS } from '@/utils/endpoint';
 
-function RoomHistory() {
+export default function RoomHistory() {
   const [currentOffset, currentPage, currentUserID, previousPage, nextPage, updateSelectedUser] =
     useParamChange();
   const [isGantt, setIsGantt] = useState(false);
@@ -56,5 +56,3 @@ function RoomHistory() {
     </>
   );
 }
-
-export default RoomHistory;

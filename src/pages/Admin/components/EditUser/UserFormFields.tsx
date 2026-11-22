@@ -2,14 +2,14 @@ import { Select, TagsInput, TextInput } from '@mantine/core';
 import { UserForm } from '../../hooks/useUserForm';
 import { roleSelector } from '@/constants/roleSelector';
 import { useSelectTags } from '@/hooks/tagSelector';
-import { BeaconType } from '@/types/beacon';
+import { BeaconType } from '@/pages/Admin/types/beacon';
 
 interface UserFormFieldsProps {
   form: UserForm;
   beaconTypes: readonly BeaconType[];
 }
 
-export function UserFormFields({ form, beaconTypes }: UserFormFieldsProps) {
+export default function UserFormFields({ form, beaconTypes }: UserFormFieldsProps) {
   const selectTags = useSelectTags();
   const beaconSelector = [
     ...beaconTypes.map((beaconType) => ({

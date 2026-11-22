@@ -1,9 +1,9 @@
-import { FloorMapFrame } from './components/FloorMapFrame';
-import { FloorMapPopover } from './components/FloorMapPopover';
-import { StayerMapCanvas } from './components/StayerMapCanvas';
+import FloorMapFrame from './components/FloorMapFrame';
+import FloorMapPopover from './components/FloorMapPopover';
+import StayerMapCanvas from './components/StayerMapCanvas';
 import { useFloorMapCanvas } from './hooks/useFloorMapCanvas';
 
-function FloorMap() {
+export default function FloorMap() {
   const {
     CANVAS_WIDTH,
     CANVAS_HEIGHT,
@@ -32,5 +32,3 @@ function FloorMap() {
     </FloorMapFrame>
   );
 }
-
-export default FloorMap;

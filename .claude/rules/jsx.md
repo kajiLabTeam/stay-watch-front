@@ -9,8 +9,10 @@ paths:
 
 ## コンポーネント
 
-- コンポーネントは関数宣言（`function`）で定義すること
-  - 例）`function ActivityCard({ activity }: ActivityCardProps) { ... }`
+- コンポーネントは `export default function` で定義すること（アロー関数・`const` では定義しない）
+  - 例）`export default function ActivityCard({ activity }: ActivityCardProps) { ... }`
+  - `export default ActivityCard;` のように末尾でまとめて export しない
+  - `memo` や `FC<Props>` は必要な場合を除いて使わない
 - 1ファイルにつき1コンポーネントとすること
   - ルートファイル（`web/src/routes/` 配下）は例外とし，そのルートの `component`・`notFoundComponent` などに渡すコンポーネントを同じファイルに定義してよい
 - コンポーネント名はパスカルケース（`PascalCase`）で命名し，ファイル名もコンポーネント名と一致させること

@@ -5,7 +5,7 @@ interface RoomHeaderRowProps {
   onButtonClicked: () => void;
 }
 
-export function RoomHeaderRow({
+export default function RoomHeaderRow({
   roomId,
   roomName,
   buttonText,

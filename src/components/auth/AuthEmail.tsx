@@ -1,13 +1,13 @@
 import { FC, ReactNode } from 'react';
 import Loading from '@/components/common/Loading';
-import { useIsRegisterEmail } from '@/utils/Auth';
+import { useIsRegisterEmail } from '@/hooks/useIsRegisterEmail';
 import { statusCode } from '@/utils/statusCode';
 
 type Props = {
   children: ReactNode;
 };
 
-const AuthEmail: FC<Props> = ({ children }) => {
+export default function AuthEmail({ children }: Props) {
   const { isRegisteredEmail, status } = useIsRegisterEmail();
   if (isRegisteredEmail === undefined) {
     return <Loading message='権限確認中' />;
@@ -19,6 +19,4 @@ const AuthEmail: FC<Props> = ({ children }) => {
     return <div>サーバーエラー</div>;
   }
   return <div>{children}</div>;
-};
-
-export default AuthEmail;
+}

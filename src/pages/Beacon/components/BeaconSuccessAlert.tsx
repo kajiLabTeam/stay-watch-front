@@ -17,7 +17,7 @@ function getMessage(alertMode: number): string | null {
   }
 }
 
-export function BeaconSuccessAlert({ alertMode }: BeaconSuccessAlertProps) {
+export default function BeaconSuccessAlert({ alertMode }: BeaconSuccessAlertProps) {
   const message = getMessage(alertMode);
   if (message === null) return null;
 

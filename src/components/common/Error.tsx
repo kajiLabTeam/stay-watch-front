@@ -2,7 +2,6 @@ type ErrorProps = {
   message: string;
 };
 
-const Error = ({ message }: ErrorProps) => {
+export default function Error({ message }: ErrorProps) {
   return <div>{message}</div>;
-};
-export default Error;
+}

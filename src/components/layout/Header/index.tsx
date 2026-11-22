@@ -1,9 +1,9 @@
 import { Link } from '@tanstack/react-router';
-import { Profile } from '@/components/layout/Profile';
+import Profile from '@/components/layout/Profile';
 import { useCommunityState } from '@/atoms/communityAtom';
-import { HeaderLink } from './HeaderLink';
+import HeaderLink from './HeaderLink';
 
-const Header = () => {
+export default function Header() {
   const community = useCommunityState();
 
   return (
@@ -26,5 +26,4 @@ const Header = () => {
       </div>
     </div>
   );
-};
-export default Header;
+}

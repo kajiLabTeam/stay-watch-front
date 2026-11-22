@@ -5,7 +5,7 @@ interface HeaderLinkProps {
   label: string;
 }
 
-export function HeaderLink({ to, label }: HeaderLinkProps): React.JSX.Element {
+export default function HeaderLink({ to, label }: HeaderLinkProps): React.JSX.Element {
   return (
     <Link
       to={to}

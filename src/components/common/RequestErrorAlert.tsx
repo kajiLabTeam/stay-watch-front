@@ -8,7 +8,7 @@ interface RequestErrorAlertProps {
   conflictMessage: string;
 }
 
-export function RequestErrorAlert({ error, conflictMessage }: RequestErrorAlertProps) {
+export default function RequestErrorAlert({ error, conflictMessage }: RequestErrorAlertProps) {
   if (!error) return null;
 
   return (

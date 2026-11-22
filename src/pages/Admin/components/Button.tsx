@@ -7,7 +7,7 @@ type Props = {
   color: 'red' | 'blue';
 };
 
-export const Button: FC<Props> = ({ children, disabled, onClick, color }) => {
+export default function Button({ children, disabled, onClick, color }: Props) {
   const buttonStyle =
     color === 'blue'
       ? `bg-blue-500 hover:bg-blue-400 rounded py-1 px-2 font-bold text-white disabled:opacity-30 md:py-2 md:px-4`
@@ -18,4 +18,4 @@ export const Button: FC<Props> = ({ children, disabled, onClick, color }) => {
       {children}
     </button>
   );
-};
+}

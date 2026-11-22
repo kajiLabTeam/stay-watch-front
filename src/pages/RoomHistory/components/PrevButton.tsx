@@ -5,7 +5,7 @@ type PrevButtonProps = {
   previousPage: () => void;
 };
 
-export const PrevButton = ({ currentPage, previousPage }: PrevButtonProps) => {
+export default function PrevButton({ currentPage, previousPage }: PrevButtonProps) {
   //pageが1より大きい時にボタンを表示
   if (currentPage <= 1) return <div />;
 
@@ -14,4 +14,4 @@ export const PrevButton = ({ currentPage, previousPage }: PrevButtonProps) => {
       前へ
     </Button>
   );
-};
+}

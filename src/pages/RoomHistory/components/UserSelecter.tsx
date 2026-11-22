@@ -8,7 +8,7 @@ type UserSelecterProps = {
   paramsUserID: string | null;
 };
 
-const UserSelecter = ({ users, handleUserID, paramsUserID }: UserSelecterProps) => {
+export default function UserSelecter({ users, handleUserID, paramsUserID }: UserSelecterProps) {
   return (
     <Select
       placeholder='user name'
@@ -26,6 +26,4 @@ const UserSelecter = ({ users, handleUserID, paramsUserID }: UserSelecterProps) 
       value={paramsUserID}
     />
   );
-};
-
-export default UserSelecter;
+}

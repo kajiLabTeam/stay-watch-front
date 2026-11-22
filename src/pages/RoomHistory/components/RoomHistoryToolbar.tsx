@@ -1,4 +1,4 @@
-import { GanttToggleButton } from './GanttToggleButton';
+import GanttToggleButton from './GanttToggleButton';
 import UserSelecter from './UserSelecter';
 import { UserAttribute } from '@/types/user';
 
@@ -10,7 +10,7 @@ interface RoomHistoryToolbarProps {
   onUserSelected: (userId: string | null) => void; // oxlint-disable-line
 }
 
-export function RoomHistoryToolbar({
+export default function RoomHistoryToolbar({
   isGantt,
   users,
   selectedUserId,

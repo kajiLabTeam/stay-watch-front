@@ -1,12 +1,12 @@
-import { ActivityHeatmapContent } from './components/ActivityHeatmapContent';
+import ActivityHeatmapContent from './components/ActivityHeatmapContent';
 import { getWeekday } from './utils';
 import ErrorMessage from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
 import { useGetAPI } from '@/hooks/useGetAPI';
-import { ActivityProbabilitiesResponse } from '@/types/activity';
+import { ActivityProbabilitiesResponse } from '@/pages/ActivityHeatmap/types/activity';
 import { ENDPOINTS } from '@/utils/endpoint';
 
-function ActivityHeatmap() {
+export default function ActivityHeatmap() {
   const {
     data: response,
     error,
@@ -25,5 +25,3 @@ function ActivityHeatmap() {
     </>
   );
 }
-
-export default ActivityHeatmap;

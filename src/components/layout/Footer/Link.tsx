@@ -8,7 +8,7 @@ interface FooterLinkProps {
   children: ReactNode;
 }
 
-export function FooterLink({ to, label, children }: FooterLinkProps): React.JSX.Element {
+export default function FooterLink({ to, label, children }: FooterLinkProps): React.JSX.Element {
   return (
     <Link
       to={to}

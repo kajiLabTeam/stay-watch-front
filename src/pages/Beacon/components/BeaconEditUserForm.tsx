@@ -2,11 +2,11 @@ import { Button, LoadingOverlay, Select } from '@mantine/core';
 import { useZodForm } from '@/hooks/useZodForm';
 import { ApiError, request } from '@/utils/api';
 import { useMutation } from '@tanstack/react-query';
-import { UI_DATA } from '@/constants/uidata';
+import { UI_DATA } from '@/pages/Beacon/constants/uidata';
 import { useAlertModeMutators } from '@/atoms/alertModeAtom';
 import { privacyBeaconEditUserSchema } from '@/pages/Beacon/validation/privacyBeaconEditUserSchema';
 import Error from '@/components/common/Error';
-import { RequestErrorAlert } from '@/components/common/RequestErrorAlert';
+import RequestErrorAlert from '@/components/common/RequestErrorAlert';
 import { useUserState } from '@/atoms/firebaseUserAtom';
 import { useCommunityState } from '@/atoms/communityAtom';
 import { useGetAPI } from '@/hooks/useGetAPI';
@@ -23,7 +23,7 @@ type PropsType = {
   privateKey: string;
 };
 
-function BeaconEditUserForm({ privateKey }: PropsType) {
+export default function BeaconEditUserForm({ privateKey }: PropsType) {
   const { setAlertMode } = useAlertModeMutators();
   const community = useCommunityState();
   const firebaseUser = useUserState();
@@ -72,34 +72,30 @@ function BeaconEditUserForm({ privateKey }: PropsType) {
   return (
     <div>
       {loading && <LoadingOverlay visible overlayProps={{ blur: 3 }} />}
-      <div>
-        <form
-          className='flex flex-col px-10 pb-4 pt-2'
-          onSubmit={form.onSubmit((values) => {
-            submitEditUser(values);
-          })}
-        >
-          <Select
-            label='ユーザ'
-            placeholder='ユーザを選択してください'
-            data={usersSelecter}
-            // data={[
-            //   {value: '1', label: 'hayashi'},
-            //   {value: '2', label: 'togawa'}
-            // ]}
-            {...form.getInputProps('id')}
-          />
-          <div className='pt-3'>
-            <Button type='submit' className='bg-staywatch-accent' color='#1e5266'>
-              保存する
-            </Button>
-          </div>
+      <form
+        className='flex flex-col px-10 pb-4 pt-2'
+        onSubmit={form.onSubmit((values) => {
+          submitEditUser(values);
+        })}
+      >
+        <Select
+          label='ユーザ'
+          placeholder='ユーザを選択してください'
+          data={usersSelecter}
+          // data={[
+          //   {value: '1', label: 'hayashi'},
+          //   {value: '2', label: 'togawa'}
+          // ]}
+          {...form.getInputProps('id')}
+        />
+        <div className='pt-3'>
+          <Button type='submit' className='bg-staywatch-accent' color='#1e5266'>
+            保存する
+          </Button>
+        </div>
 
-          <RequestErrorAlert error={error} conflictMessage='登録済みのビーコンです' />
-        </form>
-      </div>
+        <RequestErrorAlert error={error} conflictMessage='登録済みのビーコンです' />
+      </form>
     </div>
   );
 }
-
-export default BeaconEditUserForm;

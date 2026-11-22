@@ -1,5 +1,5 @@
-import { NextButton } from './NextButton';
-import { PrevButton } from './PrevButton';
+import NextButton from './NextButton';
+import PrevButton from './PrevButton';
 
 interface RoomHistoryPaginationProps {
   currentOffset: number;
@@ -9,7 +9,7 @@ interface RoomHistoryPaginationProps {
   onNextPageClicked: () => void;
 }
 
-export function RoomHistoryPagination({
+export default function RoomHistoryPagination({
   currentOffset,
   currentPage,
   historyCount,

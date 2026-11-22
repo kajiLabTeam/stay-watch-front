@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router';
 
-export function FooterLogo(): React.JSX.Element {
+export default function FooterLogo(): React.JSX.Element {
   return (
     <div className='h-12 bg-staywatch-main text-center shadow-md'>
       <div className='pt-1'>

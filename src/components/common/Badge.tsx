@@ -4,7 +4,7 @@ type Props = {
   name: string;
 };
 
-export const Badge = ({ name }: Props) => {
+export default function Badge({ name }: Props) {
   return (
     <span
       className='
@@ -15,4 +15,4 @@ export const Badge = ({ name }: Props) => {
       {name}
     </span>
   );
-};
+}

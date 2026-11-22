@@ -2,12 +2,12 @@ import { Avatar } from '@mantine/core';
 import { Menu } from '@mantine/core';
 import { useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
-import { Confirmation } from '@/components/common/Confirmation';
+import Confirmation from '@/components/common/Confirmation';
 import { useUserState } from '@/atoms/firebaseUserAtom';
 import { useUserRoleState } from '@/atoms/userRoleAtom';
 import { logout } from '@/utils/Auth';
 
-export const Profile = () => {
+export default function Profile() {
   const user = useUserState();
   const userRole = useUserRoleState();
   const [showModal, setShowModal] = useState(false);
@@ -48,4 +48,4 @@ export const Profile = () => {
       {showModal && <Confirmation remove={remove} />}
     </>
   );
-};
+}

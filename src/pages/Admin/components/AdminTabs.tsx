@@ -7,7 +7,7 @@ interface AdminTabsProps {
   onTabChanged: (tab: string | null) => void;
 }
 
-export function AdminTabs({ activeTab, onTabChanged }: AdminTabsProps) {
+export default function AdminTabs({ activeTab, onTabChanged }: AdminTabsProps) {
   return (
     <Tabs
       value={activeTab}

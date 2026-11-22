@@ -1,4 +1,4 @@
-import { UserList } from './components/UserList';
+import UserList from './components/UserList';
 import { useCommunityState } from '@/atoms/communityAtom';
 import Error from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
@@ -6,7 +6,7 @@ import { useGetAPI } from '@/hooks/useGetAPI';
 import { UserAttribute } from '@/types/user';
 import { ENDPOINTS } from '@/utils/endpoint';
 
-function UserInformation() {
+export default function UserInformation() {
   const community = useCommunityState();
   const {
     data: users,
@@ -25,5 +25,3 @@ function UserInformation() {
     </>
   );
 }
-
-export default UserInformation;

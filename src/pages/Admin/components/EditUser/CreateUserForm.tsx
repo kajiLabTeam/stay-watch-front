@@ -1,18 +1,18 @@
 import { Button, LoadingOverlay } from '@mantine/core';
-import { UserFormFields } from './UserFormFields';
+import UserFormFields from './UserFormFields';
 import { useUserForm } from '../../hooks/useUserForm';
 import { UserFormValues } from '../../types/userForm';
-import { RequestErrorAlert } from '@/components/common/RequestErrorAlert';
+import RequestErrorAlert from '@/components/common/RequestErrorAlert';
 import { ApiError, request } from '@/utils/api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAlertModeMutators } from '@/atoms/alertModeAtom';
 import { useUserState } from '@/atoms/firebaseUserAtom';
 import { useCommunityState } from '@/atoms/communityAtom';
-import { BeaconType } from '@/types/beacon';
+import { BeaconType } from '@/pages/Admin/types/beacon';
 import { CreateUserRequest } from '@/types/request';
 import { ENDPOINTS } from '@/utils/endpoint';
 
-export const CreateUserForm = (props: { beaconTypes: BeaconType[] }) => {
+export default function CreateUserForm(props: { beaconTypes: BeaconType[] }) {
   const { beaconTypes } = props;
   const user = useUserState();
   const community = useCommunityState();
@@ -89,4 +89,4 @@ export const CreateUserForm = (props: { beaconTypes: BeaconType[] }) => {
       </div>
     </div>
   );
-};
+}

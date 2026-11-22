@@ -7,7 +7,7 @@ interface DeleteUserModalProps {
   onDeleteConfirmed: () => void;
 }
 
-export function DeleteUserModal({
+export default function DeleteUserModal({
   opened,
   hasError,
   onClosed,

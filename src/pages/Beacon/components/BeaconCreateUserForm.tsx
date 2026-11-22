@@ -1,11 +1,11 @@
 import { Button, LoadingOverlay } from '@mantine/core';
-import { BeaconCreateUserFields } from './BeaconCreateUserFields';
+import BeaconCreateUserFields from './BeaconCreateUserFields';
 import { useBeaconCreateForm } from '../hooks/useBeaconCreateForm';
 import { BeaconCreateFormValues } from '../types/beaconCreateForm';
-import { RequestErrorAlert } from '@/components/common/RequestErrorAlert';
+import RequestErrorAlert from '@/components/common/RequestErrorAlert';
 import { ApiError, request } from '@/utils/api';
 import { useMutation } from '@tanstack/react-query';
-import { UI_DATA } from '@/constants/uidata';
+import { UI_DATA } from '@/pages/Beacon/constants/uidata';
 import { useAlertModeMutators } from '@/atoms/alertModeAtom';
 import { useUserState } from '@/atoms/firebaseUserAtom';
 import { useCommunityState } from '@/atoms/communityAtom';
@@ -16,7 +16,7 @@ type PropsType = {
   privateKey: string;
 };
 
-function BeaconRegisterForm({ privateKey }: PropsType) {
+export default function BeaconRegisterForm({ privateKey }: PropsType) {
   const community = useCommunityState();
   const firebaseUser = useUserState();
   const { setAlertMode } = useAlertModeMutators();
@@ -64,25 +64,21 @@ function BeaconRegisterForm({ privateKey }: PropsType) {
   return (
     <div>
       {loading && <LoadingOverlay visible overlayProps={{ blur: 3 }} />}
-      <div>
-        <form
-          className='flex flex-col px-10 pb-4 pt-2'
-          onSubmit={form.onSubmit((values) => {
-            submitCreateUser(values);
-          })}
-        >
-          <BeaconCreateUserFields form={form} />
-          <div className='pt-3'>
-            <Button type='submit' className='bg-staywatch-accent' color='#1e5266'>
-              登録する
-            </Button>
-          </div>
+      <form
+        className='flex flex-col px-10 pb-4 pt-2'
+        onSubmit={form.onSubmit((values) => {
+          submitCreateUser(values);
+        })}
+      >
+        <BeaconCreateUserFields form={form} />
+        <div className='pt-3'>
+          <Button type='submit' className='bg-staywatch-accent' color='#1e5266'>
+            登録する
+          </Button>
+        </div>
 
-          <RequestErrorAlert error={error} conflictMessage='登録済みのビーコンです' />
-        </form>
-      </div>
+        <RequestErrorAlert error={error} conflictMessage='登録済みのビーコンです' />
+      </form>
     </div>
   );
 }
-
-export default BeaconRegisterForm;

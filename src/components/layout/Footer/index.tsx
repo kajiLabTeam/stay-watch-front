@@ -1,13 +1,13 @@
-import { ActivityHeatmapIcon } from '@/components/icons/ActivityHeatmap';
-import { FooterCommunityName } from './CommunityName';
-import { FooterLink } from './Link';
-import { FooterLogo } from './Logo';
-import { WatchIcon } from '@/components/icons/Watch';
-import { HouseIcon } from '@/components/icons/House';
-import { PersonIcon } from '@/components/icons/Person';
-import { MapIcon } from '@/components/icons/Map';
+import ActivityHeatmapIcon from '@/components/icons/ActivityHeatmap';
+import FooterCommunityName from './CommunityName';
+import FooterLink from './Link';
+import FooterLogo from './Logo';
+import WatchIcon from '@/components/icons/Watch';
+import HouseIcon from '@/components/icons/House';
+import PersonIcon from '@/components/icons/Person';
+import MapIcon from '@/components/icons/Map';
 
-const Footer = () => {
+export default function Footer() {
   return (
     <div>
       <FooterLogo />
@@ -33,5 +33,4 @@ const Footer = () => {
       </div>
     </div>
   );
-};
-export default Footer;
+}

@@ -1,11 +1,11 @@
-import { StayerItem } from './StayerItem';
+import StayerItem from './StayerItem';
 import { StayersRoomTableType } from '../types/stayer';
 
 interface StayerRoomRowProps {
   stayersInRoom: StayersRoomTableType;
 }
 
-export function StayerRoomRow({ stayersInRoom }: StayerRoomRowProps) {
+export default function StayerRoomRow({ stayersInRoom }: StayerRoomRowProps) {
   return (
     <tr className='border text-left'>
       <td className='px-2 text-sm md:text-2xl'>{stayersInRoom.room}</td>

@@ -7,7 +7,7 @@ interface StayerMapCanvasProps {
   onMouseMoved: (event: MouseEvent<HTMLCanvasElement>) => void;
 }
 
-export function StayerMapCanvas({
+export default function StayerMapCanvas({
   width,
   height,
   onCanvasMounted,

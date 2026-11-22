@@ -1,13 +1,13 @@
 import React from 'react';
 import { useUserRoleState } from '@/atoms/userRoleAtom';
 
-export const RoomCanvas = (props: {
+export default function RoomCanvas(props: {
   color: string;
   polygon: number[][];
   roomID: number;
   canvasWidth: number;
   canvasHeight: number;
-}) => {
+}) {
   const userRole = useUserRoleState();
 
   // 描画内容は props から決まるため、canvas の ref コールバックで描画する
@@ -39,4 +39,4 @@ export const RoomCanvas = (props: {
       />
     </div>
   );
-};
+}

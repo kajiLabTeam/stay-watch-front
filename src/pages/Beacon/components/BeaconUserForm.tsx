@@ -6,7 +6,7 @@ interface BeaconUserFormProps {
   privateKey: string;
 }
 
-export function BeaconUserForm({ mode, privateKey }: BeaconUserFormProps) {
+export default function BeaconUserForm({ mode, privateKey }: BeaconUserFormProps) {
   return mode === 'create' ? (
     <BeaconRegisterForm privateKey={privateKey} />
   ) : (

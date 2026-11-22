@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { useImage } from '@/hooks/useImage';
-import { useRoomState } from '@/pages/FloorMap/roomState';
+import { useRoomState } from '@/pages/FloorMap/hooks/useRoomState';
 import { PopoverRoom } from '@/types/roomFloormap';
 
 const FLOOR_MAP_IMAGE_PATH = '/floor_maps/14goukan1-5.png';

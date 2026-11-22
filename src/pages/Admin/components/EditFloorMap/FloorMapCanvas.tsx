@@ -1,8 +1,8 @@
-export const FloorMapCanvas = (props: {
+export default function FloorMapCanvas(props: {
   buildingImagePath: string;
   canvasWidth: number;
   canvasHeight: number;
-}) => {
+}) {
   // 背景のフロアマップは描画処理が不要なため canvas ではなく img で表示する
   // (width/height を指定して、重ねている他の canvas と同じ縦横比にする)
   return (
@@ -16,4 +16,4 @@ export const FloorMapCanvas = (props: {
       />
     </div>
   );
-};
+}

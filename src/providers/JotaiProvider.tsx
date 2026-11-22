@@ -1,14 +1,10 @@
 import { Provider } from 'jotai';
-import { FC, ReactNode, memo } from 'react';
+import { ReactNode } from 'react';
 
-type Props = {
+interface JotaiProviderProps {
   children: ReactNode;
-};
+}
 
-export const JotaiProvider: FC<Props> = memo((props) => {
-  const { children } = props;
-
+export default function JotaiProvider({ children }: JotaiProviderProps) {
   return <Provider>{children}</Provider>;
-});
-
-JotaiProvider.displayName = 'JotaiProvider';
+}

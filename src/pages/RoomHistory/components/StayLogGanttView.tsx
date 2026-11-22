@@ -1,6 +1,6 @@
-import { StayLogGraph } from './StayLogGraph';
+import StayLogGraph from './StayLogGraph';
 
-export function StayLogGanttView() {
+export default function StayLogGanttView() {
   return (
     <>
       <div className='my-4 border' />

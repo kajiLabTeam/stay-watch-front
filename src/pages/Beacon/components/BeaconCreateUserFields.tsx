@@ -7,7 +7,7 @@ interface BeaconCreateUserFieldsProps {
   form: BeaconCreateForm;
 }
 
-export function BeaconCreateUserFields({ form }: BeaconCreateUserFieldsProps) {
+export default function BeaconCreateUserFields({ form }: BeaconCreateUserFieldsProps) {
   const selectTags = useSelectTags();
 
   return (

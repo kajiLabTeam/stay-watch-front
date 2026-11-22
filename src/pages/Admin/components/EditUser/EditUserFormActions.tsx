@@ -5,7 +5,10 @@ interface EditUserFormActionsProps {
   onDeleteClicked: () => void;
 }
 
-export function EditUserFormActions({ onCancelled, onDeleteClicked }: EditUserFormActionsProps) {
+export default function EditUserFormActions({
+  onCancelled,
+  onDeleteClicked,
+}: EditUserFormActionsProps) {
   return (
     <div className='flex pt-3'>
       <div className='mr-auto space-x-4'>

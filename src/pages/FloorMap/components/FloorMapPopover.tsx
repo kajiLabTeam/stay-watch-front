@@ -1,4 +1,4 @@
-import { PopoverUser } from './PopoverUser';
+import PopoverUser from './PopoverUser';
 import { PopoverRoom } from '@/types/roomFloormap';
 
 interface FloorMapPopoverProps {
@@ -6,7 +6,7 @@ interface FloorMapPopoverProps {
   canvasClientHeight: number;
 }
 
-export function FloorMapPopover({ popoverRoom, canvasClientHeight }: FloorMapPopoverProps) {
+export default function FloorMapPopover({ popoverRoom, canvasClientHeight }: FloorMapPopoverProps) {
   return (
     <div
       className='absolute align-bottom text-red-400'

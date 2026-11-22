@@ -1,6 +1,6 @@
 import type { CustomSeriesRenderItem, EChartsCoreOption } from 'echarts';
-import { StayTime } from '@/types/ganttStayLog';
-import { getEndOfDayUnixTime, getStartOfDayUnixTime } from '@/utils/dateUtils';
+import { StayTime } from '@/pages/RoomHistory/types/ganttStayLog';
+import { getEndOfDayUnixTime, getStartOfDayUnixTime } from '@/pages/RoomHistory/utils/dateUtils';
 
 const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
 

@@ -1,23 +1,23 @@
 import { LoadingOverlay } from '@mantine/core';
-import { DeleteUserModal } from './DeleteUserModal';
-import { EditUserFormActions } from './EditUserFormActions';
-import { UserFormFields } from './UserFormFields';
+import DeleteUserModal from './DeleteUserModal';
+import EditUserFormActions from './EditUserFormActions';
+import UserFormFields from './UserFormFields';
 import { useUserForm } from '../../hooks/useUserForm';
 import { UserFormValues } from '../../types/userForm';
-import { RequestErrorAlert } from '@/components/common/RequestErrorAlert';
+import RequestErrorAlert from '@/components/common/RequestErrorAlert';
 import { ApiError, request } from '@/utils/api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAlertModeMutators } from '@/atoms/alertModeAtom';
 import { useEditingUserMutators } from '@/atoms/editingUserAtom';
 import { useUserState } from '@/atoms/firebaseUserAtom';
 import { useCommunityState } from '@/atoms/communityAtom';
-import { useDeleteModal } from '@/hooks/useDeleteModal';
-import { BeaconType } from '@/types/beacon';
+import { useDeleteModal } from '@/pages/Admin/hooks/useDeleteModal';
+import { BeaconType } from '@/pages/Admin/types/beacon';
 import { UpdateUserRequest } from '@/types/request';
 import { UserEditor } from '@/types/user';
 import { ENDPOINTS } from '@/utils/endpoint';
 
-export const EditUserForm = (props: { user: UserEditor; beaconTypes: BeaconType[] }) => {
+export default function EditUserForm(props: { user: UserEditor; beaconTypes: BeaconType[] }) {
   const { user, beaconTypes } = props;
   const firebaseUser = useUserState();
   const community = useCommunityState();
@@ -121,4 +121,4 @@ export const EditUserForm = (props: { user: UserEditor; beaconTypes: BeaconType[
       </div>
     </div>
   );
-};
+}

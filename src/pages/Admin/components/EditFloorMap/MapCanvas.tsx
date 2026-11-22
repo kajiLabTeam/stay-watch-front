@@ -1,15 +1,11 @@
 import React from 'react';
-import { EditingPolygonCanvas } from './EditingPolygonCanvas';
-import { FloorMapCanvas } from './FloorMapCanvas';
-import { RoomCanvas } from './RoomCanvas';
+import EditingPolygonCanvas from './EditingPolygonCanvas';
+import FloorMapCanvas from './FloorMapCanvas';
+import RoomCanvas from './RoomCanvas';
 import { useMapsDataState } from '@/atoms/mapAtom';
 import { useImage } from '@/hooks/useImage';
-import { FloorMapRoom } from '@/types/roomFloormap';
 
-export const MapCanvas = (props: {
-  buildingImagePath: string;
-  currentSelectedBuildingId: number;
-}) => {
+export default function MapCanvas(props: { buildingImagePath: string }) {
   const mapsData = useMapsDataState();
   const { image, isError } = useImage(`/floor_maps${props.buildingImagePath}`);
 
@@ -24,22 +20,17 @@ export const MapCanvas = (props: {
         canvasWidth={image.naturalWidth}
         canvasHeight={image.naturalHeight}
       />
-      {mapsData.map((mapdata: FloorMapRoom) => {
-        if (mapdata.buildingId === props.currentSelectedBuildingId) {
-          return (
-            <div key={mapdata.roomId}>
-              <RoomCanvas
-                roomID={mapdata.roomId}
-                polygon={mapdata.polygon}
-                color={mapdata.color}
-                canvasWidth={image.naturalWidth}
-                canvasHeight={image.naturalHeight}
-              />
-            </div>
-          );
-        }
-      })}
+      {mapsData.map((mapdata) => (
+        <RoomCanvas
+          key={mapdata.roomId}
+          roomID={mapdata.roomId}
+          polygon={mapdata.polygon}
+          color={mapdata.color}
+          canvasWidth={image.naturalWidth}
+          canvasHeight={image.naturalHeight}
+        />
+      ))}
       <EditingPolygonCanvas canvasWidth={image.naturalWidth} canvasHeight={image.naturalHeight} />
     </div>
   );
-};
+}

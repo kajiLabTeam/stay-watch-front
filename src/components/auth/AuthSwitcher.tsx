@@ -7,7 +7,7 @@ type Props = {
   children: ReactNode;
 };
 
-const AuthSwitcher: FC<Props> = ({ children }) => {
+export default function AuthSwitcher({ children }: Props) {
   const isSigned = useIsSignedState();
 
   if (isSigned === undefined) {
@@ -15,6 +15,4 @@ const AuthSwitcher: FC<Props> = ({ children }) => {
   }
 
   return isSigned ? <>{children}</> : <NotLogin />;
-};
-
-export default AuthSwitcher;
+}

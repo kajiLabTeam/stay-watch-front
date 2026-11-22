@@ -4,7 +4,7 @@ import * as echarts from 'echarts/core';
 import { CanvasRenderer } from 'echarts/renderers';
 import { useCallback, useMemo } from 'react';
 import { createGanttChartData, createGanttChartOption, getChartHeight } from '../utils/ganttChart';
-import { StayTime } from '@/types/ganttStayLog';
+import { StayTime } from '@/pages/RoomHistory/types/ganttStayLog';
 
 echarts.use([CustomChart, GridComponent, TooltipComponent, CanvasRenderer]);
 
@@ -12,7 +12,7 @@ interface GanttChartProps {
   stayTimes: StayTime[];
 }
 
-function GanttChart({ stayTimes }: GanttChartProps) {
+export default function GanttChart({ stayTimes }: GanttChartProps) {
   const chartData = useMemo(() => createGanttChartData(stayTimes), [stayTimes]);
   const chartHeight = getChartHeight(stayTimes.length);
 
@@ -37,13 +37,9 @@ function GanttChart({ stayTimes }: GanttChartProps) {
   );
 
   return (
-    <div>
-      <div
-        ref={chartRef}
-        style={{ height: chartHeight, width: '100%', maxWidth: '83.34vw', marginTop: '100px' }}
-      />
-    </div>
+    <div
+      ref={chartRef}
+      style={{ height: chartHeight, width: '100%', maxWidth: '83.34vw', marginTop: '100px' }}
+    />
   );
 }
-
-export default GanttChart;

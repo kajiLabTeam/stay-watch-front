@@ -1,11 +1,11 @@
 import { HOUR_END, HOUR_START } from '../utils';
-import { ActivityProbability } from '@/types/activity';
+import { ActivityProbability } from '@/pages/ActivityHeatmap/types/activity';
 
 interface HeatmapActivityLabelsProps {
   activities: readonly ActivityProbability[];
 }
 
-export function HeatmapActivityLabels({ activities }: HeatmapActivityLabelsProps) {
+export default function HeatmapActivityLabels({ activities }: HeatmapActivityLabelsProps) {
   return (
     <div className='flex w-16 shrink-0 flex-col gap-1 md:w-36 md:gap-2'>
       {activities.map((activity) => (

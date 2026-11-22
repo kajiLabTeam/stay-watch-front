@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { BeaconModeSelector } from './components/BeaconModeSelector';
-import { BeaconPanel } from './components/BeaconPanel';
-import { BeaconSuccessAlert } from './components/BeaconSuccessAlert';
-import { BeaconUserForm } from './components/BeaconUserForm';
+import BeaconModeSelector from './components/BeaconModeSelector';
+import BeaconPanel from './components/BeaconPanel';
+import BeaconSuccessAlert from './components/BeaconSuccessAlert';
+import BeaconUserForm from './components/BeaconUserForm';
 import { useAlertModeState } from '@/atoms/alertModeAtom';
 import { useUserRoleState } from '@/atoms/userRoleAtom';
 
@@ -10,7 +10,7 @@ interface BeaconBaseProps {
   privateKey: string;
 }
 
-function BeaconBase({ privateKey }: BeaconBaseProps) {
+export default function BeaconBase({ privateKey }: BeaconBaseProps) {
   const userRole = useUserRoleState();
   const [selectedMode, setSelectedMode] = useState('create');
   const { alertMode } = useAlertModeState();
@@ -25,5 +25,3 @@ function BeaconBase({ privateKey }: BeaconBaseProps) {
     </BeaconPanel>
   );
 }
-
-export default BeaconBase;

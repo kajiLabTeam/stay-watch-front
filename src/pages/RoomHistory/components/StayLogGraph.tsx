@@ -2,7 +2,7 @@ import { Tab } from '@headlessui/react';
 import Loading from '@/components/common/Loading';
 import TabRoom from './TabRoom';
 import { useGetAPI } from '@/hooks/useGetAPI';
-import GanttStayLog from '@/types/ganttStayLog';
+import GanttStayLog from '@/pages/RoomHistory/types/ganttStayLog';
 import { ENDPOINTS } from '@/utils/endpoint';
 
 // @ts-ignore
@@ -10,7 +10,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export const StayLogGraph = () => {
+export default function StayLogGraph() {
   const { data, error } = useGetAPI<GanttStayLog[]>(ENDPOINTS.logsGantt);
   if (error) return <div>滞在グラフデータ取得失敗</div>;
   if (!data) return <Loading message='滞在情報取得中' />;
@@ -40,11 +40,11 @@ export const StayLogGraph = () => {
         <Tab.Panels>
           {data.map((item) => (
             <Tab.Panel key={item.id}>
-              <TabRoom rooms={item.rooms} key={item.id} />
+              <TabRoom rooms={item.rooms} />
             </Tab.Panel>
           ))}
         </Tab.Panels>
       </Tab.Group>
     </div>
   );
-};
+}

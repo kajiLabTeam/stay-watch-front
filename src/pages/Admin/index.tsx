@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { AdminTabs } from '@/pages/Admin/components/AdminTabs';
+import AdminTabs from '@/pages/Admin/components/AdminTabs';
 import { useUserRoleState } from '@/atoms/userRoleAtom';
 
-function Admin() {
+export default function Admin() {
   const [activeTab, setActiveTab] = useState<string | null>('first');
   const userRole = useUserRoleState();
 
@@ -15,5 +15,3 @@ function Admin() {
     </>
   );
 }
-
-export default Admin;

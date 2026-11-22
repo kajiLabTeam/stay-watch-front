@@ -10,7 +10,7 @@ interface BeaconModeSelectorProps {
   onModeChanged: (mode: string) => void;
 }
 
-export function BeaconModeSelector({ mode, onModeChanged }: BeaconModeSelectorProps) {
+export default function BeaconModeSelector({ mode, onModeChanged }: BeaconModeSelectorProps) {
   return (
     <SegmentedControl
       fullWidth

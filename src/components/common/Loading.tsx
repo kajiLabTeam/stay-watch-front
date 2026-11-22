@@ -4,7 +4,7 @@ type LoadingProps = {
   message: string;
 };
 
-const Loading = ({ message }: LoadingProps) => {
+export default function Loading({ message }: LoadingProps) {
   return (
     <LoadingOverlay
       visible
@@ -12,9 +12,7 @@ const Loading = ({ message }: LoadingProps) => {
       loaderProps={{ children: LoadingContent(message) }}
     />
   );
-};
-export default Loading;
-
+}
 const LoadingContent = (message: string) => {
   return (
     <div className='flex flex-col text-center'>

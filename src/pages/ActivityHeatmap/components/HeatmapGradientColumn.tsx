@@ -1,13 +1,13 @@
-import { HeatmapCurrentTimeLine } from './HeatmapCurrentTimeLine';
+import HeatmapCurrentTimeLine from './HeatmapCurrentTimeLine';
 import { useCurrentTimePercent } from '../hooks/useCurrentTimePercent';
 import { buildGradient } from '../utils';
-import { ActivityProbability } from '@/types/activity';
+import { ActivityProbability } from '@/pages/ActivityHeatmap/types/activity';
 
 interface HeatmapGradientColumnProps {
   activities: readonly ActivityProbability[];
 }
 
-export function HeatmapGradientColumn({ activities }: HeatmapGradientColumnProps) {
+export default function HeatmapGradientColumn({ activities }: HeatmapGradientColumnProps) {
   const currentTimePercent = useCurrentTimePercent();
 
   return (

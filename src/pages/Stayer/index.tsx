@@ -1,4 +1,4 @@
-import { StayerTable } from './components/StayerTable';
+import StayerTable from './components/StayerTable';
 import { formatStayerDataForTable } from './utils';
 import Error from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
@@ -7,7 +7,7 @@ import { EditorRoom } from '@/types/roomFloormap';
 import StayerType from '@/types/stayer';
 import { ENDPOINTS } from '@/utils/endpoint';
 
-function Stayer() {
+export default function Stayer() {
   const {
     data: stayers,
     error: errorStayers,
@@ -30,5 +30,3 @@ function Stayer() {
     </>
   );
 }
-
-export default Stayer;
