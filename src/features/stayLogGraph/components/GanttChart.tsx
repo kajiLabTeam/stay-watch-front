@@ -1,8 +1,13 @@
-import * as am4charts from '@amcharts/amcharts4/charts';
-import * as am4core from '@amcharts/amcharts4/core';
-import { useLayoutEffect, useRef } from 'react';
-import { ChartData, StayTime } from '@/types/ganttStayLog';
+import { CustomChart } from 'echarts/charts';
+import { GridComponent, TooltipComponent } from 'echarts/components';
+import * as echarts from 'echarts/core';
+import type { CustomSeriesRenderItem } from 'echarts';
+import { CanvasRenderer } from 'echarts/renderers';
+import { useEffect, useMemo, useRef } from 'react';
+import { StayTime } from '@/types/ganttStayLog';
 import { getEndOfDayUnixTime, getStartOfDayUnixTime } from '@/utils/dateUtils';
+
+echarts.use([CustomChart, GridComponent, TooltipComponent, CanvasRenderer]);
 
 //propsの型定義
 type Props = {
@@ -11,109 +16,110 @@ type Props = {
   height: number;
 };
 
+const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
+
+const pad = (n: number) => String(n).padStart(2, '0');
+
+const formatDateTime = (unixTime: number) => {
+  const d = new Date(unixTime);
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+};
+
+// 行の高さ(px)。人数が少ないときは1人あたりを大きく取る
+const getChartHeight = (rowCount: number, fallbackHeight: number) => {
+  if (rowCount < 5) return 50 * rowCount;
+  if (rowCount < 10) return 30 * rowCount;
+  return fallbackHeight;
+};
+
+const renderGanttItem: CustomSeriesRenderItem = (_params, api) => {
+  const categoryIndex = api.value(0) as number;
+  const start = api.coord([api.value(1), categoryIndex]);
+  const end = api.coord([api.value(2), categoryIndex]);
+  const rowHeight = (api.size?.([0, 1]) as number[])[1];
+  const barHeight = rowHeight * 0.8;
+
+  return {
+    type: 'rect',
+    shape: {
+      x: start[0],
+      y: start[1] - barHeight / 2,
+      width: Math.max(end[0] - start[0], 1),
+      height: barHeight,
+    },
+    style: api.style(),
+  };
+};
+
 const GanttChart = ({ stayTimes, width, height }: Props) => {
   const divRef = useRef<HTMLDivElement | null>(null);
-  const chartRef = useRef<am4charts.XYChart | null>(null);
 
-  let chartData: ChartData[] = [];
-  let currentDayStartUnixTime = 0;
-  let currentDayEndUnixTime = 0;
+  const { categories, seriesData, dayStart, dayEnd } = useMemo(() => {
+    // 同じ名前は同じ行にまとめる
+    const names = Array.from(new Set(stayTimes.map((s) => s.userName)));
+    const first = stayTimes[0];
+    return {
+      categories: names,
+      seriesData: stayTimes.map((s) => ({
+        value: [names.indexOf(s.userName), s.startAt, s.endAt],
+        itemStyle: { color: s.color, borderColor: s.color },
+      })),
+      dayStart: first ? getStartOfDayUnixTime(first.startAt) : 0,
+      dayEnd: first ? getEndOfDayUnixTime(first.endAt) : 0,
+    };
+  }, [stayTimes]);
 
-  let isGotCurrentDayTime = false;
-  stayTimes.forEach((stayTime) => {
-    if (!isGotCurrentDayTime) {
-      currentDayStartUnixTime = getStartOfDayUnixTime(stayTime.startAt);
-      currentDayEndUnixTime = getEndOfDayUnixTime(stayTime.endAt);
-      isGotCurrentDayTime = true;
-    }
-    chartData.push({
-      name: stayTime.userName,
-      color: stayTime.color,
-      start: stayTime.startAt,
-      end: stayTime.endAt,
+  const chartHeight = getChartHeight(stayTimes.length, height);
+
+  useEffect(() => {
+    if (!divRef.current) return;
+
+    const chart = echarts.init(divRef.current);
+    chart.setOption({
+      animation: false,
+      grid: { top: 0, bottom: 24, left: 80, right: 24 },
+      tooltip: {
+        trigger: 'item',
+        formatter: (p: { value: number[] }) =>
+          `入室: ${formatDateTime(p.value[1])}<br/>退室: ${formatDateTime(p.value[2])}`,
+      },
+      xAxis: {
+        type: 'time',
+        // グラフの初期値と最後値を指定
+        min: dayStart,
+        max: dayEnd,
+        interval: SIX_HOURS_MS, // グリッドを6時間間隔に固定
+        axisLabel: {
+          formatter: (value: number) => `${pad(new Date(value).getHours())}:00`,
+        },
+        splitLine: { show: true },
+      },
+      yAxis: {
+        type: 'category',
+        data: categories,
+        inverse: true,
+        axisTick: { show: false },
+        splitLine: { show: true },
+      },
+      series: [
+        {
+          type: 'custom',
+          renderItem: renderGanttItem,
+          encode: { x: [1, 2], y: 0 },
+          data: seriesData,
+        },
+      ],
     });
-  });
 
-  useLayoutEffect(() => {
-    if (divRef.current) {
-      const chart = am4core.create(divRef.current, am4charts.XYChart);
-      if (stayTimes.length < 5) {
-        chart.height = 50 * stayTimes.length;
-      } else if (stayTimes.length < 10) {
-        chart.height = 30 * stayTimes.length;
-      }
-      chart.paddingTop = 0;
-      chart.paddingBottom = 0;
-      chart.width = width;
-
-      chart.dateFormatter.dateFormat = 'yyyy-MM-dd HH:mm:ss';
-      chart.data = chartData; // データの適用
-      const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-
-      // グラフの初期値と最後値を指定
-      dateAxis.min = currentDayStartUnixTime;
-      dateAxis.max = currentDayEndUnixTime;
-      dateAxis.baseInterval = {
-        timeUnit: 'hour',
-        count: 1,
-      };
-      dateAxis.gridIntervals.setAll([
-        { timeUnit: 'hour', count: 6 }, // ← ★ グリッドを3時間間隔に固定
-      ]);
-      // dateAxis.renderer.labels.template.location = 0.0001; // この1行を消したときの違いを確認すると何の設定なのか圧倒的にイメージしやすい
-
-      const categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
-      // 適用したデータに対してy軸として設定したフィールドを指定
-      // 今回はcategory
-      categoryAxis.dataFields.category = 'name';
-      // locationはchartのgridの位置関係を0 ~ 1で指定する
-      // 試しに色々変えてみるとどこが変わるのかわかりやすい
-      categoryAxis.renderer.grid.template.location = 0;
-      categoryAxis.renderer.inversed = true;
-      categoryAxis.renderer.minGridDistance = 10;
-
-      const series = chart.series.push(new am4charts.ColumnSeries());
-      // ガントチャートのx軸は幅を指定するので2つを指定する
-      series.dataFields.openDateX = 'start';
-      series.dataFields.dateX = 'end';
-      series.dataFields.categoryY = 'name';
-      series.columns.template.propertyFields.fill = 'color';
-      series.columns.template.propertyFields.stroke = 'color';
-
-      // // {}内でプロパティ名を書くと対応した値が利用される
-      // // 改行を入れたいときは改行文字を入れる
-      series.columns.template.tooltipText = '入室: {openDateX} \n 退室: {dateX}';
-      // カーソルを当てたときにtooltipがカーソルに付いて動くようにする
-      // fixedかpointerの二択でどう違うかは試してみるといい
-      series.columns.template.tooltipPosition = 'pointer';
-
-      // let cellSize = 150;
-      // chart.events.on("datavalidated", function (ev) {
-      //   let chart = ev.target;
-      //   let categoryAxis = chart.yAxes.getIndex(0);
-      //   let adjustHeight =
-      //     chart.data.length * cellSize - categoryAxis.pixelHeight;
-      //   let targetHeight = chart.pixelHeight + adjustHeight;
-      //   chart.svgContainer.htmlElement.style.height = targetHeight + "px";
-      // });
-
-      // const scrollbar = new am4charts.XYChartScrollbar();
-      // chart.scrollbarX = scrollbar;
-      // // 前のセクションで定義したseriesをスクロールバーのseriesにpush
-      // scrollbar.series.push(series);
-      // chart.cursor = new am4charts.XYCursor();
-      // // 引数に与える関数が実行される
-      // chart.plotContainer.events.on("doublehit", () =>
-      //   dateAxis.zoom({ start: 0, end: 1 })
-      // );
-      chartRef.current = chart;
-      return () => chart.dispose();
-    }
-  });
+    return () => chart.dispose();
+  }, [categories, seriesData, dayStart, dayEnd, width, chartHeight]);
 
   return (
     <div>
-      <div ref={divRef} style={{ height: height, width: '100%', marginTop: '100px' }} />
+      <div
+        ref={divRef}
+        style={{ height: chartHeight, width: '100%', maxWidth: width, marginTop: '100px' }}
+      />
     </div>
   );
 };
