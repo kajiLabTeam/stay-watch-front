@@ -2,7 +2,7 @@ import { TextInput, Select, LoadingOverlay, Alert, TagsInput } from '@mantine/co
 import { Button } from '@mantine/core';
 import { useForm, schemaResolver } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
-import axios from 'axios';
+import { ApiError, request } from '@/utils/api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { roleSelector } from '../constants/roleSelector';
 import { userSchema } from '../validation/userShema';
@@ -46,7 +46,7 @@ export const CreateUserForm = (props: { beaconTypes: BeaconType[] }) => {
     isPending: loading,
     error,
     mutate: submitCreateUser,
-  } = useMutation({
+  } = useMutation<void, ApiError, typeof form.values>({
     mutationFn: async (values: typeof form.values) => {
       if (user) {
         let createUserRequest: CreateUserRequest = {
@@ -59,12 +59,7 @@ export const CreateUserForm = (props: { beaconTypes: BeaconType[] }) => {
           tagNames: values.tagNames,
         };
         const token = await user.getIdToken();
-        await axios.post(endpoints.users, createUserRequest, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        });
+        await request(endpoints.users, { method: 'POST', token, body: createUserRequest });
         // これより下は成功した時のみ動作する
         queryClient.invalidateQueries({
           queryKey: [`${endpoints.adminUsers}/${community.communityId}`],
@@ -133,14 +128,12 @@ export const CreateUserForm = (props: { beaconTypes: BeaconType[] }) => {
             </Button>
           </div>
 
-          {/* @ts-ignore (error.responseが取得できるにもかかわらず型定義がされていないため) */}
-          {error && error.response.status === 409 && (
+          {error && error.status === 409 && (
             <Alert title='失敗' color='red'>
               このメールアドレスは既に登録されています
             </Alert>
           )}
-          {/* @ts-ignore (error.responseが取得できるにもかかわらず型定義がされていないため) */}
-          {error && error.response.status !== 409 && (
+          {error && error.status !== 409 && (
             <Alert title='失敗' color='red'>
               エラーが発生しました
             </Alert>

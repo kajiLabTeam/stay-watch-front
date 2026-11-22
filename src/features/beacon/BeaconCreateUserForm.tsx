@@ -1,7 +1,7 @@
 import { Alert, Button, LoadingOverlay, Select, TagsInput, TextInput } from '@mantine/core';
 import { useForm, schemaResolver } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
-import axios from 'axios';
+import { ApiError, request } from '@/utils/api';
 import { useMutation } from '@tanstack/react-query';
 import { roleSelector } from '../admin/editUser/constants/roleSelector';
 import { UI_DATA } from '../admin/editUser/constants/uidata';
@@ -34,7 +34,7 @@ function BeaconRegisterForm({ privateKey }: PropsType) {
     isPending: loading,
     error,
     mutate: submitCreateUser,
-  } = useMutation({
+  } = useMutation<void, ApiError, typeof form.values>({
     mutationFn: async (values: typeof form.values) => {
       if (firebaseUser) {
         let createUserRequest: CreatePrivateBeaconUserRequest = {
@@ -48,12 +48,7 @@ function BeaconRegisterForm({ privateKey }: PropsType) {
           privateKey: privateKey,
         };
         const token = await firebaseUser.getIdToken();
-        await axios.post(endpoints.users, createUserRequest, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        });
+        await request(endpoints.users, { method: 'POST', token, body: createUserRequest });
         // これより下は成功した時のみ動作する
         displayAlert(1);
         form.reset();
@@ -109,14 +104,12 @@ function BeaconRegisterForm({ privateKey }: PropsType) {
             </Button>
           </div>
 
-          {/* @ts-ignore (error.responseが取得できるにもかかわらず型定義がされていないため) */}
-          {error && error.response.status === 409 && (
+          {error && error.status === 409 && (
             <Alert title='失敗' color='red'>
               登録済みのビーコンです
             </Alert>
           )}
-          {/* @ts-ignore (error.responseが取得できるにもかかわらず型定義がされていないため) */}
-          {error && error.response.status !== 409 && (
+          {error && error.status !== 409 && (
             <Alert title='失敗' color='red'>
               エラーが発生しました
             </Alert>

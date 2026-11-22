@@ -2,7 +2,7 @@ import { TextInput, Select, LoadingOverlay, Alert, TagsInput } from '@mantine/co
 import { Button, Modal } from '@mantine/core';
 import { useForm, schemaResolver } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
-import axios from 'axios';
+import { ApiError, request } from '@/utils/api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { userSchema } from '../validation/userShema';
 import { roleSelector } from '@/features/admin/editUser/constants/roleSelector';
@@ -52,7 +52,7 @@ export const EditUserForm = (props: { user: UserEditor; beaconTypes: BeaconType[
     isPending: loadingUpdateUser,
     error: errorUpdateUser,
     mutate: updateUser,
-  } = useMutation({
+  } = useMutation<void, ApiError, typeof form.values>({
     mutationFn: async (values: typeof form.values) => {
       if (firebaseUser) {
         let updateUserRequest: UpdateUserRequest = {
@@ -66,12 +66,7 @@ export const EditUserForm = (props: { user: UserEditor; beaconTypes: BeaconType[
           tagNames: values.tagNames,
         };
         const token = await firebaseUser.getIdToken();
-        await axios.put(endpoints.users, updateUserRequest, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        });
+        await request(endpoints.users, { method: 'PUT', token, body: updateUserRequest });
         queryClient.invalidateQueries({
           queryKey: [`${endpoints.adminUsers}/${community.communityId}`],
         });
@@ -85,15 +80,11 @@ export const EditUserForm = (props: { user: UserEditor; beaconTypes: BeaconType[
     isPending: loadingDeleteUser,
     error: errorDeleteUser,
     mutate: deleteUser,
-  } = useMutation({
+  } = useMutation<void, ApiError, number>({
     mutationFn: async (userId: number) => {
       if (firebaseUser) {
         const token = await firebaseUser.getIdToken();
-        await axios.delete(`${endpoints.users}/${userId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        await request(`${endpoints.users}/${userId}`, { method: 'DELETE', token });
         // これより下は成功した時のみ動作する
         queryClient.invalidateQueries({
           queryKey: [`${endpoints.adminUsers}/${community.communityId}`],
@@ -204,14 +195,12 @@ export const EditUserForm = (props: { user: UserEditor; beaconTypes: BeaconType[
               </Button>
             </div>
           </div>
-          {/* @ts-ignore (error.responseが取得できるにもかかわらず型定義がされていないため) */}
-          {errorUpdateUser && errorUpdateUser.response.status === 409 && (
+          {errorUpdateUser && errorUpdateUser.status === 409 && (
             <Alert title='失敗' color='red'>
               このメールアドレスは既に登録されています
             </Alert>
           )}
-          {/* @ts-ignore (error.responseが取得できるにもかかわらず型定義がされていないため) */}
-          {errorUpdateUser && errorUpdateUser.response.status !== 409 && (
+          {errorUpdateUser && errorUpdateUser.status !== 409 && (
             <Alert title='失敗' color='red'>
               エラーが発生しました
             </Alert>

@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import { ApiError, request } from '@/utils/api';
 import {
   getAuth,
   GoogleAuthProvider,
@@ -76,24 +76,20 @@ export const useIsRegisterEmail = (): {
       const checkRegisterdEmail = async () => {
         try {
           const token = await user.getIdToken();
-          const resUser: AxiosResponse<User> = await axios.get(endpoints.check, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
+          const resUser = await request<User>(endpoints.check, { token });
           setIsRegisteredEmail(true);
 
-          setUserRole(resUser.data.role);
-          setStatus(resUser.status);
+          setUserRole(resUser.role);
+          setStatus(200);
           setCommunity({
-            communityId: resUser.data.communityId,
-            communityName: resUser.data.communityName,
+            communityId: resUser.communityId,
+            communityName: resUser.communityName,
           });
-          setUserEmail(resUser.data.email);
+          setUserEmail(resUser.email);
         } catch (error) {
-          if (axios.isAxiosError(error) && error.response) {
-            console.error(error.message); //Axiosの例外オブジェクトとして扱える
-            setStatus(error.response?.status);
+          if (error instanceof ApiError) {
+            console.error(error.message);
+            setStatus(error.status);
           }
           setIsRegisteredEmail(false);
         }
