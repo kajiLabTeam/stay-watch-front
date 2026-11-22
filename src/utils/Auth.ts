@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import { ApiError, request } from '@/utils/api';
 import {
   getAuth,
   GoogleAuthProvider,
@@ -10,17 +10,17 @@ import {
 } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { endpoints } from './endpoint';
-import { useUserMutators, useUserState } from '@/globalStates/firebaseUserState';
-import { useCommunityMutators } from '@/globalStates/useCommunityState';
-import { useUserEmailMutators, useUserEmailState } from '@/globalStates/userEmailState';
-import { useUserRoleMutators } from '@/globalStates/userRoleState';
+import { useUserMutators, useUserState } from '@/atoms/firebaseUserAtom';
+import { useCommunityMutators } from '@/atoms/communityAtom';
+import { useUserEmailMutators, useUserEmailState } from '@/atoms/userEmailAtom';
+import { useUserRoleMutators } from '@/atoms/userRoleAtom';
 import { User } from '@/types/user';
 import { app } from '@/utils/firebase';
 
 export const login = (): Promise<UserCredential> | Promise<void> => {
   const provider = new GoogleAuthProvider();
   const auth = getAuth(app);
-  const environment = process.env.NEXT_PUBLIC_NODE_ENV;
+  const environment = import.meta.env.VITE_NODE_ENV;
   if (environment === 'production') {
     // 本番環境
     return signInWithRedirect(auth, provider);
@@ -76,31 +76,27 @@ export const useIsRegisterEmail = (): {
       const checkRegisterdEmail = async () => {
         try {
           const token = await user.getIdToken();
-          const resUser: AxiosResponse<User> = await axios.get(endpoints.check, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
+          const resUser = await request<User>(endpoints.check, { token });
           setIsRegisteredEmail(true);
 
-          setUserRole(resUser.data.role);
-          setStatus(resUser.status);
+          setUserRole(resUser.role);
+          setStatus(200);
           setCommunity({
-            communityId: resUser.data.communityId,
-            communityName: resUser.data.communityName,
+            communityId: resUser.communityId,
+            communityName: resUser.communityName,
           });
-          setUserEmail(resUser.data.email);
+          setUserEmail(resUser.email);
         } catch (error) {
-          if (axios.isAxiosError(error) && error.response) {
-            console.error(error.message); //Axiosの例外オブジェクトとして扱える
-            setStatus(error.response?.status);
+          if (error instanceof ApiError) {
+            console.error(error.message);
+            setStatus(error.status);
           }
           setIsRegisteredEmail(false);
         }
       };
       checkRegisterdEmail();
     }
-  }, [setUserRole, setCommunity, user]);
+  }, [email, setUserRole, setCommunity, setUserEmail, user]);
 
   return { isRegisteredEmail, status };
 };

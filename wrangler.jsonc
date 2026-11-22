@@ -1,0 +1,21 @@
+{
+    "$schema": "node_modules/wrangler/config-schema.json",
+    "name": "stay-watch-front",
+    "main": "./worker/index.ts",
+    "account_id": "c74916ed7842fe6b335885c74c1a6eed",
+    "compatibility_date": "2026-11-22",
+    "routes": [
+        {
+            "pattern": "staywatch.kajilab.dev",
+            "custom_domain": true,
+        },
+    ],
+    "assets": {
+        "directory": "./dist",
+        "run_worker_first": ["/__/auth/*", "/__/firebase/*"],
+        "not_found_handling": "single-page-application",
+    },
+    "observability": {
+        "enabled": true,
+    },
+}

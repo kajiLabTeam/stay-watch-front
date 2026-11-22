@@ -10,6 +10,7 @@
 
 # next.js
 /.next/
+/dist/
 /out/
 
 # production
@@ -34,5 +35,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
+next-env.d.ts
 
-test.tsx
+.wrangler
+
+# dotenvx private keys
+.env.keys

@@ -1,0 +1,23 @@
+import React from 'react';
+import { RegisterdRoom } from './RegisterdRoom';
+import { useEditingMapState } from '@/atoms/editingMapAtom';
+import { useCommunityState } from '@/atoms/communityAtom';
+import { Building, EditorRoom } from '@/types/roomFloormap';
+
+export const RegisterdRooms = (props: { rooms: EditorRoom[]; buildings: Building[] }) => {
+  const { currentSelectedBuildingIndex } = useEditingMapState();
+  const community = useCommunityState();
+
+  return (
+    <div>
+      <p>{community.communityName}</p>
+      {props.rooms.map((room: EditorRoom) => {
+        return (
+          <div key={room.roomId}>
+            <RegisterdRoom room={room} building={props.buildings[currentSelectedBuildingIndex]} />
+          </div>
+        );
+      })}
+    </div>
+  );
+};
