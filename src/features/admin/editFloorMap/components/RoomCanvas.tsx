@@ -10,7 +10,7 @@ export const RoomCanvas = (props: {
   canvasHeight: number;
 }) => {
   const userRole = useUserRoleState();
-  const canvasRef: RefObject<HTMLCanvasElement> = useRef(null); // RefObjectの型をHTMLCanvasElementに指定する
+  const canvasRef: RefObject<HTMLCanvasElement | null> = useRef(null); // RefObjectの型をHTMLCanvasElementに指定する
 
   const getContext = (): CanvasRenderingContext2D => {
     const canvas: HTMLCanvasElement | null = canvasRef.current;

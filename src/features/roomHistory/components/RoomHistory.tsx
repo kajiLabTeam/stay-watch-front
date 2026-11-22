@@ -1,5 +1,5 @@
 import { useDocumentTitle } from '@mantine/hooks';
-import Image from 'next/image';
+
 import { useState } from 'react';
 import { useWindowSize } from 'usehooks-ts';
 import { useParamChange } from '../hooks/useParamChange';
@@ -51,10 +51,10 @@ const RoomHistory = () => {
               }}
             >
               {isGantt ? (
-                <Image src='/ganttAnother.png' alt='stayer' width={27} height={27} />
+                <img src='/ganttAnother.png' alt='stayer' width={27} height={27} />
               ) : (
                 <>
-                  <Image src='/gantt.png' alt='stayer' width={27} height={27} />
+                  <img src='/gantt.png' alt='stayer' width={27} height={27} />
                 </>
               )}
             </button>

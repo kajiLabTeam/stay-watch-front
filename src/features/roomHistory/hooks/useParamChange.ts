@@ -1,5 +1,6 @@
-import { useSearchParams } from 'next/navigation';
-import { useRouter } from 'next/navigation';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
+
+const route = getRouteApi('/roomHistory');
 
 export const useParamChange = (): [
   number,
@@ -9,32 +10,22 @@ export const useParamChange = (): [
   () => void,
   (userId: string | null) => void, // eslint-disable-line
 ] => {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pageParam = searchParams.get('page');
-  const currentPage = pageParam ? parseInt(pageParam, 10) : 1;
-  const paramUserID = searchParams.get('user-id');
-  const currentUserID = paramUserID;
+  const search = route.useSearch();
+  const navigate = useNavigate({ from: '/roomHistory' });
+  const currentPage = search.page ?? 1;
+  const currentUserID = search['user-id'] ?? null;
 
   const limit = 30;
 
   const updatePage = (page: number) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set('page', page.toString());
-    router.push(`?${params.toString()}`, { scroll: false }); // ページ遷移を防ぐ
-    router.refresh();
+    navigate({ search: (prev) => ({ ...prev, page }), resetScroll: false });
   };
 
   const updateSelectedUser = (userID: string | null) => {
-    const params = new URLSearchParams(searchParams.toString());
-    if (userID) {
-      params.set('user-id', userID);
-    } else {
-      params.delete('user-id');
-    }
-    params.delete('page');
-    router.push(`?${params.toString()}`, { scroll: false }); // ページ遷移を防ぐ
-    router.refresh();
+    navigate({
+      search: (prev) => ({ ...prev, 'user-id': userID ?? undefined, page: undefined }),
+      resetScroll: false,
+    });
   };
 
   const nextPage = () => {

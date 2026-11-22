@@ -1,7 +1,7 @@
 'use client';
 import { Avatar } from '@mantine/core';
 import { Menu } from '@mantine/core';
-import { useRouter } from 'next/navigation';
+import { useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import { Confirmation } from '@/components/common/Confirmation';
 import { useUserState } from '@/globalStates/firebaseUserState';
@@ -12,15 +12,14 @@ export const Profile = () => {
   const user = useUserState();
   const userRole = useUserRoleState();
   const [showModal, setShowModal] = useState(false);
-  const router = useRouter();
+  const navigate = useNavigate();
 
   const remove = () => {
     setShowModal(false);
   };
 
   const handleClickAdmin = () => {
-    router.push('/admin');
-    router.refresh();
+    navigate({ to: '/admin' });
   };
 
   return (

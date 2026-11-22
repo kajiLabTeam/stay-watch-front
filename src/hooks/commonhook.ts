@@ -1,4 +1,4 @@
-import { usePathname } from 'next/navigation';
+import { useLocation } from '@tanstack/react-router';
 import { useMemo } from 'react';
 import { paths } from '@/utils/path';
 
@@ -64,7 +64,7 @@ const buildColors = (activeKey: keyof Item | undefined): UseHeaderButtonColorRet
 };
 
 export const useHeaderButtonColor = (): UseHeaderButtonColorReturn => {
-  const pathname = usePathname();
+  const { pathname } = useLocation();
 
   return useMemo(() => {
     const activeKey = pathname ? pathnameToKey[pathname] : undefined;

@@ -1,6 +1,6 @@
 'use client';
 import { Alert, Button, LoadingOverlay, Select, TagsInput, TextInput } from '@mantine/core';
-import { useForm, zodResolver } from '@mantine/form';
+import { useForm, schemaResolver } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
 import axios from 'axios';
 import { useAsyncFn } from 'react-use';
@@ -65,7 +65,7 @@ function BeaconRegisterForm({ privateKey }: PropsType) {
       communityId: 0,
       tagNames: [],
     },
-    validate: zodResolver(privacyBeaconUserSchema),
+    validate: schemaResolver(privacyBeaconUserSchema),
   });
 
   return (

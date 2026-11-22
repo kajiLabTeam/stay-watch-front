@@ -20,7 +20,7 @@ import { app } from '@/utils/firebase';
 export const login = (): Promise<UserCredential> | Promise<void> => {
   const provider = new GoogleAuthProvider();
   const auth = getAuth(app);
-  const environment = process.env.NEXT_PUBLIC_NODE_ENV;
+  const environment = import.meta.env.VITE_NODE_ENV;
   if (environment === 'production') {
     // 本番環境
     return signInWithRedirect(auth, provider);

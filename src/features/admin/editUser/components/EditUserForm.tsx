@@ -1,7 +1,7 @@
 'use client';
 import { TextInput, Select, LoadingOverlay, Alert, TagsInput } from '@mantine/core';
 import { Button, Modal } from '@mantine/core';
-import { useForm, zodResolver } from '@mantine/form';
+import { useForm, schemaResolver } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
 import axios from 'axios';
 import { useAsyncFn } from 'react-use';
@@ -105,7 +105,7 @@ export const EditUserForm = (props: { user: UserEditor; beaconTypes: BeaconType[
       beaconName: user.beaconName,
       tagNames: currentTagNames,
     },
-    validate: zodResolver(userSchema),
+    validate: schemaResolver(userSchema),
   });
 
   return (

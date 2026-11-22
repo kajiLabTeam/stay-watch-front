@@ -1,6 +1,6 @@
 'use client';
 import { Alert, Button, LoadingOverlay, Select } from '@mantine/core';
-import { useForm, zodResolver } from '@mantine/form';
+import { useForm, schemaResolver } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -78,7 +78,7 @@ function BeaconEditUserForm({ privateKey }: PropsType) {
     initialValues: {
       id: '-1',
     },
-    validate: zodResolver(privacyBeaconEditUserSchema),
+    validate: schemaResolver(privacyBeaconEditUserSchema),
   });
 
   if (errorUsers) return <Error message='ユーザ情報取得失敗' />;
