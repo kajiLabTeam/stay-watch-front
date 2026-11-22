@@ -1,7 +1,6 @@
 import { useDocumentTitle } from '@mantine/hooks';
 
 import { useState } from 'react';
-import { useWindowSize } from 'usehooks-ts';
 import { useParamChange } from '../hooks/useParamChange';
 import { NextButton } from './NextButton';
 import { PrevButton } from './PrevButton';
@@ -18,7 +17,6 @@ import { endpoints } from '@/utils/endpoint';
 
 const RoomHistory = () => {
   useDocumentTitle('滞在者履歴');
-  const { width } = useWindowSize();
   const [currentOffset, currentPage, currentUserID, previousPage, nextPage, updateSelectedUser] =
     useParamChange();
   const [isGantt, setIsGantt] = useState(false);
@@ -75,29 +73,26 @@ const RoomHistory = () => {
             <StayLogTable stayLogs={roomHistoryLog.logs} />
           </>
         )}
-        {width > 853 ? (
-          <div>
-            <div className='fixed inset-y-1/2 left-4'>
-              <PrevButton currentPage={currentOffset} previousPage={previousPage} />
-            </div>
-            <div className='fixed inset-y-1/2 right-4'>
-              <NextButton
-                currentPage={currentPage}
-                nextPage={nextPage}
-                historyCount={roomHistoryLog.count}
-              />
-            </div>
-          </div>
-        ) : (
-          <div className='mt-2 flex h-10 w-full justify-between text-white md:mt-4'>
+        <div className='hidden min-[854px]:block'>
+          <div className='fixed inset-y-1/2 left-4'>
             <PrevButton currentPage={currentOffset} previousPage={previousPage} />
+          </div>
+          <div className='fixed inset-y-1/2 right-4'>
             <NextButton
               currentPage={currentPage}
               nextPage={nextPage}
               historyCount={roomHistoryLog.count}
             />
           </div>
-        )}
+        </div>
+        <div className='mt-2 flex h-10 w-full justify-between text-white min-[854px]:hidden md:mt-4'>
+          <PrevButton currentPage={currentOffset} previousPage={previousPage} />
+          <NextButton
+            currentPage={currentPage}
+            nextPage={nextPage}
+            historyCount={roomHistoryLog.count}
+          />
+        </div>
       </>
     );
   return <></>;

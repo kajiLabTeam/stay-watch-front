@@ -34,7 +34,6 @@
     "react-sizeme": "^3.0.2",
     "react-use": "^17.6.1",
     "swr": "^2.5.1",
-    "usehooks-ts": "^3.1.1",
     "zod": "^4.6.7"
   },
   "resolutions": {
