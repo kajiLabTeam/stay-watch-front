@@ -15,7 +15,7 @@ const Header = () => {
       <div className='flex h-full items-center gap-2 md:gap-4 lg:gap-8'>
         <div className='mt-2 cursor-pointer'>
           <Link href={paths.stayer.$url()} passHref>
-            <Image src='/logo.png' width={248} height={70} alt='logo' />
+            <Image src='/logo.png' width={248} height={70} alt='logo' loading='eager' />
           </Link>
         </div>
         {/* <p className={`bg-staywatch-accent text-staywatch-accent`}>選択したボタンの背景色と文字色が変化</p> */}
