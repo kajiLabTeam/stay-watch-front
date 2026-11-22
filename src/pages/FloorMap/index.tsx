@@ -3,8 +3,15 @@ import { useFloorMapCanvas } from './hooks/useFloorMapCanvas';
 import { PopoverUser } from './components/PopoverUser';
 
 const FloorMap = () => {
-  const { CANVAS_WIDTH, CANVAS_HEIGHT, canvasRef, setCanvasElement, viewingRoomId, popoverRoom, displayPopover } =
-    useFloorMapCanvas();
+  const {
+    CANVAS_WIDTH,
+    CANVAS_HEIGHT,
+    canvasRef,
+    setCanvasElement,
+    viewingRoomId,
+    popoverRoom,
+    displayPopover,
+  } = useFloorMapCanvas();
 
   return (
     <div className='mb-80 mt-3 border'>

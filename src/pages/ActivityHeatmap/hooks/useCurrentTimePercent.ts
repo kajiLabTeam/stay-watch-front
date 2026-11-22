@@ -1,5 +1,5 @@
-import { useSyncExternalStore } from "react";
-import { DISPLAY_HOUR_END, HOUR_RANGE, HOUR_START } from "../utils";
+import { useSyncExternalStore } from 'react';
+import { DISPLAY_HOUR_END, HOUR_RANGE, HOUR_START } from '../utils';
 
 const MINUTE_MS = 60_000;
 

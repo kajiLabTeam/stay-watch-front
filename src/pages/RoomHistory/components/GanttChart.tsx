@@ -70,53 +70,53 @@ const GanttChart = ({ stayTimes }: Props) => {
   // echarts は DOM 要素に紐づく外部ライブラリなので、ref コールバックで初期化・破棄する
   const chartRef = useCallback(
     (element: HTMLDivElement | null) => {
-    if (!element) return;
+      if (!element) return;
 
-    const chart = echarts.init(element);
-    chart.setOption({
-      animation: false,
-      grid: { top: 0, bottom: 24, left: 80, right: 24 },
-      tooltip: {
-        trigger: 'item',
-        formatter: (p: { value: number[] }) =>
-          `入室: ${formatDateTime(p.value[1])}<br/>退室: ${formatDateTime(p.value[2])}`,
-      },
-      xAxis: {
-        type: 'time',
-        // グラフの初期値と最後値を指定
-        min: dayStart,
-        max: dayEnd,
-        interval: SIX_HOURS_MS, // グリッドを6時間間隔に固定
-        axisLabel: {
-          formatter: (value: number) => `${pad(new Date(value).getHours())}:00`,
+      const chart = echarts.init(element);
+      chart.setOption({
+        animation: false,
+        grid: { top: 0, bottom: 24, left: 80, right: 24 },
+        tooltip: {
+          trigger: 'item',
+          formatter: (p: { value: number[] }) =>
+            `入室: ${formatDateTime(p.value[1])}<br/>退室: ${formatDateTime(p.value[2])}`,
         },
-        splitLine: { show: true },
-      },
-      yAxis: {
-        type: 'category',
-        data: categories,
-        inverse: true,
-        axisTick: { show: false },
-        splitLine: { show: true },
-      },
-      series: [
-        {
-          type: 'custom',
-          renderItem: renderGanttItem,
-          encode: { x: [1, 2], y: 0 },
-          data: seriesData,
+        xAxis: {
+          type: 'time',
+          // グラフの初期値と最後値を指定
+          min: dayStart,
+          max: dayEnd,
+          interval: SIX_HOURS_MS, // グリッドを6時間間隔に固定
+          axisLabel: {
+            formatter: (value: number) => `${pad(new Date(value).getHours())}:00`,
+          },
+          splitLine: { show: true },
         },
-      ],
-    });
+        yAxis: {
+          type: 'category',
+          data: categories,
+          inverse: true,
+          axisTick: { show: false },
+          splitLine: { show: true },
+        },
+        series: [
+          {
+            type: 'custom',
+            renderItem: renderGanttItem,
+            encode: { x: [1, 2], y: 0 },
+            data: seriesData,
+          },
+        ],
+      });
 
-    // ウィンドウ/コンテナのサイズ変更に追従する
-    const observer = new ResizeObserver(() => chart.resize());
-    observer.observe(element);
+      // ウィンドウ/コンテナのサイズ変更に追従する
+      const observer = new ResizeObserver(() => chart.resize());
+      observer.observe(element);
 
-    return () => {
-      observer.disconnect();
-      chart.dispose();
-    };
+      return () => {
+        observer.disconnect();
+        chart.dispose();
+      };
     },
     [categories, seriesData, dayStart, dayEnd],
   );
