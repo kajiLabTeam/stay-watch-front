@@ -3,14 +3,13 @@ import {
   getAuth,
   GoogleAuthProvider,
   signOut,
-  onAuthStateChanged,
   UserCredential,
   signInWithPopup,
   signInWithRedirect,
 } from 'firebase/auth';
-import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { endpoints } from './endpoint';
-import { useUserMutators, useUserState } from '@/atoms/firebaseUserAtom';
+import { useUserState } from '@/atoms/firebaseUserAtom';
 import { useCommunityMutators } from '@/atoms/communityAtom';
 import { useUserEmailMutators, useUserEmailState } from '@/atoms/userEmailAtom';
 import { useUserRoleMutators } from '@/atoms/userRoleAtom';
@@ -37,66 +36,45 @@ export const logout = (): Promise<void> => {
   return signOut(auth);
 };
 
-export const useIsSigned = (): boolean | undefined => {
-  const [isSigned, setIsSigned] = useState<boolean | undefined>();
-  const { setUserState } = useUserMutators();
-
-  useEffect(() => {
-    const auth = getAuth(app);
-    return onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUserState(user);
-        setIsSigned(true);
-      } else {
-        setIsSigned(false);
-      }
-    });
-  }, [setUserState]);
-
-  return isSigned;
-};
-
 export const useIsRegisterEmail = (): {
   isRegisteredEmail: boolean | undefined;
   status: number;
 } => {
-  const [isRegisteredEmail, setIsRegisteredEmail] = useState<boolean | undefined>();
-  const [status, setStatus] = useState<number>(0);
   const { setUserRole } = useUserRoleMutators();
   const { setCommunity } = useCommunityMutators();
   const user = useUserState();
   const email = useUserEmailState();
   const { setUserEmail } = useUserEmailMutators();
 
-  useEffect(() => {
-    if (email) {
-      setIsRegisteredEmail(true);
-    }
-    if (!email && user) {
-      const checkRegisterdEmail = async () => {
-        try {
-          const token = await user.getIdToken();
-          const resUser = await request<User>(endpoints.check, { token });
-          setIsRegisteredEmail(true);
+  const { isSuccess, isError, error } = useQuery<User, Error>({
+    queryKey: ['checkRegisteredEmail', user?.uid],
+    enabled: !email && !!user,
+    retry: false,
+    queryFn: async () => {
+      // enabled により user は存在するが、型上の絞り込みのためチェックする
+      if (!user) throw new Error('user is not signed in');
+      const token = await user.getIdToken();
+      const resUser = await request<User>(endpoints.check, { token });
 
-          setUserRole(resUser.role);
-          setStatus(200);
-          setCommunity({
-            communityId: resUser.communityId,
-            communityName: resUser.communityName,
-          });
-          setUserEmail(resUser.email);
-        } catch (error) {
-          if (error instanceof ApiError) {
-            console.error(error.message);
-            setStatus(error.status);
-          }
-          setIsRegisteredEmail(false);
-        }
-      };
-      checkRegisterdEmail();
-    }
-  }, [email, setUserRole, setCommunity, setUserEmail, user]);
+      setUserRole(resUser.role);
+      setCommunity({
+        communityId: resUser.communityId,
+        communityName: resUser.communityName,
+      });
+      setUserEmail(resUser.email);
+      return resUser;
+    },
+  });
 
-  return { isRegisteredEmail, status };
+  if (email || isSuccess) {
+    return { isRegisteredEmail: true, status: 200 };
+  }
+  if (isError) {
+    if (error instanceof ApiError) {
+      console.error(error.message);
+      return { isRegisteredEmail: false, status: error.status };
+    }
+    return { isRegisteredEmail: false, status: 0 };
+  }
+  return { isRegisteredEmail: undefined, status: 0 };
 };

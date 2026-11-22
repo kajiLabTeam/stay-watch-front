@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, RefObject } from 'react';
+import React from 'react';
 import { useUserRoleState } from '@/atoms/userRoleAtom';
 
 export const RoomCanvas = (props: {
@@ -9,15 +9,11 @@ export const RoomCanvas = (props: {
   canvasHeight: number;
 }) => {
   const userRole = useUserRoleState();
-  const canvasRef: RefObject<HTMLCanvasElement | null> = useRef(null); // RefObjectの型をHTMLCanvasElementに指定する
 
-  const getContext = (): CanvasRenderingContext2D => {
-    const canvas: HTMLCanvasElement | null = canvasRef.current;
-    return canvas?.getContext('2d') as CanvasRenderingContext2D; // キャスト演算子を使用して型を明確にする
-  };
-
-  useEffect(() => {
-    const ctx: CanvasRenderingContext2D = getContext();
+  // 描画内容は props から決まるため、canvas の ref コールバックで描画する
+  const drawRoom = (canvas: HTMLCanvasElement | null): void => {
+    const ctx = canvas?.getContext('2d');
+    if (!ctx) return;
     ctx.clearRect(0, 0, props.canvasWidth, props.canvasHeight);
     ctx.beginPath();
     ctx.fillStyle = props.color;
@@ -27,7 +23,7 @@ export const RoomCanvas = (props: {
       props.polygon[1][0] - props.polygon[0][0],
       props.polygon[1][1] - props.polygon[0][1],
     );
-  });
+  };
 
   if (userRole == null) {
     return <div />;
@@ -37,7 +33,7 @@ export const RoomCanvas = (props: {
     <div className='absolute'>
       <canvas
         className='w-full'
-        ref={canvasRef}
+        ref={drawRoom}
         width={props.canvasWidth}
         height={props.canvasHeight}
       />

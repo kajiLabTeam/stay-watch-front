@@ -1,14 +1,14 @@
 import { FC, ReactNode } from 'react';
 import Loading from '@/components/common/Loading';
 import NotLogin from '@/components/common/NotLogin';
-import { useIsSigned } from '@/utils/Auth';
+import { useIsSignedState } from '@/atoms/firebaseUserAtom';
 
 type Props = {
   children: ReactNode;
 };
 
 const AuthSwitcher: FC<Props> = ({ children }) => {
-  const isSigned = useIsSigned();
+  const isSigned = useIsSignedState();
 
   if (isSigned === undefined) {
     return <Loading message='認証中' />;

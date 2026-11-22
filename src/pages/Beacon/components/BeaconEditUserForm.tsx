@@ -1,7 +1,6 @@
 import { Alert, Button, LoadingOverlay, Select } from '@mantine/core';
 import { useZodForm } from '@/hooks/useZodForm';
 import { ApiError, request } from '@/utils/api';
-import { useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { UI_DATA } from '@/constants/uidata';
 import { useAlertModeMutators } from '@/atoms/alertModeAtom';
@@ -27,10 +26,11 @@ function BeaconEditUserForm({ privateKey }: PropsType) {
   const { setAlertMode } = useAlertModeMutators();
   const community = useCommunityState();
   const firebaseUser = useUserState();
-  const [usersSelecter, setUsersSelecter] = useState<Array<UsersSelectData>>([]);
   const { data: users, error: errorUsers } = useGetAPI<User[]>(
     `${endpoints.users}/${community.communityId}`,
   );
+  const usersSelecter: UsersSelectData[] =
+    users?.map((user) => ({ label: user.name, value: String(user.id) })) ?? [];
   const displayAlert = (alertMode: number) => {
     setAlertMode(alertMode);
     setTimeout(() => {
@@ -59,17 +59,6 @@ function BeaconEditUserForm({ privateKey }: PropsType) {
       }
     },
   });
-
-  useEffect(() => {
-    let tmpUsersSelecterData: UsersSelectData[] = [];
-    users?.map((user) => {
-      tmpUsersSelecterData.push({
-        label: user.name,
-        value: String(user.id),
-      });
-    });
-    setUsersSelecter(tmpUsersSelecterData);
-  }, [users]);
 
   const form = useZodForm(
     {

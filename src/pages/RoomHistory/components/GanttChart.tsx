@@ -3,7 +3,7 @@ import { GridComponent, TooltipComponent } from 'echarts/components';
 import * as echarts from 'echarts/core';
 import type { CustomSeriesRenderItem } from 'echarts';
 import { CanvasRenderer } from 'echarts/renderers';
-import { useEffect, useMemo, useRef } from 'react';
+import { useCallback, useMemo } from 'react';
 import { StayTime } from '@/types/ganttStayLog';
 import { getEndOfDayUnixTime, getStartOfDayUnixTime } from '@/utils/dateUtils';
 
@@ -50,8 +50,6 @@ const renderGanttItem: CustomSeriesRenderItem = (_params, api) => {
 };
 
 const GanttChart = ({ stayTimes }: Props) => {
-  const divRef = useRef<HTMLDivElement | null>(null);
-
   const { categories, seriesData, dayStart, dayEnd } = useMemo(() => {
     // 同じ名前は同じ行にまとめる
     const names = Array.from(new Set(stayTimes.map((s) => s.userName)));
@@ -69,10 +67,12 @@ const GanttChart = ({ stayTimes }: Props) => {
 
   const chartHeight = getChartHeight(stayTimes.length);
 
-  useEffect(() => {
-    if (!divRef.current) return;
+  // echarts は DOM 要素に紐づく外部ライブラリなので、ref コールバックで初期化・破棄する
+  const chartRef = useCallback(
+    (element: HTMLDivElement | null) => {
+    if (!element) return;
 
-    const chart = echarts.init(divRef.current);
+    const chart = echarts.init(element);
     chart.setOption({
       animation: false,
       grid: { top: 0, bottom: 24, left: 80, right: 24 },
@@ -111,18 +111,20 @@ const GanttChart = ({ stayTimes }: Props) => {
 
     // ウィンドウ/コンテナのサイズ変更に追従する
     const observer = new ResizeObserver(() => chart.resize());
-    observer.observe(divRef.current);
+    observer.observe(element);
 
     return () => {
       observer.disconnect();
       chart.dispose();
     };
-  }, [categories, seriesData, dayStart, dayEnd, chartHeight]);
+    },
+    [categories, seriesData, dayStart, dayEnd],
+  );
 
   return (
     <div>
       <div
-        ref={divRef}
+        ref={chartRef}
         style={{ height: chartHeight, width: '100%', maxWidth: '83.34vw', marginTop: '100px' }}
       />
     </div>

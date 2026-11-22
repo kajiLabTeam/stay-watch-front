@@ -3,7 +3,7 @@ import { useFloorMapCanvas } from './hooks/useFloorMapCanvas';
 import { PopoverUser } from './components/PopoverUser';
 
 const FloorMap = () => {
-  const { CANVAS_WIDTH, CANVAS_HEIGHT, canvasRef, viewingRoomId, popoverRoom, displayPopover } =
+  const { CANVAS_WIDTH, CANVAS_HEIGHT, canvasRef, setCanvasElement, viewingRoomId, popoverRoom, displayPopover } =
     useFloorMapCanvas();
 
   return (
@@ -12,7 +12,7 @@ const FloorMap = () => {
       <canvas
         id='canvas'
         className='w-full'
-        ref={canvasRef}
+        ref={setCanvasElement}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
         onMouseMove={displayPopover}
