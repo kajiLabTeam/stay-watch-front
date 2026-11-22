@@ -20,14 +20,10 @@ export const login = (): Promise<UserCredential> | Promise<void> => {
   const provider = new GoogleAuthProvider();
   const auth = getAuth(app);
   const environment = import.meta.env.VITE_NODE_ENV;
-  if (environment === 'production') {
-    // 本番環境
-    return signInWithRedirect(auth, provider);
-  } else if (environment === 'development') {
-    // 開発環境
-    return signInWithPopup(auth, provider); // ローカルホストで実行する際はPopupでないとサインインできないため注意
-  }
-  // 設定されていない場合Popupでやる
+  // 本番環境
+  if (environment === 'production') return signInWithRedirect(auth, provider);
+
+  // 開発環境・設定されていない場合はPopupでやる
   return signInWithPopup(auth, provider); // ローカルホストで実行する際はPopupでないとサインインできないため注意
 };
 
@@ -69,12 +65,12 @@ export const useIsRegisterEmail = (): {
   if (email || isSuccess) {
     return { isRegisteredEmail: true, status: 200 };
   }
-  if (isError) {
-    if (error instanceof ApiError) {
-      console.error(error.message);
-      return { isRegisteredEmail: false, status: error.status };
-    }
+  if (!isError) {
+    return { isRegisteredEmail: undefined, status: 0 };
+  }
+  if (!(error instanceof ApiError)) {
     return { isRegisteredEmail: false, status: 0 };
   }
-  return { isRegisteredEmail: undefined, status: 0 };
+  console.error(error.message);
+  return { isRegisteredEmail: false, status: error.status };
 };

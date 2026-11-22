@@ -46,25 +46,25 @@ export const CreateUserForm = (props: { beaconTypes: BeaconType[] }) => {
     mutate: submitCreateUser,
   } = useMutation<void, ApiError, typeof form.values>({
     mutationFn: async (values: typeof form.values) => {
-      if (user) {
-        let createUserRequest: CreateUserRequest = {
-          name: values.name,
-          uuid: values.uuid,
-          email: values.email,
-          role: parseInt(values.role),
-          communityId: community.communityId,
-          beaconName: values.beaconName,
-          tagNames: values.tagNames,
-        };
-        const token = await user.getIdToken();
-        await request(ENDPOINTS.users, { method: 'POST', token, body: createUserRequest });
-        // これより下は成功した時のみ動作する
-        queryClient.invalidateQueries({
-          queryKey: [`${ENDPOINTS.adminUsers}/${community.communityId}`],
-        });
-        displayAlert(1);
-        form.reset();
-      }
+      if (!user) return;
+
+      let createUserRequest: CreateUserRequest = {
+        name: values.name,
+        uuid: values.uuid,
+        email: values.email,
+        role: parseInt(values.role),
+        communityId: community.communityId,
+        beaconName: values.beaconName,
+        tagNames: values.tagNames,
+      };
+      const token = await user.getIdToken();
+      await request(ENDPOINTS.users, { method: 'POST', token, body: createUserRequest });
+      // これより下は成功した時のみ動作する
+      queryClient.invalidateQueries({
+        queryKey: [`${ENDPOINTS.adminUsers}/${community.communityId}`],
+      });
+      displayAlert(1);
+      form.reset();
     },
   });
 

@@ -26,7 +26,9 @@ export const RegisterdRoom = (props: { room: EditorRoom; building: Building }) =
       setIsEditingRoom(true);
       updateCurrentSelectedBuildingIndexByBuildingId(buildingId);
       setButtonText('中止');
-    } else if (buttonText === '中止') {
+      return;
+    }
+    if (buttonText === '中止') {
       // 編集終了(中止ボタンがクリックされたとき)
       setEditingRoomId(-1);
       setIsEditingRoom(false);

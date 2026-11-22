@@ -34,23 +34,23 @@ function BeaconRegisterForm({ privateKey }: PropsType) {
     mutate: submitCreateUser,
   } = useMutation<void, ApiError, typeof form.values>({
     mutationFn: async (values: typeof form.values) => {
-      if (firebaseUser) {
-        let createUserRequest: CreatePrivateBeaconUserRequest = {
-          name: values.name,
-          uuid: '',
-          email: values.email,
-          role: parseInt(values.role),
-          communityId: community.communityId,
-          beaconName: UI_DATA.BEACON_NAME_PRIVBEACON,
-          tagNames: values.tagNames,
-          privateKey: privateKey,
-        };
-        const token = await firebaseUser.getIdToken();
-        await request(ENDPOINTS.users, { method: 'POST', token, body: createUserRequest });
-        // これより下は成功した時のみ動作する
-        displayAlert(1);
-        form.reset();
-      }
+      if (!firebaseUser) return;
+
+      let createUserRequest: CreatePrivateBeaconUserRequest = {
+        name: values.name,
+        uuid: '',
+        email: values.email,
+        role: parseInt(values.role),
+        communityId: community.communityId,
+        beaconName: UI_DATA.BEACON_NAME_PRIVBEACON,
+        tagNames: values.tagNames,
+        privateKey: privateKey,
+      };
+      const token = await firebaseUser.getIdToken();
+      await request(ENDPOINTS.users, { method: 'POST', token, body: createUserRequest });
+      // これより下は成功した時のみ動作する
+      displayAlert(1);
+      form.reset();
     },
   });
 

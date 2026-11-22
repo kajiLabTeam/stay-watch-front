@@ -21,45 +21,45 @@ const Stayer = () => {
 
   if (isLoadingRooms || isLoadingStayers) return <Loading message='滞在情報取得中' />;
   if (errorStayers || errorRooms) return <Error message='滞在情報取得失敗' />;
-  if (rooms && stayers)
-    return (
-      <div>
-        <title>滞在者一覧</title>
-        <table className='mt-5 w-full table-fixed rounded border text-xs shadow sm:text-base md:text-2xl'>
-          <thead>
-            <tr className='bg-staywatch-black text-left text-white'>
-              <th className='w-4/12 border py-2 pl-4 md:w-3/12'>部屋</th>
-              <th className='w-8/12 border py-2 pl-4 md:w-9/12'>名前</th>
-            </tr>
-          </thead>
-          <tbody>
-            {formatStayerDataForTable(stayers, rooms).map((stayersInRoom) => (
-              <tr className='border text-left' key={stayersInRoom.room}>
-                <td className='px-2 text-sm md:text-2xl'>{stayersInRoom.room}</td>
-                <td className='border'>
-                  {stayersInRoom.stayers.map((stayerInRoom) => (
-                    <div
-                      className='flex items-center p-0.5 text-sm md:py-2 md:text-2xl'
-                      key={stayerInRoom.name}
-                    >
-                      {stayerInRoom.name}
-                      <div className='flex md:ml-1'>
-                        {stayerInRoom.tags.map((tag) => (
-                          <span key={tag.id} className='ml-1 w-fit'>
-                            <Badge name={tag.name} />
-                          </span>
-                        ))}
-                      </div>
+  if (!rooms || !stayers) return <></>;
+
+  return (
+    <div>
+      <title>滞在者一覧</title>
+      <table className='mt-5 w-full table-fixed rounded border text-xs shadow sm:text-base md:text-2xl'>
+        <thead>
+          <tr className='bg-staywatch-black text-left text-white'>
+            <th className='w-4/12 border py-2 pl-4 md:w-3/12'>部屋</th>
+            <th className='w-8/12 border py-2 pl-4 md:w-9/12'>名前</th>
+          </tr>
+        </thead>
+        <tbody>
+          {formatStayerDataForTable(stayers, rooms).map((stayersInRoom) => (
+            <tr className='border text-left' key={stayersInRoom.room}>
+              <td className='px-2 text-sm md:text-2xl'>{stayersInRoom.room}</td>
+              <td className='border'>
+                {stayersInRoom.stayers.map((stayerInRoom) => (
+                  <div
+                    className='flex items-center p-0.5 text-sm md:py-2 md:text-2xl'
+                    key={stayerInRoom.name}
+                  >
+                    {stayerInRoom.name}
+                    <div className='flex md:ml-1'>
+                      {stayerInRoom.tags.map((tag) => (
+                        <span key={tag.id} className='ml-1 w-fit'>
+                          <Badge name={tag.name} />
+                        </span>
+                      ))}
                     </div>
-                  ))}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
-  return <></>;
+                  </div>
+                ))}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 };
 
 export default Stayer;

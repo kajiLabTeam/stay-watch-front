@@ -35,65 +35,65 @@ const RoomHistory = () => {
 
   if (isLoadingStayLog || isLoadingUsers) return <Loading message='滞在履歴取得中' />;
   if (stayLogError || usersError) return <Error message='滞在履歴取得失敗' />;
-  if (users && roomHistoryLog && roomHistoryLog.logs)
-    return (
-      <>
-        <title>滞在者履歴</title>
-        <div className='mt-6 flex justify-between text-2xl md:text-3xl'>
-          <div className='mt-6 flex justify-between'>
-            <button
-              onClick={() => {
-                setIsGantt(!isGantt);
-              }}
-            >
-              {isGantt ? (
-                <img src='/ganttAnother.png' alt='stayer' width={27} height={27} />
-              ) : (
-                <>
-                  <img src='/gantt.png' alt='stayer' width={27} height={27} />
-                </>
-              )}
-            </button>
-            <UserSelecter
-              users={users}
-              handleUserID={updateSelectedUser}
-              paramsUserID={currentUserID}
-            />
-          </div>
+  if (!users || !roomHistoryLog || !roomHistoryLog.logs) return <></>;
+
+  return (
+    <>
+      <title>滞在者履歴</title>
+      <div className='mt-6 flex justify-between text-2xl md:text-3xl'>
+        <div className='mt-6 flex justify-between'>
+          <button
+            onClick={() => {
+              setIsGantt(!isGantt);
+            }}
+          >
+            {isGantt ? (
+              <img src='/ganttAnother.png' alt='stayer' width={27} height={27} />
+            ) : (
+              <>
+                <img src='/gantt.png' alt='stayer' width={27} height={27} />
+              </>
+            )}
+          </button>
+          <UserSelecter
+            users={users}
+            handleUserID={updateSelectedUser}
+            paramsUserID={currentUserID}
+          />
         </div>
-        {isGantt ? (
-          <>
-            <div className='my-4 border' />
-            <StayLogGraph />
-          </>
-        ) : (
-          <>
-            <StayLogTable stayLogs={roomHistoryLog.logs} />
-          </>
-        )}
-        <div className='hidden min-[854px]:block'>
-          <div className='fixed inset-y-1/2 left-4'>
-            <PrevButton currentPage={currentOffset} previousPage={previousPage} />
-          </div>
-          <div className='fixed inset-y-1/2 right-4'>
-            <NextButton
-              currentPage={currentPage}
-              nextPage={nextPage}
-              historyCount={roomHistoryLog.count}
-            />
-          </div>
-        </div>
-        <div className='mt-2 flex h-10 w-full justify-between text-white min-[854px]:hidden md:mt-4'>
+      </div>
+      {isGantt ? (
+        <>
+          <div className='my-4 border' />
+          <StayLogGraph />
+        </>
+      ) : (
+        <>
+          <StayLogTable stayLogs={roomHistoryLog.logs} />
+        </>
+      )}
+      <div className='hidden min-[854px]:block'>
+        <div className='fixed inset-y-1/2 left-4'>
           <PrevButton currentPage={currentOffset} previousPage={previousPage} />
+        </div>
+        <div className='fixed inset-y-1/2 right-4'>
           <NextButton
             currentPage={currentPage}
             nextPage={nextPage}
             historyCount={roomHistoryLog.count}
           />
         </div>
-      </>
-    );
-  return <></>;
+      </div>
+      <div className='mt-2 flex h-10 w-full justify-between text-white min-[854px]:hidden md:mt-4'>
+        <PrevButton currentPage={currentOffset} previousPage={previousPage} />
+        <NextButton
+          currentPage={currentPage}
+          nextPage={nextPage}
+          historyCount={roomHistoryLog.count}
+        />
+      </div>
+    </>
+  );
 };
 
 export default RoomHistory;

@@ -53,25 +53,25 @@ export const EditUserForm = (props: { user: UserEditor; beaconTypes: BeaconType[
     mutate: updateUser,
   } = useMutation<void, ApiError, typeof form.values>({
     mutationFn: async (values: typeof form.values) => {
-      if (firebaseUser) {
-        let updateUserRequest: UpdateUserRequest = {
-          id: user.id,
-          name: values.name,
-          uuid: values.uuid,
-          email: values.email,
-          role: parseInt(values.role),
-          communityId: community.communityId,
-          beaconName: values.beaconName,
-          tagNames: values.tagNames,
-        };
-        const token = await firebaseUser.getIdToken();
-        await request(ENDPOINTS.users, { method: 'PUT', token, body: updateUserRequest });
-        queryClient.invalidateQueries({
-          queryKey: [`${ENDPOINTS.adminUsers}/${community.communityId}`],
-        });
-        setEditingUserId(-1);
-        displayAlert(2);
-      }
+      if (!firebaseUser) return;
+
+      let updateUserRequest: UpdateUserRequest = {
+        id: user.id,
+        name: values.name,
+        uuid: values.uuid,
+        email: values.email,
+        role: parseInt(values.role),
+        communityId: community.communityId,
+        beaconName: values.beaconName,
+        tagNames: values.tagNames,
+      };
+      const token = await firebaseUser.getIdToken();
+      await request(ENDPOINTS.users, { method: 'PUT', token, body: updateUserRequest });
+      queryClient.invalidateQueries({
+        queryKey: [`${ENDPOINTS.adminUsers}/${community.communityId}`],
+      });
+      setEditingUserId(-1);
+      displayAlert(2);
     },
   });
 
@@ -81,16 +81,16 @@ export const EditUserForm = (props: { user: UserEditor; beaconTypes: BeaconType[
     mutate: deleteUser,
   } = useMutation<void, ApiError, number>({
     mutationFn: async (userId: number) => {
-      if (firebaseUser) {
-        const token = await firebaseUser.getIdToken();
-        await request(`${ENDPOINTS.users}/${userId}`, { method: 'DELETE', token });
-        // これより下は成功した時のみ動作する
-        queryClient.invalidateQueries({
-          queryKey: [`${ENDPOINTS.adminUsers}/${community.communityId}`],
-        });
-        setEditingUserId(-1);
-        displayAlert(3);
-      }
+      if (!firebaseUser) return;
+
+      const token = await firebaseUser.getIdToken();
+      await request(`${ENDPOINTS.users}/${userId}`, { method: 'DELETE', token });
+      // これより下は成功した時のみ動作する
+      queryClient.invalidateQueries({
+        queryKey: [`${ENDPOINTS.adminUsers}/${community.communityId}`],
+      });
+      setEditingUserId(-1);
+      displayAlert(3);
     },
   });
 

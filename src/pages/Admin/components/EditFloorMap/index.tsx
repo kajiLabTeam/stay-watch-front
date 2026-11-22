@@ -20,24 +20,24 @@ export const EditFloorMap = () => {
   const { currentSelectedBuildingIndex } = useEditingMapState();
 
   if (roomsIsLoading || buildingsIsLoading) return <Loading message='マップ情報取得中' />;
-  if (buildings && rooms)
-    return (
-      <div>
-        <div className='flex'>
-          <div className='w-full'>
-            <BuildingSelector buildings={buildings} />
-            <MapCanvas
-              buildingImagePath={buildings[currentSelectedBuildingIndex].buildingImagePath}
-              currentSelectedBuildingId={buildings[currentSelectedBuildingIndex].buildingId}
-            />
-          </div>
-          <div className='mt-10 w-1/4 rounded-lg border border-red-500'>
-            <RegisterdRooms rooms={rooms} buildings={buildings} />
-          </div>
+  if (!buildings || !rooms) return <Error message='滞在情報取得失敗' />;
+
+  return (
+    <div>
+      <div className='flex'>
+        <div className='w-full'>
+          <BuildingSelector buildings={buildings} />
+          <MapCanvas
+            buildingImagePath={buildings[currentSelectedBuildingIndex].buildingImagePath}
+            currentSelectedBuildingId={buildings[currentSelectedBuildingIndex].buildingId}
+          />
+        </div>
+        <div className='mt-10 w-1/4 rounded-lg border border-red-500'>
+          <RegisterdRooms rooms={rooms} buildings={buildings} />
         </div>
       </div>
-    );
-  return <Error message='滞在情報取得失敗' />;
+    </div>
+  );
 };
 
 export default EditFloorMap;

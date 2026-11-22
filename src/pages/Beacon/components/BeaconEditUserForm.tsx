@@ -44,19 +44,19 @@ function BeaconEditUserForm({ privateKey }: PropsType) {
     mutate: submitEditUser,
   } = useMutation<void, ApiError, typeof form.values>({
     mutationFn: async (values: typeof form.values) => {
-      if (firebaseUser) {
-        let updateUserRequest: UpdatePrivateBeaconUserRequest = {
-          id: parseInt(values.id),
-          beaconName: UI_DATA.BEACON_NAME_PRIVBEACON,
-          privateKey: privateKey,
-        };
-        const token = await firebaseUser.getIdToken();
-        await request(ENDPOINTS.users, { method: 'PUT', token, body: updateUserRequest });
+      if (!firebaseUser) return;
 
-        // これより下は成功した時のみ動作する
-        displayAlert(2);
-        form.reset();
-      }
+      let updateUserRequest: UpdatePrivateBeaconUserRequest = {
+        id: parseInt(values.id),
+        beaconName: UI_DATA.BEACON_NAME_PRIVBEACON,
+        privateKey: privateKey,
+      };
+      const token = await firebaseUser.getIdToken();
+      await request(ENDPOINTS.users, { method: 'PUT', token, body: updateUserRequest });
+
+      // これより下は成功した時のみ動作する
+      displayAlert(2);
+      form.reset();
     },
   });
 
