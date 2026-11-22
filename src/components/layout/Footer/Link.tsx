@@ -1,8 +1,8 @@
-import { Link } from '@tanstack/react-router';
+import { Link, type LinkProps } from '@tanstack/react-router';
 import type { ReactNode } from 'react';
 
 interface FooterLinkProps {
-  to: string;
+  to: LinkProps['to'];
   label: string;
   /** SVG アイコン．色は `currentColor` で親の文字色に追従する */
   children: ReactNode;

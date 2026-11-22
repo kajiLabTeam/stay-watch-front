@@ -1,7 +1,7 @@
-import { Link } from '@tanstack/react-router';
+import { Link, type LinkProps } from '@tanstack/react-router';
 
 interface HeaderLinkProps {
-  to: string;
+  to: LinkProps['to'];
   label: string;
 }
 
