@@ -1,93 +1,54 @@
-import { useEffect } from 'react';
+import { useMemo } from 'react';
 import { atom, useAtomValue, useSetAtom } from 'jotai';
 import { useEditingMapState } from '@/atoms/editingMapAtom';
 import { useCommunityState } from '@/atoms/communityAtom';
 import { useGetAPI } from '@/hooks/useGetAPI';
-import { EditorRoom, Building } from '@/types/roomFloormap';
-import { endpoints } from '@/utils/endpoint';
+import { EditorRoom, Building, FloorMapRoom } from '@/types/roomFloormap';
+import { ENDPOINTS } from '@/utils/endpoint';
+
+const DEFAULT_ROOM_COLOR = 'rgba(0,255,0,0.3)';
+const HOVERED_ROOM_COLOR = 'rgba(0,0,255,0.7)';
+
+// マウスが乗っている部屋のID(なければ null)
+const hoveredRoomIdState = atom<number | null>(null);
 
 // マップデータ描画するのに必要なオブジェクト
-const mapsDataState = atom([
-  {
-    roomId: -1,
-    buildingId: -1,
-    polygon: [
-      [0, 0],
-      [0, 0],
-    ],
-    color: 'rgba(0,255,0,0.3)',
-  },
-]);
+// DBの内容・選択中の建物・ホバー中の部屋から導出する
+export const useMapsDataState = (): FloorMapRoom[] => {
+  const community = useCommunityState();
+  const { data: rooms } = useGetAPI<EditorRoom[]>(
+    community ? `${ENDPOINTS.getRoomsEditorByCommunityID}/${community.communityId}` : null,
+  );
+  const { data: buildings } = useGetAPI<Building[]>(ENDPOINTS.getBuildingsEditor);
+  const { currentSelectedBuildingIndex } = useEditingMapState();
+  const hoveredRoomId = useAtomValue(hoveredRoomIdState);
 
-export const useMapsDataState = () => {
-  return useAtomValue(mapsDataState);
+  return useMemo(() => {
+    const selectedBuildingId = buildings?.[currentSelectedBuildingIndex]?.buildingId;
+    if (!rooms || selectedBuildingId === undefined) return [];
+
+    return rooms
+      .filter((room) => room.buildingId === selectedBuildingId)
+      .map((room) => ({
+        roomId: room.roomId,
+        buildingId: room.buildingId,
+        polygon: room.polygon,
+        color: room.roomId === hoveredRoomId ? HOVERED_ROOM_COLOR : DEFAULT_ROOM_COLOR,
+      }));
+  }, [rooms, buildings, currentSelectedBuildingIndex, hoveredRoomId]);
 };
 
 export const useMapsDataMutators = () => {
-  const community = useCommunityState();
-  const { data: rooms } = useGetAPI<EditorRoom[]>(
-    `${endpoints.getRoomsEditorByCommunityID}/${community.communityId}`,
-  );
-  const { data: buildings } = useGetAPI<Building[]>(`${endpoints.getBuildingsEditor}`);
-  const { currentSelectedBuildingIndex } = useEditingMapState();
-  const setMapsData = useSetAtom(mapsDataState);
+  const setHoveredRoomId = useSetAtom(hoveredRoomIdState);
 
-  const updateMouseOverRoomColor = (roomId: number) => {
-    setMapsData((prevState) => {
-      // 該当する要素を更新した新しい配列を作成する
-      return prevState.map((room) => {
-        if (room.roomId === roomId) {
-          // 更新する要素のみcolorプロパティを書き換えたオブジェクトを作成する
-          return { ...room, color: `rgba(${[0, 0, 255, 0.7]})` };
-        }
-        // 更新しない要素はそのまま返す
-        return room;
-      });
-    });
+  const updateMouseOverRoomColor = (roomId: number): void => {
+    setHoveredRoomId(roomId);
   };
 
-  const updateMouseOutRoomColor = (roomId: number) => {
-    setMapsData((prevState) => {
-      // 該当する要素を更新した新しい配列を作成する
-      return prevState.map((room) => {
-        if (room.roomId === roomId) {
-          return { ...room, color: `rgba(${[0, 255, 0, 0.3]})` };
-        }
-        return room;
-      });
-    });
+  const updateMouseOutRoomColor = (roomId: number): void => {
+    // 別の部屋にすでに乗り換えている場合は上書きしない
+    setHoveredRoomId((prev) => (prev === roomId ? null : prev));
   };
-
-  useEffect(() => {
-    // DBの内容、現在選択されている建物IDが変わった時に動作する
-    if (rooms && buildings) {
-      setMapsData([
-        {
-          roomId: -1,
-          buildingId: -1,
-          polygon: [
-            [0, 0],
-            [0, 0],
-          ],
-          color: 'rgba(0,255,0,0.3)',
-        },
-      ]);
-      for (let i = 0; i < rooms.length; ++i) {
-        // 部屋の建物IDと現在選択されている建物IDが同じ時その部屋の情報をmapDataに加える
-        if (rooms[i].buildingId === buildings[currentSelectedBuildingIndex].buildingId) {
-          setMapsData((mapData) => [
-            ...mapData,
-            {
-              roomId: rooms[i].roomId,
-              buildingId: rooms[i].buildingId,
-              polygon: rooms[i].polygon,
-              color: `rgba(${[0, 255, 0, 0.3]})`,
-            },
-          ]);
-        }
-      }
-    }
-  }, [rooms, buildings, currentSelectedBuildingIndex, setMapsData]);
 
   return { updateMouseOverRoomColor, updateMouseOutRoomColor };
 };

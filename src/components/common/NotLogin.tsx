@@ -1,7 +1,7 @@
 import { login } from '@/utils/Auth';
 import SignInIcon from '../icons/SignIn';
 
-const NotLogin = () => {
+export default function NotLogin() {
   return (
     <div className='flex h-screen w-full items-center justify-center'>
       <button
@@ -13,5 +13,4 @@ const NotLogin = () => {
       </button>
     </div>
   );
-};
-export default NotLogin;
+}

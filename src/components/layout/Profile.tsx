@@ -2,14 +2,16 @@ import { Avatar } from '@mantine/core';
 import { Menu } from '@mantine/core';
 import { useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
-import { Confirmation } from '@/components/common/Confirmation';
+import Confirmation from '@/components/common/Confirmation';
 import { useUserState } from '@/atoms/firebaseUserAtom';
 import { useUserRoleState } from '@/atoms/userRoleAtom';
+import { useVerifiedUserMutators } from '@/atoms/verifiedUserAtom';
 import { logout } from '@/utils/Auth';
 
-export const Profile = () => {
+export default function Profile() {
   const user = useUserState();
   const userRole = useUserRoleState();
+  const { clearVerifiedUser } = useVerifiedUserMutators();
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
@@ -38,6 +40,7 @@ export const Profile = () => {
           {/* <Menu.Item>出欠登録</Menu.Item> */}
           <Menu.Item
             onClick={() => {
+              clearVerifiedUser();
               logout();
             }}
           >
@@ -48,4 +51,4 @@ export const Profile = () => {
       {showModal && <Confirmation remove={remove} />}
     </>
   );
-};
+}

@@ -1,44 +1,31 @@
-import { TextInput, Select, LoadingOverlay, Alert, TagsInput } from '@mantine/core';
-import { Button, Modal } from '@mantine/core';
-import { useZodForm } from '@/hooks/useZodForm';
-import { ApiError, request } from '@/utils/api';
+import { LoadingOverlay } from '@mantine/core';
+import DeleteUserModal from './DeleteUserModal';
+import EditUserFormActions from './EditUserFormActions';
+import UserFormFields from './UserFormFields';
+import { useUserForm } from '../../hooks/useUserForm';
+import { UserFormValues } from '../../types/userForm';
+import RequestErrorAlert from '@/components/common/RequestErrorAlert';
+import { ApiError, fetchApi } from '@/utils/api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { userSchema } from '@/pages/Admin/validation/userSchema';
-import { roleSelector } from '@/constants/roleSelector';
 import { useAlertModeMutators } from '@/atoms/alertModeAtom';
 import { useEditingUserMutators } from '@/atoms/editingUserAtom';
-import { useSelectTags } from '@/hooks/tagSelector';
 import { useUserState } from '@/atoms/firebaseUserAtom';
 import { useCommunityState } from '@/atoms/communityAtom';
-import { useDeleteModal } from '@/hooks/useDeleteModal';
-import { BeaconType } from '@/types/beacon';
+import { useDeleteModal } from '@/pages/Admin/hooks/useDeleteModal';
+import { BeaconType } from '@/pages/Admin/types/beacon';
 import { UpdateUserRequest } from '@/types/request';
 import { UserEditor } from '@/types/user';
-import { endpoints } from '@/utils/endpoint';
+import { ENDPOINTS } from '@/utils/endpoint';
 
-export const EditUserForm = (props: { user: UserEditor; beaconTypes: BeaconType[] }) => {
+export default function EditUserForm(props: { user: UserEditor; beaconTypes: BeaconType[] }) {
   const { user, beaconTypes } = props;
   const firebaseUser = useUserState();
   const community = useCommunityState();
-  const selectTags = useSelectTags();
   const currentTagNames = user.tags.map((tag) => tag.name);
   const { opened, open, close } = useDeleteModal();
   const queryClient = useQueryClient();
   const { setEditingUserId } = useEditingUserMutators();
   const { setAlertMode } = useAlertModeMutators();
-
-  const beaconSelector = [
-    ...beaconTypes.map((beaconType) => ({
-      value: beaconType.beaconName,
-      label: beaconType.beaconName,
-      disabled: beaconType.uuidEditable,
-    })),
-    {
-      value: '',
-      label: '未所持',
-      disabled: false,
-    },
-  ];
 
   const displayAlert = (alertMode: number) => {
     setAlertMode(alertMode);
@@ -51,27 +38,26 @@ export const EditUserForm = (props: { user: UserEditor; beaconTypes: BeaconType[
     isPending: loadingUpdateUser,
     error: errorUpdateUser,
     mutate: updateUser,
-  } = useMutation<void, ApiError, typeof form.values>({
-    mutationFn: async (values: typeof form.values) => {
-      if (firebaseUser) {
-        let updateUserRequest: UpdateUserRequest = {
-          id: user.id,
-          name: values.name,
-          uuid: values.uuid,
-          email: values.email,
-          role: parseInt(values.role),
-          communityId: community.communityId,
-          beaconName: values.beaconName,
-          tagNames: values.tagNames,
-        };
-        const token = await firebaseUser.getIdToken();
-        await request(endpoints.users, { method: 'PUT', token, body: updateUserRequest });
-        queryClient.invalidateQueries({
-          queryKey: [`${endpoints.adminUsers}/${community.communityId}`],
-        });
-        setEditingUserId(-1);
-        displayAlert(2);
-      }
+  } = useMutation<void, ApiError, UserFormValues>({
+    mutationFn: async (values: UserFormValues) => {
+      if (!firebaseUser || !community) return;
+
+      let updateUserRequest: UpdateUserRequest = {
+        id: user.id,
+        name: values.name,
+        uuid: values.uuid,
+        email: values.email,
+        role: parseInt(values.role),
+        communityId: community.communityId,
+        beaconName: values.beaconName,
+        tagNames: values.tagNames,
+      };
+      await fetchApi(ENDPOINTS.users, { method: 'PUT', body: updateUserRequest });
+      queryClient.invalidateQueries({
+        queryKey: [`${ENDPOINTS.adminUsers}/${community.communityId}`],
+      });
+      setEditingUserId(-1);
+      displayAlert(2);
     },
   });
 
@@ -81,131 +67,54 @@ export const EditUserForm = (props: { user: UserEditor; beaconTypes: BeaconType[
     mutate: deleteUser,
   } = useMutation<void, ApiError, number>({
     mutationFn: async (userId: number) => {
-      if (firebaseUser) {
-        const token = await firebaseUser.getIdToken();
-        await request(`${endpoints.users}/${userId}`, { method: 'DELETE', token });
-        // これより下は成功した時のみ動作する
-        queryClient.invalidateQueries({
-          queryKey: [`${endpoints.adminUsers}/${community.communityId}`],
-        });
-        setEditingUserId(-1);
-        displayAlert(3);
-      }
+      if (!firebaseUser || !community) return;
+      await fetchApi(`${ENDPOINTS.users}/${userId}`, { method: 'DELETE' });
+      // これより下は成功した時のみ動作する
+      queryClient.invalidateQueries({
+        queryKey: [`${ENDPOINTS.adminUsers}/${community.communityId}`],
+      });
+      setEditingUserId(-1);
+      displayAlert(3);
     },
   });
 
-  const form = useZodForm(
-    {
-      id: user.id,
-      name: user.name,
-      uuid: user.uuid.slice(-5),
-      email: user.email,
-      role: user.role.toString(),
-      communityId: 0,
-      beaconName: user.beaconName,
-      tagNames: currentTagNames,
-    },
-    userSchema,
-  );
+  const form = useUserForm({
+    name: user.name,
+    uuid: user.uuid.slice(-5),
+    email: user.email,
+    role: user.role.toString(),
+    communityId: 0,
+    beaconName: user.beaconName,
+    tagNames: currentTagNames,
+  });
 
   return (
     <div>
       {(loadingDeleteUser || loadingUpdateUser) && (
         <LoadingOverlay visible overlayProps={{ blur: 3 }} />
       )}
-      <Modal opened={opened} onClose={close} title='削除確認'>
-        <div className='my-4 border' />
-        <div>ユーザ情報を削除しますか？</div>
-        <div className='my-4 border' />
-        <div className='space-x-4 pt-4 text-right'>
-          <Button type='button' variant='outline' color='gray' onClick={close}>
-            キャンセル
-          </Button>
-          <Button
-            type='button'
-            className='bg-red-400'
-            color='red'
-            onClick={() => deleteUser(user.id)}
-          >
-            削除する
-          </Button>
-          {errorDeleteUser && (
-            <Alert title='失敗' color='red'>
-              エラーが発生しました
-            </Alert>
-          )}
-        </div>
-      </Modal>
+      <DeleteUserModal
+        opened={opened}
+        hasError={Boolean(errorDeleteUser)}
+        onClosed={close}
+        onDeleteConfirmed={() => deleteUser(user.id)}
+      />
       <div className='rounded-lg bg-slate-200 px-10 pb-4'>
         <h1 className='pt-2 text-left text-2xl text-slate-800'>{user.name}</h1>
         <form
           className=' flex flex-col'
           onSubmit={form.onSubmit((values) => {
-            const modifiedValues = { ...values, communityId: community.communityId };
-            updateUser(modifiedValues);
+            updateUser(values);
           })}
         >
-          <TextInput placeholder='tarou' label='名前' {...form.getInputProps('name')} />
-          <TextInput
-            label='Gメールアドレス（任意）'
-            placeholder='your@gmail.com'
-            {...form.getInputProps('email')}
+          <UserFormFields form={form} beaconTypes={beaconTypes} />
+          <EditUserFormActions onCancelled={() => setEditingUserId(-1)} onDeleteClicked={open} />
+          <RequestErrorAlert
+            error={errorUpdateUser}
+            conflictMessage='このメールアドレスは既に登録されています'
           />
-          <div className='flex space-x-4'>
-            <Select
-              className='w-1/2'
-              label='ビーコンの形態'
-              placeholder='ビーコンの形態を選択してください'
-              data={beaconSelector}
-              {...form.getInputProps('beaconName')}
-            />
-            <Select
-              label='権限'
-              className='w-1/2'
-              placeholder='権限レベルを選択してください'
-              data={roleSelector}
-              {...form.getInputProps('role')}
-            />
-          </div>
-          <TagsInput
-            label='タグ'
-            placeholder='タグを選択してください'
-            data={selectTags}
-            {...form.getInputProps('tagNames')}
-          />
-          <div className='flex pt-3'>
-            <div className='mr-auto space-x-4'>
-              <Button type='submit' className='bg-staywatch-accent' color='#1e5266'>
-                保存
-              </Button>
-              <Button
-                type='button'
-                variant='outline'
-                className='border-2'
-                color='gray'
-                onClick={() => setEditingUserId(-1)}
-              >
-                中止
-              </Button>
-            </div>
-            <div>
-              <Button type='button' className='bg-red-400' color='red' onClick={open}>
-                削除
-              </Button>
-            </div>
-          </div>
-          {errorUpdateUser && errorUpdateUser.status === 409 && (
-            <Alert title='失敗' color='red'>
-              このメールアドレスは既に登録されています
-            </Alert>
-          )}
-          {errorUpdateUser && errorUpdateUser.status !== 409 && (
-            <Alert title='失敗' color='red'>
-              エラーが発生しました
-            </Alert>
-          )}
         </form>
       </div>
     </div>
   );
-};
+}

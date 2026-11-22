@@ -6,12 +6,12 @@ import { useEditingPolygonCanvas } from '@/pages/Admin/hooks/useEditingPolygonCa
 type Props = { canvasWidth: number; canvasHeight: number };
 
 // 編集モードが切り替わるたびに作り直し、キャンバスの描画と描画中の状態をリセットする
-export const EditingPolygonCanvas = (props: Props) => {
+export default function EditingPolygonCanvas(props: Props) {
   const { isEditingRoom } = useEditingMapState();
   return <EditingPolygonCanvasInner key={String(isEditingRoom)} {...props} />;
-};
+}
 
-const EditingPolygonCanvasInner = (props: Props) => {
+function EditingPolygonCanvasInner(props: Props) {
   const { canvasRef, onClick, onMouseMove } = useEditingPolygonCanvas(
     props.canvasWidth,
     props.canvasHeight,
@@ -29,4 +29,4 @@ const EditingPolygonCanvasInner = (props: Props) => {
       />
     </div>
   );
-};
+}

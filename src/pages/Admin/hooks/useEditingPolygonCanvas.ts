@@ -25,18 +25,19 @@ export const useEditingPolygonCanvas = (canvasWidth: number, canvasHeight: numbe
     if (!isEditingRoom) return;
     const pos = toCanvasPosition(e);
 
-    if (isDrawing.current) {
-      // 四角の終了
-      isDrawing.current = false;
-      setEditingPolygon([
-        [start.current.x, start.current.y],
-        [pos.x, pos.y],
-      ]);
-    } else {
+    if (!isDrawing.current) {
       // 四角の開始
       start.current = pos;
       isDrawing.current = true;
+      return;
     }
+
+    // 四角の終了
+    isDrawing.current = false;
+    setEditingPolygon([
+      [start.current.x, start.current.y],
+      [pos.x, pos.y],
+    ]);
   };
 
   const onMouseMove = (e: MouseEvent<HTMLCanvasElement>) => {

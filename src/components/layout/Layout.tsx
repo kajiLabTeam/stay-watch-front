@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import Foot from '@/components/layout/Footer';
 import Head from '@/components/layout/Header';
 
-const Layout = ({ children }: { children?: ReactNode }) => {
+export default function Layout({ children }: { children?: ReactNode }) {
   return (
     <div>
       {/* デスクトップの場合 */}
@@ -16,6 +16,4 @@ const Layout = ({ children }: { children?: ReactNode }) => {
       <main className='mx-auto w-11/12 pb-20 md:w-4/5 md:pb-2'>{children}</main>
     </div>
   );
-};
-
-export default Layout;
+}

@@ -2,7 +2,7 @@ const baseURL = import.meta.env.VITE_BASE_URL;
 const activityApiUrl = import.meta.env.VITE_ACTIVITY_API_URL;
 
 //エンドポイントのURLを定義
-export const endpoints = {
+export const ENDPOINTS = {
   stayers: `${baseURL}/api/v1/stayers`,
   logs: `${baseURL}/api/v1/logs`,
   logsGantt: `${baseURL}/api/v1/logs/gantt`,
@@ -16,5 +16,5 @@ export const endpoints = {
   extendedUsers: `${baseURL}/api/v1/users/extended`,
   beacons: `${baseURL}/api/v1/beacons`,
   tags: `${baseURL}/api/v1/tags`,
-  activityProbabilities: `${activityApiUrl ?? ''}/api/activities/probabilities`,
-};
+  activityProbabilities: `${activityApiUrl}/api/activities/probabilities`,
+} as const satisfies Record<string, string>;

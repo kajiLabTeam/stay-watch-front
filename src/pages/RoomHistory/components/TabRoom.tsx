@@ -1,6 +1,6 @@
 import { Tab } from '@headlessui/react';
 import GanttChart from './GanttChart';
-import { Room } from '@/types/ganttStayLog';
+import { Room } from '@/pages/RoomHistory/types/ganttStayLog';
 
 // @ts-ignore
 function classNames(...classes) {
@@ -11,7 +11,7 @@ type Props = {
   rooms: Room[];
 };
 
-const TabRoom = ({ rooms }: Props) => {
+export default function TabRoom({ rooms }: Props) {
   return (
     <div className='pt-8 sm:px-0'>
       <Tab.Group>
@@ -47,6 +47,4 @@ const TabRoom = ({ rooms }: Props) => {
       </Tab.Group>
     </div>
   );
-};
-
-export default TabRoom;
+}

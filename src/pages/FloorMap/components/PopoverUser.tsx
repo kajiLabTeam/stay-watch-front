@@ -3,7 +3,7 @@ type Props = {
   userNames: string[];
 };
 
-export const PopoverUser = ({ roomName, userNames }: Props) => {
+export default function PopoverUser({ roomName, userNames }: Props) {
   return (
     <div className='mt-2 min-w-fit whitespace-nowrap border-2 border-gray-500 bg-white p-[5%] shadow-md'>
       <p className='text-gray-500'>{roomName}</p>
@@ -12,4 +12,4 @@ export const PopoverUser = ({ roomName, userNames }: Props) => {
       ))}
     </div>
   );
-};
+}

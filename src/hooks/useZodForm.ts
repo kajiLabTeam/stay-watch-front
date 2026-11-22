@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, SubmitEvent, useState } from 'react';
 import { z } from 'zod';
 
 type Errors<T> = Partial<Record<keyof T, string>>;
@@ -34,7 +34,7 @@ export const useZodForm = <T extends Record<string, unknown>>(
     setErrors({});
   };
 
-  const onSubmit = (handler: (values: T) => void) => (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = (handler: (values: T) => void) => (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     const result = schema.safeParse(values);
     if (result.success) {
@@ -43,10 +43,12 @@ export const useZodForm = <T extends Record<string, unknown>>(
       return;
     }
     const next: Errors<T> = {};
-    for (const issue of result.error.issues) {
+    result.error.issues.forEach((issue) => {
       const key = issue.path[0] as keyof T | undefined;
-      if (key !== undefined && next[key] === undefined) next[key] = issue.message;
-    }
+      if (key !== undefined && next[key] === undefined) {
+        next[key] = issue.message;
+      }
+    });
     setErrors(next);
   };
 

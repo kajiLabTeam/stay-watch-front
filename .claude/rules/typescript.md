@@ -62,10 +62,12 @@ paths:
   1. 標準ライブラリ／外部パッケージ
   2. 内部モジュール（パスエイリアス経由）
   3. 相対パスによる同一機能内のモジュール
-- default export は使用せず，named export を使用すること
+- React コンポーネントは `export default function` で default export すること（[jsx.md](./jsx.md) に従う）
+  - 1 ファイル 1 コンポーネントとし，import 側は `import ActivityCard from '...'` と書く
+- コンポーネント以外（hooks，utils，atoms，型，定数など）は default export を使用せず，named export を使用すること
   - リネーム時の追跡やリファクタリングが容易になるため
   - Storybook の `meta`（`*.stories.tsx`）や設定ファイル（例：`vite.config.ts`）など，ツールが default export を求めるものは例外とする
-- export は定義した箇所で行うこと（例：`export function foo() {}`，`export type Foo = ...`）
+- export は定義した箇所で行うこと（例：`export default function Foo() {}`，`export function foo() {}`，`export type Foo = ...`）
   - 同じファイルで定義したものを，ファイル末尾でまとめて `export { foo };` のようにエクスポートしないこと
   - feature の `index.tsx` で他のモジュールを `export { Foo } from './components/Foo';` のように再エクスポートするのは構わない
 

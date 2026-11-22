@@ -1,50 +1,27 @@
-import { Alert, SegmentedControl } from '@mantine/core';
-import React, { useState } from 'react';
+import { useState } from 'react';
+import BeaconModeSelector from './components/BeaconModeSelector';
+import BeaconPanel from './components/BeaconPanel';
+import BeaconSuccessAlert from './components/BeaconSuccessAlert';
+import BeaconUserForm from './components/BeaconUserForm';
 import { useAlertModeState } from '@/atoms/alertModeAtom';
-import BeaconRegisterForm from './components/BeaconCreateUserForm';
-import BeaconEditUserForm from './components/BeaconEditUserForm';
 import { useUserRoleState } from '@/atoms/userRoleAtom';
 
-type PropsType = {
+interface BeaconBaseProps {
   privateKey: string;
-};
+}
 
-function BeaconBase({ privateKey }: PropsType) {
+export default function BeaconBase({ privateKey }: BeaconBaseProps) {
   const userRole = useUserRoleState();
   const [selectedMode, setSelectedMode] = useState('create');
   const { alertMode } = useAlertModeState();
 
-  if (userRole == null || userRole < 2) return <div>権限がありません</div>;
+  if (userRole === null || userRole < 2) return <div>権限がありません</div>;
+
   return (
-    <div>
-      <div className='mt-5 rounded-lg bg-slate-100 pt-2'>
-        <SegmentedControl
-          fullWidth
-          size='md'
-          radius='xl'
-          className='mx-10'
-          value={selectedMode}
-          onChange={setSelectedMode}
-          data={[
-            { label: '新規ユーザ', value: 'create' },
-            { label: '既存ユーザ', value: 'edit' },
-          ]}
-        />
-        {selectedMode === 'create' ? (
-          <BeaconRegisterForm privateKey={privateKey} />
-        ) : (
-          <BeaconEditUserForm privateKey={privateKey} />
-        )}
-        {alertMode > 0 && (
-          <Alert title='成功' color='green'>
-            {alertMode === 1 && 'ユーザが新しく登録されました'}
-            {alertMode === 2 && 'ユーザ情報が更新されました'}
-            {alertMode === 3 && '1名のユーザが削除されました'}
-          </Alert>
-        )}
-      </div>
-    </div>
+    <BeaconPanel>
+      <BeaconModeSelector mode={selectedMode} onModeChanged={setSelectedMode} />
+      <BeaconUserForm mode={selectedMode} privateKey={privateKey} />
+      <BeaconSuccessAlert alertMode={alertMode} />
+    </BeaconPanel>
   );
 }
-
-export default BeaconBase;

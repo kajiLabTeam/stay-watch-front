@@ -6,7 +6,7 @@ type NextButtonProps = {
   historyCount: number;
 };
 
-export const NextButton = ({ currentPage, nextPage, historyCount }: NextButtonProps) => {
+export default function NextButton({ currentPage, nextPage, historyCount }: NextButtonProps) {
   const limit = 30;
   const MaxPage = historyCount / limit;
   if (currentPage >= MaxPage) {
@@ -17,4 +17,4 @@ export const NextButton = ({ currentPage, nextPage, historyCount }: NextButtonPr
       次へ
     </Button>
   );
-};
+}

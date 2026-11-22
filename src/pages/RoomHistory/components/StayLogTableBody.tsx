@@ -1,11 +1,11 @@
 import React from 'react';
-import { Log } from '@/types/log';
+import { Log } from '@/pages/RoomHistory/types/log';
 
 type StayLogTableBodyProps = {
   stayLogs: Log[];
 };
 
-export const StayLogTableBody = ({ stayLogs }: StayLogTableBodyProps) => {
+export default function StayLogTableBody({ stayLogs }: StayLogTableBodyProps) {
   const ONGOING_STAY_MARKER = '2016-01-01 00:00:00';
   return (
     <tbody>
@@ -37,4 +37,4 @@ export const StayLogTableBody = ({ stayLogs }: StayLogTableBodyProps) => {
       })}
     </tbody>
   );
-};
+}

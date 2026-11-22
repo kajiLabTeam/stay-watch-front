@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { RoomEditorForm } from './RoomEditorForm';
+import RoomEditorForm from './RoomEditorForm';
+import RoomHeaderRow from './RoomHeaderRow';
 import { useEditingMapMutators, useEditingMapState } from '@/atoms/editingMapAtom';
 import { useMapsDataMutators } from '@/atoms/mapAtom';
 import { Building, EditorRoom } from '@/types/roomFloormap';
 
-export const RegisterdRoom = (props: { room: EditorRoom; building: Building }) => {
+export default function RegisterdRoom(props: { room: EditorRoom; building: Building }) {
   const { roomId, buildingId, roomName, polygon } = props.room;
   const [buttonText, setButtonText] = useState('編集');
 
@@ -26,7 +27,9 @@ export const RegisterdRoom = (props: { room: EditorRoom; building: Building }) =
       setIsEditingRoom(true);
       updateCurrentSelectedBuildingIndexByBuildingId(buildingId);
       setButtonText('中止');
-    } else if (buttonText === '中止') {
+      return;
+    }
+    if (buttonText === '中止') {
       // 編集終了(中止ボタンがクリックされたとき)
       setEditingRoomId(-1);
       setIsEditingRoom(false);
@@ -39,50 +42,27 @@ export const RegisterdRoom = (props: { room: EditorRoom; building: Building }) =
     setButtonText('編集');
   }
 
-  if (roomId === editingRoomId) {
-    // フォームを表示
-    return (
-      <div
-        className='w-full border border-blue-500'
-        onMouseOver={() => updateMouseOverRoomColor(roomId)}
-        onMouseOut={() => updateMouseOutRoomColor(roomId)}
-      >
-        <div className='flex'>
-          <div className='w-3/4'>{roomName}</div>
-          <button
-            id={`form_edit_button${roomId}`}
-            className='w-1/4 text-center'
-            onClick={handleClick}
-          >
-            {buttonText}
-          </button>
-        </div>
+  const isEditing = roomId === editingRoomId;
 
+  return (
+    <div
+      className={`w-full border ${isEditing ? 'border-blue-500' : 'border-blue-400'}`}
+      onMouseOver={() => updateMouseOverRoomColor(roomId)}
+      onMouseOut={() => updateMouseOutRoomColor(roomId)}
+    >
+      <RoomHeaderRow
+        roomId={roomId}
+        roomName={roomName}
+        buttonText={buttonText}
+        onButtonClicked={handleClick}
+      />
+      {isEditing && (
         <RoomEditorForm
           room={props.room}
           building={props.building}
           editingPolygon={editingPolygon}
         />
-      </div>
-    );
-  }
-  // フォームを非表示
-  return (
-    <div
-      className='w-full border border-blue-400'
-      onMouseOver={() => updateMouseOverRoomColor(roomId)}
-      onMouseOut={() => updateMouseOutRoomColor(roomId)}
-    >
-      <div className='flex'>
-        <div className='w-3/4'>{roomName}</div>
-        <button
-          id={`form_edit_button${roomId}`}
-          className='w-1/4 text-center'
-          onClick={handleClick}
-        >
-          {buttonText}
-        </button>
-      </div>
+      )}
     </div>
   );
-};
+}

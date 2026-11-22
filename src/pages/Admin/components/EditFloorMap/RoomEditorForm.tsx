@@ -1,14 +1,14 @@
 import { TextInput } from '@mantine/core';
 import { useState } from 'react';
-import { Button } from '@/components/common/Button';
+import Button from '@/pages/Admin/components/Button';
 import { useEditingMapMutators } from '@/atoms/editingMapAtom';
 import { Building, EditorRoom } from '@/types/roomFloormap';
 
-export const RoomEditorForm = (props: {
+export default function RoomEditorForm(props: {
   room: EditorRoom;
   building: Building;
   editingPolygon: number[][];
-}) => {
+}) {
   const { storeRoomToDatabase } = useEditingMapMutators();
   const [roomNameValue, setRoomNameValue] = useState(props.room.roomName);
 
@@ -32,4 +32,4 @@ export const RoomEditorForm = (props: {
       </div>
     </div>
   );
-};
+}

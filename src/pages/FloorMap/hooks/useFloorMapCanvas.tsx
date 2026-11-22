@@ -1,5 +1,6 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { useRoomState } from '@/pages/FloorMap/roomState';
+import React, { useCallback, useRef, useState } from 'react';
+import { useImage } from '@/hooks/useImage';
+import { useRoomState } from '@/pages/FloorMap/hooks/useRoomState';
 import { PopoverRoom } from '@/types/roomFloormap';
 
 const FLOOR_MAP_IMAGE_PATH = '/floor_maps/14goukan1-5.png';
@@ -8,84 +9,53 @@ export const useFloorMapCanvas = () => {
   const { viewerRooms } = useRoomState();
   const [viewingRoomId, setViewingRoomId] = useState(0);
   const [popoverRoom, setPopoverRoom] = useState<PopoverRoom>();
-  const [canvasSize, setCanvasSize] = useState<{ width: number; height: number } | null>(null);
+  const { image: buildingImage } = useImage(FLOOR_MAP_IMAGE_PATH);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  const getContext = (): CanvasRenderingContext2D | null => {
-    const canvas: HTMLCanvasElement | null = canvasRef.current;
-    return canvas ? canvas.getContext('2d') : null;
-  };
+  // 画像の natural サイズに Canvas サイズを合わせる
+  const canvasSize = buildingImage
+    ? { width: buildingImage.naturalWidth, height: buildingImage.naturalHeight }
+    : null;
 
-  // 画像を事前ロードしてCanvasサイズを画像のnaturalサイズに合わせる
-  useEffect(() => {
-    let cancelled = false;
-    const probe = new Image();
-    probe.onload = () => {
-      if (!cancelled) {
-        setCanvasSize({ width: probe.naturalWidth, height: probe.naturalHeight });
-      }
-    };
-    probe.onerror = () => {
-      if (!cancelled) {
-        console.error(`Failed to load floor map image: ${FLOOR_MAP_IMAGE_PATH}`);
-      }
-    };
-    probe.src = FLOOR_MAP_IMAGE_PATH;
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  // canvas の ref コールバック。要素を保持し、画像・滞在者が変わるたびに描画し直す
+  const setCanvasElement = useCallback(
+    (canvas: HTMLCanvasElement | null): void => {
+      canvasRef.current = canvas;
+      const ctx = canvas?.getContext('2d');
+      if (!ctx || !buildingImage || !viewerRooms) return;
 
-  useEffect(() => {
-    if (!canvasSize) return;
-    const buildingImage = new Image();
-    const ctx: CanvasRenderingContext2D | null = getContext();
-    if (ctx && viewerRooms) {
+      const { naturalWidth: width, naturalHeight: height } = buildingImage;
       // 初期化処理
       ctx.fillStyle = 'white';
-      ctx.fillRect(0, 0, canvasSize.width, canvasSize.height);
-      ctx.strokeRect(0, 0, canvasSize.width, canvasSize.height);
+      ctx.fillRect(0, 0, width, height);
+      ctx.strokeRect(0, 0, width, height);
 
-      const drawBuildingToCanvas = () => {
-        ctx.fillStyle = 'gray';
-        ctx.strokeRect(0, 0, canvasSize.width, canvasSize.height);
-        ctx.drawImage(
-          buildingImage,
-          1,
-          1,
-          buildingImage.width * (canvasSize.height / buildingImage.height),
-          buildingImage.height * (canvasSize.height / buildingImage.height),
-        );
-      };
+      ctx.fillStyle = 'gray';
+      ctx.strokeRect(0, 0, width, height);
+      ctx.drawImage(buildingImage, 1, 1, width, height);
 
-      const drawUsersToCanvas = () => {
-        viewerRooms.forEach((viewerRoom) => {
-          ctx.fillStyle = 'red';
-          ctx.font = "bold 60px 'Segoe Print', sans-serif";
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          ctx.fillText(String(viewerRoom.userCount), viewerRoom.left, viewerRoom.top);
-        });
-      };
-      // キャッシュヒット時のレースを避けるため、onload を src より先に設定する
-      buildingImage.onload = () => {
-        drawBuildingToCanvas();
-        drawUsersToCanvas();
-      };
-      buildingImage.src = FLOOR_MAP_IMAGE_PATH;
-    }
-  }, [viewerRooms, canvasSize]);
+      viewerRooms.forEach((viewerRoom) => {
+        ctx.fillStyle = 'red';
+        ctx.font = "bold 60px 'Segoe Print', sans-serif";
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(String(viewerRoom.userCount), viewerRoom.left, viewerRoom.top);
+      });
+    },
+    [buildingImage, viewerRooms],
+  );
 
   // canvas上でマウスが動いた時の処理
   const displayPopover = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (!canvasSize) return;
     // e.clientX, e.clientY : 要素での座標(画面サイズに依存する)
     // clientCanvasX, clientCanvasY: canvas上での座標(画面サイズに依存しない)
-    const canvasElementRatio = canvasRef.current!.clientWidth / canvasSize.width;
-    const rect = canvasRef.current?.getBoundingClientRect();
+    const canvas = e.currentTarget;
+    const canvasElementRatio = canvas.clientWidth / canvasSize.width;
+    const rect = canvas.getBoundingClientRect();
     // canvas上でのマウスの座標を定義
-    const clientCanvasX = Math.trunc((e.clientX - Math.floor(rect!.left)) / canvasElementRatio);
-    const clientCanvasY = Math.trunc((e.clientY - Math.floor(rect!.top)) / canvasElementRatio);
+    const clientCanvasX = Math.trunc((e.clientX - Math.floor(rect.left)) / canvasElementRatio);
+    const clientCanvasY = Math.trunc((e.clientY - Math.floor(rect.top)) / canvasElementRatio);
 
     let isMouseOverRoom = false;
     viewerRooms?.forEach((viewerRoom) => {
@@ -115,6 +85,7 @@ export const useFloorMapCanvas = () => {
     CANVAS_WIDTH: canvasSize?.width ?? 0,
     CANVAS_HEIGHT: canvasSize?.height ?? 0,
     canvasRef,
+    setCanvasElement,
     viewingRoomId,
     popoverRoom,
     displayPopover,

@@ -2,7 +2,7 @@ import React from 'react';
 import { useEditingMapMutators, useEditingMapState } from '@/atoms/editingMapAtom';
 import { Building } from '@/types/roomFloormap';
 
-export const BuildingSelector = (props: { buildings: Building[] }) => {
+export default function BuildingSelector(props: { buildings: Building[] }) {
   const { currentSelectedBuildingIndex } = useEditingMapState();
   const { setCurrentSelectedBuildingIndex } = useEditingMapMutators();
 
@@ -21,4 +21,4 @@ export const BuildingSelector = (props: { buildings: Building[] }) => {
       </select>
     </div>
   );
-};
+}
