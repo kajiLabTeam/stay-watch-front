@@ -1,5 +1,4 @@
 import { Tab } from '@headlessui/react';
-import { useViewportSize } from '@mantine/hooks';
 import GanttChart from './GanttChart';
 import { Room } from '@/types/ganttStayLog';
 
@@ -13,8 +12,6 @@ type Props = {
 };
 
 const TabRoom = ({ rooms }: Props) => {
-  const { height, width: windowWidth } = useViewportSize();
-
   return (
     <div className='pt-8 sm:px-0'>
       <Tab.Group>
@@ -29,7 +26,7 @@ const TabRoom = ({ rooms }: Props) => {
                     'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
                     selected
                       ? 'bg-white shadow'
-                      : 'text-blue-100 hover:bg-white/[0.12] hover:text-white',
+                      : 'text-blue-100 hover:bg-white/12 hover:text-white',
                   )
                 }
               >
@@ -41,8 +38,8 @@ const TabRoom = ({ rooms }: Props) => {
         <Tab.Panels>
           {rooms.map((room) => (
             <Tab.Panel key={room.id}>
-              <div style={{ width: `${windowWidth}px` }}>
-                <GanttChart stayTimes={room.stayTimes} height={height} width={windowWidth / 1.2} />
+              <div className='w-screen'>
+                <GanttChart stayTimes={room.stayTimes} />
               </div>
             </Tab.Panel>
           ))}

@@ -1,7 +1,6 @@
 import { TextInput, Select, LoadingOverlay, Alert, TagsInput } from '@mantine/core';
 import { Button } from '@mantine/core';
-import { useForm, schemaResolver } from '@mantine/form';
-import { useDisclosure } from '@mantine/hooks';
+import { useZodForm } from '@/hooks/useZodForm';
 import { ApiError, request } from '@/utils/api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { roleSelector } from '../constants/roleSelector';
@@ -19,7 +18,6 @@ export const CreateUserForm = (props: { beaconTypes: BeaconType[] }) => {
   const user = useUserState();
   const community = useCommunityState();
   const selectTags = useSelectTags();
-  const [visible] = useDisclosure(true);
   const { setAlertMode } = useAlertModeMutators();
   const displayAlert = (alertMode: number) => {
     setAlertMode(alertMode);
@@ -70,8 +68,8 @@ export const CreateUserForm = (props: { beaconTypes: BeaconType[] }) => {
     },
   });
 
-  const form = useForm({
-    initialValues: {
+  const form = useZodForm(
+    {
       name: '',
       uuid: '',
       email: '',
@@ -80,12 +78,12 @@ export const CreateUserForm = (props: { beaconTypes: BeaconType[] }) => {
       beaconName: '',
       tagNames: [],
     },
-    validate: schemaResolver(userSchema),
-  });
+    userSchema,
+  );
 
   return (
     <div>
-      {loading && <LoadingOverlay visible={visible} overlayProps={{ blur: 3 }} />}
+      {loading && <LoadingOverlay visible overlayProps={{ blur: 3 }} />}
       <div className='rounded-lg bg-slate-200'>
         <h1 className='pt-4 text-center text-3xl font-bold text-slate-800'>新規登録</h1>
         <form

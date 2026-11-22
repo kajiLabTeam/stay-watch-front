@@ -1,6 +1,5 @@
 import { Alert, Button, LoadingOverlay, Select } from '@mantine/core';
-import { useForm, schemaResolver } from '@mantine/form';
-import { useDisclosure } from '@mantine/hooks';
+import { useZodForm } from '@/hooks/useZodForm';
 import { ApiError, request } from '@/utils/api';
 import { useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
@@ -25,7 +24,6 @@ type PropsType = {
 };
 
 function BeaconEditUserForm({ privateKey }: PropsType) {
-  const [visible] = useDisclosure(true);
   const { setAlertMode } = useAlertModeMutators();
   const community = useCommunityState();
   const firebaseUser = useUserState();
@@ -73,17 +71,17 @@ function BeaconEditUserForm({ privateKey }: PropsType) {
     setUsersSelecter(tmpUsersSelecterData);
   }, [users]);
 
-  const form = useForm({
-    initialValues: {
+  const form = useZodForm(
+    {
       id: '-1',
     },
-    validate: schemaResolver(privacyBeaconEditUserSchema),
-  });
+    privacyBeaconEditUserSchema,
+  );
 
   if (errorUsers) return <Error message='ユーザ情報取得失敗' />;
   return (
     <div>
-      {loading && <LoadingOverlay visible={visible} overlayProps={{ blur: 3 }} />}
+      {loading && <LoadingOverlay visible overlayProps={{ blur: 3 }} />}
       <div>
         <form
           className='flex flex-col px-10 pb-4 pt-2'

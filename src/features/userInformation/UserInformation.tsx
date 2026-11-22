@@ -1,4 +1,3 @@
-import { useDocumentTitle } from '@mantine/hooks';
 import { Badge } from '@/components/common/Badge';
 import Error from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
@@ -8,7 +7,6 @@ import { UserAttribute } from '@/types/user';
 import { endpoints } from '@/utils/endpoint';
 
 const UserInformation = () => {
-  useDocumentTitle('利用者一覧');
   const community = useCommunityState();
   const {
     data: users,
@@ -21,6 +19,7 @@ const UserInformation = () => {
   if (users)
     return (
       <div className='mt-5 w-full border text-base md:text-xl'>
+        <title>利用者一覧</title>
         {users.map((user) => (
           <div className='flex w-full items-center border px-4 py-2 text-left' key={user.id}>
             {user.name}

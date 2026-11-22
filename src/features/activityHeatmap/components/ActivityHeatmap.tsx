@@ -1,4 +1,3 @@
-import { useDocumentTitle } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
 import {
   DISPLAY_HOUR_END,
@@ -46,8 +45,6 @@ const useCurrentTimePercent = (): number | null => {
 const TIME_LABELS = [9, 12, 15, 18, 20];
 
 const ActivityHeatmap = () => {
-  useDocumentTitle('活動予報ヒートマップ');
-
   const {
     data: response,
     error,
@@ -64,6 +61,7 @@ const ActivityHeatmap = () => {
 
   return (
     <div className='mx-auto px-1 py-3 md:p-6'>
+      <title>活動予報ヒートマップ</title>
       <h1 className='mb-4 text-lg font-bold md:mb-6 md:text-2xl'>活動予報ヒートマップ</h1>
       <div className='rounded-lg bg-white px-2 py-3 shadow md:p-6'>
         {/* 時刻ヘッダー */}
@@ -91,7 +89,7 @@ const ActivityHeatmap = () => {
             {activities.map((activity) => (
               <div
                 key={activity.activity_name}
-                className='h-8 truncate text-right text-xs font-medium leading-8 md:h-12 md:text-base md:leading-[3rem]'
+                className='h-8 truncate text-right text-xs font-medium leading-8 md:h-12 md:text-base md:leading-12'
                 title={activity.activity_name}
               >
                 {activity.activity_name}

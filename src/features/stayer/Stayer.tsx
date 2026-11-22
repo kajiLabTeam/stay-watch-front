@@ -1,4 +1,3 @@
-import { useDocumentTitle } from '@mantine/hooks';
 import { formatStayerDataForTable } from './utils';
 import { Badge } from '@/components/common/Badge';
 import Error from '@/components/common/Error';
@@ -9,7 +8,6 @@ import StayerType from '@/types/stayer';
 import { endpoints } from '@/utils/endpoint';
 
 const Stayer = () => {
-  useDocumentTitle('滞在者一覧');
   const {
     data: stayers,
     error: errorStayers,
@@ -26,6 +24,7 @@ const Stayer = () => {
   if (rooms && stayers)
     return (
       <div>
+        <title>滞在者一覧</title>
         <table className='mt-5 w-full table-fixed rounded border text-xs shadow sm:text-base md:text-2xl'>
           <thead>
             <tr className='bg-staywatch-black text-left text-white'>

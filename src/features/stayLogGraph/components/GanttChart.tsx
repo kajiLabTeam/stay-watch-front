@@ -12,8 +12,6 @@ echarts.use([CustomChart, GridComponent, TooltipComponent, CanvasRenderer]);
 //propsの型定義
 type Props = {
   stayTimes: StayTime[];
-  width: number;
-  height: number;
 };
 
 const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
@@ -25,11 +23,11 @@ const formatDateTime = (unixTime: number) => {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
 };
 
-// 行の高さ(px)。人数が少ないときは1人あたりを大きく取る
-const getChartHeight = (rowCount: number, fallbackHeight: number) => {
-  if (rowCount < 5) return 50 * rowCount;
-  if (rowCount < 10) return 30 * rowCount;
-  return fallbackHeight;
+// グラフの高さ。人数が少ないときは1人あたりを大きく取る
+const getChartHeight = (rowCount: number) => {
+  if (rowCount < 5) return `${50 * rowCount}px`;
+  if (rowCount < 10) return `${30 * rowCount}px`;
+  return '100vh';
 };
 
 const renderGanttItem: CustomSeriesRenderItem = (_params, api) => {
@@ -51,7 +49,7 @@ const renderGanttItem: CustomSeriesRenderItem = (_params, api) => {
   };
 };
 
-const GanttChart = ({ stayTimes, width, height }: Props) => {
+const GanttChart = ({ stayTimes }: Props) => {
   const divRef = useRef<HTMLDivElement | null>(null);
 
   const { categories, seriesData, dayStart, dayEnd } = useMemo(() => {
@@ -69,7 +67,7 @@ const GanttChart = ({ stayTimes, width, height }: Props) => {
     };
   }, [stayTimes]);
 
-  const chartHeight = getChartHeight(stayTimes.length, height);
+  const chartHeight = getChartHeight(stayTimes.length);
 
   useEffect(() => {
     if (!divRef.current) return;
@@ -111,14 +109,21 @@ const GanttChart = ({ stayTimes, width, height }: Props) => {
       ],
     });
 
-    return () => chart.dispose();
-  }, [categories, seriesData, dayStart, dayEnd, width, chartHeight]);
+    // ウィンドウ/コンテナのサイズ変更に追従する
+    const observer = new ResizeObserver(() => chart.resize());
+    observer.observe(divRef.current);
+
+    return () => {
+      observer.disconnect();
+      chart.dispose();
+    };
+  }, [categories, seriesData, dayStart, dayEnd, chartHeight]);
 
   return (
     <div>
       <div
         ref={divRef}
-        style={{ height: chartHeight, width: '100%', maxWidth: width, marginTop: '100px' }}
+        style={{ height: chartHeight, width: '100%', maxWidth: '83.34vw', marginTop: '100px' }}
       />
     </div>
   );

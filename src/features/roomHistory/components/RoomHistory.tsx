@@ -1,5 +1,3 @@
-import { useDocumentTitle } from '@mantine/hooks';
-
 import { useState } from 'react';
 import { useParamChange } from '../hooks/useParamChange';
 import { NextButton } from './NextButton';
@@ -16,7 +14,6 @@ import { UserAttribute } from '@/types/user';
 import { endpoints } from '@/utils/endpoint';
 
 const RoomHistory = () => {
-  useDocumentTitle('滞在者履歴');
   const [currentOffset, currentPage, currentUserID, previousPage, nextPage, updateSelectedUser] =
     useParamChange();
   const [isGantt, setIsGantt] = useState(false);
@@ -41,6 +38,7 @@ const RoomHistory = () => {
   if (users && roomHistoryLog && roomHistoryLog.logs)
     return (
       <>
+        <title>滞在者履歴</title>
         <div className='mt-6 flex justify-between text-2xl md:text-3xl'>
           <div className='mt-6 flex justify-between'>
             <button

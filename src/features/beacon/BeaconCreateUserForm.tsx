@@ -1,6 +1,5 @@
 import { Alert, Button, LoadingOverlay, Select, TagsInput, TextInput } from '@mantine/core';
-import { useForm, schemaResolver } from '@mantine/form';
-import { useDisclosure } from '@mantine/hooks';
+import { useZodForm } from '@/hooks/useZodForm';
 import { ApiError, request } from '@/utils/api';
 import { useMutation } from '@tanstack/react-query';
 import { roleSelector } from '../admin/editUser/constants/roleSelector';
@@ -21,7 +20,6 @@ function BeaconRegisterForm({ privateKey }: PropsType) {
   const community = useCommunityState();
   const firebaseUser = useUserState();
   const selectTags = useSelectTags();
-  const [visible] = useDisclosure(true);
   const { setAlertMode } = useAlertModeMutators();
   const displayAlert = (alertMode: number) => {
     setAlertMode(alertMode);
@@ -56,20 +54,20 @@ function BeaconRegisterForm({ privateKey }: PropsType) {
     },
   });
 
-  const form = useForm({
-    initialValues: {
+  const form = useZodForm(
+    {
       name: '',
       email: '',
       role: '1',
       communityId: 0,
       tagNames: [],
     },
-    validate: schemaResolver(privacyBeaconUserSchema),
-  });
+    privacyBeaconUserSchema,
+  );
 
   return (
     <div>
-      {loading && <LoadingOverlay visible={visible} overlayProps={{ blur: 3 }} />}
+      {loading && <LoadingOverlay visible overlayProps={{ blur: 3 }} />}
       <div>
         <form
           className='flex flex-col px-10 pb-4 pt-2'

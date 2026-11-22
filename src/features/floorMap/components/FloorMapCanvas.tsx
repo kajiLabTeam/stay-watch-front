@@ -1,15 +1,14 @@
-import { useDocumentTitle } from '@mantine/hooks';
 import React from 'react';
 import { useFloorMapCanvas } from '../hooks/useFloorMapCanvas';
 import { PopoverUser } from './PopoverUser';
 
 export const FloorMapCanvas = () => {
-  useDocumentTitle('滞在者マップ');
   const { CANVAS_WIDTH, CANVAS_HEIGHT, canvasRef, viewingRoomId, popoverRoom, displayPopover } =
     useFloorMapCanvas();
 
   return (
     <div className='mb-80 mt-3 border'>
+      <title>滞在者マップ</title>
       <canvas
         id='canvas'
         className='w-full'

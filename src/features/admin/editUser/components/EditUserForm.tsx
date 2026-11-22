@@ -1,7 +1,6 @@
 import { TextInput, Select, LoadingOverlay, Alert, TagsInput } from '@mantine/core';
 import { Button, Modal } from '@mantine/core';
-import { useForm, schemaResolver } from '@mantine/form';
-import { useDisclosure } from '@mantine/hooks';
+import { useZodForm } from '@/hooks/useZodForm';
 import { ApiError, request } from '@/utils/api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { userSchema } from '../validation/userShema';
@@ -11,6 +10,7 @@ import { useEditingUserMutators } from '@/features/admin/editUser/globalState/ed
 import { useSelectTags } from '@/features/admin/editUser/hooks/tagSelector';
 import { useUserState } from '@/globalStates/firebaseUserState';
 import { useCommunityState } from '@/globalStates/useCommunityState';
+import { useDeleteModal } from '@/hooks/useDeleteModal';
 import { BeaconType } from '@/types/beacon';
 import { UpdateUserRequest } from '@/types/request';
 import { UserEditor } from '@/types/user';
@@ -22,8 +22,7 @@ export const EditUserForm = (props: { user: UserEditor; beaconTypes: BeaconType[
   const community = useCommunityState();
   const selectTags = useSelectTags();
   const currentTagNames = user.tags.map((tag) => tag.name);
-  const [visible] = useDisclosure(true);
-  const [opened, { open, close }] = useDisclosure(false);
+  const { opened, open, close } = useDeleteModal();
   const queryClient = useQueryClient();
   const { setEditingUserId } = useEditingUserMutators();
   const { setAlertMode } = useAlertModeMutators();
@@ -95,8 +94,8 @@ export const EditUserForm = (props: { user: UserEditor; beaconTypes: BeaconType[
     },
   });
 
-  const form = useForm({
-    initialValues: {
+  const form = useZodForm(
+    {
       id: user.id,
       name: user.name,
       uuid: user.uuid.slice(-5),
@@ -106,13 +105,13 @@ export const EditUserForm = (props: { user: UserEditor; beaconTypes: BeaconType[
       beaconName: user.beaconName,
       tagNames: currentTagNames,
     },
-    validate: schemaResolver(userSchema),
-  });
+    userSchema,
+  );
 
   return (
     <div>
       {(loadingDeleteUser || loadingUpdateUser) && (
-        <LoadingOverlay visible={visible} overlayProps={{ blur: 3 }} />
+        <LoadingOverlay visible overlayProps={{ blur: 3 }} />
       )}
       <Modal opened={opened} onClose={close} title='削除確認'>
         <div className='my-4 border' />
