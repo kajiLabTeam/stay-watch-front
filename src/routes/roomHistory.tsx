@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
-import RoomHistory from '@/features/roomHistory/components/RoomHistory';
+import RoomHistory from '@/pages/RoomHistory';
 
 const searchSchema = z.object({
   page: z.coerce.number().int().positive().optional().catch(undefined),

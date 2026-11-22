@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import BeaconBase from '@/features/beacon/BeaconBase';
+import BeaconBase from '@/pages/Beacon';
 
 export const Route = createFileRoute('/beacon/$privateKey')({
   component: BeaconPage,
