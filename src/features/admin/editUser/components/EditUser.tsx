@@ -1,4 +1,3 @@
-'use client';
 import { Alert } from '@mantine/core';
 import Error from '@/components/common/Error';
 import Loading from '@/components/common/Loading';

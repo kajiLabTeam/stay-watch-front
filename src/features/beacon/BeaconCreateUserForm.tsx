@@ -1,4 +1,3 @@
-'use client';
 import { Alert, Button, LoadingOverlay, Select, TagsInput, TextInput } from '@mantine/core';
 import { useForm, schemaResolver } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';

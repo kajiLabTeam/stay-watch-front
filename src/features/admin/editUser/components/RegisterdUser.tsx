@@ -1,4 +1,3 @@
-'use client';
 import React from 'react';
 import { roleSelector } from '../constants/roleSelector';
 import { Badge } from '@/components/common/Badge';

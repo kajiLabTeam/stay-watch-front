@@ -1,4 +1,3 @@
-'use client';
 import React, { useRef, useEffect, useState } from 'react';
 import { useRoomState } from '@/features/floorMap/roomState';
 import { PopoverRoom } from '@/types/roomFloormap';

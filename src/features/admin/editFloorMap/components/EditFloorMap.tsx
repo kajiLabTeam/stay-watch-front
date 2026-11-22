@@ -1,4 +1,3 @@
-'use client';
 import Error from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
 import { BuildingSelector } from '@/features/admin/editFloorMap/components/BuildingSelector';

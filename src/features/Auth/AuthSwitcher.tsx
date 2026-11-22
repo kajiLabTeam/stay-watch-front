@@ -1,4 +1,3 @@
-'use client';
 import { FC, ReactNode } from 'react';
 import Loading from '@/components/common/Loading';
 import NotLogin from '@/components/common/NotLogin';

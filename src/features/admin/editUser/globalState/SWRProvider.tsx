@@ -1,5 +1,3 @@
-'use client';
-
 import { FC, ReactNode, memo } from 'react';
 import { SWRConfig } from 'swr';
 

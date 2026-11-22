@@ -1,4 +1,3 @@
-'use client';
 import { Avatar } from '@mantine/core';
 import { Menu } from '@mantine/core';
 import { useNavigate } from '@tanstack/react-router';

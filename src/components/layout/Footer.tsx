@@ -1,4 +1,3 @@
-'use client';
 import { Link } from '@tanstack/react-router';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { useHeaderButtonColor } from '@/hooks/commonhook';

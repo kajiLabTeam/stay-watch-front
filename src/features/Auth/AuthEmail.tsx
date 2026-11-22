@@ -1,4 +1,3 @@
-'use client';
 import { FC, ReactNode } from 'react';
 import Loading from '@/components/common/Loading';
 import { useIsRegisterEmail } from '@/utils/Auth';

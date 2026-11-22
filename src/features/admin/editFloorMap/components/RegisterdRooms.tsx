@@ -1,4 +1,3 @@
-'use client';
 import React from 'react';
 import { RegisterdRoom } from '@/features/admin/editFloorMap/components/RegisterdRoom';
 import { useEditingMapState } from '@/features/admin/editFloorMap/globalstate/editingMapState';

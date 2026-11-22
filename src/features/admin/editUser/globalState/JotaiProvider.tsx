@@ -1,5 +1,3 @@
-'use client';
-
 import { Provider } from 'jotai';
 import { FC, ReactNode, memo } from 'react';
 

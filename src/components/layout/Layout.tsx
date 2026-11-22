@@ -1,4 +1,3 @@
-'use client';
 import { ReactNode } from 'react';
 import Foot from '@/components/layout/Footer';
 import Head from '@/components/layout/Header';

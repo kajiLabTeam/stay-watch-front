@@ -1,4 +1,3 @@
-'use client';
 import React from 'react';
 import { RegisterdUser } from './RegisterdUser';
 import Loading from '@/components/common/Loading';

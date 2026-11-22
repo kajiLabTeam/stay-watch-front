@@ -1,4 +1,3 @@
-'use client';
 type Props = {
   roomName: string;
   userNames: string[];

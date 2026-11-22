@@ -1,4 +1,3 @@
-'use client';
 import { Link } from '@tanstack/react-router';
 import { Profile } from '@/components/layout/Profile';
 import { useCommunityState } from '@/globalStates/useCommunityState';

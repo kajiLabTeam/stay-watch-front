@@ -1,4 +1,3 @@
-'use client';
 import { Loader, LoadingOverlay } from '@mantine/core';
 
 type LoadingProps = {

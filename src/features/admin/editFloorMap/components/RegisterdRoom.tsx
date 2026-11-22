@@ -1,4 +1,3 @@
-'use client';
 import React, { useState } from 'react';
 import { RoomEditorForm } from '@/features/admin/editFloorMap/components/RoomEditorForm';
 import {

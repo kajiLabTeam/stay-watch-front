@@ -1,4 +1,3 @@
-'use client';
 import React, { useEffect, useState } from 'react';
 import { EditingPolygonCanvas } from '@/features/admin/editFloorMap/components/EditingPolygonCanvas';
 import { FloorMapCanvas } from '@/features/admin/editFloorMap/components/FloorMapCanvas';
