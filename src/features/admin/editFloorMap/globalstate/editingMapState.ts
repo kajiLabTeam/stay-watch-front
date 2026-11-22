@@ -1,27 +1,24 @@
 // atoms.ts
 import axios from 'axios';
 import React, { useCallback } from 'react';
-import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
+import { atom, useAtomValue, useSetAtom } from 'jotai';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import { EditorRoom, Building, SubmitRoom } from '@/types/roomFloormap';
 import { endpoints } from '@/utils/endpoint';
 
 const editingMapState = atom({
-  key: 'editingMapAtom',
-  default: {
-    editingPolygon: [
-      [0, 0],
-      [1, 1],
-    ],
-    currentSelectedBuildingIndex: 0,
-    isEditingRoom: false,
-    editingRoomId: -1,
-  },
+  editingPolygon: [
+    [0, 0],
+    [1, 1],
+  ],
+  currentSelectedBuildingIndex: 0,
+  isEditingRoom: false,
+  editingRoomId: -1,
 });
 
 export const useEditingMapState = () => {
-  return useRecoilValue(editingMapState);
+  return useAtomValue(editingMapState);
 };
 
 export const useEditingMapMutators = () => {
@@ -32,7 +29,7 @@ export const useEditingMapMutators = () => {
   const { data: buildings } = useGetAPI<Building[]>(`${endpoints.getBuildingsEditor}`);
   const { editingPolygon, currentSelectedBuildingIndex } = useEditingMapState();
 
-  const setEditingMap = useSetRecoilState(editingMapState);
+  const setEditingMap = useSetAtom(editingMapState);
 
   // フォームの「保存する」を押されたときの処理
   const storeRoomToDatabase = useCallback(

@@ -1,18 +1,15 @@
-import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
+import { atom, useAtomValue, useSetAtom } from 'jotai';
 
 const alertModeState = atom({
-  key: 'editingAlertAtom',
-  default: {
-    alertMode: -1,
-  },
+  alertMode: -1,
 });
 
 export const useAlertModeState = () => {
-  return useRecoilValue(alertModeState);
+  return useAtomValue(alertModeState);
 };
 
 export const useAlertModeMutators = () => {
-  const setAlert = useSetRecoilState(alertModeState);
+  const setAlert = useSetAtom(alertModeState);
 
   const setAlertMode = (alertMode: number) => {
     setAlert((prev) => ({

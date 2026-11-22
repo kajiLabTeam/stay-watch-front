@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
+import { atom, useAtomValue, useSetAtom } from 'jotai';
 import { useEditingMapState } from '@/features/admin/editFloorMap/globalstate/editingMapState';
 import { useCommunityState } from '@/globalStates/useCommunityState';
 import { useGetAPI } from '@/hooks/useGetAPI';
@@ -7,23 +7,20 @@ import { EditorRoom, Building } from '@/types/roomFloormap';
 import { endpoints } from '@/utils/endpoint';
 
 // マップデータ描画するのに必要なオブジェクト
-const mapsDataState = atom({
-  key: 'mapsState',
-  default: [
-    {
-      roomId: -1,
-      buildingId: -1,
-      polygon: [
-        [0, 0],
-        [0, 0],
-      ],
-      color: 'rgba(0,255,0,0.3)',
-    },
-  ],
-});
+const mapsDataState = atom([
+  {
+    roomId: -1,
+    buildingId: -1,
+    polygon: [
+      [0, 0],
+      [0, 0],
+    ],
+    color: 'rgba(0,255,0,0.3)',
+  },
+]);
 
 export const useMapsDataState = () => {
-  return useRecoilValue(mapsDataState);
+  return useAtomValue(mapsDataState);
 };
 
 export const useMapsDataMutators = () => {
@@ -33,7 +30,7 @@ export const useMapsDataMutators = () => {
   );
   const { data: buildings } = useGetAPI<Building[]>(`${endpoints.getBuildingsEditor}`);
   const { currentSelectedBuildingIndex } = useEditingMapState();
-  const setMapsData = useSetRecoilState(mapsDataState);
+  const setMapsData = useSetAtom(mapsDataState);
 
   const updateMouseOverRoomColor = (roomId: number) => {
     setMapsData((prevState) => {

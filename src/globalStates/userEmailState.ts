@@ -1,17 +1,13 @@
-import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
+import { atom, useAtomValue, useSetAtom } from 'jotai';
 
-const userEmail = atom<string | null>({
-  key: 'userEmail',
-  default: null,
-  dangerouslyAllowMutability: true,
-});
+const userEmail = atom<string | null>(null);
 
 export const useUserEmailState = (): string | null => {
-  return useRecoilValue(userEmail);
+  return useAtomValue(userEmail);
 };
 
 export const useUserEmailMutators = () => {
-  const setUserEmail = useSetRecoilState(userEmail);
+  const setUserEmail = useSetAtom(userEmail);
   return {
     setUserEmail,
   };

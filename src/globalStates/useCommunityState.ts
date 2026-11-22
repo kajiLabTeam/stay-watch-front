@@ -1,19 +1,16 @@
-import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
+import { atom, useAtomValue, useSetAtom } from 'jotai';
 
 const community = atom({
-  key: 'community',
-  default: {
-    communityId: -1,
-    communityName: '',
-  },
+  communityId: -1,
+  communityName: '',
 });
 
 export const useCommunityState = () => {
-  return useRecoilValue(community);
+  return useAtomValue(community);
 };
 
 export const useCommunityMutators = () => {
-  const setCommunity = useSetRecoilState(community);
+  const setCommunity = useSetAtom(community);
 
   return {
     setCommunity,

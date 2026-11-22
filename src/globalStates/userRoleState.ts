@@ -1,17 +1,13 @@
-import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
+import { atom, useAtomValue, useSetAtom } from 'jotai';
 
-const userRole = atom<number | null>({
-  key: 'userRole',
-  default: null,
-  dangerouslyAllowMutability: true,
-});
+const userRole = atom<number | null>(null);
 
 export const useUserRoleState = (): number | null => {
-  return useRecoilValue(userRole);
+  return useAtomValue(userRole);
 };
 
 export const useUserRoleMutators = () => {
-  const setUserRole = useSetRecoilState(userRole);
+  const setUserRole = useSetAtom(userRole);
 
   return {
     setUserRole,

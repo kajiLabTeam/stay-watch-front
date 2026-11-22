@@ -1,18 +1,15 @@
-import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
+import { atom, useAtomValue, useSetAtom } from 'jotai';
 
 const editingUserState = atom({
-  key: 'editingUserAtom',
-  default: {
-    editingUserId: -1,
-  },
+  editingUserId: -1,
 });
 
 export const useEditingUserState = () => {
-  return useRecoilValue(editingUserState);
+  return useAtomValue(editingUserState);
 };
 
 export const useEditingUserMutators = () => {
-  const setEditingUser = useSetRecoilState(editingUserState);
+  const setEditingUser = useSetAtom(editingUserState);
 
   const setEditingUserId = (editingUserId: number) => {
     setEditingUser((prev) => ({

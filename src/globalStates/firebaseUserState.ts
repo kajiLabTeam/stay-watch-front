@@ -1,18 +1,14 @@
 import firebase from 'firebase/auth';
-import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
+import { atom, useAtomValue, useSetAtom } from 'jotai';
 
-const userState = atom<firebase.User | null>({
-  key: 'userState',
-  default: null,
-  dangerouslyAllowMutability: true,
-});
+const userState = atom<firebase.User | null>(null);
 
 export const useUserState = (): firebase.User | null => {
-  return useRecoilValue(userState);
+  return useAtomValue(userState);
 };
 
 export const useUserMutators = () => {
-  const setUserState = useSetRecoilState(userState);
+  const setUserState = useSetAtom(userState);
 
   return {
     setUserState,

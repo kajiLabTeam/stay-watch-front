@@ -6,7 +6,7 @@ import React from 'react';
 import Layout from '@/components/layout/Layout';
 import AuthEmail from '@/features/Auth/AuthEmail';
 import AuthSwitcher from '@/features/Auth/AuthSwitcher';
-import { RecoilProvider } from '@/features/admin/editUser/globalState/RecoilProvider';
+import { JotaiProvider } from '@/features/admin/editUser/globalState/JotaiProvider';
 import { SWRProvider } from '@/features/admin/editUser/globalState/SWRProvider';
 import { kosugiMaru } from '@/utils/fonts';
 import Favicon from '/public/favicon.ico';
@@ -21,7 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang='ja'>
       <body className={`${kosugiMaru.className}`}>
-        <RecoilProvider>
+        <JotaiProvider>
           <MantineProvider>
             <SWRProvider>
               <Layout>
@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </Layout>
             </SWRProvider>
           </MantineProvider>
-        </RecoilProvider>
+        </JotaiProvider>
       </body>
     </html>
   );
