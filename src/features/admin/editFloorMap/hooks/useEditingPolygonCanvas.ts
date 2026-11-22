@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
+import type { MouseEvent } from 'react';
 import {
   useEditingMapMutators,
   useEditingMapState,
@@ -9,84 +10,53 @@ export const useEditingPolygonCanvas = (canvasWidth: number, canvasHeight: numbe
   const { setEditingPolygon } = useEditingMapMutators();
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const isDrawing = useRef(false);
+  const start = useRef({ x: 0, y: 0 });
 
-  const MOUSE_DRAWING = 1;
-  const MOUSE_NOT_DRAWING = 0;
-
-  const drawSquare = (
-    x1: number,
-    y1: number,
-    x2: number,
-    y2: number,
-    drawingCanvas: CanvasRenderingContext2D,
-  ) => {
-    drawingCanvas.clearRect(0, 0, canvasWidth, canvasHeight);
-    drawingCanvas.fillStyle = 'red';
-    drawingCanvas.fillRect(x1, y1, x2 - x1, y2 - y1);
+  // マウス座標をキャンバス座標に変換する（表示サイズはウィンドウによって変わるため比率で補正）
+  const toCanvasPosition = (e: MouseEvent<HTMLCanvasElement>) => {
+    const element = e.currentTarget;
+    const ratio = element.clientWidth / canvasWidth;
+    const rect = element.getBoundingClientRect();
+    return {
+      x: Math.trunc((e.clientX - Math.floor(rect.left)) / ratio),
+      y: Math.trunc((e.clientY - Math.floor(rect.top)) / ratio),
+    };
   };
 
-  useEffect(() => {
-    const canvasElement = canvasRef.current;
-    const drawingCanvas = canvasRef.current?.getContext('2d');
+  const onClick = (e: MouseEvent<HTMLCanvasElement>) => {
+    if (!isEditingRoom) return;
+    const pos = toCanvasPosition(e);
 
-    if (!drawingCanvas) return;
-
-    if (!isEditingRoom) {
-      drawingCanvas.clearRect(0, 0, canvasWidth, canvasHeight);
+    if (isDrawing.current) {
+      // 四角の終了
+      isDrawing.current = false;
+      setEditingPolygon([
+        [start.current.x, start.current.y],
+        [pos.x, pos.y],
+      ]);
+    } else {
+      // 四角の開始
+      start.current = pos;
+      isDrawing.current = true;
     }
+  };
 
-    if (canvasElement) {
-      let startX = 0;
-      let startY = 0;
-      let endX = 0;
-      let endY = 0;
-      let mouseMode = MOUSE_NOT_DRAWING;
-      let canvasElementRatio: number = canvasElement.clientWidth / canvasWidth; // キャンバスサイズとウィンドウによって変わる要素サイズの比率
+  const onMouseMove = (e: MouseEvent<HTMLCanvasElement>) => {
+    if (!isEditingRoom || !isDrawing.current) return;
+    const ctx = e.currentTarget.getContext('2d');
+    if (!ctx) return;
+    const pos = toCanvasPosition(e);
 
-      if (isEditingRoom) {
-        canvasElement.onclick = (e) => {
-          canvasElementRatio = canvasElement.clientWidth / canvasWidth;
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    ctx.fillStyle = 'red';
+    ctx.fillRect(
+      start.current.x,
+      start.current.y,
+      pos.x - start.current.x,
+      pos.y - start.current.y,
+    );
+  };
 
-          let rect = canvasElement.getBoundingClientRect();
-
-          if (mouseMode === MOUSE_DRAWING) {
-            // 四角の終了
-            // 四角の終点を定める
-            endX = Math.trunc((e.clientX - Math.floor(rect.left)) / canvasElementRatio);
-            endY = Math.trunc((e.clientY - Math.floor(rect.top)) / canvasElementRatio);
-            //console.log("部屋の範囲：" + startX + "," + startY + "-" + endX + "," + endY);
-            mouseMode = MOUSE_NOT_DRAWING;
-            setEditingPolygon([
-              [startX, startY],
-              [endX, endY],
-            ]);
-          } else if (mouseMode === MOUSE_NOT_DRAWING) {
-            // 四角の開始
-            // 四角の始点を定める
-            startX = Math.trunc((e.clientX - Math.floor(rect.left)) / canvasElementRatio);
-            startY = Math.trunc((e.clientY - Math.floor(rect.top)) / canvasElementRatio);
-            mouseMode = MOUSE_DRAWING;
-          }
-        };
-        canvasElement.onmousemove = (e) => {
-          if (mouseMode === MOUSE_NOT_DRAWING) {
-            // 四角かいていない時
-          } else if (mouseMode === MOUSE_DRAWING) {
-            // 四角を描いている途中
-            canvasElementRatio = canvasElement.clientWidth / canvasWidth;
-            let rect = canvasElement.getBoundingClientRect();
-            let canvasPositionX = Math.trunc(
-              (e.clientX - Math.floor(rect.left)) / canvasElementRatio,
-            );
-            let canvasPositionY = Math.trunc(
-              (e.clientY - Math.floor(rect.top)) / canvasElementRatio,
-            );
-            drawSquare(startX, startY, canvasPositionX, canvasPositionY, drawingCanvas);
-          }
-        };
-      }
-    }
-  }, [canvasRef, isEditingRoom, setEditingPolygon, canvasWidth, canvasHeight]);
-
-  return { canvasRef };
+  return { canvasRef, onClick, onMouseMove };
 };

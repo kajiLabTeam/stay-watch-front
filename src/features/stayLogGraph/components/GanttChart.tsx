@@ -34,7 +34,7 @@ const renderGanttItem: CustomSeriesRenderItem = (_params, api) => {
   const categoryIndex = api.value(0) as number;
   const start = api.coord([api.value(1), categoryIndex]);
   const end = api.coord([api.value(2), categoryIndex]);
-  const rowHeight = (api.size?.([0, 1]) as number[])[1];
+  const rowHeight = (api.size!([0, 1]) as number[])[1];
   const barHeight = rowHeight * 0.8;
 
   return {

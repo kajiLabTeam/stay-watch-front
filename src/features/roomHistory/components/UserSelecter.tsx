@@ -4,7 +4,7 @@ import { UserAttribute } from '@/types/user';
 
 type UserSelecterProps = {
   users: UserAttribute[];
-  handleUserID: (userId: string | null) => void; // eslint-disable-line
+  handleUserID: (userId: string | null) => void; // oxlint-disable-line
   paramsUserID: string | null;
 };
 

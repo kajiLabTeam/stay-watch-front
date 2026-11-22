@@ -8,7 +8,7 @@ export const useParamChange = (): [
   string | null,
   () => void,
   () => void,
-  (userId: string | null) => void, // eslint-disable-line
+  (userId: string | null) => void, // oxlint-disable-line
 ] => {
   const search = route.useSearch();
   const navigate = useNavigate({ from: '/roomHistory' });

@@ -96,7 +96,7 @@ export const useIsRegisterEmail = (): {
       };
       checkRegisterdEmail();
     }
-  }, [setUserRole, setCommunity, user]);
+  }, [email, setUserRole, setCommunity, setUserEmail, user]);
 
   return { isRegisteredEmail, status };
 };
