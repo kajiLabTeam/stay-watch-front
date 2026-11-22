@@ -28,7 +28,7 @@ export default function BeaconEditUserForm({ privateKey }: PropsType) {
   const community = useCommunityState();
   const firebaseUser = useUserState();
   const { data: users, error: errorUsers } = useGetAPI<User[]>(
-    `${ENDPOINTS.users}/${community.communityId}`,
+    community ? `${ENDPOINTS.users}/${community.communityId}` : null,
   );
   const usersSelecter: UsersSelectData[] =
     users?.map((user) => ({ label: user.name, value: String(user.id) })) ?? [];

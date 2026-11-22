@@ -1,15 +1,8 @@
-import { atom, useAtomValue, useSetAtom } from 'jotai';
+import { atom, useAtomValue } from 'jotai';
+import { verifiedUserState } from '@/atoms/verifiedUserAtom';
 
-const userRole = atom<number | null>(null);
+const userRoleState = atom((get): number | null => get(verifiedUserState)?.role ?? null);
 
 export const useUserRoleState = (): number | null => {
-  return useAtomValue(userRole);
-};
-
-export const useUserRoleMutators = () => {
-  const setUserRole = useSetAtom(userRole);
-
-  return {
-    setUserRole,
-  };
+  return useAtomValue(userRoleState);
 };

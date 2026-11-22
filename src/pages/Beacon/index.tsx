@@ -15,7 +15,7 @@ export default function BeaconBase({ privateKey }: BeaconBaseProps) {
   const [selectedMode, setSelectedMode] = useState('create');
   const { alertMode } = useAlertModeState();
 
-  if (userRole == null || userRole < 2) return <div>権限がありません</div>;
+  if (userRole === null || userRole < 2) return <div>権限がありません</div>;
 
   return (
     <BeaconPanel>

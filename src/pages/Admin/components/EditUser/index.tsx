@@ -14,7 +14,7 @@ export default function EditUser() {
   const { alertMode } = useAlertModeState();
   const community = useCommunityState();
   const { data: users, error: usersError } = useGetAPI<UserEditor[]>(
-    `${ENDPOINTS.adminUsers}/${community.communityId}`,
+    community ? `${ENDPOINTS.adminUsers}/${community.communityId}` : null,
   );
   const { data: beaconTypes, error: beaconTypesError } = useGetAPI<BeaconType[]>(ENDPOINTS.beacons);
 

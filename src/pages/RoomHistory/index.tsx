@@ -29,7 +29,7 @@ export default function RoomHistory() {
     data: users,
     error: usersError,
     isLoading: isLoadingUsers,
-  } = useGetAPI<UserAttribute[]>(`${ENDPOINTS.users}/${community.communityId}`);
+  } = useGetAPI<UserAttribute[]>(community ? `${ENDPOINTS.users}/${community.communityId}` : null);
 
   if (isLoadingStayLog || isLoadingUsers) return <Loading message='滞在履歴取得中' />;
   if (stayLogError || usersError) return <Error message='滞在履歴取得失敗' />;

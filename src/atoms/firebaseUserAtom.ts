@@ -16,7 +16,7 @@ authState.onMount = (setAuthState) => {
   });
 };
 
-const userState = atom((get) => get(authState).user);
+export const userState = atom((get) => get(authState).user);
 
 const isSignedState = atom((get) => {
   const { user, isResolved } = get(authState);

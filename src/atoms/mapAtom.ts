@@ -17,7 +17,7 @@ const hoveredRoomIdState = atom<number | null>(null);
 export const useMapsDataState = (): FloorMapRoom[] => {
   const community = useCommunityState();
   const { data: rooms } = useGetAPI<EditorRoom[]>(
-    `${ENDPOINTS.getRoomsEditorByCommunityID}/${community.communityId}`,
+    community ? `${ENDPOINTS.getRoomsEditorByCommunityID}/${community.communityId}` : null,
   );
   const { data: buildings } = useGetAPI<Building[]>(ENDPOINTS.getBuildingsEditor);
   const { currentSelectedBuildingIndex } = useEditingMapState();

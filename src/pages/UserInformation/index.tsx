@@ -12,7 +12,7 @@ export default function UserInformation() {
     data: users,
     error,
     isLoading,
-  } = useGetAPI<UserAttribute[]>(`${ENDPOINTS.users}/${community.communityId}`);
+  } = useGetAPI<UserAttribute[]>(community ? `${ENDPOINTS.users}/${community.communityId}` : null);
 
   if (isLoading) return <Loading message='利用者情報取得中' />;
   if (error) return <Error message='利用者情報取得失敗' />;

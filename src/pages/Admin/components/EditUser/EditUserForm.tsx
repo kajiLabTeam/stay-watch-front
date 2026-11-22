@@ -40,7 +40,7 @@ export default function EditUserForm(props: { user: UserEditor; beaconTypes: Bea
     mutate: updateUser,
   } = useMutation<void, ApiError, UserFormValues>({
     mutationFn: async (values: UserFormValues) => {
-      if (!firebaseUser) return;
+      if (!firebaseUser || !community) return;
 
       let updateUserRequest: UpdateUserRequest = {
         id: user.id,
@@ -68,7 +68,7 @@ export default function EditUserForm(props: { user: UserEditor; beaconTypes: Bea
     mutate: deleteUser,
   } = useMutation<void, ApiError, number>({
     mutationFn: async (userId: number) => {
-      if (!firebaseUser) return;
+      if (!firebaseUser || !community) return;
 
       const token = await firebaseUser.getIdToken();
       await request(`${ENDPOINTS.users}/${userId}`, { method: 'DELETE', token });
@@ -107,8 +107,7 @@ export default function EditUserForm(props: { user: UserEditor; beaconTypes: Bea
         <form
           className=' flex flex-col'
           onSubmit={form.onSubmit((values) => {
-            const modifiedValues = { ...values, communityId: community.communityId };
-            updateUser(modifiedValues);
+            updateUser(values);
           })}
         >
           <UserFormFields form={form} beaconTypes={beaconTypes} />

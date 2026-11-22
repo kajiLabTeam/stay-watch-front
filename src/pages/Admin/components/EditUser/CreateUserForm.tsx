@@ -31,7 +31,7 @@ export default function CreateUserForm(props: { beaconTypes: BeaconType[] }) {
     mutate: submitCreateUser,
   } = useMutation<void, ApiError, UserFormValues>({
     mutationFn: async (values: UserFormValues) => {
-      if (!user) return;
+      if (!user || !community) return;
 
       let createUserRequest: CreateUserRequest = {
         name: values.name,

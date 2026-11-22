@@ -33,7 +33,7 @@ export default function BeaconRegisterForm({ privateKey }: PropsType) {
     mutate: submitCreateUser,
   } = useMutation<void, ApiError, BeaconCreateFormValues>({
     mutationFn: async (values: BeaconCreateFormValues) => {
-      if (!firebaseUser) return;
+      if (!firebaseUser || !community) return;
 
       let createUserRequest: CreatePrivateBeaconUserRequest = {
         name: values.name,

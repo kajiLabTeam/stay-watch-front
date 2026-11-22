@@ -8,7 +8,7 @@ import { ENDPOINTS } from '@/utils/endpoint';
 export const useRoomState = () => {
   const community = useCommunityState();
   const { data: rooms } = useGetAPI<EditorRoom[]>(
-    `${ENDPOINTS.getRoomsEditorByCommunityID}/${community.communityId}`,
+    community ? `${ENDPOINTS.getRoomsEditorByCommunityID}/${community.communityId}` : null,
   );
   const { data: stayers } = useGetAPI<StayerType[]>(ENDPOINTS.stayers);
 

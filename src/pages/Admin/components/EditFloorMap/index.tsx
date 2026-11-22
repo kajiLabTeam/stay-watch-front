@@ -12,7 +12,7 @@ import { ENDPOINTS } from '@/utils/endpoint';
 export default function EditFloorMap() {
   const community = useCommunityState();
   const { data: rooms, isLoading: roomsIsLoading } = useGetAPI<EditorRoom[]>(
-    `${ENDPOINTS.getRoomsEditorByCommunityID}/${community.communityId}`,
+    community ? `${ENDPOINTS.getRoomsEditorByCommunityID}/${community.communityId}` : null,
   );
   const { data: buildings, isLoading: buildingsIsLoading } = useGetAPI<Building[]>(
     ENDPOINTS.getBuildingsEditor,

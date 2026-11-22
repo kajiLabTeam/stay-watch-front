@@ -10,7 +10,7 @@ export default function RegisterdRooms(props: { rooms: EditorRoom[]; buildings: 
 
   return (
     <div>
-      <p>{community.communityName}</p>
+      <p>{community?.communityName}</p>
       {props.rooms.map((room: EditorRoom) => (
         <RegisterdRoom
           key={room.roomId}

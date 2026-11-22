@@ -21,7 +21,7 @@ export default function Header() {
         <HeaderLink to='/activityHeatmap' label='活動予報' />
       </div>
       <div className='text-center'>
-        <p className='text-xl'>{community.communityName}</p>
+        <p className='text-xl'>{community?.communityName}</p>
         <Profile />
       </div>
     </div>

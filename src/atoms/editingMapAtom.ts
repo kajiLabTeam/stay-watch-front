@@ -23,7 +23,7 @@ export const useEditingMapState = () => {
 export const useEditingMapMutators = () => {
   const community = useCommunityState();
   const { data: rooms } = useGetAPI<EditorRoom[]>(
-    `${ENDPOINTS.getRoomsEditorByCommunityID}/${community.communityId}`,
+    community ? `${ENDPOINTS.getRoomsEditorByCommunityID}/${community.communityId}` : null,
   );
   const { data: buildings } = useGetAPI<Building[]>(ENDPOINTS.getBuildingsEditor);
   const { editingPolygon, currentSelectedBuildingIndex } = useEditingMapState();

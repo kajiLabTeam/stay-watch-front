@@ -17,7 +17,9 @@ const dataToSelectTag = (tags: Tag[]): tagSelector[] => {
 
 export const useSelectTags = () => {
   const community = useCommunityState();
-  const { data: tags } = useGetAPI<Tag[]>(`${ENDPOINTS.tags}/${community.communityId}`);
+  const { data: tags } = useGetAPI<Tag[]>(
+    community ? `${ENDPOINTS.tags}/${community.communityId}` : null,
+  );
   const selectTags = tags ? dataToSelectTag(tags) : [];
   return selectTags;
 };

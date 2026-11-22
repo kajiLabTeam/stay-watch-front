@@ -1,22 +1,18 @@
-import { FC, ReactNode } from 'react';
+import { ReactNode } from 'react';
+import AuthEmailError from './AuthEmailError';
 import Loading from '@/components/common/Loading';
 import { useIsRegisterEmail } from '@/hooks/useIsRegisterEmail';
-import { statusCode } from '@/utils/statusCode';
 
-type Props = {
+interface AuthEmailProps {
   children: ReactNode;
-};
+}
 
-export default function AuthEmail({ children }: Props) {
+export default function AuthEmail({ children }: AuthEmailProps) {
   const { isRegisteredEmail, status } = useIsRegisterEmail();
-  if (isRegisteredEmail === undefined) {
-    return <Loading message='権限確認中' />;
-  }
-  if (!isRegisteredEmail) {
-    if (status === statusCode.UNREGISTERED_MAIL_ADDRESS) {
-      return <div>管理者にメールアドレスを登録してもらう必要があります</div>;
-    }
-    return <div>サーバーエラー</div>;
-  }
-  return <div>{children}</div>;
+
+  // 権限確認(check)で存在を確認できてから子を表示する
+  if (isRegisteredEmail === undefined) return <Loading message='権限確認中' />;
+  if (!isRegisteredEmail) return <AuthEmailError status={status} />;
+
+  return <>{children}</>;
 }
