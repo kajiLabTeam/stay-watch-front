@@ -11,7 +11,7 @@ import { useCommunityState } from '@/atoms/communityAtom';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import { UpdatePrivateBeaconUserRequest } from '@/types/request';
 import { User } from '@/types/user';
-import { endpoints } from '@/utils/endpoint';
+import { ENDPOINTS } from '@/utils/endpoint';
 
 type UsersSelectData = {
   label: string;
@@ -27,7 +27,7 @@ function BeaconEditUserForm({ privateKey }: PropsType) {
   const community = useCommunityState();
   const firebaseUser = useUserState();
   const { data: users, error: errorUsers } = useGetAPI<User[]>(
-    `${endpoints.users}/${community.communityId}`,
+    `${ENDPOINTS.users}/${community.communityId}`,
   );
   const usersSelecter: UsersSelectData[] =
     users?.map((user) => ({ label: user.name, value: String(user.id) })) ?? [];
@@ -51,7 +51,7 @@ function BeaconEditUserForm({ privateKey }: PropsType) {
           privateKey: privateKey,
         };
         const token = await firebaseUser.getIdToken();
-        await request(endpoints.users, { method: 'PUT', token, body: updateUserRequest });
+        await request(ENDPOINTS.users, { method: 'PUT', token, body: updateUserRequest });
 
         // これより下は成功した時のみ動作する
         displayAlert(2);

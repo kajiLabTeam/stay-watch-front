@@ -4,7 +4,7 @@ import Loading from '@/components/common/Loading';
 import { useCommunityState } from '@/atoms/communityAtom';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import { UserAttribute } from '@/types/user';
-import { endpoints } from '@/utils/endpoint';
+import { ENDPOINTS } from '@/utils/endpoint';
 
 const UserInformation = () => {
   const community = useCommunityState();
@@ -12,7 +12,7 @@ const UserInformation = () => {
     data: users,
     error,
     isLoading,
-  } = useGetAPI<UserAttribute[]>(`${endpoints.users}/${community.communityId}`);
+  } = useGetAPI<UserAttribute[]>(`${ENDPOINTS.users}/${community.communityId}`);
 
   if (isLoading) return <Loading message='利用者情報取得中' />;
   if (error) return <Error message='利用者情報取得失敗' />;

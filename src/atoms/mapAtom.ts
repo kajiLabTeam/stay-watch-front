@@ -4,7 +4,7 @@ import { useEditingMapState } from '@/atoms/editingMapAtom';
 import { useCommunityState } from '@/atoms/communityAtom';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import { EditorRoom, Building, FloorMapRoom } from '@/types/roomFloormap';
-import { endpoints } from '@/utils/endpoint';
+import { ENDPOINTS } from '@/utils/endpoint';
 
 const DEFAULT_ROOM_COLOR = 'rgba(0,255,0,0.3)';
 const HOVERED_ROOM_COLOR = 'rgba(0,0,255,0.7)';
@@ -17,9 +17,9 @@ const hoveredRoomIdState = atom<number | null>(null);
 export const useMapsDataState = (): FloorMapRoom[] => {
   const community = useCommunityState();
   const { data: rooms } = useGetAPI<EditorRoom[]>(
-    `${endpoints.getRoomsEditorByCommunityID}/${community.communityId}`,
+    `${ENDPOINTS.getRoomsEditorByCommunityID}/${community.communityId}`,
   );
-  const { data: buildings } = useGetAPI<Building[]>(`${endpoints.getBuildingsEditor}`);
+  const { data: buildings } = useGetAPI<Building[]>(`${ENDPOINTS.getBuildingsEditor}`);
   const { currentSelectedBuildingIndex } = useEditingMapState();
   const hoveredRoomId = useAtomValue(hoveredRoomIdState);
 

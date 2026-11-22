@@ -1,7 +1,7 @@
 import { useCommunityState } from '@/atoms/communityAtom';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import { Tag } from '@/types/tag';
-import { endpoints } from '@/utils/endpoint';
+import { ENDPOINTS } from '@/utils/endpoint';
 
 type tagSelector = {
   value: string;
@@ -17,7 +17,7 @@ const dataToSelectTag = (tags: Tag[]): tagSelector[] => {
 
 export const useSelectTags = () => {
   const community = useCommunityState();
-  const { data: tags } = useGetAPI<Tag[]>(`${endpoints.tags}/${community.communityId}`);
+  const { data: tags } = useGetAPI<Tag[]>(`${ENDPOINTS.tags}/${community.communityId}`);
   const selectTags = tags ? dataToSelectTag(tags) : [];
   return selectTags;
 };

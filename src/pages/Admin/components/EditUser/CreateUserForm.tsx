@@ -11,7 +11,7 @@ import { useUserState } from '@/atoms/firebaseUserAtom';
 import { useCommunityState } from '@/atoms/communityAtom';
 import { BeaconType } from '@/types/beacon';
 import { CreateUserRequest } from '@/types/request';
-import { endpoints } from '@/utils/endpoint';
+import { ENDPOINTS } from '@/utils/endpoint';
 
 export const CreateUserForm = (props: { beaconTypes: BeaconType[] }) => {
   const { beaconTypes } = props;
@@ -57,10 +57,10 @@ export const CreateUserForm = (props: { beaconTypes: BeaconType[] }) => {
           tagNames: values.tagNames,
         };
         const token = await user.getIdToken();
-        await request(endpoints.users, { method: 'POST', token, body: createUserRequest });
+        await request(ENDPOINTS.users, { method: 'POST', token, body: createUserRequest });
         // これより下は成功した時のみ動作する
         queryClient.invalidateQueries({
-          queryKey: [`${endpoints.adminUsers}/${community.communityId}`],
+          queryKey: [`${ENDPOINTS.adminUsers}/${community.communityId}`],
         });
         displayAlert(1);
         form.reset();

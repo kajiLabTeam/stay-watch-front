@@ -5,19 +5,19 @@ import Loading from '@/components/common/Loading';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import { EditorRoom } from '@/types/roomFloormap';
 import StayerType from '@/types/stayer';
-import { endpoints } from '@/utils/endpoint';
+import { ENDPOINTS } from '@/utils/endpoint';
 
 const Stayer = () => {
   const {
     data: stayers,
     error: errorStayers,
     isLoading: isLoadingStayers,
-  } = useGetAPI<StayerType[]>(`${endpoints.stayers}`);
+  } = useGetAPI<StayerType[]>(`${ENDPOINTS.stayers}`);
   const {
     data: rooms,
     error: errorRooms,
     isLoading: isLoadingRooms,
-  } = useGetAPI<EditorRoom[]>(`${endpoints.getRoomsEditorByCommunityID}/2`);
+  } = useGetAPI<EditorRoom[]>(`${ENDPOINTS.getRoomsEditorByCommunityID}/2`);
 
   if (isLoadingRooms || isLoadingStayers) return <Loading message='滞在情報取得中' />;
   if (errorStayers || errorRooms) return <Error message='滞在情報取得失敗' />;

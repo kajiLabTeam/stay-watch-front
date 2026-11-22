@@ -8,7 +8,7 @@ import {
   signInWithRedirect,
 } from 'firebase/auth';
 import { useQuery } from '@tanstack/react-query';
-import { endpoints } from './endpoint';
+import { ENDPOINTS } from './endpoint';
 import { useUserState } from '@/atoms/firebaseUserAtom';
 import { useCommunityMutators } from '@/atoms/communityAtom';
 import { useUserEmailMutators, useUserEmailState } from '@/atoms/userEmailAtom';
@@ -54,7 +54,7 @@ export const useIsRegisterEmail = (): {
       // enabled により user は存在するが、型上の絞り込みのためチェックする
       if (!user) throw new Error('user is not signed in');
       const token = await user.getIdToken();
-      const resUser = await request<User>(endpoints.check, { token });
+      const resUser = await request<User>(ENDPOINTS.check, { token });
 
       setUserRole(resUser.role);
       setCommunity({

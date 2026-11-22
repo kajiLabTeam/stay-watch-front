@@ -11,7 +11,7 @@ import { useCommunityState } from '@/atoms/communityAtom';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import { LogsListResponse } from '@/types/log';
 import { UserAttribute } from '@/types/user';
-import { endpoints } from '@/utils/endpoint';
+import { ENDPOINTS } from '@/utils/endpoint';
 
 const RoomHistory = () => {
   const [currentOffset, currentPage, currentUserID, previousPage, nextPage, updateSelectedUser] =
@@ -24,14 +24,14 @@ const RoomHistory = () => {
     error: stayLogError,
     isLoading: isLoadingStayLog,
   } = useGetAPI<LogsListResponse>(
-    `${endpoints.logs}?offset=${currentOffset}${currentUserID ? `&&user-id=${currentUserID}` : ''}`,
+    `${ENDPOINTS.logs}?offset=${currentOffset}${currentUserID ? `&&user-id=${currentUserID}` : ''}`,
   );
 
   const {
     data: users,
     error: usersError,
     isLoading: isLoadingUsers,
-  } = useGetAPI<UserAttribute[]>(`${endpoints.users}/${community.communityId}`);
+  } = useGetAPI<UserAttribute[]>(`${ENDPOINTS.users}/${community.communityId}`);
 
   if (isLoadingStayLog || isLoadingUsers) return <Loading message='滞在履歴取得中' />;
   if (stayLogError || usersError) return <Error message='滞在履歴取得失敗' />;

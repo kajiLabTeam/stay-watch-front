@@ -3,14 +3,14 @@ import { useCommunityState } from '@/atoms/communityAtom';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import { EditorRoom, ViewerRoom } from '@/types/roomFloormap';
 import StayerType from '@/types/stayer';
-import { endpoints } from '@/utils/endpoint';
+import { ENDPOINTS } from '@/utils/endpoint';
 
 export const useRoomState = () => {
   const community = useCommunityState();
   const { data: rooms } = useGetAPI<EditorRoom[]>(
-    `${endpoints.getRoomsEditorByCommunityID}/${community.communityId}`,
+    `${ENDPOINTS.getRoomsEditorByCommunityID}/${community.communityId}`,
   );
-  const { data: stayers } = useGetAPI<StayerType[]>(`${endpoints.stayers}`);
+  const { data: stayers } = useGetAPI<StayerType[]>(`${ENDPOINTS.stayers}`);
 
   const viewerRooms = useMemo((): ViewerRoom[] | null => {
     if (!rooms || !stayers) return null;

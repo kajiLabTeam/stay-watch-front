@@ -7,15 +7,15 @@ import { useEditingMapState } from '@/atoms/editingMapAtom';
 import { useCommunityState } from '@/atoms/communityAtom';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import { EditorRoom, Building } from '@/types/roomFloormap';
-import { endpoints } from '@/utils/endpoint';
+import { ENDPOINTS } from '@/utils/endpoint';
 
 export const EditFloorMap = () => {
   const community = useCommunityState();
   const { data: rooms, isLoading: roomsIsLoading } = useGetAPI<EditorRoom[]>(
-    `${endpoints.getRoomsEditorByCommunityID}/${community.communityId}`,
+    `${ENDPOINTS.getRoomsEditorByCommunityID}/${community.communityId}`,
   );
   const { data: buildings, isLoading: buildingsIsLoading } = useGetAPI<Building[]>(
-    `${endpoints.getBuildingsEditor}`,
+    `${ENDPOINTS.getBuildingsEditor}`,
   );
   const { currentSelectedBuildingIndex } = useEditingMapState();
 

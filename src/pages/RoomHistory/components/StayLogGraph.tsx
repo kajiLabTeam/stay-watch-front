@@ -3,7 +3,7 @@ import Loading from '@/components/common/Loading';
 import TabRoom from './TabRoom';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import GanttStayLog from '@/types/ganttStayLog';
-import { endpoints } from '@/utils/endpoint';
+import { ENDPOINTS } from '@/utils/endpoint';
 
 // @ts-ignore
 function classNames(...classes) {
@@ -11,7 +11,7 @@ function classNames(...classes) {
 }
 
 export const StayLogGraph = () => {
-  const { data, error } = useGetAPI<GanttStayLog[]>(`${endpoints.logsGantt}`);
+  const { data, error } = useGetAPI<GanttStayLog[]>(`${ENDPOINTS.logsGantt}`);
   if (error) return <div>滞在グラフデータ取得失敗</div>;
   if (!data) return <Loading message='滞在情報取得中' />;
   return (

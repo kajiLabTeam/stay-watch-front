@@ -8,16 +8,16 @@ import { useCommunityState } from '@/atoms/communityAtom';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import { BeaconType } from '@/types/beacon';
 import { UserEditor } from '@/types/user';
-import { endpoints } from '@/utils/endpoint';
+import { ENDPOINTS } from '@/utils/endpoint';
 
 export const EditUser = () => {
   const { alertMode } = useAlertModeState();
   const community = useCommunityState();
   const { data: users, error: usersError } = useGetAPI<UserEditor[]>(
-    `${endpoints.adminUsers}/${community.communityId}`,
+    `${ENDPOINTS.adminUsers}/${community.communityId}`,
   );
   const { data: beaconTypes, error: beaconTypesError } = useGetAPI<BeaconType[]>(
-    `${endpoints.beacons}`,
+    `${ENDPOINTS.beacons}`,
   );
 
   if (usersError) return <Error message='ユーザ情報取得失敗' />;

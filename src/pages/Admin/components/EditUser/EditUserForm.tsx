@@ -14,7 +14,7 @@ import { useDeleteModal } from '@/hooks/useDeleteModal';
 import { BeaconType } from '@/types/beacon';
 import { UpdateUserRequest } from '@/types/request';
 import { UserEditor } from '@/types/user';
-import { endpoints } from '@/utils/endpoint';
+import { ENDPOINTS } from '@/utils/endpoint';
 
 export const EditUserForm = (props: { user: UserEditor; beaconTypes: BeaconType[] }) => {
   const { user, beaconTypes } = props;
@@ -65,9 +65,9 @@ export const EditUserForm = (props: { user: UserEditor; beaconTypes: BeaconType[
           tagNames: values.tagNames,
         };
         const token = await firebaseUser.getIdToken();
-        await request(endpoints.users, { method: 'PUT', token, body: updateUserRequest });
+        await request(ENDPOINTS.users, { method: 'PUT', token, body: updateUserRequest });
         queryClient.invalidateQueries({
-          queryKey: [`${endpoints.adminUsers}/${community.communityId}`],
+          queryKey: [`${ENDPOINTS.adminUsers}/${community.communityId}`],
         });
         setEditingUserId(-1);
         displayAlert(2);
@@ -83,10 +83,10 @@ export const EditUserForm = (props: { user: UserEditor; beaconTypes: BeaconType[
     mutationFn: async (userId: number) => {
       if (firebaseUser) {
         const token = await firebaseUser.getIdToken();
-        await request(`${endpoints.users}/${userId}`, { method: 'DELETE', token });
+        await request(`${ENDPOINTS.users}/${userId}`, { method: 'DELETE', token });
         // これより下は成功した時のみ動作する
         queryClient.invalidateQueries({
-          queryKey: [`${endpoints.adminUsers}/${community.communityId}`],
+          queryKey: [`${ENDPOINTS.adminUsers}/${community.communityId}`],
         });
         setEditingUserId(-1);
         displayAlert(3);

@@ -11,7 +11,7 @@ import ErrorMessage from "@/components/common/Error";
 import Loading from "@/components/common/Loading";
 import { useGetAPI } from "@/hooks/useGetAPI";
 import { ActivityProbabilitiesResponse } from "@/types/activity";
-import { endpoints } from "@/utils/endpoint";
+import { ENDPOINTS } from "@/utils/endpoint";
 import { useCurrentTimePercent } from "./hooks/useCurrentTimePercent";
 
 const TIME_LABELS = [9, 12, 15, 18, 20];
@@ -22,7 +22,7 @@ const ActivityHeatmap = () => {
     error,
     isLoading,
   } = useGetAPI<ActivityProbabilitiesResponse>(
-    `${endpoints.activityProbabilities}?weekday=${getWeekday()}`,
+    `${ENDPOINTS.activityProbabilities}?weekday=${getWeekday()}`,
   );
   const currentTimePercent = useCurrentTimePercent();
 

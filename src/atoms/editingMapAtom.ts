@@ -4,7 +4,7 @@ import { atom, useAtomValue, useSetAtom } from 'jotai';
 import { useCommunityState } from '@/atoms/communityAtom';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import { EditorRoom, Building, SubmitRoom } from '@/types/roomFloormap';
-import { endpoints } from '@/utils/endpoint';
+import { ENDPOINTS } from '@/utils/endpoint';
 
 const editingMapState = atom({
   editingPolygon: [
@@ -23,9 +23,9 @@ export const useEditingMapState = () => {
 export const useEditingMapMutators = () => {
   const community = useCommunityState();
   const { data: rooms } = useGetAPI<EditorRoom[]>(
-    `${endpoints.getRoomsEditorByCommunityID}/${community.communityId}`,
+    `${ENDPOINTS.getRoomsEditorByCommunityID}/${community.communityId}`,
   );
-  const { data: buildings } = useGetAPI<Building[]>(`${endpoints.getBuildingsEditor}`);
+  const { data: buildings } = useGetAPI<Building[]>(`${ENDPOINTS.getBuildingsEditor}`);
   const { editingPolygon, currentSelectedBuildingIndex } = useEditingMapState();
 
   const setEditingMap = useSetAtom(editingMapState);
@@ -43,7 +43,7 @@ export const useEditingMapMutators = () => {
           buildingId: buildings[currentSelectedBuildingIndex].buildingId,
         };
 
-        request(endpoints.updateroom, { method: 'PUT', body: newRoom })
+        request(ENDPOINTS.updateroom, { method: 'PUT', body: newRoom })
           .then(() => {
             // 例 : {roomID: 3, room_name: '院生部', polygon: [[200,200],[300,300]], buildingID: 2}
             window.alert('成功しました');
