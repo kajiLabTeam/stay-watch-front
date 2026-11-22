@@ -5,7 +5,7 @@ import UserFormFields from './UserFormFields';
 import { useUserForm } from '../../hooks/useUserForm';
 import { UserFormValues } from '../../types/userForm';
 import RequestErrorAlert from '@/components/common/RequestErrorAlert';
-import { ApiError, request } from '@/utils/api';
+import { ApiError, fetchApi } from '@/utils/api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAlertModeMutators } from '@/atoms/alertModeAtom';
 import { useEditingUserMutators } from '@/atoms/editingUserAtom';
@@ -52,8 +52,7 @@ export default function EditUserForm(props: { user: UserEditor; beaconTypes: Bea
         beaconName: values.beaconName,
         tagNames: values.tagNames,
       };
-      const token = await firebaseUser.getIdToken();
-      await request(ENDPOINTS.users, { method: 'PUT', token, body: updateUserRequest });
+      await fetchApi(ENDPOINTS.users, { method: 'PUT', body: updateUserRequest });
       queryClient.invalidateQueries({
         queryKey: [`${ENDPOINTS.adminUsers}/${community.communityId}`],
       });
@@ -69,9 +68,7 @@ export default function EditUserForm(props: { user: UserEditor; beaconTypes: Bea
   } = useMutation<void, ApiError, number>({
     mutationFn: async (userId: number) => {
       if (!firebaseUser || !community) return;
-
-      const token = await firebaseUser.getIdToken();
-      await request(`${ENDPOINTS.users}/${userId}`, { method: 'DELETE', token });
+      await fetchApi(`${ENDPOINTS.users}/${userId}`, { method: 'DELETE' });
       // これより下は成功した時のみ動作する
       queryClient.invalidateQueries({
         queryKey: [`${ENDPOINTS.adminUsers}/${community.communityId}`],

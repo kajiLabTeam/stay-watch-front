@@ -3,7 +3,7 @@ import UserFormFields from './UserFormFields';
 import { useUserForm } from '../../hooks/useUserForm';
 import { UserFormValues } from '../../types/userForm';
 import RequestErrorAlert from '@/components/common/RequestErrorAlert';
-import { ApiError, request } from '@/utils/api';
+import { ApiError, fetchApi } from '@/utils/api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAlertModeMutators } from '@/atoms/alertModeAtom';
 import { useUserState } from '@/atoms/firebaseUserAtom';
@@ -42,8 +42,7 @@ export default function CreateUserForm(props: { beaconTypes: BeaconType[] }) {
         beaconName: values.beaconName,
         tagNames: values.tagNames,
       };
-      const token = await user.getIdToken();
-      await request(ENDPOINTS.users, { method: 'POST', token, body: createUserRequest });
+      await fetchApi(ENDPOINTS.users, { method: 'POST', body: createUserRequest });
       // これより下は成功した時のみ動作する
       queryClient.invalidateQueries({
         queryKey: [`${ENDPOINTS.adminUsers}/${community.communityId}`],

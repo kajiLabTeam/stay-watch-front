@@ -1,4 +1,4 @@
-import { request } from '@/utils/api';
+import { fetchApi } from '@/utils/api';
 import React, { useCallback } from 'react';
 import { atom, useAtomValue, useSetAtom } from 'jotai';
 import { useCommunityState } from '@/atoms/communityAtom';
@@ -45,7 +45,7 @@ export const useEditingMapMutators = () => {
         buildingId: buildings[currentSelectedBuildingIndex].buildingId,
       };
 
-      request(ENDPOINTS.updateroom, { method: 'PUT', body: newRoom })
+      fetchApi(ENDPOINTS.updateroom, { method: 'PUT', body: newRoom })
         .then(() => {
           // 例 : {roomID: 3, room_name: '院生部', polygon: [[200,200],[300,300]], buildingID: 2}
           window.alert('成功しました');

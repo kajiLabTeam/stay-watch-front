@@ -3,7 +3,7 @@ import BeaconCreateUserFields from './BeaconCreateUserFields';
 import { useBeaconCreateForm } from '../hooks/useBeaconCreateForm';
 import { BeaconCreateFormValues } from '../types/beaconCreateForm';
 import RequestErrorAlert from '@/components/common/RequestErrorAlert';
-import { ApiError, request } from '@/utils/api';
+import { ApiError, fetchApi } from '@/utils/api';
 import { useMutation } from '@tanstack/react-query';
 import { UI_DATA } from '@/pages/Beacon/constants/uidata';
 import { useAlertModeMutators } from '@/atoms/alertModeAtom';
@@ -45,8 +45,7 @@ export default function BeaconRegisterForm({ privateKey }: PropsType) {
         tagNames: values.tagNames,
         privateKey: privateKey,
       };
-      const token = await firebaseUser.getIdToken();
-      await request(ENDPOINTS.users, { method: 'POST', token, body: createUserRequest });
+      await fetchApi(ENDPOINTS.users, { method: 'POST', body: createUserRequest });
       // これより下は成功した時のみ動作する
       displayAlert(1);
       form.reset();

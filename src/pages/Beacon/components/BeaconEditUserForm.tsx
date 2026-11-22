@@ -1,6 +1,6 @@
 import { Button, LoadingOverlay, Select } from '@mantine/core';
 import { useZodForm } from '@/hooks/useZodForm';
-import { ApiError, request } from '@/utils/api';
+import { ApiError, fetchApi } from '@/utils/api';
 import { useMutation } from '@tanstack/react-query';
 import { UI_DATA } from '@/pages/Beacon/constants/uidata';
 import { useAlertModeMutators } from '@/atoms/alertModeAtom';
@@ -52,8 +52,7 @@ export default function BeaconEditUserForm({ privateKey }: PropsType) {
         beaconName: UI_DATA.BEACON_NAME_PRIVBEACON,
         privateKey: privateKey,
       };
-      const token = await firebaseUser.getIdToken();
-      await request(ENDPOINTS.users, { method: 'PUT', token, body: updateUserRequest });
+      await fetchApi(ENDPOINTS.users, { method: 'PUT', body: updateUserRequest });
 
       // これより下は成功した時のみ動作する
       displayAlert(2);

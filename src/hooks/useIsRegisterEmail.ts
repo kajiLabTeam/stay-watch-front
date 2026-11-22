@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useUserState } from '@/atoms/firebaseUserAtom';
 import { useVerifiedUserMutators, useVerifiedUserState } from '@/atoms/verifiedUserAtom';
 import { User } from '@/types/user';
-import { ApiError, request } from '@/utils/api';
+import { ApiError, fetchApi } from '@/utils/api';
 import { ENDPOINTS } from '@/utils/endpoint';
 
 /**
@@ -26,10 +26,9 @@ export const useIsRegisterEmail = (): {
     queryFn: async () => {
       // enabled により user は存在するが、型上の絞り込みのためチェックする
       if (!user) throw new Error('user is not signed in');
-      const token = await user.getIdToken();
 
       try {
-        const resUser = await request<User>(ENDPOINTS.check, { token });
+        const resUser = await fetchApi<User>(ENDPOINTS.check);
         setVerifiedUser({
           uid: user.uid,
           role: resUser.role,
