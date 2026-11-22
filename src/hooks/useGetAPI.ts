@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useUserState } from '@/globalStates/firebaseUserState';
+import { useUserState } from '@/atoms/firebaseUserAtom';
 
 export const useGetAPI = <T>(url: string) => {
   const user = useUserState();

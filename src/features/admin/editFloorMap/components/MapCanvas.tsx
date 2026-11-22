@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { EditingPolygonCanvas } from '@/features/admin/editFloorMap/components/EditingPolygonCanvas';
 import { FloorMapCanvas } from '@/features/admin/editFloorMap/components/FloorMapCanvas';
 import { RoomCanvas } from '@/features/admin/editFloorMap/components/RoomCanvas';
-import { useMapsDataState } from '@/features/admin/editFloorMap/globalstate/mapState';
+import { useMapsDataState } from '@/atoms/mapAtom';
 import { FloorMapRoom } from '@/types/roomFloormap';
 
 export const MapCanvas = (props: {

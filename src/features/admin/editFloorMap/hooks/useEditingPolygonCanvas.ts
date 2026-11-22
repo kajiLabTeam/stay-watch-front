@@ -1,9 +1,6 @@
 import { useRef } from 'react';
 import type { MouseEvent } from 'react';
-import {
-  useEditingMapMutators,
-  useEditingMapState,
-} from '@/features/admin/editFloorMap/globalstate/editingMapState';
+import { useEditingMapMutators, useEditingMapState } from '@/atoms/editingMapAtom';
 
 export const useEditingPolygonCanvas = (canvasWidth: number, canvasHeight: number) => {
   const { isEditingRoom } = useEditingMapState();

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useEditingMapState } from '@/features/admin/editFloorMap/globalstate/editingMapState';
+import { useEditingMapState } from '@/atoms/editingMapAtom';
 import { useEditingPolygonCanvas } from '@/features/admin/editFloorMap/hooks/useEditingPolygonCanvas';
 
 type Props = { canvasWidth: number; canvasHeight: number };

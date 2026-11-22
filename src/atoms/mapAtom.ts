@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { atom, useAtomValue, useSetAtom } from 'jotai';
-import { useEditingMapState } from '@/features/admin/editFloorMap/globalstate/editingMapState';
-import { useCommunityState } from '@/globalStates/useCommunityState';
+import { useEditingMapState } from '@/atoms/editingMapAtom';
+import { useCommunityState } from '@/atoms/communityAtom';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import { EditorRoom, Building } from '@/types/roomFloormap';
 import { endpoints } from '@/utils/endpoint';

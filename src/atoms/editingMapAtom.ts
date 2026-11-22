@@ -1,8 +1,7 @@
-// atoms.ts
 import { request } from '@/utils/api';
 import React, { useCallback } from 'react';
 import { atom, useAtomValue, useSetAtom } from 'jotai';
-import { useCommunityState } from '@/globalStates/useCommunityState';
+import { useCommunityState } from '@/atoms/communityAtom';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import { EditorRoom, Building, SubmitRoom } from '@/types/roomFloormap';
 import { endpoints } from '@/utils/endpoint';

@@ -4,11 +4,11 @@ import { ApiError, request } from '@/utils/api';
 import { useMutation } from '@tanstack/react-query';
 import { roleSelector } from '../admin/editUser/constants/roleSelector';
 import { UI_DATA } from '../admin/editUser/constants/uidata';
-import { useAlertModeMutators } from '../admin/editUser/globalState/alertModeState';
+import { useAlertModeMutators } from '@/atoms/alertModeAtom';
 import { useSelectTags } from '../admin/editUser/hooks/tagSelector';
 import { privacyBeaconUserSchema } from './validation/userShema';
-import { useUserState } from '@/globalStates/firebaseUserState';
-import { useCommunityState } from '@/globalStates/useCommunityState';
+import { useUserState } from '@/atoms/firebaseUserAtom';
+import { useCommunityState } from '@/atoms/communityAtom';
 import { CreatePrivateBeaconUserRequest } from '@/types/request';
 import { endpoints } from '@/utils/endpoint';
 

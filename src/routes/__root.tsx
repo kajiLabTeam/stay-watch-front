@@ -3,8 +3,8 @@ import { Outlet, createRootRoute } from '@tanstack/react-router';
 import Layout from '@/components/layout/Layout';
 import AuthEmail from '@/features/Auth/AuthEmail';
 import AuthSwitcher from '@/features/Auth/AuthSwitcher';
-import { JotaiProvider } from '@/features/admin/editUser/globalState/JotaiProvider';
-import { QueryProvider } from '@/features/admin/editUser/globalState/QueryProvider';
+import { JotaiProvider } from '@/providers/JotaiProvider';
+import { QueryProvider } from '@/providers/QueryProvider';
 
 export const Route = createRootRoute({
   component: RootLayout,

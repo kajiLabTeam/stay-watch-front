@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, RefObject } from 'react';
-import { useUserRoleState } from '@/globalStates/userRoleState';
+import { useUserRoleState } from '@/atoms/userRoleAtom';
 
 export const RoomCanvas = (props: {
   color: string;

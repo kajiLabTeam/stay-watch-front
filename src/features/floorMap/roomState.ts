@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useCommunityState } from '@/globalStates/useCommunityState';
+import { useCommunityState } from '@/atoms/communityAtom';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import { EditorRoom, ViewerRoom } from '@/types/roomFloormap';
 import StayerType from '@/types/stayer';

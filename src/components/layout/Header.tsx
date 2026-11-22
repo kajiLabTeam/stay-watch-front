@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router';
 import { Profile } from '@/components/layout/Profile';
-import { useCommunityState } from '@/globalStates/useCommunityState';
+import { useCommunityState } from '@/atoms/communityAtom';
 import { useHeaderButtonColor } from '@/hooks/commonhook';
 import { paths } from '@/utils/path';
 

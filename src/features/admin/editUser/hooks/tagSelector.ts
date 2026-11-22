@@ -1,4 +1,4 @@
-import { useCommunityState } from '@/globalStates/useCommunityState';
+import { useCommunityState } from '@/atoms/communityAtom';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import { Tag } from '@/types/tag';
 import { endpoints } from '@/utils/endpoint';

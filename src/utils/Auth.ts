@@ -10,10 +10,10 @@ import {
 } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { endpoints } from './endpoint';
-import { useUserMutators, useUserState } from '@/globalStates/firebaseUserState';
-import { useCommunityMutators } from '@/globalStates/useCommunityState';
-import { useUserEmailMutators, useUserEmailState } from '@/globalStates/userEmailState';
-import { useUserRoleMutators } from '@/globalStates/userRoleState';
+import { useUserMutators, useUserState } from '@/atoms/firebaseUserAtom';
+import { useCommunityMutators } from '@/atoms/communityAtom';
+import { useUserEmailMutators, useUserEmailState } from '@/atoms/userEmailAtom';
+import { useUserRoleMutators } from '@/atoms/userRoleAtom';
 import { User } from '@/types/user';
 import { app } from '@/utils/firebase';
 

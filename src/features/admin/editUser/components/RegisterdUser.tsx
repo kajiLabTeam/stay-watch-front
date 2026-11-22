@@ -2,10 +2,7 @@ import React from 'react';
 import { roleSelector } from '../constants/roleSelector';
 import { Badge } from '@/components/common/Badge';
 import { EditUserForm } from '@/features/admin/editUser/components/EditUserForm';
-import {
-  useEditingUserMutators,
-  useEditingUserState,
-} from '@/features/admin/editUser/globalState/editingUserState';
+import { useEditingUserMutators, useEditingUserState } from '@/atoms/editingUserAtom';
 import { BeaconType } from '@/types/beacon';
 import { UserEditor } from '@/types/user';
 

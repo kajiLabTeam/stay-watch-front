@@ -1,7 +1,7 @@
 import { Badge } from '@/components/common/Badge';
 import Error from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
-import { useCommunityState } from '@/globalStates/useCommunityState';
+import { useCommunityState } from '@/atoms/communityAtom';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import { UserAttribute } from '@/types/user';
 import { endpoints } from '@/utils/endpoint';

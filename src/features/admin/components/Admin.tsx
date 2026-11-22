@@ -2,7 +2,7 @@ import { Tabs } from '@mantine/core';
 import { useState } from 'react';
 import EditFloorMap from '@/features/admin/editFloorMap/components/EditFloorMap';
 import UserEditor from '@/features/admin/editUser/components/EditUser';
-import { useUserRoleState } from '@/globalStates/userRoleState';
+import { useUserRoleState } from '@/atoms/userRoleAtom';
 
 export const Admin = () => {
   const [activeTab, setActiveTab] = useState<string | null>('first');

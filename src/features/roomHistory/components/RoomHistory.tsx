@@ -7,7 +7,7 @@ import UserSelecter from './UserSelecter';
 import Error from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
 import { StayLogGraph } from '@/features/stayLogGraph/components/StayLogGraph';
-import { useCommunityState } from '@/globalStates/useCommunityState';
+import { useCommunityState } from '@/atoms/communityAtom';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import { LogsListResponse } from '@/types/log';
 import { UserAttribute } from '@/types/user';

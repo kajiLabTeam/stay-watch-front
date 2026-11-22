@@ -1,7 +1,7 @@
 import React from 'react';
 import { RegisterdRoom } from '@/features/admin/editFloorMap/components/RegisterdRoom';
-import { useEditingMapState } from '@/features/admin/editFloorMap/globalstate/editingMapState';
-import { useCommunityState } from '@/globalStates/useCommunityState';
+import { useEditingMapState } from '@/atoms/editingMapAtom';
+import { useCommunityState } from '@/atoms/communityAtom';
 import { Building, EditorRoom } from '@/types/roomFloormap';
 
 export const RegisterdRooms = (props: { rooms: EditorRoom[]; buildings: Building[] }) => {

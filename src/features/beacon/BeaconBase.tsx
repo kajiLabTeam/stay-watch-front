@@ -1,9 +1,9 @@
 import { Alert, SegmentedControl } from '@mantine/core';
 import React, { useState } from 'react';
-import { useAlertModeState } from '../admin/editUser/globalState/alertModeState';
+import { useAlertModeState } from '@/atoms/alertModeAtom';
 import BeaconRegisterForm from './BeaconCreateUserForm';
 import BeaconEditUserForm from './BeaconEditUserForm';
-import { useUserRoleState } from '@/globalStates/userRoleState';
+import { useUserRoleState } from '@/atoms/userRoleAtom';
 
 type PropsType = {
   privateKey: string;

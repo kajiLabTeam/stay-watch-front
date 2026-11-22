@@ -3,8 +3,8 @@ import { Menu } from '@mantine/core';
 import { useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import { Confirmation } from '@/components/common/Confirmation';
-import { useUserState } from '@/globalStates/firebaseUserState';
-import { useUserRoleState } from '@/globalStates/userRoleState';
+import { useUserState } from '@/atoms/firebaseUserAtom';
+import { useUserRoleState } from '@/atoms/userRoleAtom';
 import { logout } from '@/utils/Auth';
 
 export const Profile = () => {
