@@ -1,19 +1,17 @@
 import { useState } from 'react';
 import { useParamChange } from './hooks/useParamChange';
-import { NextButton } from './components/NextButton';
-import { PrevButton } from './components/PrevButton';
-import { StayLogTable } from './components/StayLogTable';
-import UserSelecter from './components/UserSelecter';
+import { RoomHistoryBody } from './components/RoomHistoryBody';
+import { RoomHistoryPagination } from './components/RoomHistoryPagination';
+import { RoomHistoryToolbar } from './components/RoomHistoryToolbar';
 import Error from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
-import { StayLogGraph } from './components/StayLogGraph';
 import { useCommunityState } from '@/atoms/communityAtom';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import { LogsListResponse } from '@/types/log';
 import { UserAttribute } from '@/types/user';
 import { ENDPOINTS } from '@/utils/endpoint';
 
-const RoomHistory = () => {
+function RoomHistory() {
   const [currentOffset, currentPage, currentUserID, previousPage, nextPage, updateSelectedUser] =
     useParamChange();
   const [isGantt, setIsGantt] = useState(false);
@@ -40,60 +38,23 @@ const RoomHistory = () => {
   return (
     <>
       <title>滞在者履歴</title>
-      <div className='mt-6 flex justify-between text-2xl md:text-3xl'>
-        <div className='mt-6 flex justify-between'>
-          <button
-            onClick={() => {
-              setIsGantt(!isGantt);
-            }}
-          >
-            {isGantt ? (
-              <img src='/ganttAnother.png' alt='stayer' width={27} height={27} />
-            ) : (
-              <>
-                <img src='/gantt.png' alt='stayer' width={27} height={27} />
-              </>
-            )}
-          </button>
-          <UserSelecter
-            users={users}
-            handleUserID={updateSelectedUser}
-            paramsUserID={currentUserID}
-          />
-        </div>
-      </div>
-      {isGantt ? (
-        <>
-          <div className='my-4 border' />
-          <StayLogGraph />
-        </>
-      ) : (
-        <>
-          <StayLogTable stayLogs={roomHistoryLog.logs} />
-        </>
-      )}
-      <div className='hidden min-[854px]:block'>
-        <div className='fixed inset-y-1/2 left-4'>
-          <PrevButton currentPage={currentOffset} previousPage={previousPage} />
-        </div>
-        <div className='fixed inset-y-1/2 right-4'>
-          <NextButton
-            currentPage={currentPage}
-            nextPage={nextPage}
-            historyCount={roomHistoryLog.count}
-          />
-        </div>
-      </div>
-      <div className='mt-2 flex h-10 w-full justify-between text-white min-[854px]:hidden md:mt-4'>
-        <PrevButton currentPage={currentOffset} previousPage={previousPage} />
-        <NextButton
-          currentPage={currentPage}
-          nextPage={nextPage}
-          historyCount={roomHistoryLog.count}
-        />
-      </div>
+      <RoomHistoryToolbar
+        isGantt={isGantt}
+        users={users}
+        selectedUserId={currentUserID}
+        onGanttToggled={() => setIsGantt(!isGantt)}
+        onUserSelected={updateSelectedUser}
+      />
+      <RoomHistoryBody isGantt={isGantt} stayLogs={roomHistoryLog.logs} />
+      <RoomHistoryPagination
+        currentOffset={currentOffset}
+        currentPage={currentPage}
+        historyCount={roomHistoryLog.count}
+        onPreviousPageClicked={previousPage}
+        onNextPageClicked={nextPage}
+      />
     </>
   );
-};
+}
 
 export default RoomHistory;

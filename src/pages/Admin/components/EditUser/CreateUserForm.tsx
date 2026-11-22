@@ -1,12 +1,11 @@
-import { TextInput, Select, LoadingOverlay, Alert, TagsInput } from '@mantine/core';
-import { Button } from '@mantine/core';
-import { useZodForm } from '@/hooks/useZodForm';
+import { Button, LoadingOverlay } from '@mantine/core';
+import { UserFormFields } from './UserFormFields';
+import { useUserForm } from '../../hooks/useUserForm';
+import { UserFormValues } from '../../types/userForm';
+import { RequestErrorAlert } from '@/components/common/RequestErrorAlert';
 import { ApiError, request } from '@/utils/api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { roleSelector } from '@/constants/roleSelector';
-import { userSchema } from '@/pages/Admin/validation/userSchema';
 import { useAlertModeMutators } from '@/atoms/alertModeAtom';
-import { useSelectTags } from '@/hooks/tagSelector';
 import { useUserState } from '@/atoms/firebaseUserAtom';
 import { useCommunityState } from '@/atoms/communityAtom';
 import { BeaconType } from '@/types/beacon';
@@ -17,7 +16,6 @@ export const CreateUserForm = (props: { beaconTypes: BeaconType[] }) => {
   const { beaconTypes } = props;
   const user = useUserState();
   const community = useCommunityState();
-  const selectTags = useSelectTags();
   const { setAlertMode } = useAlertModeMutators();
   const displayAlert = (alertMode: number) => {
     setAlertMode(alertMode);
@@ -27,25 +25,12 @@ export const CreateUserForm = (props: { beaconTypes: BeaconType[] }) => {
   };
   const queryClient = useQueryClient();
 
-  const beaconSelector = [
-    ...beaconTypes.map((beaconType) => ({
-      value: beaconType.beaconName,
-      label: beaconType.beaconName,
-      disabled: beaconType.uuidEditable,
-    })),
-    {
-      value: '',
-      label: '未所持',
-      disabled: false,
-    },
-  ];
-
   const {
     isPending: loading,
     error,
     mutate: submitCreateUser,
-  } = useMutation<void, ApiError, typeof form.values>({
-    mutationFn: async (values: typeof form.values) => {
+  } = useMutation<void, ApiError, UserFormValues>({
+    mutationFn: async (values: UserFormValues) => {
       if (!user) return;
 
       let createUserRequest: CreateUserRequest = {
@@ -68,18 +53,15 @@ export const CreateUserForm = (props: { beaconTypes: BeaconType[] }) => {
     },
   });
 
-  const form = useZodForm(
-    {
-      name: '',
-      uuid: '',
-      email: '',
-      role: '1',
-      communityId: 0,
-      beaconName: '',
-      tagNames: [],
-    },
-    userSchema,
-  );
+  const form = useUserForm({
+    name: '',
+    uuid: '',
+    email: '',
+    role: '1',
+    communityId: 0,
+    beaconName: '',
+    tagNames: [],
+  });
 
   return (
     <div>
@@ -92,50 +74,17 @@ export const CreateUserForm = (props: { beaconTypes: BeaconType[] }) => {
             submitCreateUser(values);
           })}
         >
-          <TextInput placeholder='tarou' label='名前' {...form.getInputProps('name')} />
-          <TextInput
-            label='Gメールアドレス（任意）'
-            placeholder='your@gmail.com'
-            {...form.getInputProps('email')}
-          />
-          <div className='flex space-x-4'>
-            <Select
-              className='w-1/2'
-              label='ビーコンの形態'
-              placeholder='ビーコンの形態を選択してください'
-              data={beaconSelector}
-              {...form.getInputProps('beaconName')}
-            />
-            <Select
-              label='権限'
-              className='w-1/2'
-              placeholder='権限レベルを選択してください'
-              data={roleSelector}
-              {...form.getInputProps('role')}
-            />
-          </div>
-          <TagsInput
-            label='タグ'
-            placeholder='タグを選択してください'
-            data={selectTags}
-            {...form.getInputProps('tagNames')}
-          />
+          <UserFormFields form={form} beaconTypes={beaconTypes} />
           <div className='pt-3'>
             <Button type='submit' className='bg-staywatch-accent' color='#1e5266'>
               登録する
             </Button>
           </div>
 
-          {error && error.status === 409 && (
-            <Alert title='失敗' color='red'>
-              このメールアドレスは既に登録されています
-            </Alert>
-          )}
-          {error && error.status !== 409 && (
-            <Alert title='失敗' color='red'>
-              エラーが発生しました
-            </Alert>
-          )}
+          <RequestErrorAlert
+            error={error}
+            conflictMessage='このメールアドレスは既に登録されています'
+          />
         </form>
       </div>
     </div>

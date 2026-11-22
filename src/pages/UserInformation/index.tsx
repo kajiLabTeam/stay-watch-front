@@ -1,12 +1,12 @@
-import { Badge } from '@/components/common/Badge';
+import { UserList } from './components/UserList';
+import { useCommunityState } from '@/atoms/communityAtom';
 import Error from '@/components/common/Error';
 import Loading from '@/components/common/Loading';
-import { useCommunityState } from '@/atoms/communityAtom';
 import { useGetAPI } from '@/hooks/useGetAPI';
 import { UserAttribute } from '@/types/user';
 import { ENDPOINTS } from '@/utils/endpoint';
 
-const UserInformation = () => {
+function UserInformation() {
   const community = useCommunityState();
   const {
     data: users,
@@ -19,19 +19,11 @@ const UserInformation = () => {
   if (!users) return <></>;
 
   return (
-    <div className='mt-5 w-full border text-base md:text-xl'>
+    <>
       <title>利用者一覧</title>
-      {users.map((user) => (
-        <div className='flex w-full items-center border px-4 py-2 text-left' key={user.id}>
-          {user.name}
-          {user.tags.map((tag) => (
-            <div className='ml-1' key={tag.id}>
-              <Badge name={tag.name} />
-            </div>
-          ))}
-        </div>
-      ))}
-    </div>
+      <UserList users={users} />
+    </>
   );
-};
+}
+
 export default UserInformation;

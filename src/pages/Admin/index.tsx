@@ -1,49 +1,19 @@
-import { Tabs } from '@mantine/core';
 import { useState } from 'react';
-import EditFloorMap from '@/pages/Admin/components/EditFloorMap';
-import UserEditor from '@/pages/Admin/components/EditUser';
+import { AdminTabs } from '@/pages/Admin/components/AdminTabs';
 import { useUserRoleState } from '@/atoms/userRoleAtom';
 
-const Admin = () => {
+function Admin() {
   const [activeTab, setActiveTab] = useState<string | null>('first');
   const userRole = useUserRoleState();
 
-  if (userRole === 1) {
-    return <div>管理者権限がありません</div>;
-  }
+  if (userRole === 1) return <div>管理者権限がありません</div>;
 
   return (
     <>
       <title>管理者ページ</title>
-      <Tabs
-        value={activeTab}
-        onChange={setActiveTab}
-        orientation={'vertical'}
-        variant={'outline'}
-        color={'blue'}
-        classNames={{
-          tab: 'h-24',
-          root: 'mt-2',
-        }}
-      >
-        <Tabs.List>
-          <Tabs.Tab value='first' className='border-4 text-lg'>
-            ユーザ一覧・管理
-          </Tabs.Tab>
-          <Tabs.Tab value='second' className='border-4 text-lg'>
-            マップの編集
-          </Tabs.Tab>
-        </Tabs.List>
-
-        <Tabs.Panel value='first' className='border-l-4'>
-          <UserEditor />
-        </Tabs.Panel>
-        <Tabs.Panel value='second' className='border-l-4'>
-          <EditFloorMap />
-        </Tabs.Panel>
-      </Tabs>
+      <AdminTabs activeTab={activeTab} onTabChanged={setActiveTab} />
     </>
   );
-};
+}
 
 export default Admin;

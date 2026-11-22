@@ -1,4 +1,4 @@
-import { Alert, Button, LoadingOverlay, Select } from '@mantine/core';
+import { Button, LoadingOverlay, Select } from '@mantine/core';
 import { useZodForm } from '@/hooks/useZodForm';
 import { ApiError, request } from '@/utils/api';
 import { useMutation } from '@tanstack/react-query';
@@ -6,6 +6,7 @@ import { UI_DATA } from '@/constants/uidata';
 import { useAlertModeMutators } from '@/atoms/alertModeAtom';
 import { privacyBeaconEditUserSchema } from '@/pages/Beacon/validation/privacyBeaconEditUserSchema';
 import Error from '@/components/common/Error';
+import { RequestErrorAlert } from '@/components/common/RequestErrorAlert';
 import { useUserState } from '@/atoms/firebaseUserAtom';
 import { useCommunityState } from '@/atoms/communityAtom';
 import { useGetAPI } from '@/hooks/useGetAPI';
@@ -94,16 +95,7 @@ function BeaconEditUserForm({ privateKey }: PropsType) {
             </Button>
           </div>
 
-          {error && error.status === 409 && (
-            <Alert title='失敗' color='red'>
-              登録済みのビーコンです
-            </Alert>
-          )}
-          {error && error.status !== 409 && (
-            <Alert title='失敗' color='red'>
-              エラーが発生しました
-            </Alert>
-          )}
+          <RequestErrorAlert error={error} conflictMessage='登録済みのビーコンです' />
         </form>
       </div>
     </div>

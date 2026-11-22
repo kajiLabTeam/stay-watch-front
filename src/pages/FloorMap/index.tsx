@@ -1,8 +1,9 @@
-import React from 'react';
+import { FloorMapFrame } from './components/FloorMapFrame';
+import { FloorMapPopover } from './components/FloorMapPopover';
+import { StayerMapCanvas } from './components/StayerMapCanvas';
 import { useFloorMapCanvas } from './hooks/useFloorMapCanvas';
-import { PopoverUser } from './components/PopoverUser';
 
-const FloorMap = () => {
+function FloorMap() {
   const {
     CANVAS_WIDTH,
     CANVAS_HEIGHT,
@@ -14,31 +15,22 @@ const FloorMap = () => {
   } = useFloorMapCanvas();
 
   return (
-    <div className='mb-80 mt-3 border'>
+    <FloorMapFrame>
       <title>滞在者マップ</title>
-      <canvas
-        id='canvas'
-        className='w-full'
-        ref={setCanvasElement}
+      <StayerMapCanvas
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
-        onMouseMove={displayPopover}
+        onCanvasMounted={setCanvasElement}
+        onMouseMoved={displayPopover}
       />
       {viewingRoomId !== 0 && canvasRef.current && popoverRoom && (
-        <div
-          className='absolute align-bottom text-red-400'
-          style={{
-            // ポップオーバーの位置、フォントサイズ
-            left: popoverRoom.left + popoverRoom.left / 40,
-            top: popoverRoom.top - popoverRoom.top / 20,
-            fontSize: canvasRef.current.clientHeight / 40,
-          }}
-        >
-          <PopoverUser roomName={popoverRoom.roomName} userNames={popoverRoom.userNames} />
-        </div>
+        <FloorMapPopover
+          popoverRoom={popoverRoom}
+          canvasClientHeight={canvasRef.current.clientHeight}
+        />
       )}
-    </div>
+    </FloorMapFrame>
   );
-};
+}
 
 export default FloorMap;
