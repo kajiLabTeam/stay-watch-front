@@ -15,7 +15,7 @@ export const EditFloorMap = () => {
     `${ENDPOINTS.getRoomsEditorByCommunityID}/${community.communityId}`,
   );
   const { data: buildings, isLoading: buildingsIsLoading } = useGetAPI<Building[]>(
-    `${ENDPOINTS.getBuildingsEditor}`,
+    ENDPOINTS.getBuildingsEditor,
   );
   const { currentSelectedBuildingIndex } = useEditingMapState();
 

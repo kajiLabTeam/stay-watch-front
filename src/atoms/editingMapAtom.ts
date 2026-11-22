@@ -25,7 +25,7 @@ export const useEditingMapMutators = () => {
   const { data: rooms } = useGetAPI<EditorRoom[]>(
     `${ENDPOINTS.getRoomsEditorByCommunityID}/${community.communityId}`,
   );
-  const { data: buildings } = useGetAPI<Building[]>(`${ENDPOINTS.getBuildingsEditor}`);
+  const { data: buildings } = useGetAPI<Building[]>(ENDPOINTS.getBuildingsEditor);
   const { editingPolygon, currentSelectedBuildingIndex } = useEditingMapState();
 
   const setEditingMap = useSetAtom(editingMapState);

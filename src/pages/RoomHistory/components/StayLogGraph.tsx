@@ -11,7 +11,7 @@ function classNames(...classes) {
 }
 
 export const StayLogGraph = () => {
-  const { data, error } = useGetAPI<GanttStayLog[]>(`${ENDPOINTS.logsGantt}`);
+  const { data, error } = useGetAPI<GanttStayLog[]>(ENDPOINTS.logsGantt);
   if (error) return <div>滞在グラフデータ取得失敗</div>;
   if (!data) return <Loading message='滞在情報取得中' />;
   return (

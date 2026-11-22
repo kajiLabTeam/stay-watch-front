@@ -17,7 +17,7 @@ export const EditUser = () => {
     `${ENDPOINTS.adminUsers}/${community.communityId}`,
   );
   const { data: beaconTypes, error: beaconTypesError } = useGetAPI<BeaconType[]>(
-    `${ENDPOINTS.beacons}`,
+    ENDPOINTS.beacons,
   );
 
   if (usersError) return <Error message='ユーザ情報取得失敗' />;

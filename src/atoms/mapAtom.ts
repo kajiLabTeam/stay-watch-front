@@ -19,7 +19,7 @@ export const useMapsDataState = (): FloorMapRoom[] => {
   const { data: rooms } = useGetAPI<EditorRoom[]>(
     `${ENDPOINTS.getRoomsEditorByCommunityID}/${community.communityId}`,
   );
-  const { data: buildings } = useGetAPI<Building[]>(`${ENDPOINTS.getBuildingsEditor}`);
+  const { data: buildings } = useGetAPI<Building[]>(ENDPOINTS.getBuildingsEditor);
   const { currentSelectedBuildingIndex } = useEditingMapState();
   const hoveredRoomId = useAtomValue(hoveredRoomIdState);
 

@@ -10,7 +10,7 @@ export const useRoomState = () => {
   const { data: rooms } = useGetAPI<EditorRoom[]>(
     `${ENDPOINTS.getRoomsEditorByCommunityID}/${community.communityId}`,
   );
-  const { data: stayers } = useGetAPI<StayerType[]>(`${ENDPOINTS.stayers}`);
+  const { data: stayers } = useGetAPI<StayerType[]>(ENDPOINTS.stayers);
 
   const viewerRooms = useMemo((): ViewerRoom[] | null => {
     if (!rooms || !stayers) return null;

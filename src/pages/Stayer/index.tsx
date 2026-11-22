@@ -12,7 +12,7 @@ const Stayer = () => {
     data: stayers,
     error: errorStayers,
     isLoading: isLoadingStayers,
-  } = useGetAPI<StayerType[]>(`${ENDPOINTS.stayers}`);
+  } = useGetAPI<StayerType[]>(ENDPOINTS.stayers);
   const {
     data: rooms,
     error: errorRooms,
